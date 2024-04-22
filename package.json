@@ -2,5 +2,9 @@
   "name": "chillka-backend",
   "version": "0.0.1",
   "description": "This is Chillka backend server",
-  "license": "MIT"
+  "license": "MIT",
+  "packageManager": "yarn@1.22.22",
+  "engines": {
+    "node": ">=18.18.0 <=18.18.2"
+  }
 }
