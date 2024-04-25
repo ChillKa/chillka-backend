@@ -1,0 +1,16 @@
+{
+  // prettier 自動排版
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // import 自動排版
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit"
+  },
+  //Tailwind CSS IntelliSense 使用設定
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "editor.quickSuggestions": {
+    "strings": "on"
+  }
+}
