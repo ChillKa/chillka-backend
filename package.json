@@ -36,6 +36,9 @@
     "typescript": "^5.4.5"
   },
   "lint-staged": {
+    "**/*.ts": [
+      "tsc --noEmit"
+    ],
     "*.{js,ts}": [
       "eslint --cache --fix",
       "prettier --write"
