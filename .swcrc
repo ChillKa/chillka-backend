@@ -10,7 +10,11 @@
     "target": "es2020"
   },
   "module": {
-    "type": "es6"
+    "type": "commonjs",
+    "strict": false,
+    "strictMode": false,
+    "noInterop": false,
+    "lazy": false
   },
   "minify": true
 }

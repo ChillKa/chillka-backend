@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "This is Chillka backend server",
   "license": "MIT",
-  "type": "module",
   "main": "dist/app.js",
   "repository": "https://github.com/ChillKa/chillka-backend.git",
   "packageManager": "yarn@1.22.22",
