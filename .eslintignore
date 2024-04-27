@@ -1,0 +1,4 @@
+node_modules
+dist
+.prettierrc.js
+.changelog.config.js
