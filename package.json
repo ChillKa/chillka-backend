@@ -17,9 +17,6 @@
     "dev": "nodemon --watch src --ext ts --exec \"yarn build && yarn start\""
   },
   "lint-staged": {
-    "**/*.ts": [
-      "tsc --noEmit"
-    ],
     "*.{js,ts}": [
       "eslint --cache --fix",
       "prettier --write"
