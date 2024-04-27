@@ -9,7 +9,7 @@ services:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
     volumes:
-      - ./.db:/var/lib/postgresql/data
+      - ./.db:/data/db
     networks:
       - mongo_net
 
