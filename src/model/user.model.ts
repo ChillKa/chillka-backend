@@ -1,12 +1,19 @@
+import bcrypt from 'bcryptjs';
 import { Model, Schema, model } from 'mongoose';
 import { validateEmail, validatePassword } from '../util/validator';
 
-export interface IUser {
+interface IUser {
   email: string;
   password: string;
 }
 
-const UserSchema = new Schema<IUser>(
+interface IUserMethods {
+  comparePassword(password: string): Promise<boolean>;
+}
+
+type UserModel = Model<IUser, object, IUserMethods>;
+
+const UserSchema = new Schema<IUser, UserModel, IUserMethods>(
   {
     email: {
       type: Schema.Types.String,
@@ -36,6 +43,14 @@ const UserSchema = new Schema<IUser>(
   }
 );
 
-const User: Model<IUser> = model<IUser>('User', UserSchema);
+UserSchema.methods.comparePassword = async function (password) {
+  try {
+    return await bcrypt.compare(password, this.password);
+  } catch {
+    return false;
+  }
+};
+
+const User = model<IUser, UserModel>('User', UserSchema);
 
 export default User;
