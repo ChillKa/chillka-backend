@@ -5,11 +5,6 @@ export type UserDocument = Document & {
   password: string;
 };
 
-export type UserInput = {
-  email: UserDocument['email'];
-  password: UserDocument['password'];
-};
-
 const UserSchema = new Schema(
   {
     email: {

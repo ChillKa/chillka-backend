@@ -1,5 +1,6 @@
 import { Request, Response, Router } from 'express';
 import * as AuthService from '../service/auth.service';
+import { throwAPIError } from '../util/api';
 
 const authRoute = () => {
   const router = Router();
@@ -8,8 +9,8 @@ const authRoute = () => {
     try {
       const user = await AuthService.register(req.body);
       res.status(201).send(user);
-    } catch {
-      res.status(400).send('Registration failed');
+    } catch (error) {
+      throwAPIError({ res, error, statusCode: 400 });
     }
   });
 
@@ -17,8 +18,8 @@ const authRoute = () => {
     try {
       const token = await AuthService.login(req.body);
       res.status(200).send({ token });
-    } catch {
-      res.status(401).send('Login failed');
+    } catch (error) {
+      throwAPIError({ res, error, statusCode: 400 });
     }
   });
 
