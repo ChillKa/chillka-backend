@@ -1,7 +1,6 @@
 import 'dotenv/config';
 import express from 'express';
 import mongoose from 'mongoose';
-import { client } from './db';
 import authRouter from './route/auth.route';
 
 const app = express();
@@ -9,14 +8,6 @@ const app = express();
 app.use(express.json());
 app.use('/api', authRouter());
 
-client
-  .connect()
-  .then(() => {
-    console.log('Connected to the database');
-  })
-  .catch((error) => {
-    console.error('Failed to connect to the database:', error);
-  });
 mongoose.connect(process.env.MONGODB_URL || '').then(() => {
   console.log('Connected to the database by mongoose');
 });
