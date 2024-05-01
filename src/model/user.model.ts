@@ -2,7 +2,8 @@ import bcrypt from 'bcryptjs';
 import { Model, Schema, model } from 'mongoose';
 import { validateEmail, validatePassword } from '../util/validator';
 
-interface IUser {
+export interface IUser {
+  displayName: string;
   email: string;
   password: string;
 }
@@ -15,6 +16,12 @@ type UserModel = Model<IUser, object, IUserMethods>;
 
 const UserSchema = new Schema<IUser, UserModel, IUserMethods>(
   {
+    displayName: {
+      type: Schema.Types.String,
+      required: true,
+      minlength: 2,
+      maxlength: 50,
+    },
     email: {
       type: Schema.Types.String,
       required: true,
