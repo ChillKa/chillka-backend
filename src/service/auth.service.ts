@@ -53,6 +53,9 @@ export const login = async ({ email, password }: LoginUserCredentials) => {
   if (!(await user.comparePassword(password)))
     throw new CoreError(`Wrong password`);
 
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET!);
+  const token = jwt.sign(
+    { id: user._id, username: user.displayName },
+    process.env.JWT_SECRET!
+  );
   return token;
 };
