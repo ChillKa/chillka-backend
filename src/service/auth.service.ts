@@ -38,8 +38,7 @@ export const register = async ({
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
-
-  const user = new User({ email, password: hashedPassword });
+  const user = new User({ email, password: hashedPassword, displayName });
   await user.save();
 
   return user;
