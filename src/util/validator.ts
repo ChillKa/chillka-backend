@@ -9,3 +9,8 @@ export const validatePassword = (password: string) => {
   const reg = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/;
   return reg.test(password);
 };
+
+export const validateDisplayName = (displayName: string) => {
+  const reg = /^[a-zA-Z0-9 '-]{2,50}$/;
+  return reg.test(displayName);
+};
