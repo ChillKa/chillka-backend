@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User, { IUser } from '../model/user.model';
-import { CoreError } from '../util/api';
+import { CoreError } from '../util/errorHandler';
 import {
   validateDisplayName,
   validateEmail,
