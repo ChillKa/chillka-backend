@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { ZodError, ZodTypeAny } from 'zod';
+import { CoreError, throwAPIError } from '../util/errorHandler';
 
 export const validateMiddleware =
   <T extends ZodTypeAny>(schema: T) =>
@@ -14,9 +15,14 @@ export const validateMiddleware =
       if (error instanceof ZodError) {
         const problem = error.flatten();
         const fieldErrors = problem.fieldErrors;
-        return res.status(400).json({ error: fieldErrors });
+        const fieldErrorsString = Object.entries(fieldErrors)
+          .map(([key, value]) => `${key}: ${value?.join(', ')}`)
+          .join('\n');
+        const coreError = new CoreError(fieldErrorsString);
+
+        throwAPIError({ res, error: coreError, statusCode: 400 });
       } else {
-        return res.status(500).json({ error: 'Internal server error' });
+        throwAPIError({ res, error, statusCode: 500 });
       }
     }
   };
