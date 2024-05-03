@@ -2,11 +2,6 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User, { IUser } from '../model/user.model';
 import { CoreError } from '../util/errorHandler';
-import {
-  validateDisplayName,
-  validateEmail,
-  validatePassword,
-} from '../util/validator';
 
 interface RegisterUserCredentials extends IUser {}
 
@@ -16,25 +11,9 @@ export const register = async ({
   displayName,
 }: RegisterUserCredentials) => {
   const existingUser = await User.findOne({ email });
-  const invalidEmail = !validateEmail(email);
-  const invalidPassword = !validatePassword(password);
-  const invaliDisplayName = !validateDisplayName(displayName);
 
   if (existingUser) {
     throw new CoreError('Email already in use');
-  }
-  if (invalidEmail) {
-    throw new CoreError('Invalid email format');
-  }
-  if (invalidPassword) {
-    throw new CoreError(
-      'Password must be at least 8 characters with letters and numbers'
-    );
-  }
-  if (invaliDisplayName) {
-    throw new CoreError(
-      `DisplayName should at leaset 2 characters and large is 50 characters`
-    );
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
