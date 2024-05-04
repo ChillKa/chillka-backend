@@ -50,4 +50,65 @@ module.exports = {
     'custom-header-max-length': [2, 'always', maxMessageLength],
     'custom-header-min-length': [2, 'always', minMessageLength],
   },
+  messages: {
+    type: '請選擇您要 Commit 的類型(必選)：',
+    customScope: '選擇此次 Commit 影響的範圍(可選，若無，請按 Enter 略過):\n ',
+    subject: '簡短描述 Commit 的修正範圍(必填)：\n',
+    body: '更詳細的 Commit 說明(可選，若無，請按 Enter 略過):\n ',
+    issues:
+      '此次 Commit 會關閉的 Issues, e.g #123(可選，若無，請按 Enter 略過):\n ',
+  },
+  types: [
+    {
+      value: 'feat',
+      name: 'feat:     🎸  新增/修改功能 (Feature)',
+      emoji: ':guitar:',
+    },
+    { value: 'fix', name: 'fix:      🐛  修正 Bug (bug fix)', emoji: ':bug:' },
+    {
+      value: 'docs',
+      name: 'docs:     ✏️  修改/新增文件 (documentation)',
+      emoji: ':pencil2:',
+    },
+    {
+      value: 'style',
+      name: 'style:    💄  修改程式碼格式或風格，不影響原有運作，例如 ESLint (formatting, missing semi colons, …)',
+      emoji: ':lipstick:',
+    },
+    {
+      value: 'refactor',
+      name: 'refactor: 💡  重構 or 優化，不屬於 bug 也不屬於新增功能等',
+      emoji: ':bulb:',
+    },
+    {
+      value: 'perf',
+      name: 'perf:     ⚡️  A code change that improves performance',
+      emoji: ':zap:',
+    },
+    {
+      value: 'test',
+      name: 'test:     ✅  Adding missing tests or correcting existing tests',
+      emoji: ':white_check_mark:',
+    },
+    {
+      value: 'build',
+      name: 'build:    📦️   Changes that affect the build system or external dependencies',
+      emoji: ':package:',
+    },
+    {
+      value: 'ci',
+      name: 'ci:       🎡  Changes to our CI configuration files and scripts',
+      emoji: ':ferris_wheel:',
+    },
+    {
+      value: 'chore',
+      name: 'chore:    🤖  增加或修改第三方套件(輔助工具)等 (maintain)',
+      emoji: '🤖',
+    },
+    {
+      value: 'revert',
+      name: 'revert:   ⏪️  Reverts a previous commit',
+      emoji: ':rewind:',
+    },
+  ],
 };
