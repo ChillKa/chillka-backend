@@ -1,24 +1,18 @@
 import 'dotenv/config';
 import express from 'express';
-import { client } from './db';
+import mongoose from 'mongoose';
+import authRouter from './route/auth.route';
 
 const app = express();
+const port = process.env.PORT ?? 3000;
 
-client
-  .connect()
-  .then(() => {
-    console.log('Connected to the database');
-  })
-  .catch((error) => {
-    console.error('Failed to connect to the database:', error);
-  });
+app.use(express.json());
+app.use('/api', authRouter());
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
+mongoose.connect(process.env.MONGODB_URL ?? '').then(() => {
+  console.log('Connected to the database by mongoose');
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(
-    `Example app listening at http://localhost:${process.env.PORT || 3000}`
-  );
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
 });
