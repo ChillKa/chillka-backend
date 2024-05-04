@@ -13,7 +13,7 @@
     "commit": "cz",
     "prepare": "husky install",
     "start": "node dist/src/app.js",
-    "build": "swc src -d dist --source-maps",
+    "build": "yarn swc src -d dist --source-maps",
     "dev": "nodemon --watch src --ext ts --exec \"yarn build && yarn start\""
   },
   "lint-staged": {
