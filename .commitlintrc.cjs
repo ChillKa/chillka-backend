@@ -62,43 +62,43 @@ module.exports = {
     {
       value: 'feat',
       name: 'feat:     🎸  新增/修改功能 (Feature)',
-      emoji: ':guitar:',
+      emoji: '🎸',
     },
-    { value: 'fix', name: 'fix:      🐛  修正 Bug (bug fix)', emoji: ':bug:' },
+    { value: 'fix', name: 'fix:      🐛  修正 Bug (bug fix)', emoji: '🐛' },
     {
       value: 'docs',
       name: 'docs:     ✏️  修改/新增文件 (documentation)',
-      emoji: ':pencil2:',
+      emoji: '✏️',
     },
     {
       value: 'style',
       name: 'style:    💄  修改程式碼格式或風格，不影響原有運作，例如 ESLint (formatting, missing semi colons, …)',
-      emoji: ':lipstick:',
+      emoji: '💄',
     },
     {
       value: 'refactor',
       name: 'refactor: 💡  重構 or 優化，不屬於 bug 也不屬於新增功能等',
-      emoji: ':bulb:',
+      emoji: '💡',
     },
     {
       value: 'perf',
       name: 'perf:     ⚡️  A code change that improves performance',
-      emoji: ':zap:',
+      emoji: '⚡️',
     },
     {
       value: 'test',
       name: 'test:     ✅  Adding missing tests or correcting existing tests',
-      emoji: ':white_check_mark:',
+      emoji: '✅',
     },
     {
       value: 'build',
       name: 'build:    📦️   Changes that affect the build system or external dependencies',
-      emoji: ':package:',
+      emoji: '📦️',
     },
     {
       value: 'ci',
       name: 'ci:       🎡  Changes to our CI configuration files and scripts',
-      emoji: ':ferris_wheel:',
+      emoji: '🎡',
     },
     {
       value: 'chore',
@@ -108,7 +108,8 @@ module.exports = {
     {
       value: 'revert',
       name: 'revert:   ⏪️  Reverts a previous commit',
-      emoji: ':rewind:',
+      emoji: '⏪️',
     },
   ],
+  useEmoji: true,
 };
