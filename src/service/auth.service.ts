@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User, { IUser } from '../model/user.model';
-import { CoreError } from '../util/errorHandler';
+import { CoreError } from '../util/error-handler';
 
 interface RegisterUserCredentials extends IUser {}
 
@@ -18,9 +18,13 @@ export const register = async ({
 
   const hashedPassword = await bcrypt.hash(password, 10);
   const user = new User({ email, password: hashedPassword, displayName });
-  await user.save();
+  try {
+    await user.save();
 
-  return user;
+    return 'Register successed';
+  } catch {
+    throw new CoreError('Resgiter failed.');
+  }
 };
 
 interface LoginUserCredentials extends Omit<IUser, 'displayName'> {}
