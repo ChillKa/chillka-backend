@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import { ZodError, ZodTypeAny } from 'zod';
-import { CoreError, throwAPIError } from '../util/errorHandler';
+import { CoreError, throwAPIError } from '../util/error-handler';
 
-export const validateMiddleware =
+export const zodValidateMiddleware =
   <T extends ZodTypeAny>(schema: T) =>
   async (req: Request, res: Response, next: NextFunction) => {
     try {

@@ -1,15 +1,15 @@
 import { Request, Response, Router } from 'express';
-import { validateMiddleware } from '../middleware/validate.middleware';
-import { loginSchema, registerSchema } from '../schema/auth.schema';
+import { zodValidateMiddleware } from '../middleware/validate.middleware';
 import * as AuthService from '../service/auth.service';
-import { throwAPIError } from '../util/errorHandler';
+import { throwAPIError } from '../util/error-handler';
+import { loginSchema, registerSchema } from '../util/zod/auth.schema';
 
 const authRoute = () => {
   const router = Router();
 
   router.post(
     '/register',
-    validateMiddleware(registerSchema),
+    zodValidateMiddleware(registerSchema),
     async (req: Request, res: Response) => {
       try {
         const user = await AuthService.register(req.body);
@@ -22,7 +22,7 @@ const authRoute = () => {
 
   router.post(
     '/login',
-    validateMiddleware(loginSchema),
+    zodValidateMiddleware(loginSchema),
     async (req: Request, res: Response) => {
       try {
         const token = await AuthService.login(req.body);

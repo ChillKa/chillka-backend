@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { validatePassword } from '../util/validator';
+import { validatePassword } from '../validator';
 
 export const registerSchema = z.object({
   displayName: z
