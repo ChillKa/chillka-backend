@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import User, { IUser } from '../model/user.model';
+import User from '../model/user.model';
+import { IUser } from '../type/user.type';
 import { CoreError } from '../util/error-handler';
 
 interface RegisterUserCredentials extends IUser {}
@@ -40,5 +41,8 @@ export const login = async ({ email, password }: LoginUserCredentials) => {
     { id: user._id, username: user.displayName },
     process.env.JWT_SECRET!
   );
-  return token;
+  const userId = user._id;
+  const data = { token, userId };
+
+  return data;
 };

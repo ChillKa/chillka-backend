@@ -25,8 +25,9 @@ const authRoute = () => {
     zodValidateMiddleware(loginSchema),
     async (req: Request, res: Response) => {
       try {
-        const token = await AuthService.login(req.body);
-        res.status(200).send({ token });
+        const data = await AuthService.login(req.body);
+
+        res.status(200).send(data);
       } catch (error) {
         throwAPIError({ res, error, statusCode: 400 });
       }

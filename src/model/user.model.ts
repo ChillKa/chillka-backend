@@ -1,20 +1,14 @@
 import bcrypt from 'bcryptjs';
 import { Model, Schema, model } from 'mongoose';
+import { Gender, UserSchemaModel } from '../type/user.type';
 import { validateEmail, validatePassword } from '../util/validator';
 
-export interface IUser {
-  displayName: string;
-  email: string;
-  password: string;
-}
-
-interface IUserMethods {
+interface UserMethods {
   comparePassword(password: string): Promise<boolean>;
 }
+type UserModel = Model<UserSchemaModel, object, UserMethods>;
 
-type UserModel = Model<IUser, object, IUserMethods>;
-
-const UserSchema = new Schema<IUser, UserModel, IUserMethods>(
+const UserSchema = new Schema<UserSchemaModel, UserModel, UserMethods>(
   {
     displayName: {
       type: Schema.Types.String,
@@ -43,6 +37,34 @@ const UserSchema = new Schema<IUser, UserModel, IUserMethods>(
         message: (props) => `${props.value} is not a valid password`,
       },
     },
+    realName: {
+      type: Schema.Types.String,
+    },
+    birthday: {
+      type: Schema.Types.String,
+    },
+    gender: {
+      type: Schema.Types.String,
+      enum: Gender,
+    },
+    age: {
+      type: Schema.Types.Number,
+    },
+    introduction: {
+      type: Schema.Types.String,
+    },
+    phoneAreaCode: {
+      type: Schema.Types.Number,
+    },
+    phoneNumber: {
+      type: Schema.Types.Number,
+    },
+    phoneBarcode: {
+      type: Schema.Types.String,
+    },
+    address: {
+      type: Schema.Types.String,
+    },
   },
   {
     collection: 'users',
@@ -58,6 +80,6 @@ UserSchema.methods.comparePassword = async function (password) {
   }
 };
 
-const User = model<IUser, UserModel>('User', UserSchema);
+const User = model<UserSchemaModel, UserModel>('User', UserSchema);
 
 export default User;
