@@ -3,13 +3,10 @@ import { UserSchemaModel } from '../type/user.type';
 import { CoreError } from '../util/error-handler';
 
 export const get = async (userId: string) => {
-  const existingUser = await User.findById(userId);
-  if (!existingUser) {
-    throw new CoreError('User not found');
-  }
-  const { password: _password, ...userData } = existingUser.toObject();
+  const existingUser = await User.findById(userId).select('-password');
+  if (!existingUser) throw new CoreError('User not found');
 
-  return userData;
+  return existingUser;
 };
 
 interface UserEditCredentials extends Omit<UserSchemaModel, 'password'> {}
@@ -18,17 +15,16 @@ export const edit = async (
   userId: string,
   requestBody: UserEditCredentials
 ) => {
-  const existingUser = await User.findById(userId);
+  const existingUser = await User.findById(userId).select('-password');
   if (!existingUser) throw new CoreError('User not found');
 
-  try {
-    existingUser.set(requestBody);
-    await existingUser.save();
+  const validFields = Object.keys(requestBody).every(
+    (field) => field in existingUser
+  );
+  if (!validFields) throw new CoreError('Invalid field');
 
-    const { password: _password, ...userData } = existingUser.toObject();
+  existingUser.set(requestBody);
+  await existingUser.save();
 
-    return userData;
-  } catch {
-    throw new CoreError('Edit failed');
-  }
+  return existingUser;
 };

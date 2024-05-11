@@ -1,6 +1,8 @@
 import { Request, Response, Router } from 'express';
+import { zodValidateMiddleware } from '../middleware/validate.middleware';
 import * as UserService from '../service/user.service';
 import { throwAPIError } from '../util/error-handler';
+import { editUserSchema } from '../util/zod/auth.schema';
 
 const userRoute = () => {
   const router = Router();
@@ -14,15 +16,19 @@ const userRoute = () => {
     }
   });
 
-  router.patch('/user/:userId', async (req: Request, res: Response) => {
-    try {
-      const displayName = await UserService.edit(req.params.userId, req.body);
+  router.patch(
+    '/user/:userId',
+    zodValidateMiddleware(editUserSchema),
+    async (req: Request, res: Response) => {
+      try {
+        const userData = await UserService.edit(req.params.userId, req.body);
 
-      res.status(200).send(displayName);
-    } catch (error) {
-      throwAPIError({ res, error, statusCode: 400 });
+        res.status(200).send(userData);
+      } catch (error) {
+        throwAPIError({ res, error, statusCode: 400 });
+      }
     }
-  });
+  );
 
   return router;
 };
