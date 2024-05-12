@@ -54,10 +54,10 @@ const UserSchema = new Schema<UserSchemaModel, UserModel, UserMethods>(
       type: Schema.Types.String,
     },
     phoneAreaCode: {
-      type: Schema.Types.Number,
+      type: Schema.Types.String,
     },
     phoneNumber: {
-      type: Schema.Types.Number,
+      type: Schema.Types.String,
     },
     phoneBarcode: {
       type: Schema.Types.String,

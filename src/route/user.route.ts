@@ -3,7 +3,7 @@ import authorizeMiddleware from '../middleware/authorize.middleware';
 import { zodValidateMiddleware } from '../middleware/validate.middleware';
 import * as UserService from '../service/user.service';
 import { throwAPIError } from '../util/error-handler';
-import { editUserSchema } from '../util/zod/auth.schema';
+import { editUserSchema } from '../util/zod/user.schema';
 
 const userRoute = () => {
   const router = Router();

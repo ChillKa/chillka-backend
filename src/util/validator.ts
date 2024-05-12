@@ -14,3 +14,8 @@ export const validateDisplayName = (displayName: string) => {
   const reg = /^[a-zA-Z0-9 '-]{2,50}$/;
   return reg.test(displayName);
 };
+
+export const validateInt = (value: string) => {
+  const parsed = parseInt(value);
+  return !isNaN(parsed);
+};
