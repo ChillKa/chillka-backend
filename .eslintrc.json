@@ -13,6 +13,7 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
+  "ignorePatterns": ["**/*.js"],
   "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
     "prettier/prettier": "error",
