@@ -12,10 +12,12 @@
   "scripts": {
     "commit": "cz",
     "prepare": "husky install",
+    "schema": "node src/swagger/schemaGenerator.js",
+    "spec": "ts-node src/swagger/swagger.ts",
+    "swagger": "yarn schema && yarn spec",
     "start": "node dist/src/app.js",
-    "dev": "nodemon --ext ts --exec \"yarn build && yarn start\"",
     "build": "tsc",
-    "swagger": "node ./swagger.js"
+    "dev": "nodemon --ext ts --exec \"yarn build && yarn start\""
   },
   "lint-staged": {
     "*.{js,ts}": [
@@ -38,6 +40,7 @@
     "mongoose": "^8.3.2",
     "swagger-autogen": "^2.23.7",
     "swagger-ui-express": "^5.0.0",
+    "typescript-json-schema": "^0.63.0",
     "zod": "^3.23.5"
   },
   "devDependencies": {
