@@ -72,6 +72,30 @@ const UserSchema = new Schema<UserSchemaModel, UserModel, UserMethods>(
   }
 );
 
+UserSchema.virtual('organizerId', {
+  ref: 'Organizer',
+  localField: '_id',
+  foreignField: 'userId',
+});
+
+UserSchema.virtual('ticketId', {
+  ref: 'Ticket',
+  localField: '_id',
+  foreignField: 'userId',
+});
+
+UserSchema.virtual('messageListId', {
+  ref: 'MessageList',
+  localField: '_id',
+  foreignField: 'userId',
+});
+
+UserSchema.virtual('messageId', {
+  ref: 'Message',
+  localField: '_id',
+  foreignField: 'userId',
+});
+
 UserSchema.methods.comparePassword = async function (password) {
   try {
     return await bcrypt.compare(password, this.password);
