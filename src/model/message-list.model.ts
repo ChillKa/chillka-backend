@@ -26,7 +26,7 @@ const MessageListSchema = new Schema<MessageListSchemaModel, MessageListModel>(
   }
 );
 
-MessageListSchema.virtual('messageId', {
+MessageListSchema.virtual('messages', {
   ref: 'Message',
   localField: '_id',
   foreignField: 'messageListId',

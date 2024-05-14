@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import { Model, Schema, model } from 'mongoose';
-import { Gender, UserSchemaModel } from '../type/user.type';
+import { GenderEnum, UserSchemaModel } from '../type/user.type';
 import { validateEmail, validatePassword } from '../util/validator';
 
 interface UserMethods {
@@ -45,7 +45,7 @@ const UserSchema = new Schema<UserSchemaModel, UserModel, UserMethods>(
     },
     gender: {
       type: Schema.Types.String,
-      enum: Gender,
+      enum: GenderEnum,
     },
     age: {
       type: Schema.Types.Number,
@@ -72,25 +72,25 @@ const UserSchema = new Schema<UserSchemaModel, UserModel, UserMethods>(
   }
 );
 
-UserSchema.virtual('organizerId', {
+UserSchema.virtual('organizers', {
   ref: 'Organizer',
   localField: '_id',
   foreignField: 'userId',
 });
 
-UserSchema.virtual('ticketId', {
+UserSchema.virtual('tickets', {
   ref: 'Ticket',
   localField: '_id',
   foreignField: 'userId',
 });
 
-UserSchema.virtual('messageListId', {
+UserSchema.virtual('messageLists', {
   ref: 'MessageList',
   localField: '_id',
   foreignField: 'userId',
 });
 
-UserSchema.virtual('messageId', {
+UserSchema.virtual('messages', {
   ref: 'Message',
   localField: '_id',
   foreignField: 'userId',

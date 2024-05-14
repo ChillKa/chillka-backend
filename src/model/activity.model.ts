@@ -2,12 +2,12 @@ import { Model, Schema, model } from 'mongoose';
 import {
   ActivitySchemaModel,
   CategoryEnum,
-  TypeEnum,
-  PeriodEnum,
-  WeekEnum,
   DayEnum,
-  TicketModeEnum,
+  PeriodEnum,
   StatusEnum,
+  TicketModeEnum,
+  TypeEnum,
+  WeekEnum,
 } from '../type/activity.type';
 
 type ActivityModel = Model<ActivitySchemaModel, object>;
@@ -16,7 +16,7 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
   {
     organizerId: {
       type: Schema.Types.ObjectId,
-      ref: 'Activity',
+      ref: 'Organizer',
       required: true,
     },
     cover: {
@@ -117,13 +117,13 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
   }
 );
 
-ActivitySchema.virtual('ticketId', {
+ActivitySchema.virtual('tickets', {
   ref: 'Ticket',
   localField: '_id',
   foreignField: 'activityId',
 });
 
-ActivitySchema.virtual('messageListId', {
+ActivitySchema.virtual('messageLists', {
   ref: 'MessageList',
   localField: '_id',
   foreignField: 'activityId',

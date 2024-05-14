@@ -41,7 +41,7 @@ const OrganizerSchema = new Schema<OrganizerSchemaModel, OrganizerModel>(
   }
 );
 
-OrganizerSchema.virtual('activityId', {
+OrganizerSchema.virtual('activities', {
   ref: 'Activity',
   localField: '_id',
   foreignField: 'organizerId',
