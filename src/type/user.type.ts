@@ -1,6 +1,6 @@
 export enum GenderEnum {
-  MALE = 'MALE',
-  FEMALE = 'FEMALE',
+  MALE = '男',
+  FEMALE = '女',
 }
 export interface UserBase {
   displayName: string;

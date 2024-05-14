@@ -1,23 +1,23 @@
 import { Schema } from 'mongoose';
 
 export enum PaymentStatusEnum {
-  PAID = 'PAID',
-  UNPAID = 'UNPAID',
-  ERROR = 'ERROR',
+  PAID = '已付款',
+  UNPAID = '待付款',
+  ERROR = '付款失敗',
 }
 
 export enum PaymentMethodEnum {
-  CREDIT_CARD = 'CREDIT_CARD',
-  CASH = 'CASH',
-  SYSTEM_UPDATE = 'SYSTEM_UPDATE',
+  CREDIT_CARD = '信用卡',
+  CASH = '現金',
+  SYSTEM_UPDATE = '系統更新',
 }
 
 export enum TicketStatusEnum {
-  VALID = 'VALID',
-  CANCELLED = 'CANCELLED',
-  USED = 'USED',
-  HOLD = 'HOLD',
-  ERROR = 'ERROR',
+  VALID = '有效',
+  CANCELLED = '取消',
+  USED = '已使用',
+  HOLD = '保留',
+  ERROR = '無效票券',
 }
 
 export interface TicketSchemaModel {

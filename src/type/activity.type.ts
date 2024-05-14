@@ -1,19 +1,19 @@
 import { Mixed, Schema } from 'mongoose';
 
 export enum CategoryEnum {
-  Travel_and_Outdoor = 'Travel and Outdoor',
-  Social_Activities = 'Social Activities',
-  Hobbies_and_Passions = 'Hobbies and Passions',
-  Sports_and_Fitness = 'Sports and Fitness',
-  Health_and_Wellbeing = 'Health and Wellbeing',
-  Technology = 'Technology',
-  Art_and_Culture = 'Art and Culture',
-  Games = 'Games',
+  Outdoor = '戶外踏青',
+  Social = '社交活動',
+  Hobbies = '興趣嗜好',
+  Sports = '運動健身',
+  Health = '健康生活',
+  Technology = '科技玩物',
+  Art = '藝術文化',
+  Games = '遊戲',
 }
 
 export enum TypeEnum {
-  MALE = 'OFFLINE',
-  FEMALE = 'ONLINE',
+  OFFLINE = '線下',
+  ONLINE = '線上',
 }
 
 export enum PeriodEnum {
@@ -43,14 +43,14 @@ export enum DayEnum {
 }
 
 export enum TicketModeEnum {
-  CHILLKA = 'CHILLKA',
-  SALE = 'SALE',
+  CHILLKA = '揪咖',
+  SALE = '售票',
 }
 
 export enum StatusEnum {
-  VALID = 'VALID',
-  CANCELLED = 'CANCELLED',
-  END = 'END',
+  VALID = '有效',
+  CANCELLED = '取消',
+  END = '結束',
 }
 
 export interface ActivitySchemaModel {
