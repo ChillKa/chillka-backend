@@ -8,14 +8,17 @@ import swaggerDocument from './swagger/swagger-output.json';
 
 const app = express();
 const port = process.env.PORT;
-const swaggerOptions = {
-  docExpansions: 'none',
-  persistAuthorization: true,
-  authorizations: {
-    BearerAuth: {
-      type: 'apiKey',
-      name: 'Authorization',
-      in: 'header',
+const options = {
+  customCss: '.swagger-ui .topbar { display: none }',
+  swaggerOptions: {
+    docExpansions: 'none',
+    persistAuthorization: true,
+    authorizations: {
+      BearerAuth: {
+        type: 'apiKey',
+        name: 'Authorization',
+        in: 'header',
+      },
     },
   },
 };
@@ -30,7 +33,7 @@ app.use(
 app.use(
   '/api-docs',
   swaggerUi.serve,
-  swaggerUi.setup(swaggerDocument, { swaggerOptions })
+  swaggerUi.setup(swaggerDocument, options)
 );
 
 mongoose.connect(process.env.MONGODB_URL ?? '').then(() => {
