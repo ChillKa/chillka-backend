@@ -11,6 +11,15 @@ const doc = {
   host: process.env.HOST,
   schemes: ['http', 'https'],
   schemas: _schema.definitions,
+  securityDefinitions: {
+    apiKeyAuth: {
+      type: 'apiKey',
+      name: 'Authorization',
+      in: 'header',
+      scheme: 'bearer',
+      description: 'Prefix in `Bearer ${token}`',
+    },
+  },
 };
 
 swaggerAutogen()(outputFile, endpointsFiles, doc);

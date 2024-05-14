@@ -10,6 +10,15 @@
     "http",
     "https"
   ],
+  "securityDefinitions": {
+    "apiKeyAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "scheme": "bearer",
+      "description": "Prefix in `Bearer ${token}`"
+    }
+  },
   "paths": {
     "/api/register": {
       "post": {
@@ -55,7 +64,7 @@
         }
       }
     },
-    "/api/user/{userId}": {
+    "/api/auth/user/{userId}": {
       "get": {
         "tags": [
           "User"
@@ -73,7 +82,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       },
       "patch": {
         "tags": [
@@ -99,7 +113,12 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
       }
     }
   },

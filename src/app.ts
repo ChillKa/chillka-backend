@@ -8,10 +8,30 @@ import swaggerDocument from './swagger/swagger-output.json';
 
 const app = express();
 const port = process.env.PORT;
+const swaggerOptions = {
+  docExpansions: 'none',
+  persistAuthorization: true,
+  authorizations: {
+    BearerAuth: {
+      type: 'apiKey',
+      name: 'Authorization',
+      in: 'header',
+    },
+  },
+};
 
 app.use(express.json());
-app.use('/api', authRouter(), userRoute());
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/api', authRouter());
+app.use(
+  '/api/auth',
+  // #swagger.security = [{ "apiKeyAuth": [] }]
+  userRoute()
+);
+app.use(
+  '/api-docs',
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument, { swaggerOptions })
+);
 
 mongoose.connect(process.env.MONGODB_URL ?? '').then(() => {
   console.log('Connected to the database by mongoose');
