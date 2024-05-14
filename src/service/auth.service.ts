@@ -1,16 +1,17 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import User from '../model/user.model';
-import { IUser } from '../type/user.type';
+import {
+  UserLoginCredentials,
+  UserRegisterCredentials,
+} from '../type/user.type';
 import { CoreError } from '../util/error-handler';
-
-interface RegisterUserCredentials extends IUser {}
 
 export const register = async ({
   email,
   password,
   displayName,
-}: RegisterUserCredentials) => {
+}: UserRegisterCredentials) => {
   const existingUser = await User.findOne({ email });
 
   if (existingUser) {
@@ -24,13 +25,11 @@ export const register = async ({
 
     return 'Register successed';
   } catch {
-    throw new CoreError('Resgiter failed.');
+    throw new CoreError('Register failed.');
   }
 };
 
-interface LoginUserCredentials extends Omit<IUser, 'displayName'> {}
-
-export const login = async ({ email, password }: LoginUserCredentials) => {
+export const login = async ({ email, password }: UserLoginCredentials) => {
   const user = await User.findOne({ email });
   if (!user) throw new CoreError('User not found');
 

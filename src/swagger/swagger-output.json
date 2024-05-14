@@ -1,23 +1,28 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Chillka API",
+    "title": "Chillka Rest API",
     "version": "1.0.0",
     "description": ""
   },
   "basePath": "/",
-  "schemes": ["http", "https"],
+  "schemes": [
+    "http",
+    "https"
+  ],
   "paths": {
     "/api/register": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "description": "",
         "parameters": [
           {
             "name": "body",
             "in": "body",
             "schema": {
-              "$ref": "#/definitions/IUser"
+              "$ref": "#/schemas/UserRegisterCredentials"
             }
           }
         ],
@@ -30,14 +35,16 @@
     },
     "/api/login": {
       "post": {
+        "tags": [
+          "Auth"
+        ],
         "description": "",
         "parameters": [
           {
             "name": "body",
             "in": "body",
-            "required": true,
             "schema": {
-              "$ref": "#/definitions/Login"
+              "$ref": "#/schemas/UserLoginCredentials"
             }
           }
         ],
@@ -50,6 +57,9 @@
     },
     "/api/user/{userId}": {
       "get": {
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -66,6 +76,9 @@
         }
       },
       "patch": {
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -73,6 +86,13 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/schemas/UserEditCredentials"
+            }
           }
         ],
         "responses": {
@@ -83,206 +103,162 @@
       }
     }
   },
-  "definitions": {
-    "IUser": {
+  "schemas": {
+    "GenderEnum": {
+      "type": "string",
+      "enum": [
+        "MALE",
+        "FEMALE"
+      ]
+    },
+    "UserBase": {
       "type": "object",
       "properties": {
-        "type": {
-          "type": "string",
-          "example": "object"
+        "displayName": {
+          "type": "string"
         },
-        "properties": {
-          "type": "object",
-          "properties": {
-            "displayName": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "example": "string"
-                }
-              }
-            },
-            "email": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "example": "string"
-                }
-              }
-            },
-            "password": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "example": "string"
-                }
-              }
-            }
-          }
+        "email": {
+          "type": "string"
         },
-        "required": {
-          "type": "array",
-          "example": ["displayName", "email", "password"],
-          "items": {
-            "type": "string"
-          }
+        "password": {
+          "type": "string"
         }
-      }
+      },
+      "required": [
+        "displayName",
+        "email",
+        "password"
+      ]
     },
     "UserSchemaModel": {
       "type": "object",
       "properties": {
-        "type": {
-          "type": "string",
-          "example": "object"
+        "realName": {
+          "type": "string"
         },
-        "properties": {
-          "type": "object",
-          "properties": {
-            "realName": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "example": "string"
-                }
-              }
-            },
-            "birthday": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "example": "string"
-                }
-              }
-            },
-            "gender": {
-              "type": "object",
-              "properties": {
-                "enum": {
-                  "type": "array",
-                  "example": ["FEMALE", "MALE"],
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                "type": {
-                  "type": "string",
-                  "example": "string"
-                }
-              }
-            },
-            "age": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "example": "number"
-                }
-              }
-            },
-            "introduction": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "example": "string"
-                }
-              }
-            },
-            "phoneAreaCode": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "example": "number"
-                }
-              }
-            },
-            "phoneNumber": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "example": "number"
-                }
-              }
-            },
-            "phoneBarcode": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "example": "string"
-                }
-              }
-            },
-            "address": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "example": "string"
-                }
-              }
-            },
-            "displayName": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "example": "string"
-                }
-              }
-            },
-            "email": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "example": "string"
-                }
-              }
-            },
-            "password": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "example": "string"
-                }
-              }
-            }
-          }
+        "birthday": {
+          "type": "string"
         },
-        "required": {
-          "type": "array",
-          "example": ["displayName", "email", "password"],
-          "items": {
-            "type": "string"
-          }
+        "gender": {
+          "enum": [
+            "FEMALE",
+            "MALE"
+          ],
+          "type": "string"
+        },
+        "age": {
+          "type": "number"
+        },
+        "introduction": {
+          "type": "string"
+        },
+        "phoneAreaCode": {
+          "type": "number"
+        },
+        "phoneNumber": {
+          "type": "number"
+        },
+        "phoneBarcode": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
         }
-      }
+      },
+      "required": [
+        "displayName",
+        "email",
+        "password"
+      ]
     },
-    "Gender": {
+    "UserRegisterCredentials": {
       "type": "object",
       "properties": {
-        "type": {
-          "type": "string",
-          "example": "string"
+        "displayName": {
+          "type": "string"
         },
-        "enum": {
-          "type": "array",
-          "example": ["MALE", "FEMALE"],
-          "items": {
-            "type": "string"
-          }
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
         }
-      }
+      },
+      "required": [
+        "displayName",
+        "email",
+        "password"
+      ]
+    },
+    "UserLoginCredentials": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "email",
+        "password"
+      ]
+    },
+    "UserEditCredentials": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "realName": {
+          "type": "string"
+        },
+        "birthday": {
+          "type": "string"
+        },
+        "gender": {
+          "enum": [
+            "FEMALE",
+            "MALE"
+          ],
+          "type": "string"
+        },
+        "age": {
+          "type": "number"
+        },
+        "introduction": {
+          "type": "string"
+        },
+        "phoneAreaCode": {
+          "type": "number"
+        },
+        "phoneNumber": {
+          "type": "number"
+        },
+        "phoneBarcode": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "displayName",
+        "email"
+      ]
     }
   }
 }

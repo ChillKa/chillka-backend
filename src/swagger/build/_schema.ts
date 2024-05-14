@@ -2,84 +2,165 @@
 /* tslint:disable */
 /* eslint-disable */
 /* prettier-ignore */
+
 export const _schema = {
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "definitions": {
-        "IUser": {
-            "type": "object",
-            "properties": {
-                "displayName": {
-                    "type": "string"
-                },
-                "email": {
-                    "type": "string"
-                },
-                "password": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "displayName",
-                "email",
-                "password"
-            ]
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "GenderEnum": {
+      "type": "string",
+      "enum": [
+        "MALE",
+        "FEMALE"
+      ]
+    },
+    "UserBase": {
+      "type": "object",
+      "properties": {
+        "displayName": {
+          "type": "string"
         },
-        "UserSchemaModel": {
-            "type": "object",
-            "properties": {
-                "realName": {
-                    "type": "string"
-                },
-                "birthday": {
-                    "type": "string"
-                },
-                "gender": {
-                    "enum": [
-                        "FEMALE",
-                        "MALE"
-                    ],
-                    "type": "string"
-                },
-                "age": {
-                    "type": "number"
-                },
-                "introduction": {
-                    "type": "string"
-                },
-                "phoneAreaCode": {
-                    "type": "number"
-                },
-                "phoneNumber": {
-                    "type": "number"
-                },
-                "phoneBarcode": {
-                    "type": "string"
-                },
-                "address": {
-                    "type": "string"
-                },
-                "displayName": {
-                    "type": "string"
-                },
-                "email": {
-                    "type": "string"
-                },
-                "password": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "displayName",
-                "email",
-                "password"
-            ]
+        "email": {
+          "type": "string"
         },
-        "Gender": {
-            "type": "string",
-            "enum": [
-                "MALE",
-                "FEMALE"
-            ]
+        "password": {
+          "type": "string"
         }
+      },
+      "required": [
+        "displayName",
+        "email",
+        "password"
+      ]
+    },
+    "UserSchemaModel": {
+      "type": "object",
+      "properties": {
+        "realName": {
+          "type": "string"
+        },
+        "birthday": {
+          "type": "string"
+        },
+        "gender": {
+          "enum": [
+            "FEMALE",
+            "MALE"
+          ],
+          "type": "string"
+        },
+        "age": {
+          "type": "number"
+        },
+        "introduction": {
+          "type": "string"
+        },
+        "phoneAreaCode": {
+          "type": "number"
+        },
+        "phoneNumber": {
+          "type": "number"
+        },
+        "phoneBarcode": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "displayName",
+        "email",
+        "password"
+      ]
+    },
+    "UserRegisterCredentials": {
+      "type": "object",
+      "properties": {
+        "displayName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "displayName",
+        "email",
+        "password"
+      ]
+    },
+    "UserLoginCredentials": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "email",
+        "password"
+      ]
+    },
+    "UserEditCredentials": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "realName": {
+          "type": "string"
+        },
+        "birthday": {
+          "type": "string"
+        },
+        "gender": {
+          "enum": [
+            "FEMALE",
+            "MALE"
+          ],
+          "type": "string"
+        },
+        "age": {
+          "type": "number"
+        },
+        "introduction": {
+          "type": "string"
+        },
+        "phoneAreaCode": {
+          "type": "number"
+        },
+        "phoneNumber": {
+          "type": "number"
+        },
+        "phoneBarcode": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "displayName",
+        "email"
+      ]
     }
+  }
 };

@@ -11,12 +11,9 @@ const authRoute = () => {
     '/register',
     zodValidateMiddleware(registerSchema),
     async (req: Request, res: Response) => {
-      // FIXME: definitions
       // #swagger.tags = ['Auth']
-      /*	#swagger.parameters['body'] = {
-            in: 'body',
-            schema: { $ref: "#/definitions/IUser" }
-          } */
+      // #swagger.parameters['body'] = { in: 'body', schema: { $ref: "#/schemas/UserRegisterCredentials" }}
+
       try {
         const user = await AuthService.register(req.body);
         res.status(201).send(user);
@@ -30,11 +27,9 @@ const authRoute = () => {
     '/login',
     zodValidateMiddleware(loginSchema),
     async (req: Request, res: Response) => {
-      /*	#swagger.parameters['body'] = {
-            in: 'body',
-            required: true,
-            schema: { $ref: "#/definitions/Login" }
-          } */
+      // #swagger.tags = ['Auth']
+      // #swagger.parameters['body'] = { in: 'body', schema: { $ref: "#/schemas/UserLoginCredentials" }}
+
       try {
         const data = await AuthService.login(req.body);
 

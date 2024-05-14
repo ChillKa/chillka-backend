@@ -16,8 +16,8 @@
     "spec": "ts-node src/swagger/swagger.ts",
     "swagger": "yarn schema && yarn spec",
     "start": "node dist/src/app.js",
-    "build": "tsc",
-    "dev": "nodemon --ext ts --exec \"yarn build && yarn start\""
+    "build": "yarn schema && tsc",
+    "dev": "nodemon src/app.ts"
   },
   "lint-staged": {
     "*.{js,ts}": [
