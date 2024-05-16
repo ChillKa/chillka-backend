@@ -1,7 +1,7 @@
-import { Schema } from 'mongoose';
+import mongoose from 'mongoose';
 
 export interface OrganizerSchemaModel {
-  userId: Schema.Types.ObjectId;
+  userId: mongoose.Types.ObjectId;
   profilePicture: string;
   name: string;
   contactName: string;

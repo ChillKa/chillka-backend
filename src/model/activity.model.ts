@@ -20,7 +20,7 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
       required: true,
     },
     cover: {
-      type: Schema.Types.Array,
+      type: [{ type: Schema.Types.String, url: Schema.Types.String }],
     },
     thumbnail: {
       type: Schema.Types.String,

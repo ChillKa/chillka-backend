@@ -1,7 +1,7 @@
-import { Schema } from 'mongoose';
+import mongoose from 'mongoose';
 
 export interface MessageListSchemaModel {
-  activityId: Schema.Types.ObjectId;
-  userId: Schema.Types.ObjectId;
+  activityId: mongoose.Types.ObjectId;
+  userId: mongoose.Types.ObjectId;
   question: string;
 }

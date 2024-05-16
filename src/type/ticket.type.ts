@@ -1,4 +1,4 @@
-import { Schema } from 'mongoose';
+import mongoose from 'mongoose';
 
 export enum PaymentStatusEnum {
   PAID = '已付款',
@@ -21,8 +21,8 @@ export enum TicketStatusEnum {
 }
 
 export interface TicketSchemaModel {
-  userId: Schema.Types.ObjectId;
-  activityId: Schema.Types.ObjectId;
+  userId: mongoose.Types.ObjectId;
+  activityId: mongoose.Types.ObjectId;
   name: string;
   price: number;
   startDateTime: Date;
