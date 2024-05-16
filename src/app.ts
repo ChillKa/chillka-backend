@@ -2,7 +2,8 @@ import 'dotenv/config';
 import express from 'express';
 import mongoose from 'mongoose';
 import swaggerUi from 'swagger-ui-express';
-import authRouter from './route/auth.route';
+import authRoute from './route/auth.route';
+import swaggerRoute from './route/swagger.route';
 import userRoute from './route/user.route';
 import swaggerDocument from './swagger/swagger-output.json';
 
@@ -24,11 +25,11 @@ const options = {
 };
 
 app.use(express.json());
-app.use('/api', authRouter());
+app.use('/api', swaggerRoute, authRoute);
 app.use(
   '/api/auth',
   // #swagger.security = [{ "apiKeyAuth": [] }]
-  userRoute()
+  userRoute
 );
 app.use(
   '/api-docs',

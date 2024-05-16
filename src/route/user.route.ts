@@ -5,7 +5,7 @@ import * as UserService from '../service/user.service';
 import { throwAPIError } from '../util/error-handler';
 import { editUserSchema } from '../util/zod/user.schema';
 
-const userRoute = () => {
+const userRouter = () => {
   const router = Router();
 
   router.get(
@@ -43,5 +43,6 @@ const userRoute = () => {
 
   return router;
 };
+const userRoute = userRouter();
 
 export default userRoute;

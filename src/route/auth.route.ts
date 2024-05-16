@@ -4,7 +4,7 @@ import * as AuthService from '../service/auth.service';
 import { throwAPIError } from '../util/error-handler';
 import { loginSchema, registerSchema } from '../util/zod/auth.schema';
 
-const authRoute = () => {
+const authRouter = () => {
   const router = Router();
 
   router.post(
@@ -42,5 +42,5 @@ const authRoute = () => {
 
   return router;
 };
-
+const authRoute = authRouter();
 export default authRoute;
