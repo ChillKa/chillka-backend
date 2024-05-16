@@ -123,11 +123,534 @@
     }
   },
   "schemas": {
+    "CategoryEnum": {
+      "type": "string",
+      "enum": [
+        "戶外踏青",
+        "社交活動",
+        "興趣嗜好",
+        "運動健身",
+        "健康生活",
+        "科技玩物",
+        "藝術文化",
+        "遊戲"
+      ]
+    },
+    "TypeEnum": {
+      "type": "string",
+      "enum": [
+        "線下",
+        "線上"
+      ]
+    },
+    "PeriodEnum": {
+      "type": "string",
+      "enum": [
+        "隔週",
+        "每月",
+        "每季"
+      ]
+    },
+    "WeekEnum": {
+      "type": "string",
+      "enum": [
+        "每週",
+        "隔週",
+        "第一週",
+        "第二週",
+        "第三週",
+        "第四週",
+        "最後一週"
+      ]
+    },
+    "DayEnum": {
+      "type": "string",
+      "enum": [
+        "星期一",
+        "星期二",
+        "星期三",
+        "星期四",
+        "星期五",
+        "星期六",
+        "星期日"
+      ]
+    },
+    "TicketModeEnum": {
+      "type": "string",
+      "enum": [
+        "揪咖",
+        "售票"
+      ]
+    },
+    "StatusEnum": {
+      "type": "string",
+      "enum": [
+        "有效",
+        "取消",
+        "結束"
+      ]
+    },
+    "Cover": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "type",
+        "url"
+      ]
+    },
+    "Recurring": {
+      "type": "object",
+      "properties": {
+        "period": {
+          "type": "string",
+          "enum": [
+            "隔週",
+            "每月",
+            "每季"
+          ]
+        },
+        "week": {
+          "type": "string",
+          "enum": [
+            "每週",
+            "隔週",
+            "第一週",
+            "第二週",
+            "第三週",
+            "第四週",
+            "最後一週"
+          ]
+        },
+        "day": {
+          "type": "string",
+          "enum": [
+            "星期一",
+            "星期二",
+            "星期三",
+            "星期四",
+            "星期五",
+            "星期六",
+            "星期日"
+          ]
+        }
+      },
+      "required": [
+        "day",
+        "period",
+        "week"
+      ]
+    },
+    "ActivitySchemaModel": {
+      "type": "object",
+      "properties": {
+        "organizerId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "cover": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "url"
+            ]
+          }
+        },
+        "thumbnail": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "startDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "fromToday": {
+          "type": "boolean"
+        },
+        "endDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "noEndDate": {
+          "type": "boolean"
+        },
+        "price": {
+          "type": "number"
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "戶外踏青",
+            "社交活動",
+            "興趣嗜好",
+            "運動健身",
+            "健康生活",
+            "科技玩物",
+            "藝術文化",
+            "遊戲"
+          ]
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "線下",
+            "線上"
+          ]
+        },
+        "link": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "details": {
+          "type": "string"
+        },
+        "isPrivate": {
+          "type": "boolean"
+        },
+        "displayRemainingTickets": {
+          "type": "boolean"
+        },
+        "isRecurring": {
+          "type": "boolean"
+        },
+        "recurring": {
+          "type": "object",
+          "properties": {
+            "period": {
+              "type": "string",
+              "enum": [
+                "隔週",
+                "每月",
+                "每季"
+              ]
+            },
+            "week": {
+              "type": "string",
+              "enum": [
+                "每週",
+                "隔週",
+                "第一週",
+                "第二週",
+                "第三週",
+                "第四週",
+                "最後一週"
+              ]
+            },
+            "day": {
+              "type": "string",
+              "enum": [
+                "星期一",
+                "星期二",
+                "星期三",
+                "星期四",
+                "星期五",
+                "星期六",
+                "星期日"
+              ]
+            }
+          },
+          "required": [
+            "day",
+            "period",
+            "week"
+          ]
+        },
+        "ticketMode": {
+          "type": "string",
+          "enum": [
+            "揪咖",
+            "售票"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "有效",
+            "取消",
+            "結束"
+          ]
+        },
+        "customField": {
+          "type": "boolean"
+        },
+        "ticketRequired": {
+          "type": "boolean"
+        },
+        "participantAmount": {
+          "type": "number"
+        },
+        "checkedInParticipantsAmount": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "address",
+        "category",
+        "checkedInParticipantsAmount",
+        "cover",
+        "customField",
+        "details",
+        "displayRemainingTickets",
+        "endDateTime",
+        "fromToday",
+        "isPrivate",
+        "isRecurring",
+        "link",
+        "location",
+        "name",
+        "noEndDate",
+        "organizerId",
+        "participantAmount",
+        "price",
+        "recurring",
+        "startDateTime",
+        "status",
+        "summary",
+        "thumbnail",
+        "ticketMode",
+        "ticketRequired",
+        "type"
+      ]
+    },
+    "MessageListSchemaModel": {
+      "type": "object",
+      "properties": {
+        "activityId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "question": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "activityId",
+        "question",
+        "userId"
+      ]
+    },
+    "MessageSchemaModel": {
+      "type": "object",
+      "properties": {
+        "messageListId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "answer": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "answer",
+        "messageListId",
+        "userId"
+      ]
+    },
+    "OrganizerSchemaModel": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "profilePicture": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "contactName": {
+          "type": "string"
+        },
+        "contactPhone": {
+          "type": "string"
+        },
+        "contactEmail": {
+          "type": "string"
+        },
+        "websiteName": {
+          "type": "string"
+        },
+        "websiteURL": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "contactEmail",
+        "contactName",
+        "contactPhone",
+        "name",
+        "profilePicture",
+        "userId",
+        "websiteName",
+        "websiteURL"
+      ]
+    },
+    "PaymentStatusEnum": {
+      "type": "string",
+      "enum": [
+        "已付款",
+        "待付款",
+        "付款失敗"
+      ]
+    },
+    "PaymentMethodEnum": {
+      "type": "string",
+      "enum": [
+        "信用卡",
+        "現金",
+        "系統更新"
+      ]
+    },
+    "TicketStatusEnum": {
+      "type": "string",
+      "enum": [
+        "有效",
+        "取消",
+        "已使用",
+        "保留",
+        "無效票券"
+      ]
+    },
+    "TicketSchemaModel": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "activityId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "name": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        },
+        "startDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "fromToday": {
+          "type": "boolean"
+        },
+        "endDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "noEndDate": {
+          "type": "boolean"
+        },
+        "participantCapacity": {
+          "type": "number"
+        },
+        "unlimitedQuantity": {
+          "type": "boolean"
+        },
+        "purchaseLimit": {
+          "type": "number"
+        },
+        "description": {
+          "type": "string"
+        },
+        "ticketsPurchaseDuplicate": {
+          "type": "boolean"
+        },
+        "paymentAmount": {
+          "type": "number"
+        },
+        "paymentStatus": {
+          "type": "string",
+          "enum": [
+            "已付款",
+            "待付款",
+            "付款失敗"
+          ]
+        },
+        "paymentMethod": {
+          "type": "string",
+          "enum": [
+            "信用卡",
+            "現金",
+            "系統更新"
+          ]
+        },
+        "count": {
+          "type": "number"
+        },
+        "orderNumber": {
+          "type": "string"
+        },
+        "ticketStatus": {
+          "type": "string",
+          "enum": [
+            "有效",
+            "取消",
+            "已使用",
+            "保留",
+            "無效票券"
+          ]
+        },
+        "serialNumber": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "activityId",
+        "count",
+        "description",
+        "endDateTime",
+        "fromToday",
+        "name",
+        "noEndDate",
+        "orderNumber",
+        "participantCapacity",
+        "paymentAmount",
+        "paymentMethod",
+        "paymentStatus",
+        "price",
+        "purchaseLimit",
+        "serialNumber",
+        "startDateTime",
+        "ticketStatus",
+        "ticketsPurchaseDuplicate",
+        "unlimitedQuantity",
+        "userId"
+      ]
+    },
     "GenderEnum": {
       "type": "string",
       "enum": [
-        "MALE",
-        "FEMALE"
+        "男",
+        "女"
       ]
     },
     "UserBase": {
@@ -239,6 +762,9 @@
         "address": {
           "type": "string"
         },
+        "age": {
+          "type": "number"
+        },
         "displayName": {
           "type": "string"
         },
@@ -257,9 +783,6 @@
             "MALE"
           ],
           "type": "string"
-        },
-        "age": {
-          "type": "number"
         },
         "introduction": {
           "type": "string"
