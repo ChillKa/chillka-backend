@@ -4,13 +4,16 @@ import * as AuthService from '../service/auth.service';
 import { throwAPIError } from '../util/error-handler';
 import { loginSchema, registerSchema } from '../util/zod/auth.schema';
 
-const authRoute = () => {
+const authRouter = () => {
   const router = Router();
 
   router.post(
     '/register',
     zodValidateMiddleware(registerSchema),
     async (req: Request, res: Response) => {
+      // #swagger.tags = ['Auth']
+      // #swagger.parameters['body'] = { in: 'body', schema: { $ref: "#/schemas/UserRegisterCredentials" }}
+
       try {
         const user = await AuthService.register(req.body);
         res.status(201).send(user);
@@ -24,6 +27,9 @@ const authRoute = () => {
     '/login',
     zodValidateMiddleware(loginSchema),
     async (req: Request, res: Response) => {
+      // #swagger.tags = ['Auth']
+      // #swagger.parameters['body'] = { in: 'body', schema: { $ref: "#/schemas/UserLoginCredentials" }}
+
       try {
         const data = await AuthService.login(req.body);
 
@@ -36,5 +42,5 @@ const authRoute = () => {
 
   return router;
 };
-
+const authRoute = authRouter();
 export default authRoute;

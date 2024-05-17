@@ -5,13 +5,15 @@ import * as UserService from '../service/user.service';
 import { throwAPIError } from '../util/error-handler';
 import { editUserSchema } from '../util/zod/user.schema';
 
-const userRoute = () => {
+const userRouter = () => {
   const router = Router();
 
   router.get(
     '/user/:userId',
     authorizeMiddleware,
     async (req: Request, res: Response) => {
+      // #swagger.tags = ['User']
+
       try {
         const userData = await UserService.get(req.params.userId);
         res.status(200).send(userData);
@@ -26,6 +28,9 @@ const userRoute = () => {
     authorizeMiddleware,
     zodValidateMiddleware(editUserSchema),
     async (req: Request, res: Response) => {
+      // #swagger.tags = ['User']
+      // #swagger.parameters['body'] = { in: 'body', schema: { $ref: "#/schemas/UserEditCredentials" }}
+
       try {
         const userData = await UserService.edit(req.params.userId, req.body);
 
@@ -38,5 +43,6 @@ const userRoute = () => {
 
   return router;
 };
+const userRoute = userRouter();
 
 export default userRoute;

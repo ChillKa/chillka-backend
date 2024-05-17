@@ -1,4 +1,4 @@
-import { Mixed, Schema } from 'mongoose';
+import mongoose from 'mongoose';
 
 export enum CategoryEnum {
   Outdoor = '戶外踏青',
@@ -53,9 +53,20 @@ export enum StatusEnum {
   END = '結束',
 }
 
+export interface Cover {
+  type: string;
+  url: string;
+}
+
+export interface Recurring {
+  period: PeriodEnum;
+  week: WeekEnum;
+  day: DayEnum;
+}
+
 export interface ActivitySchemaModel {
-  organizerId: Schema.Types.ObjectId;
-  cover: Schema.Types.Array;
+  organizerId: mongoose.Types.ObjectId;
+  cover: Cover[];
   thumbnail: string;
   name: string;
   startDateTime: Date;
@@ -73,7 +84,7 @@ export interface ActivitySchemaModel {
   isPrivate: boolean;
   displayRemainingTickets: boolean;
   isRecurring: boolean;
-  recurring: Mixed;
+  recurring: Recurring;
   ticketMode: TicketModeEnum;
   status: StatusEnum;
   customField: boolean;

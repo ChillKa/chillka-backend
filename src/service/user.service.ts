@@ -1,6 +1,6 @@
 import { isValidObjectId } from 'mongoose';
 import User from '../model/user.model';
-import { UserSchemaModel } from '../type/user.type';
+import { UserEditCredentials } from '../type/user.type';
 import { CoreError } from '../util/error-handler';
 
 export const get = async (userId: string) => {
@@ -15,8 +15,6 @@ export const get = async (userId: string) => {
 
   return existingUser;
 };
-
-interface UserEditCredentials extends Omit<UserSchemaModel, 'password'> {}
 
 export const edit = async (
   userId: string,

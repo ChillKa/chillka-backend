@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Gender } from '../../type/user.type';
+import { GenderEnum } from '../../type/user.type';
 import { validateInt } from '../validator';
 
 export const editUserSchema = z.object({
@@ -10,7 +10,7 @@ export const editUserSchema = z.object({
     .optional(),
   email: z.string().email('Not a valid email').optional(),
   realName: z.string().min(2, 'Minimum two characters').optional(),
-  gender: z.nativeEnum(Gender).optional(),
+  gender: z.nativeEnum(GenderEnum).optional(),
   birthday: z.string().date('Invalid date format').optional(),
   phoneAreaCode: z
     .string()
