@@ -15,7 +15,7 @@
     "schema": "node src/swagger/schemaGenerator.js",
     "spec": "ts-node src/swagger/swagger.ts",
     "swagger": "yarn schema && yarn spec",
-    "start": "node dist/src/app.js",
+    "start": "node dist/app.js",
     "build": "yarn schema && tsc",
     "dev": "nodemon src/app.ts"
   },
