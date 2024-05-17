@@ -4,3 +4,5 @@
 .db
 .eslintcache
 .env
+
+/src/swagger/build/*

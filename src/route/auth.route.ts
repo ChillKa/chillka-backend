@@ -15,8 +15,8 @@ const authRouter = () => {
       // #swagger.parameters['body'] = { in: 'body', schema: { $ref: "#/schemas/UserRegisterCredentials" }}
 
       try {
-        const user = await AuthService.register(req.body);
-        res.status(201).send(user);
+        const data = await AuthService.register(req.body);
+        res.status(201).send(data);
       } catch (error) {
         throwAPIError({ res, error, statusCode: 400 });
       }

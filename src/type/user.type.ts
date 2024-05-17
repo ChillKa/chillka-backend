@@ -3,9 +3,11 @@ export enum GenderEnum {
   FEMALE = '女',
 }
 export interface UserBase {
+  _id?: string;
   displayName: string;
   email: string;
   password: string;
+  confirmPassword?: string;
 }
 
 export interface UserSchemaModel extends UserBase {
