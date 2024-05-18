@@ -32,14 +32,7 @@ export const register = async ({
   }
 };
 
-export const login = async ({
-  email,
-  password,
-  confirmPassword,
-}: UserLoginCredentials) => {
-  if (password !== confirmPassword)
-    throw new CoreError('Password and Confirm Password inconsistent');
-
+export const login = async ({ email, password }: UserLoginCredentials) => {
   const user = await User.findOne({ email });
   if (!user) throw new CoreError('User not found');
 
