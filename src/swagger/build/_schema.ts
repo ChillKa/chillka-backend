@@ -539,6 +539,9 @@ export const _schema = {
     "UserBase": {
       "type": "object",
       "properties": {
+        "googleId": {
+          "type": "string"
+        },
         "_id": {
           "type": "string"
         },
@@ -595,6 +598,9 @@ export const _schema = {
         "address": {
           "type": "string"
         },
+        "googleId": {
+          "type": "string"
+        },
         "_id": {
           "type": "string"
         },
@@ -620,6 +626,9 @@ export const _schema = {
     "UserRegisterCredentials": {
       "type": "object",
       "properties": {
+        "googleId": {
+          "type": "string"
+        },
         "_id": {
           "type": "string"
         },
@@ -646,6 +655,9 @@ export const _schema = {
       "type": "object",
       "properties": {
         "_id": {
+          "type": "string"
+        },
+        "googleId": {
           "type": "string"
         },
         "email": {
@@ -676,6 +688,9 @@ export const _schema = {
           "type": "string"
         },
         "displayName": {
+          "type": "string"
+        },
+        "googleId": {
           "type": "string"
         },
         "email": {

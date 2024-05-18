@@ -560,6 +560,9 @@
     "UserBase": {
       "type": "object",
       "properties": {
+        "googleId": {
+          "type": "string"
+        },
         "_id": {
           "type": "string"
         },
@@ -576,7 +579,7 @@
           "type": "string"
         }
       },
-      "required": ["displayName", "email", "password"]
+      "required": ["displayName", "email"]
     },
     "UserSchemaModel": {
       "type": "object",
@@ -619,7 +622,7 @@
           "type": "string"
         }
       },
-      "required": ["displayName", "email", "password"]
+      "required": ["displayName", "email"]
     },
     "UserRegisterCredentials": {
       "type": "object",

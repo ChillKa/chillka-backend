@@ -3,6 +3,7 @@ export enum GenderEnum {
   FEMALE = '女',
 }
 export interface UserBase {
+  googleId?: string;
   _id?: string;
   displayName: string;
   email: string;

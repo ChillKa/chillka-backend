@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs';
 import User from '../model/user.model';
 import {
+  UserBase,
   UserLoginCredentials,
   UserRegisterCredentials,
 } from '../type/user.type';
@@ -39,6 +40,12 @@ export const login = async ({ email, password }: UserLoginCredentials) => {
   if (!(await user.comparePassword(password)))
     throw new CoreError(`Wrong password`);
 
+  const data = { token: generateToken(user) };
+
+  return data;
+};
+
+export const googleOauth = async (user: UserBase | undefined) => {
   const data = { token: generateToken(user) };
 
   return data;

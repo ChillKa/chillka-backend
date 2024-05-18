@@ -10,6 +10,9 @@ type UserModel = Model<UserSchemaModel, object, UserMethods>;
 
 const UserSchema = new Schema<UserSchemaModel, UserModel, UserMethods>(
   {
+    googleId: {
+      type: Schema.Types.String,
+    },
     displayName: {
       type: Schema.Types.String,
       required: true,
@@ -29,7 +32,6 @@ const UserSchema = new Schema<UserSchemaModel, UserModel, UserMethods>(
     },
     password: {
       type: Schema.Types.String,
-      required: true,
       validate: {
         validator: function (value: unknown) {
           return typeof value === 'string' ? validatePassword(value) : false;

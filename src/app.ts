@@ -6,6 +6,7 @@ import authRoute from './route/auth.route';
 import swaggerRoute from './route/swagger.route';
 import userRoute from './route/user.route';
 import swaggerDocument from './swagger/swagger-output.json';
+import googleOauth from './util/google-oauth';
 
 const app = express();
 const port = process.env.PORT;
@@ -24,7 +25,9 @@ const options = {
   },
 };
 
+googleOauth();
 app.use(express.json());
+
 app.use('/api', swaggerRoute, authRoute);
 app.use(
   '/api/auth',
@@ -37,7 +40,12 @@ app.use(
   swaggerUi.setup(swaggerDocument, options)
 );
 
-mongoose.connect(process.env.MONGODB_URL ?? '').then(() => {
+const dbUrl: string | undefined =
+  process.env.NODE_ENV === 'production'
+    ? process.env.MONGODB_URL
+    : 'mongodb://127.0.0.1:27017/chillka';
+
+mongoose.connect(dbUrl ?? '').then(() => {
   console.log('Connected to the database by mongoose');
 });
 
