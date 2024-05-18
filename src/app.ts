@@ -5,6 +5,7 @@ import swaggerUi from 'swagger-ui-express';
 import authRoute from './route/auth.route';
 import swaggerRoute from './route/swagger.route';
 import userRoute from './route/user.route';
+import userActivityRoute from './route/userActivity.route';
 import swaggerDocument from './swagger/swagger-output.json';
 import googleStrategy from './util/google-strategy';
 
@@ -32,7 +33,8 @@ app.use('/api', swaggerRoute, authRoute);
 app.use(
   '/api/auth',
   // #swagger.security = [{ "apiKeyAuth": [] }]
-  userRoute
+  userRoute,
+  userActivityRoute
 );
 app.use(
   '/api-docs',

@@ -2,6 +2,12 @@ import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { CoreError, throwAPIError } from '../util/error-handler';
 
+interface AuthDecoded {
+  id: string;
+  username: string;
+  iat: number;
+}
+
 const authorizeMiddleware = (
   req: Request,
   res: Response,
@@ -26,7 +32,11 @@ const authorizeMiddleware = (
   }
 
   try {
-    const _decoded = jwt.verify(token, process.env.JWT_SECRET!);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as AuthDecoded;
+
+    req.body.user = {
+      id: decoded.id,
+    };
 
     return next();
   } catch {

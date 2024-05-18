@@ -10,3 +10,5 @@ export interface OrganizerSchemaModel {
   websiteName: string;
   websiteURL: string;
 }
+
+export type OrganizerBase = Omit<OrganizerSchemaModel, 'userId'>;

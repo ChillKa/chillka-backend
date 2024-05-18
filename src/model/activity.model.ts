@@ -14,13 +14,17 @@ type ActivityModel = Model<ActivitySchemaModel, object>;
 
 const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
   {
-    organizerId: {
+    // organizerId: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: 'Organizer',
+    //   required: true,
+    // },
+    creatorId: {
       type: Schema.Types.ObjectId,
-      ref: 'Organizer',
       required: true,
     },
     cover: {
-      type: [{ type: Schema.Types.String, url: Schema.Types.String }],
+      type: [Schema.Types.String],
     },
     thumbnail: {
       type: Schema.Types.String,

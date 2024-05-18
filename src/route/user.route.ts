@@ -13,7 +13,7 @@ const userRouter = () => {
     authorizeMiddleware,
     async (req: Request, res: Response) => {
       // #swagger.tags = ['User']
-
+      console.log('get user data');
       try {
         const userData = await UserService.get(req.params.userId);
         res.status(200).send(userData);
