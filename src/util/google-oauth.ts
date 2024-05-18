@@ -17,19 +17,29 @@ const googleOauth = () => {
         callbackURL: redirectUrl?.concat('/api/google-oauth/callback') ?? '',
       },
       async (accessToken, refreshToken, profile, done) => {
-        const user = await User.findOne({ googleId: profile.id });
+        const googleUser = await User.findOne({ googleId: profile.id });
 
-        if (!user) {
-          const newUser = await User.create({
-            googleId: profile.id,
-            displayName: profile.displayName,
+        if (!googleUser) {
+          const emailUser = await User.findOne({
             email: profile.emails?.[0].value,
           });
-          if (newUser) {
-            done(null, newUser);
+
+          if (emailUser) {
+            emailUser.googleId = profile.id;
+            await emailUser.save();
+
+            done(null, emailUser);
+          } else {
+            const newUser = await User.create({
+              googleId: profile.id,
+              displayName: profile.displayName,
+              email: profile.emails?.[0].value,
+            });
+
+            if (newUser) done(null, newUser);
           }
         } else {
-          done(null, user);
+          done(null, googleUser);
         }
       }
     )
