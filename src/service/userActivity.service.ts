@@ -4,17 +4,13 @@ import { CoreError } from '../util/error-handler';
 import { mockActivity } from '../util/mock/data';
 
 export const create = async (userId: string) => {
-  const activity = new Activity({
+  const updatedActivity = new Activity({
     ...mockActivity,
     creatorId: userId,
   });
 
   try {
-    const updatedActivity = await Activity.findOneAndUpdate(
-      { creatorId: userId },
-      { $push: { activities: activity } },
-      { new: true, upsert: true }
-    );
+    await updatedActivity.save();
 
     return updatedActivity;
   } catch (error) {
@@ -22,11 +18,9 @@ export const create = async (userId: string) => {
   }
 };
 
-export const get = async (params: GetActivitiesParams) => {
+export const get = async ({ userId }: GetActivitiesParams) => {
   try {
-    const activities = await Activity.findOne({
-      creatorId: params.userId,
-    });
+    const activities = await Activity.find({ creatorId: userId });
 
     return activities;
   } catch (error) {

@@ -16,7 +16,7 @@ type ActivityModel = Model<ActivitySchemaModel, object>;
 const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
   {
     creatorId: {
-      type: Schema.Types.ObjectId,
+      type: Schema.Types.String,
       required: true,
     },
     name: {

@@ -31,7 +31,7 @@ const userActivityRouter = () => {
       const userId = req.body.user.id;
 
       try {
-        const activities = await UserActivityService.get(userId);
+        const activities = await UserActivityService.get({ userId });
         res.status(200).send(activities);
       } catch (error) {
         throwAPIError({ res, error, statusCode: 400 });
