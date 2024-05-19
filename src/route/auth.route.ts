@@ -60,12 +60,9 @@ const authRouter = () => {
         path: '/',
       };
 
-      const redirectUrl =
-        process.env.NODE_ENV === 'production'
-          ? process.env.FRONTEND
-          : `http://localhost:${process.env.FRONTEND_PORT}`;
-
-      res.cookie('session', data.token, options).redirect(redirectUrl ?? '');
+      res
+        .cookie('session', data.token, options)
+        .redirect(process.env.FRONTEND ?? '');
     }
   );
 

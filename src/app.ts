@@ -40,12 +40,7 @@ app.use(
   swaggerUi.setup(swaggerDocument, options)
 );
 
-const dbUrl: string | undefined =
-  process.env.NODE_ENV === 'production'
-    ? process.env.MONGODB_URL
-    : 'mongodb://127.0.0.1:27017/chillka';
-
-mongoose.connect(dbUrl ?? '').then(() => {
+mongoose.connect(process.env.MONGODB_URL ?? '').then(() => {
   console.log('Connected to the database by mongoose');
 });
 
