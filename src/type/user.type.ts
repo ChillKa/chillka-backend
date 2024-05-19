@@ -11,14 +11,6 @@ export interface UserBase {
   password: string;
 }
 
-export type UserRegisterCredentials = UserBase & {
-  confirmPassword: string;
-};
-
-export type UserTokenCredentials = Omit<UserBase, 'password'> & {
-  _id: mongoose.Types.ObjectId;
-};
-
 export interface UserSchemaModel extends UserBase {
   realName?: string;
   birthday?: string;
@@ -30,6 +22,14 @@ export interface UserSchemaModel extends UserBase {
   phoneBarcode?: string;
   address?: string;
 }
+
+export type UserRegisterCredentials = UserBase & {
+  confirmPassword: string;
+};
+
+export type UserTokenCredentials = Omit<UserBase, 'password'> & {
+  _id: mongoose.Types.ObjectId;
+};
 
 export type UserLoginCredentials = Omit<UserBase, 'displayName'>;
 export type UserEditCredentials = Omit<UserSchemaModel, 'password'>;
