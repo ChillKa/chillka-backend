@@ -98,5 +98,5 @@ export type GetActivitiesParams = {
   userId: string;
   page?: number;
   limit?: number;
-  sort?: string;
+  sort?: 'des' | 'asc';
 };
