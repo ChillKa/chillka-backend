@@ -1,11 +1,11 @@
 import Activity from '../model/activity.model';
 import { GetActivitiesParams } from '../type/activity.type';
 import { CoreError } from '../util/error-handler';
-import { activities } from '../util/mock/data';
+import { mockActivity } from '../util/mock/data';
 
 export const create = async (userId: string) => {
   const activity = new Activity({
-    ...activities[Math.floor(Math.random() * 100)],
+    ...mockActivity,
     creatorId: userId,
   });
 
@@ -16,8 +16,6 @@ export const create = async (userId: string) => {
       { new: true, upsert: true }
     );
 
-    await updatedActivity.save();
-
     return updatedActivity;
   } catch (error) {
     throw new CoreError('Create activity failed.');
@@ -26,10 +24,12 @@ export const create = async (userId: string) => {
 
 export const get = async (params: GetActivitiesParams) => {
   try {
-    const activities = await Activity.find({ creatorId: params.userId });
+    const activities = await Activity.findOne({
+      creatorId: params.userId,
+    });
+
     return activities;
   } catch (error) {
-    console.log('error', error);
     throw new CoreError('Get activities failed.');
   }
 };

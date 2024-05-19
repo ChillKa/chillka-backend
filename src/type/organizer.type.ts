@@ -1,7 +1,4 @@
-import mongoose from 'mongoose';
-
 export interface OrganizerSchemaModel {
-  userId: mongoose.Types.ObjectId;
   profilePicture: string;
   name: string;
   contactName: string;

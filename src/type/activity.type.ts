@@ -61,11 +61,11 @@ export interface Recurring {
 }
 
 export interface ActivitySchemaModel {
-  // organizerId: mongoose.Types.ObjectId;
   creatorId: mongoose.Types.ObjectId;
+  name: string;
+  organizer: OrganizerBase;
   cover: string[];
   thumbnail: string;
-  name: string;
   startDateTime: Date;
   fromToday: boolean;
   endDateTime: Date;
@@ -86,13 +86,11 @@ export interface ActivitySchemaModel {
   status: StatusEnum;
   customField: boolean;
   ticketRequired: boolean;
-  participantAmount: number;
-  checkedInParticipantsAmount: number;
 }
 
 export type ActivityCreateCredentials = Omit<
   ActivitySchemaModel,
-  'creatorId' | 'participantAmount' | 'checkedInParticipantsAmount'
+  'creatorId'
 > & {
   organizer: OrganizerBase;
 };

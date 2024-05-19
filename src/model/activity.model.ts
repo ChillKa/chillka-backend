@@ -9,29 +9,28 @@ import {
   TypeEnum,
   WeekEnum,
 } from '../type/activity.type';
+import Organizer from './organizer.model';
 
 type ActivityModel = Model<ActivitySchemaModel, object>;
 
 const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
   {
-    // organizerId: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: 'Organizer',
-    //   required: true,
-    // },
     creatorId: {
       type: Schema.Types.ObjectId,
       required: true,
+    },
+    name: {
+      type: Schema.Types.String,
+      required: true,
+    },
+    organizer: {
+      type: Organizer.schema,
     },
     cover: {
       type: [Schema.Types.String],
     },
     thumbnail: {
       type: Schema.Types.String,
-    },
-    name: {
-      type: Schema.Types.String,
-      required: true,
     },
     startDateTime: {
       type: Schema.Types.Date,
@@ -107,12 +106,6 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
     },
     ticketRequired: {
       type: Schema.Types.Boolean,
-    },
-    participantAmount: {
-      type: Schema.Types.Number,
-    },
-    checkedInParticipantsAmount: {
-      type: Schema.Types.Number,
     },
   },
   {

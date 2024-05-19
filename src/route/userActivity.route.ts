@@ -16,7 +16,7 @@ const userActivityRouter = () => {
 
       try {
         const data = await UserActivityService.create(userId);
-        res.status(201).send(data);
+        res.status(200).send(data);
       } catch (error) {
         throwAPIError({ res, error, statusCode: 400 });
       }
