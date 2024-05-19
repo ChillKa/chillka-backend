@@ -6,7 +6,10 @@
     "description": ""
   },
   "basePath": "/",
-  "schemes": ["http", "https"],
+  "schemes": [
+    "http",
+    "https"
+  ],
   "securityDefinitions": {
     "apiKeyAuth": {
       "type": "apiKey",
@@ -17,20 +20,11 @@
     }
   },
   "paths": {
-    "/api/swagger.json": {
-      "get": {
-        "description": "",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/register": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "description": "",
         "parameters": [
           {
@@ -50,7 +44,9 @@
     },
     "/api/login": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "description": "",
         "parameters": [
           {
@@ -68,9 +64,31 @@
         }
       }
     },
+    "/api/google-oauth": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/api/google-oauth/callback": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/api/auth/user/{userId}": {
       "get": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -92,7 +110,9 @@
         ]
       },
       "patch": {
-        "tags": ["User"],
+        "tags": [
+          "User"
+        ],
         "description": "",
         "parameters": [
           {
@@ -123,22 +143,10 @@
     },
     "/api/auth/activities": {
       "post": {
-        "tags": ["Activity"],
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "user": {
-                  "example": "any"
-                }
-              }
-            }
-          }
+        "tags": [
+          "Activity"
         ],
+        "description": "",
         "responses": {
           "200": {
             "description": "OK"
@@ -151,8 +159,34 @@
         ]
       },
       "get": {
-        "tags": ["Activity"],
+        "tags": [
+          "Activity"
+        ],
         "description": "",
+        "parameters": [
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "asc",
+              "des"
+            ]
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "number"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -167,6 +201,20 @@
     }
   },
   "schemas": {
+    "SortEnum": {
+      "type": "string",
+      "enum": [
+        "asc",
+        "des"
+      ]
+    },
+    "SortType": {
+      "enum": [
+        "asc",
+        "des"
+      ],
+      "type": "string"
+    },
     "OrganizerSchemaModel": {
       "type": "object",
       "properties": {
@@ -252,11 +300,18 @@
     },
     "TypeEnum": {
       "type": "string",
-      "enum": ["線下", "線上"]
+      "enum": [
+        "線下",
+        "線上"
+      ]
     },
     "PeriodEnum": {
       "type": "string",
-      "enum": ["隔週", "每月", "每季"]
+      "enum": [
+        "隔週",
+        "每月",
+        "每季"
+      ]
     },
     "WeekEnum": {
       "type": "string",
@@ -284,18 +339,29 @@
     },
     "TicketModeEnum": {
       "type": "string",
-      "enum": ["揪咖", "售票"]
+      "enum": [
+        "揪咖",
+        "售票"
+      ]
     },
     "StatusEnum": {
       "type": "string",
-      "enum": ["有效", "取消", "結束"]
+      "enum": [
+        "有效",
+        "取消",
+        "結束"
+      ]
     },
     "Recurring": {
       "type": "object",
       "properties": {
         "period": {
           "type": "string",
-          "enum": ["隔週", "每月", "每季"]
+          "enum": [
+            "隔週",
+            "每月",
+            "每季"
+          ]
         },
         "week": {
           "type": "string",
@@ -322,13 +388,17 @@
           ]
         }
       },
-      "required": ["day", "period", "week"]
+      "required": [
+        "day",
+        "period",
+        "week"
+      ]
     },
     "ActivitySchemaModel": {
       "type": "object",
       "properties": {
         "creatorId": {
-          "type": "string"
+          "$ref": "#/definitions/Types.ObjectId"
         },
         "name": {
           "type": "string"
@@ -409,7 +479,10 @@
         },
         "type": {
           "type": "string",
-          "enum": ["線下", "線上"]
+          "enum": [
+            "線下",
+            "線上"
+          ]
         },
         "link": {
           "type": "string"
@@ -440,7 +513,11 @@
           "properties": {
             "period": {
               "type": "string",
-              "enum": ["隔週", "每月", "每季"]
+              "enum": [
+                "隔週",
+                "每月",
+                "每季"
+              ]
             },
             "week": {
               "type": "string",
@@ -467,15 +544,26 @@
               ]
             }
           },
-          "required": ["day", "period", "week"]
+          "required": [
+            "day",
+            "period",
+            "week"
+          ]
         },
         "ticketMode": {
           "type": "string",
-          "enum": ["揪咖", "售票"]
+          "enum": [
+            "揪咖",
+            "售票"
+          ]
         },
         "status": {
           "type": "string",
-          "enum": ["有效", "取消", "結束"]
+          "enum": [
+            "有效",
+            "取消",
+            "結束"
+          ]
         },
         "customField": {
           "type": "boolean"
@@ -522,7 +610,10 @@
             },
             "type": {
               "type": "string",
-              "enum": ["線下", "線上"]
+              "enum": [
+                "線下",
+                "線上"
+              ]
             },
             "location": {
               "type": "string"
@@ -541,7 +632,11 @@
             },
             "status": {
               "type": "string",
-              "enum": ["有效", "取消", "結束"]
+              "enum": [
+                "有效",
+                "取消",
+                "結束"
+              ]
             },
             "organizer": {
               "type": "object",
@@ -631,7 +726,11 @@
               "properties": {
                 "period": {
                   "type": "string",
-                  "enum": ["隔週", "每月", "每季"]
+                  "enum": [
+                    "隔週",
+                    "每月",
+                    "每季"
+                  ]
                 },
                 "week": {
                   "type": "string",
@@ -658,11 +757,18 @@
                   ]
                 }
               },
-              "required": ["day", "period", "week"]
+              "required": [
+                "day",
+                "period",
+                "week"
+              ]
             },
             "ticketMode": {
               "type": "string",
-              "enum": ["揪咖", "售票"]
+              "enum": [
+                "揪咖",
+                "售票"
+              ]
             },
             "customField": {
               "type": "boolean"
@@ -737,7 +843,9 @@
               ]
             }
           },
-          "required": ["organizer"]
+          "required": [
+            "organizer"
+          ]
         }
       ]
     },
@@ -754,11 +862,16 @@
           "type": "number"
         },
         "sort": {
-          "enum": ["asc", "des"],
+          "enum": [
+            "asc",
+            "des"
+          ],
           "type": "string"
         }
       },
-      "required": ["userId"]
+      "required": [
+        "userId"
+      ]
     },
     "MessageListSchemaModel": {
       "type": "object",
@@ -773,7 +886,11 @@
           "type": "string"
         }
       },
-      "required": ["activityId", "question", "userId"]
+      "required": [
+        "activityId",
+        "question",
+        "userId"
+      ]
     },
     "MessageSchemaModel": {
       "type": "object",
@@ -788,19 +905,37 @@
           "type": "string"
         }
       },
-      "required": ["answer", "messageListId", "userId"]
+      "required": [
+        "answer",
+        "messageListId",
+        "userId"
+      ]
     },
     "PaymentStatusEnum": {
       "type": "string",
-      "enum": ["已付款", "待付款", "付款失敗"]
+      "enum": [
+        "已付款",
+        "待付款",
+        "付款失敗"
+      ]
     },
     "PaymentMethodEnum": {
       "type": "string",
-      "enum": ["信用卡", "現金", "系統更新"]
+      "enum": [
+        "信用卡",
+        "現金",
+        "系統更新"
+      ]
     },
     "TicketStatusEnum": {
       "type": "string",
-      "enum": ["有效", "取消", "已使用", "保留", "無效票券"]
+      "enum": [
+        "有效",
+        "取消",
+        "已使用",
+        "保留",
+        "無效票券"
+      ]
     },
     "TicketSchemaModel": {
       "type": "object",
@@ -851,11 +986,19 @@
         },
         "paymentStatus": {
           "type": "string",
-          "enum": ["已付款", "待付款", "付款失敗"]
+          "enum": [
+            "已付款",
+            "待付款",
+            "付款失敗"
+          ]
         },
         "paymentMethod": {
           "type": "string",
-          "enum": ["信用卡", "現金", "系統更新"]
+          "enum": [
+            "信用卡",
+            "現金",
+            "系統更新"
+          ]
         },
         "count": {
           "type": "number"
@@ -865,7 +1008,13 @@
         },
         "ticketStatus": {
           "type": "string",
-          "enum": ["有效", "取消", "已使用", "保留", "無效票券"]
+          "enum": [
+            "有效",
+            "取消",
+            "已使用",
+            "保留",
+            "無效票券"
+          ]
         },
         "serialNumber": {
           "type": "string"
@@ -896,7 +1045,10 @@
     },
     "GenderEnum": {
       "type": "string",
-      "enum": ["男", "女"]
+      "enum": [
+        "男",
+        "女"
+      ]
     },
     "UserBase": {
       "type": "object",
@@ -911,7 +1063,11 @@
           "type": "string"
         }
       },
-      "required": ["displayName", "email", "password"]
+      "required": [
+        "displayName",
+        "email",
+        "password"
+      ]
     },
     "UserSchemaModel": {
       "type": "object",
@@ -926,7 +1082,10 @@
           "type": "string"
         },
         "gender": {
-          "enum": ["女", "男"],
+          "enum": [
+            "女",
+            "男"
+          ],
           "type": "string"
         },
         "age": {
@@ -957,7 +1116,11 @@
           "type": "string"
         }
       },
-      "required": ["displayName", "email", "password"]
+      "required": [
+        "displayName",
+        "email",
+        "password"
+      ]
     },
     "UserRegisterCredentials": {
       "allOf": [
@@ -974,7 +1137,11 @@
               "type": "string"
             }
           },
-          "required": ["displayName", "email", "password"]
+          "required": [
+            "displayName",
+            "email",
+            "password"
+          ]
         },
         {
           "type": "object",
@@ -983,46 +1150,52 @@
               "type": "string"
             }
           },
-          "required": ["confirmPassword"]
+          "required": [
+            "confirmPassword"
+          ]
         }
       ]
     },
     "UserTokenCredentials": {
-      "allOf": [
-        {
-          "type": "object",
-          "properties": {
-            "displayName": {
-              "type": "string"
-            },
-            "email": {
-              "type": "string"
-            }
-          },
-          "required": ["displayName", "email"]
-        },
-        {
-          "type": "object",
-          "properties": {
-            "_id": {
-              "$ref": "#/definitions/Types.ObjectId"
-            }
-          },
-          "required": ["_id"]
-        }
-      ]
-    },
-    "UserLoginCredentials": {
       "type": "object",
       "properties": {
-        "password": {
+        "_id": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Types.ObjectId"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "displayName": {
           "type": "string"
         },
         "email": {
           "type": "string"
         }
       },
-      "required": ["email", "password"]
+      "required": [
+        "_id",
+        "displayName",
+        "email"
+      ]
+    },
+    "UserLoginCredentials": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "email",
+        "password"
+      ]
     },
     "UserEditCredentials": {
       "type": "object",
@@ -1039,6 +1212,9 @@
         "email": {
           "type": "string"
         },
+        "googleId": {
+          "type": "string"
+        },
         "realName": {
           "type": "string"
         },
@@ -1046,7 +1222,10 @@
           "type": "string"
         },
         "gender": {
-          "enum": ["女", "男"],
+          "enum": [
+            "女",
+            "男"
+          ],
           "type": "string"
         },
         "introduction": {
@@ -1062,7 +1241,10 @@
           "type": "string"
         }
       },
-      "required": ["displayName", "email"]
+      "required": [
+        "displayName",
+        "email"
+      ]
     }
   }
 }

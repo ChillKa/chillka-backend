@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import Activity from '../model/activity.model';
 import { GetActivitiesParams } from '../type/activity.type';
 import { CoreError } from '../util/error-handler';
@@ -26,9 +27,12 @@ export const get = async ({
   sort = 'des',
 }: GetActivitiesParams) => {
   try {
-    const activities = await Activity.find({ creatorId: userId }).sort({
+    const activities = await Activity.find({
+      creatorId: new mongoose.Types.ObjectId(userId),
+    }).sort({
       createdAt: sort === 'des' ? -1 : 1,
     });
+
     const paginatedData = paginator(activities, page, limit);
 
     return paginatedData;

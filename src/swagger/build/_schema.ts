@@ -6,6 +6,20 @@
 export const _schema = {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
+    "SortEnum": {
+      "type": "string",
+      "enum": [
+        "asc",
+        "des"
+      ]
+    },
+    "SortType": {
+      "enum": [
+        "asc",
+        "des"
+      ],
+      "type": "string"
+    },
     "OrganizerSchemaModel": {
       "type": "object",
       "properties": {
@@ -189,7 +203,7 @@ export const _schema = {
       "type": "object",
       "properties": {
         "creatorId": {
-          "type": "string"
+          "$ref": "#/definitions/Types.ObjectId"
         },
         "name": {
           "type": "string"
@@ -948,42 +962,38 @@ export const _schema = {
       ]
     },
     "UserTokenCredentials": {
-      "allOf": [
-        {
-          "type": "object",
-          "properties": {
-            "displayName": {
-              "type": "string"
+      "type": "object",
+      "properties": {
+        "_id": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Types.ObjectId"
             },
-            "email": {
+            {
               "type": "string"
             }
-          },
-          "required": [
-            "displayName",
-            "email"
           ]
         },
-        {
-          "type": "object",
-          "properties": {
-            "_id": {
-              "$ref": "#/definitions/Types.ObjectId"
-            }
-          },
-          "required": [
-            "_id"
-          ]
+        "displayName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
         }
+      },
+      "required": [
+        "_id",
+        "displayName",
+        "email"
       ]
     },
     "UserLoginCredentials": {
       "type": "object",
       "properties": {
-        "password": {
+        "email": {
           "type": "string"
         },
-        "email": {
+        "password": {
           "type": "string"
         }
       },
@@ -1005,6 +1015,9 @@ export const _schema = {
           "type": "string"
         },
         "email": {
+          "type": "string"
+        },
+        "googleId": {
           "type": "string"
         },
         "realName": {

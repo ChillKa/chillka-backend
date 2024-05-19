@@ -34,7 +34,7 @@ const authorizeMiddleware = (
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as AuthDecoded;
 
-    req.body.user = {
+    req.cookies = {
       id: decoded.id,
     };
 

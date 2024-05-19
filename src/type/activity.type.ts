@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+import { SortType } from './model.type';
 import { OrganizerBase } from './organizer.type';
 
 export enum CategoryEnum {
@@ -60,7 +62,7 @@ export interface Recurring {
 }
 
 export interface ActivitySchemaModel {
-  creatorId: string;
+  creatorId: mongoose.Types.ObjectId;
   name: string;
   organizer: OrganizerBase;
   cover: string[];
@@ -98,5 +100,5 @@ export type GetActivitiesParams = {
   userId: string;
   page?: number;
   limit?: number;
-  sort?: 'des' | 'asc';
+  sort?: SortType;
 };
