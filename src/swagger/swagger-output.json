@@ -17,6 +17,17 @@
     }
   },
   "paths": {
+    "/api/swagger.json": {
+      "get": {
+        "description": "",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/register": {
       "post": {
         "tags": ["Auth"],
@@ -109,9 +120,123 @@
           }
         ]
       }
+    },
+    "/api/auth/activities": {
+      "post": {
+        "tags": ["Activity"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "get": {
+        "tags": ["Activity"],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
     }
   },
   "schemas": {
+    "OrganizerSchemaModel": {
+      "type": "object",
+      "properties": {
+        "profilePicture": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "contactName": {
+          "type": "string"
+        },
+        "contactPhone": {
+          "type": "string"
+        },
+        "contactEmail": {
+          "type": "string"
+        },
+        "websiteName": {
+          "type": "string"
+        },
+        "websiteURL": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "contactEmail",
+        "contactName",
+        "contactPhone",
+        "name",
+        "profilePicture",
+        "websiteName",
+        "websiteURL"
+      ]
+    },
+    "OrganizerBase": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "profilePicture": {
+          "type": "string"
+        },
+        "contactName": {
+          "type": "string"
+        },
+        "contactPhone": {
+          "type": "string"
+        },
+        "contactEmail": {
+          "type": "string"
+        },
+        "websiteName": {
+          "type": "string"
+        },
+        "websiteURL": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "contactEmail",
+        "contactName",
+        "contactPhone",
+        "name",
+        "profilePicture",
+        "websiteName",
+        "websiteURL"
+      ]
+    },
     "CategoryEnum": {
       "type": "string",
       "enum": [
@@ -165,18 +290,6 @@
       "type": "string",
       "enum": ["有效", "取消", "結束"]
     },
-    "Cover": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string"
-        },
-        "url": {
-          "type": "string"
-        }
-      },
-      "required": ["type", "url"]
-    },
     "Recurring": {
       "type": "object",
       "properties": {
@@ -214,28 +327,54 @@
     "ActivitySchemaModel": {
       "type": "object",
       "properties": {
-        "organizerId": {
-          "$ref": "#/definitions/Types.ObjectId"
+        "creatorId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "organizer": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "profilePicture": {
+              "type": "string"
+            },
+            "contactName": {
+              "type": "string"
+            },
+            "contactPhone": {
+              "type": "string"
+            },
+            "contactEmail": {
+              "type": "string"
+            },
+            "websiteName": {
+              "type": "string"
+            },
+            "websiteURL": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "contactEmail",
+            "contactName",
+            "contactPhone",
+            "name",
+            "profilePicture",
+            "websiteName",
+            "websiteURL"
+          ]
         },
         "cover": {
           "type": "array",
           "items": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string"
-              },
-              "url": {
-                "type": "string"
-              }
-            },
-            "required": ["type", "url"]
+            "type": "string"
           }
         },
         "thumbnail": {
-          "type": "string"
-        },
-        "name": {
           "type": "string"
         },
         "startDateTime": {
@@ -343,19 +482,13 @@
         },
         "ticketRequired": {
           "type": "boolean"
-        },
-        "participantAmount": {
-          "type": "number"
-        },
-        "checkedInParticipantsAmount": {
-          "type": "number"
         }
       },
       "required": [
         "address",
         "category",
-        "checkedInParticipantsAmount",
         "cover",
+        "creatorId",
         "customField",
         "details",
         "displayRemainingTickets",
@@ -367,8 +500,7 @@
         "location",
         "name",
         "noEndDate",
-        "organizerId",
-        "participantAmount",
+        "organizer",
         "price",
         "recurring",
         "startDateTime",
@@ -379,6 +511,254 @@
         "ticketRequired",
         "type"
       ]
+    },
+    "ActivityCreateCredentials": {
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "link": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "enum": ["線下", "線上"]
+            },
+            "location": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "details": {
+              "type": "string"
+            },
+            "summary": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string",
+              "enum": ["有效", "取消", "結束"]
+            },
+            "organizer": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "profilePicture": {
+                  "type": "string"
+                },
+                "contactName": {
+                  "type": "string"
+                },
+                "contactPhone": {
+                  "type": "string"
+                },
+                "contactEmail": {
+                  "type": "string"
+                },
+                "websiteName": {
+                  "type": "string"
+                },
+                "websiteURL": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "contactEmail",
+                "contactName",
+                "contactPhone",
+                "name",
+                "profilePicture",
+                "websiteName",
+                "websiteURL"
+              ]
+            },
+            "cover": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "thumbnail": {
+              "type": "string"
+            },
+            "startDateTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "fromToday": {
+              "type": "boolean"
+            },
+            "endDateTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "noEndDate": {
+              "type": "boolean"
+            },
+            "price": {
+              "type": "number"
+            },
+            "category": {
+              "type": "string",
+              "enum": [
+                "戶外踏青",
+                "社交活動",
+                "興趣嗜好",
+                "運動健身",
+                "健康生活",
+                "科技玩物",
+                "藝術文化",
+                "遊戲"
+              ]
+            },
+            "isPrivate": {
+              "type": "boolean"
+            },
+            "displayRemainingTickets": {
+              "type": "boolean"
+            },
+            "isRecurring": {
+              "type": "boolean"
+            },
+            "recurring": {
+              "type": "object",
+              "properties": {
+                "period": {
+                  "type": "string",
+                  "enum": ["隔週", "每月", "每季"]
+                },
+                "week": {
+                  "type": "string",
+                  "enum": [
+                    "每週",
+                    "隔週",
+                    "第一週",
+                    "第二週",
+                    "第三週",
+                    "第四週",
+                    "最後一週"
+                  ]
+                },
+                "day": {
+                  "type": "string",
+                  "enum": [
+                    "星期一",
+                    "星期二",
+                    "星期三",
+                    "星期四",
+                    "星期五",
+                    "星期六",
+                    "星期日"
+                  ]
+                }
+              },
+              "required": ["day", "period", "week"]
+            },
+            "ticketMode": {
+              "type": "string",
+              "enum": ["揪咖", "售票"]
+            },
+            "customField": {
+              "type": "boolean"
+            },
+            "ticketRequired": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "address",
+            "category",
+            "cover",
+            "customField",
+            "details",
+            "displayRemainingTickets",
+            "endDateTime",
+            "fromToday",
+            "isPrivate",
+            "isRecurring",
+            "link",
+            "location",
+            "name",
+            "noEndDate",
+            "organizer",
+            "price",
+            "recurring",
+            "startDateTime",
+            "status",
+            "summary",
+            "thumbnail",
+            "ticketMode",
+            "ticketRequired",
+            "type"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "organizer": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "profilePicture": {
+                  "type": "string"
+                },
+                "contactName": {
+                  "type": "string"
+                },
+                "contactPhone": {
+                  "type": "string"
+                },
+                "contactEmail": {
+                  "type": "string"
+                },
+                "websiteName": {
+                  "type": "string"
+                },
+                "websiteURL": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "contactEmail",
+                "contactName",
+                "contactPhone",
+                "name",
+                "profilePicture",
+                "websiteName",
+                "websiteURL"
+              ]
+            }
+          },
+          "required": ["organizer"]
+        }
+      ]
+    },
+    "GetActivitiesParams": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "page": {
+          "type": "number"
+        },
+        "limit": {
+          "type": "number"
+        },
+        "sort": {
+          "enum": ["asc", "des"],
+          "type": "string"
+        }
+      },
+      "required": ["userId"]
     },
     "MessageListSchemaModel": {
       "type": "object",
@@ -409,45 +789,6 @@
         }
       },
       "required": ["answer", "messageListId", "userId"]
-    },
-    "OrganizerSchemaModel": {
-      "type": "object",
-      "properties": {
-        "userId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "profilePicture": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "contactName": {
-          "type": "string"
-        },
-        "contactPhone": {
-          "type": "string"
-        },
-        "contactEmail": {
-          "type": "string"
-        },
-        "websiteName": {
-          "type": "string"
-        },
-        "websiteURL": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "contactEmail",
-        "contactName",
-        "contactPhone",
-        "name",
-        "profilePicture",
-        "userId",
-        "websiteName",
-        "websiteURL"
-      ]
     },
     "PaymentStatusEnum": {
       "type": "string",
@@ -570,7 +911,7 @@
           "type": "string"
         }
       },
-      "required": ["displayName", "email"]
+      "required": ["displayName", "email", "password"]
     },
     "UserSchemaModel": {
       "type": "object",
@@ -585,7 +926,7 @@
           "type": "string"
         },
         "gender": {
-          "enum": ["FEMALE", "MALE"],
+          "enum": ["女", "男"],
           "type": "string"
         },
         "age": {
@@ -616,33 +957,68 @@
           "type": "string"
         }
       },
-      "required": ["displayName", "email"]
+      "required": ["displayName", "email", "password"]
     },
     "UserRegisterCredentials": {
-      "type": "object",
-      "properties": {
-        "displayName": {
-          "type": "string"
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "displayName": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          },
+          "required": ["displayName", "email", "password"]
         },
-        "email": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
-        },
-        "confirmPassword": {
-          "type": "string"
+        {
+          "type": "object",
+          "properties": {
+            "confirmPassword": {
+              "type": "string"
+            }
+          },
+          "required": ["confirmPassword"]
         }
-      },
-      "required": ["displayName", "email"]
+      ]
+    },
+    "UserTokenCredentials": {
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "displayName": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            }
+          },
+          "required": ["displayName", "email"]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "_id": {
+              "$ref": "#/definitions/Types.ObjectId"
+            }
+          },
+          "required": ["_id"]
+        }
+      ]
     },
     "UserLoginCredentials": {
       "type": "object",
       "properties": {
-        "email": {
+        "password": {
           "type": "string"
         },
-        "password": {
+        "email": {
           "type": "string"
         }
       },
@@ -670,7 +1046,7 @@
           "type": "string"
         },
         "gender": {
-          "enum": ["FEMALE", "MALE"],
+          "enum": ["女", "男"],
           "type": "string"
         },
         "introduction": {
