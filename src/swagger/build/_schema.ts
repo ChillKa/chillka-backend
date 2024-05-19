@@ -539,6 +539,9 @@ export const _schema = {
     "UserBase": {
       "type": "object",
       "properties": {
+        "_id": {
+          "type": "string"
+        },
         "displayName": {
           "type": "string"
         },
@@ -546,6 +549,9 @@ export const _schema = {
           "type": "string"
         },
         "password": {
+          "type": "string"
+        },
+        "confirmPassword": {
           "type": "string"
         }
       },
@@ -589,6 +595,9 @@ export const _schema = {
         "address": {
           "type": "string"
         },
+        "_id": {
+          "type": "string"
+        },
         "displayName": {
           "type": "string"
         },
@@ -596,6 +605,9 @@ export const _schema = {
           "type": "string"
         },
         "password": {
+          "type": "string"
+        },
+        "confirmPassword": {
           "type": "string"
         }
       },
@@ -608,6 +620,9 @@ export const _schema = {
     "UserRegisterCredentials": {
       "type": "object",
       "properties": {
+        "_id": {
+          "type": "string"
+        },
         "displayName": {
           "type": "string"
         },
@@ -615,6 +630,9 @@ export const _schema = {
           "type": "string"
         },
         "password": {
+          "type": "string"
+        },
+        "confirmPassword": {
           "type": "string"
         }
       },
@@ -627,10 +645,16 @@ export const _schema = {
     "UserLoginCredentials": {
       "type": "object",
       "properties": {
+        "_id": {
+          "type": "string"
+        },
         "email": {
           "type": "string"
         },
         "password": {
+          "type": "string"
+        },
+        "confirmPassword": {
           "type": "string"
         }
       },
@@ -648,10 +672,16 @@ export const _schema = {
         "age": {
           "type": "number"
         },
+        "_id": {
+          "type": "string"
+        },
         "displayName": {
           "type": "string"
         },
         "email": {
+          "type": "string"
+        },
+        "confirmPassword": {
           "type": "string"
         },
         "realName": {

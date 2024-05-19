@@ -1,29 +1,32 @@
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import User from '../model/user.model';
 import {
   UserLoginCredentials,
   UserRegisterCredentials,
 } from '../type/user.type';
 import { CoreError } from '../util/error-handler';
+import generateToken from '../util/generate-token';
 
 export const register = async ({
   email,
   password,
+  confirmPassword,
   displayName,
 }: UserRegisterCredentials) => {
+  if (password !== confirmPassword)
+    throw new CoreError('Password and Confirm Password inconsistent');
+
   const existingUser = await User.findOne({ email });
 
-  if (existingUser) {
-    throw new CoreError('Email already in use');
-  }
+  if (existingUser) throw new CoreError('Email already in use');
 
   const hashedPassword = await bcrypt.hash(password, 10);
   const user = new User({ email, password: hashedPassword, displayName });
   try {
     await user.save();
+    const data = { message: 'Register succeed' };
 
-    return 'Register successed';
+    return data;
   } catch {
     throw new CoreError('Register failed.');
   }
@@ -36,12 +39,7 @@ export const login = async ({ email, password }: UserLoginCredentials) => {
   if (!(await user.comparePassword(password)))
     throw new CoreError(`Wrong password`);
 
-  const token = jwt.sign(
-    { id: user._id, username: user.displayName },
-    process.env.JWT_SECRET!
-  );
-  const userId = user._id;
-  const data = { token, userId };
+  const data = { token: generateToken(user) };
 
   return data;
 };

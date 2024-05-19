@@ -1,7 +1,10 @@
+import mongoose from 'mongoose';
+
 export enum GenderEnum {
   MALE = '男',
   FEMALE = '女',
 }
+
 export interface UserBase {
   displayName: string;
   email: string;
@@ -11,7 +14,7 @@ export interface UserBase {
 export interface UserSchemaModel extends UserBase {
   realName?: string;
   birthday?: string;
-  gender?: 'MALE' | 'FEMALE';
+  gender?: GenderEnum;
   age?: number;
   introduction?: string;
   phoneAreaCode?: number;
@@ -20,6 +23,13 @@ export interface UserSchemaModel extends UserBase {
   address?: string;
 }
 
-export type UserRegisterCredentials = UserBase;
+export type UserRegisterCredentials = UserBase & {
+  confirmPassword: string;
+};
+
+export type UserTokenCredentials = Omit<UserBase, 'password'> & {
+  _id: mongoose.Types.ObjectId;
+};
+
 export type UserLoginCredentials = Omit<UserBase, 'displayName'>;
 export type UserEditCredentials = Omit<UserSchemaModel, 'password'>;
