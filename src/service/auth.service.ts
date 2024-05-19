@@ -24,7 +24,7 @@ export const register = async ({
   const user = new User({ email, password: hashedPassword, displayName });
   try {
     await user.save();
-    const data = { token: generateToken(user) };
+    const data = { message: 'Register succeed' };
 
     return data;
   } catch {
