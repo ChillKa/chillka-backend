@@ -3,9 +3,11 @@ import jwt from 'jsonwebtoken';
 import { CoreError, throwAPIError } from '../util/error-handler';
 
 interface AuthDecoded {
-  id: string;
-  username: string;
+  _id: string;
+  displayName: string;
+  email: string;
   iat: number;
+  exp: number;
 }
 
 const authorizeMiddleware = (
@@ -33,9 +35,8 @@ const authorizeMiddleware = (
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as AuthDecoded;
-
     req.cookies = {
-      id: decoded.id,
+      id: decoded._id,
     };
 
     return next();
