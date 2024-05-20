@@ -56,9 +56,11 @@ const authRouter = () => {
 
       const expires = new Date(Date.now() + 3600 * 1000); // 1 hour from now
       const options = {
-        httpOnly: true,
+        // httpOnly: true,
         expires,
         path: '/',
+        SameSite: 'None,',
+        secure: true,
       };
 
       res
