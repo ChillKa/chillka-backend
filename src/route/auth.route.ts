@@ -1,4 +1,5 @@
 import { Request, Response, Router } from 'express';
+import passport from 'passport';
 import { zodValidateMiddleware } from '../middleware/validate.middleware';
 import * as AuthService from '../service/auth.service';
 import { throwAPIError } from '../util/error-handler';
@@ -32,11 +33,37 @@ const authRouter = () => {
 
       try {
         const data = await AuthService.login(req.body);
-
         res.status(200).send(data);
       } catch (error) {
         throwAPIError({ res, error, statusCode: 400 });
       }
+    }
+  );
+
+  router.get(
+    '/google-oauth',
+    passport.authenticate('google', {
+      scope: ['email', 'profile'],
+    })
+  );
+
+  router.get(
+    '/google-oauth/callback',
+    passport.authenticate('google', { session: false }),
+    async (req: Request, res: Response) => {
+      // create src/typings/express/index.d.ts for fix the req.user error
+      const data = await AuthService.googleOauth(req.user);
+
+      const expires = new Date(Date.now() + 3600 * 1000); // 1 hour from now
+      const options = {
+        httpOnly: true,
+        expires,
+        path: '/',
+      };
+
+      res
+        .cookie('session', data.token, options)
+        .redirect(process.env.FRONTEND ?? '');
     }
   );
 

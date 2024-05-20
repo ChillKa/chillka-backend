@@ -12,6 +12,7 @@ export interface UserBase {
 }
 
 export interface UserSchemaModel extends UserBase {
+  googleId?: string;
   realName?: string;
   birthday?: string;
   gender?: GenderEnum;
@@ -27,8 +28,11 @@ export type UserRegisterCredentials = UserBase & {
   confirmPassword: string;
 };
 
-export type UserTokenCredentials = Omit<UserBase, 'password'> & {
-  _id: mongoose.Types.ObjectId;
+// _id add string property because the passport request is possible to be undefined
+export type UserTokenCredentials = {
+  _id: mongoose.Types.ObjectId | string;
+  displayName: string;
+  email: string;
 };
 
 export type UserLoginCredentials = Omit<UserBase, 'displayName'>;

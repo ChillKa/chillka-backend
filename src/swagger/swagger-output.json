@@ -560,9 +560,6 @@
     "UserBase": {
       "type": "object",
       "properties": {
-        "_id": {
-          "type": "string"
-        },
         "displayName": {
           "type": "string"
         },
@@ -571,16 +568,16 @@
         },
         "password": {
           "type": "string"
-        },
-        "confirmPassword": {
-          "type": "string"
         }
       },
-      "required": ["displayName", "email", "password"]
+      "required": ["displayName", "email"]
     },
     "UserSchemaModel": {
       "type": "object",
       "properties": {
+        "googleId": {
+          "type": "string"
+        },
         "realName": {
           "type": "string"
         },
@@ -619,7 +616,7 @@
           "type": "string"
         }
       },
-      "required": ["displayName", "email", "password"]
+      "required": ["displayName", "email"]
     },
     "UserRegisterCredentials": {
       "type": "object",
@@ -632,9 +629,12 @@
         },
         "password": {
           "type": "string"
+        },
+        "confirmPassword": {
+          "type": "string"
         }
       },
-      "required": ["displayName", "email", "password"]
+      "required": ["displayName", "email"]
     },
     "UserLoginCredentials": {
       "type": "object",

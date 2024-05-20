@@ -539,9 +539,6 @@ export const _schema = {
     "UserBase": {
       "type": "object",
       "properties": {
-        "_id": {
-          "type": "string"
-        },
         "displayName": {
           "type": "string"
         },
@@ -549,9 +546,6 @@ export const _schema = {
           "type": "string"
         },
         "password": {
-          "type": "string"
-        },
-        "confirmPassword": {
           "type": "string"
         }
       },
@@ -564,6 +558,9 @@ export const _schema = {
     "UserSchemaModel": {
       "type": "object",
       "properties": {
+        "googleId": {
+          "type": "string"
+        },
         "realName": {
           "type": "string"
         },
@@ -572,8 +569,8 @@ export const _schema = {
         },
         "gender": {
           "enum": [
-            "FEMALE",
-            "MALE"
+            "女",
+            "男"
           ],
           "type": "string"
         },
@@ -595,9 +592,6 @@ export const _schema = {
         "address": {
           "type": "string"
         },
-        "_id": {
-          "type": "string"
-        },
         "displayName": {
           "type": "string"
         },
@@ -605,9 +599,6 @@ export const _schema = {
           "type": "string"
         },
         "password": {
-          "type": "string"
-        },
-        "confirmPassword": {
           "type": "string"
         }
       },
@@ -618,43 +609,72 @@ export const _schema = {
       ]
     },
     "UserRegisterCredentials": {
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "displayName": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "displayName",
+            "email",
+            "password"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "confirmPassword": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "confirmPassword"
+          ]
+        }
+      ]
+    },
+    "UserTokenCredentials": {
       "type": "object",
       "properties": {
         "_id": {
-          "type": "string"
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Types.ObjectId"
+            },
+            {
+              "type": "string"
+            }
+          ]
         },
         "displayName": {
           "type": "string"
         },
         "email": {
           "type": "string"
-        },
-        "password": {
-          "type": "string"
-        },
-        "confirmPassword": {
-          "type": "string"
         }
       },
       "required": [
+        "_id",
         "displayName",
-        "email",
-        "password"
+        "email"
       ]
     },
     "UserLoginCredentials": {
       "type": "object",
       "properties": {
-        "_id": {
-          "type": "string"
-        },
         "email": {
           "type": "string"
         },
         "password": {
-          "type": "string"
-        },
-        "confirmPassword": {
           "type": "string"
         }
       },
@@ -672,16 +692,13 @@ export const _schema = {
         "age": {
           "type": "number"
         },
-        "_id": {
-          "type": "string"
-        },
         "displayName": {
           "type": "string"
         },
         "email": {
           "type": "string"
         },
-        "confirmPassword": {
+        "googleId": {
           "type": "string"
         },
         "realName": {
@@ -692,8 +709,8 @@ export const _schema = {
         },
         "gender": {
           "enum": [
-            "FEMALE",
-            "MALE"
+            "女",
+            "男"
           ],
           "type": "string"
         },

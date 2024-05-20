@@ -6,6 +6,7 @@ import authRoute from './route/auth.route';
 import swaggerRoute from './route/swagger.route';
 import userRoute from './route/user.route';
 import swaggerDocument from './swagger/swagger-output.json';
+import googleStrategy from './util/google-strategy';
 
 const app = express();
 const port = process.env.PORT;
@@ -24,7 +25,9 @@ const options = {
   },
 };
 
+googleStrategy();
 app.use(express.json());
+
 app.use('/api', swaggerRoute, authRoute);
 app.use(
   '/api/auth',
