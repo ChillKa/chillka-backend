@@ -643,49 +643,38 @@ export const _schema = {
       ]
     },
     "UserTokenCredentials": {
-      "allOf": [
-        {
-          "type": "object",
-          "properties": {
-            "displayName": {
-              "type": "string"
+      "type": "object",
+      "properties": {
+        "_id": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Types.ObjectId"
             },
-            "email": {
+            {
               "type": "string"
             }
-          },
-          "required": [
-            "displayName",
-            "email"
           ]
         },
-        {
-          "type": "object",
-          "properties": {
-            "_id": {
-              "anyOf": [
-                {
-                  "$ref": "#/definitions/Types.ObjectId"
-                },
-                {
-                  "type": "string"
-                }
-              ]
-            }
-          },
-          "required": [
-            "_id"
-          ]
+        "displayName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
         }
+      },
+      "required": [
+        "_id",
+        "displayName",
+        "email"
       ]
     },
     "UserLoginCredentials": {
       "type": "object",
       "properties": {
-        "password": {
+        "email": {
           "type": "string"
         },
-        "email": {
+        "password": {
           "type": "string"
         }
       },
