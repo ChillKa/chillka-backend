@@ -1,9 +1,9 @@
 import bcrypt from 'bcryptjs';
 import User from '../model/user.model';
 import {
-  UserBase,
   UserLoginCredentials,
   UserRegisterCredentials,
+  UserTokenCredentials,
 } from '../type/user.type';
 import { CoreError } from '../util/error-handler';
 import generateToken from '../util/generate-token';
@@ -25,7 +25,7 @@ export const register = async ({
   const user = new User({ email, password: hashedPassword, displayName });
   try {
     await user.save();
-    const data = { token: generateToken(user) };
+    const data = { message: 'Register succeed' };
 
     return data;
   } catch {
@@ -45,8 +45,14 @@ export const login = async ({ email, password }: UserLoginCredentials) => {
   return data;
 };
 
-export const googleOauth = async (user: UserBase | undefined) => {
-  const data = { token: generateToken(user) };
+export const googleOauth = async (user: UserTokenCredentials | undefined) => {
+  const userToken: UserTokenCredentials = {
+    _id: user?._id ?? '',
+    displayName: user?.displayName ?? '',
+    email: user?.email ?? '',
+  };
+
+  const data = { token: generateToken(userToken) };
 
   return data;
 };

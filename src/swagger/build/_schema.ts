@@ -556,6 +556,9 @@ export const _schema = {
         },
         "confirmPassword": {
           "type": "string"
+        },
+        "confirmPassword": {
+          "type": "string"
         }
       },
       "required": [
@@ -615,6 +618,9 @@ export const _schema = {
         },
         "confirmPassword": {
           "type": "string"
+        },
+        "confirmPassword": {
+          "type": "string"
         }
       },
       "required": [
@@ -639,6 +645,9 @@ export const _schema = {
           "type": "string"
         },
         "password": {
+          "type": "string"
+        },
+        "confirmPassword": {
           "type": "string"
         },
         "confirmPassword": {
@@ -668,6 +677,9 @@ export const _schema = {
         },
         "confirmPassword": {
           "type": "string"
+        },
+        "confirmPassword": {
+          "type": "string"
         }
       },
       "required": [
@@ -687,6 +699,9 @@ export const _schema = {
         "_id": {
           "type": "string"
         },
+        "_id": {
+          "type": "string"
+        },
         "displayName": {
           "type": "string"
         },
@@ -694,6 +709,9 @@ export const _schema = {
           "type": "string"
         },
         "email": {
+          "type": "string"
+        },
+        "confirmPassword": {
           "type": "string"
         },
         "confirmPassword": {
