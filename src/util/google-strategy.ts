@@ -2,7 +2,7 @@ import passport from 'passport';
 import passportGoogle from 'passport-google-oauth20';
 import User from '../model/user.model';
 
-const googleOauth = () => {
+const googleStrategy = () => {
   const GoogleStrategy = passportGoogle.Strategy;
 
   passport.use(
@@ -42,4 +42,4 @@ const googleOauth = () => {
   );
 };
 
-export default googleOauth;
+export default googleStrategy;
