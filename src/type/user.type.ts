@@ -6,15 +6,13 @@ export enum GenderEnum {
 }
 
 export interface UserBase {
-  googleId?: string;
-  _id?: string;
   displayName: string;
   email: string;
   password: string;
-  confirmPassword?: string;
 }
 
 export interface UserSchemaModel extends UserBase {
+  googleId?: string;
   realName?: string;
   birthday?: string;
   gender?: GenderEnum;
@@ -30,8 +28,9 @@ export type UserRegisterCredentials = UserBase & {
   confirmPassword: string;
 };
 
+// _id add string property because the passport request is possible to be undefined
 export type UserTokenCredentials = Omit<UserBase, 'password'> & {
-  _id: mongoose.Types.ObjectId;
+  _id: mongoose.Types.ObjectId | string;
 };
 
 export type UserLoginCredentials = Omit<UserBase, 'displayName'>;

@@ -8,10 +8,9 @@ const googleOauth = () => {
   passport.use(
     new GoogleStrategy(
       {
-        clientID: process.env.CLIENT_ID ?? '',
-        clientSecret: process.env.CLIENT_SECRET ?? '',
-        callbackURL:
-          process.env.HOST!.concat('/api/google-oauth/callback') ?? '',
+        clientID: process.env.GOOGLE_CLIENT_ID!,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+        callbackURL: process.env.HOST!.concat('/api/google-oauth/callback'),
       },
       async (accessToken, refreshToken, profile, done) => {
         const googleUser = await User.findOne({ googleId: profile.id });

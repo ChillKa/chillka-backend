@@ -51,6 +51,7 @@ const authRouter = () => {
     '/google-oauth/callback',
     passport.authenticate('google', { session: false }),
     async (req: Request, res: Response) => {
+      // create src/typings/express/index.d.ts for fix the req.user error
       const data = await AuthService.googleOauth(req.user);
 
       const expires = new Date(Date.now() + 3600 * 1000); // 1 hour from now

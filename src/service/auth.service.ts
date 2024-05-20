@@ -45,6 +45,8 @@ export const login = async ({ email, password }: UserLoginCredentials) => {
   return data;
 };
 
+// declare user undefined because the passport request is possible to be undefined
+// UserTokenCredentials add _id property string is for this case
 export const googleOauth = async (user: UserTokenCredentials | undefined) => {
   const userToken: UserTokenCredentials = {
     _id: user?._id ?? '',
