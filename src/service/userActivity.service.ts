@@ -5,7 +5,11 @@ import { CoreError } from '../util/error-handler';
 import { mockActivity } from '../util/mock/data';
 import { paginator } from '../util/paginator';
 
-export const create = async (userId: string) => {
+export const create = async (userId: mongoose.Types.ObjectId | undefined) => {
+  console.log('userId', userId);
+  if (!userId)
+    throw new CoreError('Unable to create activity without user id.');
+
   const updatedActivity = new Activity({
     ...mockActivity,
     creatorId: userId,
@@ -27,8 +31,11 @@ export const get = async ({
   sort = 'des',
 }: GetActivitiesParams) => {
   try {
+    if (!userId)
+      throw new CoreError('Unable to get activities without user id.');
+
     const activities = await Activity.find({
-      creatorId: new mongoose.Types.ObjectId(userId),
+      creatorId: userId,
     }).sort({
       createdAt: sort === 'des' ? -1 : 1,
     });

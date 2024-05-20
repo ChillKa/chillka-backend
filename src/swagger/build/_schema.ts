@@ -658,7 +658,7 @@ export const _schema = {
       "type": "object",
       "properties": {
         "userId": {
-          "type": "string"
+          "$ref": "#/definitions/Types.ObjectId"
         },
         "page": {
           "type": "number"
@@ -965,14 +965,7 @@ export const _schema = {
       "type": "object",
       "properties": {
         "_id": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/Types.ObjectId"
-            },
-            {
-              "type": "string"
-            }
-          ]
+          "$ref": "#/definitions/Types.ObjectId"
         },
         "displayName": {
           "type": "string"

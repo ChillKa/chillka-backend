@@ -28,9 +28,8 @@ export type UserRegisterCredentials = UserBase & {
   confirmPassword: string;
 };
 
-// _id add string property because the passport request is possible to be undefined
 export type UserTokenCredentials = {
-  _id: mongoose.Types.ObjectId | string;
+  _id: mongoose.Types.ObjectId;
   displayName: string;
   email: string;
 };

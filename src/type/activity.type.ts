@@ -97,7 +97,7 @@ export type ActivityCreateCredentials = Omit<
 };
 
 export type GetActivitiesParams = {
-  userId: string;
+  userId: mongoose.Types.ObjectId | undefined;
   page?: number;
   limit?: number;
   sort?: SortType;

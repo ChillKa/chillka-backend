@@ -1,12 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
+import mongoose from 'mongoose';
 import { CoreError, throwAPIError } from '../util/error-handler';
 
 interface AuthDecoded {
   _id: string;
   displayName: string;
   email: string;
-  iat: number;
+  int: number;
   exp: number;
 }
 
@@ -35,8 +36,11 @@ const authorizeMiddleware = (
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as AuthDecoded;
-    req.cookies = {
-      id: decoded._id,
+
+    req.user = {
+      _id: new mongoose.Types.ObjectId(decoded._id),
+      displayName: decoded.displayName,
+      email: decoded.email,
     };
 
     return next();

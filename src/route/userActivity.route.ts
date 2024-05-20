@@ -14,7 +14,7 @@ const userActivityRouter = () => {
     async (req: Request, res: Response) => {
       /* #swagger.tags = ['Activity'] */
 
-      const userId = req.cookies.id;
+      const userId = req.user?._id;
       try {
         const data = await UserActivityService.create(userId);
         res.status(200).send(data);
@@ -47,7 +47,7 @@ const userActivityRouter = () => {
           }
       */
 
-      const userId = req.cookies.id;
+      const userId = req.user?._id;
       try {
         const activities = await UserActivityService.get({
           userId,

@@ -769,7 +769,7 @@
       "type": "object",
       "properties": {
         "userId": {
-          "type": "string"
+          "$ref": "#/definitions/Types.ObjectId"
         },
         "page": {
           "type": "number"
@@ -1015,14 +1015,7 @@
       "type": "object",
       "properties": {
         "_id": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/Types.ObjectId"
-            },
-            {
-              "type": "string"
-            }
-          ]
+          "$ref": "#/definitions/Types.ObjectId"
         },
         "displayName": {
           "type": "string"
