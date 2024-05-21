@@ -1,3 +1,4 @@
+import cors from 'cors';
 import 'dotenv/config';
 import express from 'express';
 import mongoose from 'mongoose';
@@ -41,6 +42,13 @@ app.use(
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocument, options)
 );
+
+const corsOptions = {
+  origin: process.env.FRONTEND,
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 
 mongoose.connect(process.env.MONGODB_URL ?? '').then(() => {
   console.log('Connected to the database by mongoose');

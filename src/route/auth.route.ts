@@ -60,7 +60,6 @@ const authRouter = () => {
         path: '/',
         SameSite: 'none',
         httpOnly: false,
-        name: 'MyCoolWebAppCookieName',
         secure: true,
       };
 
