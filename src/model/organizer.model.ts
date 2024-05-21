@@ -5,11 +5,6 @@ type OrganizerModel = Model<OrganizerSchemaModel, object>;
 
 const OrganizerSchema = new Schema<OrganizerSchemaModel, OrganizerModel>(
   {
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-      required: true,
-    },
     profilePicture: {
       type: Schema.Types.String,
     },

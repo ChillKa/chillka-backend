@@ -1,7 +1,4 @@
-import mongoose from 'mongoose';
-
 export interface OrganizerSchemaModel {
-  userId: mongoose.Types.ObjectId;
   profilePicture: string;
   name: string;
   contactName: string;
@@ -10,3 +7,5 @@ export interface OrganizerSchemaModel {
   websiteName: string;
   websiteURL: string;
 }
+
+export type OrganizerBase = Omit<OrganizerSchemaModel, 'userId'>;

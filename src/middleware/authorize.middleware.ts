@@ -1,6 +1,15 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
+import mongoose from 'mongoose';
 import { CoreError, throwAPIError } from '../util/error-handler';
+
+interface AuthDecoded {
+  _id: string;
+  displayName: string;
+  email: string;
+  int: number;
+  exp: number;
+}
 
 const authorizeMiddleware = (
   req: Request,
@@ -26,7 +35,13 @@ const authorizeMiddleware = (
   }
 
   try {
-    const _decoded = jwt.verify(token, process.env.JWT_SECRET!);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as AuthDecoded;
+
+    req.user = {
+      _id: new mongoose.Types.ObjectId(decoded._id),
+      displayName: decoded.displayName,
+      email: decoded.email,
+    };
 
     return next();
   } catch {

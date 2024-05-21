@@ -38,7 +38,7 @@ export const login = async ({ email, password }: UserLoginCredentials) => {
   if (!user) throw new CoreError('User not found');
 
   if (!(await user.comparePassword(password)))
-    throw new CoreError(`Wrong password`);
+    throw new CoreError('Wrong password');
 
   const data = { token: generateToken(user) };
 
@@ -48,12 +48,13 @@ export const login = async ({ email, password }: UserLoginCredentials) => {
 // declare user undefined because the passport request is possible to be undefined
 // UserTokenCredentials add _id property string is for this case
 export const googleOauth = async (user: UserTokenCredentials | undefined) => {
-  const userToken: UserTokenCredentials = {
-    _id: user?._id ?? '',
-    displayName: user?.displayName ?? '',
-    email: user?.email ?? '',
-  };
+  if (!user) throw new CoreError('User not found');
 
+  const userToken: UserTokenCredentials = {
+    _id: user._id,
+    displayName: user.displayName,
+    email: user?.email,
+  };
   const data = { token: generateToken(userToken) };
 
   return data;

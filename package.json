@@ -24,6 +24,9 @@
     "*.{js,ts}": [
       "eslint --cache --fix",
       "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
     ]
   },
   "config": {
@@ -33,6 +36,7 @@
     }
   },
   "dependencies": {
+    "@faker-js/faker": "^8.4.1",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",

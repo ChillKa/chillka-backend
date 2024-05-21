@@ -12,7 +12,7 @@ const userRouter = () => {
     '/user/:userId',
     authorizeMiddleware,
     async (req: Request, res: Response) => {
-      // #swagger.tags = ['User']
+      /* #swagger.tags = ['User'] */
 
       try {
         const userData = await UserService.get(req.params.userId);
@@ -28,8 +28,12 @@ const userRouter = () => {
     authorizeMiddleware,
     zodValidateMiddleware(editUserSchema),
     async (req: Request, res: Response) => {
-      // #swagger.tags = ['User']
-      // #swagger.parameters['body'] = { in: 'body', schema: { $ref: "#/schemas/UserEditCredentials" }}
+      /* #swagger.tags = ['User']
+          #swagger.parameters['body'] = { 
+            in: 'body', 
+            schema: { $ref: "#/schemas/UserEditCredentials" },
+        }
+      */
 
       try {
         const userData = await UserService.edit(req.params.userId, req.body);

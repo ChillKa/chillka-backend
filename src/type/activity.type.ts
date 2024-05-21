@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import { SortType } from './model.type';
+import { OrganizerBase } from './organizer.type';
 
 export enum CategoryEnum {
   Outdoor = '戶外踏青',
@@ -53,11 +55,6 @@ export enum StatusEnum {
   END = '結束',
 }
 
-export interface Cover {
-  type: string;
-  url: string;
-}
-
 export interface Recurring {
   period: PeriodEnum;
   week: WeekEnum;
@@ -65,10 +62,11 @@ export interface Recurring {
 }
 
 export interface ActivitySchemaModel {
-  organizerId: mongoose.Types.ObjectId;
-  cover: Cover[];
-  thumbnail: string;
+  creatorId: mongoose.Types.ObjectId;
   name: string;
+  organizer: OrganizerBase;
+  cover: string[];
+  thumbnail: string;
   startDateTime: Date;
   fromToday: boolean;
   endDateTime: Date;
@@ -89,6 +87,18 @@ export interface ActivitySchemaModel {
   status: StatusEnum;
   customField: boolean;
   ticketRequired: boolean;
-  participantAmount: number;
-  checkedInParticipantsAmount: number;
 }
+
+export type ActivityCreateCredentials = Omit<
+  ActivitySchemaModel,
+  'creatorId'
+> & {
+  organizer: OrganizerBase;
+};
+
+export type GetActivitiesParams = {
+  userId: mongoose.Types.ObjectId | undefined;
+  page?: number;
+  limit?: number;
+  sort?: SortType;
+};

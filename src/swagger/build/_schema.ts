@@ -6,6 +6,90 @@
 export const _schema = {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
+    "SortEnum": {
+      "type": "string",
+      "enum": [
+        "asc",
+        "des"
+      ]
+    },
+    "SortType": {
+      "enum": [
+        "asc",
+        "des"
+      ],
+      "type": "string"
+    },
+    "OrganizerSchemaModel": {
+      "type": "object",
+      "properties": {
+        "profilePicture": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "contactName": {
+          "type": "string"
+        },
+        "contactPhone": {
+          "type": "string"
+        },
+        "contactEmail": {
+          "type": "string"
+        },
+        "websiteName": {
+          "type": "string"
+        },
+        "websiteURL": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "contactEmail",
+        "contactName",
+        "contactPhone",
+        "name",
+        "profilePicture",
+        "websiteName",
+        "websiteURL"
+      ]
+    },
+    "OrganizerBase": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "profilePicture": {
+          "type": "string"
+        },
+        "contactName": {
+          "type": "string"
+        },
+        "contactPhone": {
+          "type": "string"
+        },
+        "contactEmail": {
+          "type": "string"
+        },
+        "websiteName": {
+          "type": "string"
+        },
+        "websiteURL": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "contactEmail",
+        "contactName",
+        "contactPhone",
+        "name",
+        "profilePicture",
+        "websiteName",
+        "websiteURL"
+      ]
+    },
     "CategoryEnum": {
       "type": "string",
       "enum": [
@@ -73,21 +157,6 @@ export const _schema = {
         "結束"
       ]
     },
-    "Cover": {
-      "type": "object",
-      "properties": {
-        "type": {
-          "type": "string"
-        },
-        "url": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "type",
-        "url"
-      ]
-    },
     "Recurring": {
       "type": "object",
       "properties": {
@@ -133,31 +202,54 @@ export const _schema = {
     "ActivitySchemaModel": {
       "type": "object",
       "properties": {
-        "organizerId": {
+        "creatorId": {
           "$ref": "#/definitions/Types.ObjectId"
+        },
+        "name": {
+          "type": "string"
+        },
+        "organizer": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "profilePicture": {
+              "type": "string"
+            },
+            "contactName": {
+              "type": "string"
+            },
+            "contactPhone": {
+              "type": "string"
+            },
+            "contactEmail": {
+              "type": "string"
+            },
+            "websiteName": {
+              "type": "string"
+            },
+            "websiteURL": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "contactEmail",
+            "contactName",
+            "contactPhone",
+            "name",
+            "profilePicture",
+            "websiteName",
+            "websiteURL"
+          ]
         },
         "cover": {
           "type": "array",
           "items": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string"
-              },
-              "url": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "type",
-              "url"
-            ]
+            "type": "string"
           }
         },
         "thumbnail": {
-          "type": "string"
-        },
-        "name": {
           "type": "string"
         },
         "startDateTime": {
@@ -283,19 +375,13 @@ export const _schema = {
         },
         "ticketRequired": {
           "type": "boolean"
-        },
-        "participantAmount": {
-          "type": "number"
-        },
-        "checkedInParticipantsAmount": {
-          "type": "number"
         }
       },
       "required": [
         "address",
         "category",
-        "checkedInParticipantsAmount",
         "cover",
+        "creatorId",
         "customField",
         "details",
         "displayRemainingTickets",
@@ -307,8 +393,7 @@ export const _schema = {
         "location",
         "name",
         "noEndDate",
-        "organizerId",
-        "participantAmount",
+        "organizer",
         "price",
         "recurring",
         "startDateTime",
@@ -318,6 +403,279 @@ export const _schema = {
         "ticketMode",
         "ticketRequired",
         "type"
+      ]
+    },
+    "ActivityCreateCredentials": {
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "link": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "線下",
+                "線上"
+              ]
+            },
+            "location": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "details": {
+              "type": "string"
+            },
+            "summary": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "有效",
+                "取消",
+                "結束"
+              ]
+            },
+            "organizer": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "profilePicture": {
+                  "type": "string"
+                },
+                "contactName": {
+                  "type": "string"
+                },
+                "contactPhone": {
+                  "type": "string"
+                },
+                "contactEmail": {
+                  "type": "string"
+                },
+                "websiteName": {
+                  "type": "string"
+                },
+                "websiteURL": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "contactEmail",
+                "contactName",
+                "contactPhone",
+                "name",
+                "profilePicture",
+                "websiteName",
+                "websiteURL"
+              ]
+            },
+            "cover": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "thumbnail": {
+              "type": "string"
+            },
+            "startDateTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "fromToday": {
+              "type": "boolean"
+            },
+            "endDateTime": {
+              "type": "string",
+              "format": "date-time"
+            },
+            "noEndDate": {
+              "type": "boolean"
+            },
+            "price": {
+              "type": "number"
+            },
+            "category": {
+              "type": "string",
+              "enum": [
+                "戶外踏青",
+                "社交活動",
+                "興趣嗜好",
+                "運動健身",
+                "健康生活",
+                "科技玩物",
+                "藝術文化",
+                "遊戲"
+              ]
+            },
+            "isPrivate": {
+              "type": "boolean"
+            },
+            "displayRemainingTickets": {
+              "type": "boolean"
+            },
+            "isRecurring": {
+              "type": "boolean"
+            },
+            "recurring": {
+              "type": "object",
+              "properties": {
+                "period": {
+                  "type": "string",
+                  "enum": [
+                    "隔週",
+                    "每月",
+                    "每季"
+                  ]
+                },
+                "week": {
+                  "type": "string",
+                  "enum": [
+                    "每週",
+                    "隔週",
+                    "第一週",
+                    "第二週",
+                    "第三週",
+                    "第四週",
+                    "最後一週"
+                  ]
+                },
+                "day": {
+                  "type": "string",
+                  "enum": [
+                    "星期一",
+                    "星期二",
+                    "星期三",
+                    "星期四",
+                    "星期五",
+                    "星期六",
+                    "星期日"
+                  ]
+                }
+              },
+              "required": [
+                "day",
+                "period",
+                "week"
+              ]
+            },
+            "ticketMode": {
+              "type": "string",
+              "enum": [
+                "揪咖",
+                "售票"
+              ]
+            },
+            "customField": {
+              "type": "boolean"
+            },
+            "ticketRequired": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "address",
+            "category",
+            "cover",
+            "customField",
+            "details",
+            "displayRemainingTickets",
+            "endDateTime",
+            "fromToday",
+            "isPrivate",
+            "isRecurring",
+            "link",
+            "location",
+            "name",
+            "noEndDate",
+            "organizer",
+            "price",
+            "recurring",
+            "startDateTime",
+            "status",
+            "summary",
+            "thumbnail",
+            "ticketMode",
+            "ticketRequired",
+            "type"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "organizer": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "profilePicture": {
+                  "type": "string"
+                },
+                "contactName": {
+                  "type": "string"
+                },
+                "contactPhone": {
+                  "type": "string"
+                },
+                "contactEmail": {
+                  "type": "string"
+                },
+                "websiteName": {
+                  "type": "string"
+                },
+                "websiteURL": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "contactEmail",
+                "contactName",
+                "contactPhone",
+                "name",
+                "profilePicture",
+                "websiteName",
+                "websiteURL"
+              ]
+            }
+          },
+          "required": [
+            "organizer"
+          ]
+        }
+      ]
+    },
+    "GetActivitiesParams": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "page": {
+          "type": "number"
+        },
+        "limit": {
+          "type": "number"
+        },
+        "sort": {
+          "enum": [
+            "asc",
+            "des"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "userId"
       ]
     },
     "MessageListSchemaModel": {
@@ -356,45 +714,6 @@ export const _schema = {
         "answer",
         "messageListId",
         "userId"
-      ]
-    },
-    "OrganizerSchemaModel": {
-      "type": "object",
-      "properties": {
-        "userId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "profilePicture": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "contactName": {
-          "type": "string"
-        },
-        "contactPhone": {
-          "type": "string"
-        },
-        "contactEmail": {
-          "type": "string"
-        },
-        "websiteName": {
-          "type": "string"
-        },
-        "websiteURL": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "contactEmail",
-        "contactName",
-        "contactPhone",
-        "name",
-        "profilePicture",
-        "userId",
-        "websiteName",
-        "websiteURL"
       ]
     },
     "PaymentStatusEnum": {
@@ -646,14 +965,7 @@ export const _schema = {
       "type": "object",
       "properties": {
         "_id": {
-          "anyOf": [
-            {
-              "$ref": "#/definitions/Types.ObjectId"
-            },
-            {
-              "type": "string"
-            }
-          ]
+          "$ref": "#/definitions/Types.ObjectId"
         },
         "displayName": {
           "type": "string"
