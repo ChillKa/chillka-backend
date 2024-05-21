@@ -6,7 +6,6 @@ import { mockActivity } from '../util/mock/data';
 import { paginator } from '../util/paginator';
 
 export const create = async (userId: mongoose.Types.ObjectId | undefined) => {
-  console.log('userId', userId);
   if (!userId)
     throw new CoreError('Unable to create activity without user id.');
 
@@ -26,9 +25,9 @@ export const create = async (userId: mongoose.Types.ObjectId | undefined) => {
 
 export const get = async ({
   userId,
-  page = 1,
-  limit = 20,
-  sort = 'des',
+  page,
+  limit,
+  sort,
 }: GetActivitiesParams) => {
   try {
     if (!userId)

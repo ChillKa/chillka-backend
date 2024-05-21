@@ -6,9 +6,12 @@ export interface Paginated<T> {
 
 export const paginator = <T>(
   items: T[],
-  page: number,
-  limit: number
+  page?: number,
+  limit?: number
 ): Paginated<T> => {
+  if (!page) page = 1;
+  if (!limit) limit = -1;
+
   const offset = (page - 1) * limit;
   const paginatedItems = items.slice(offset, offset + limit);
   const total = items.length;
