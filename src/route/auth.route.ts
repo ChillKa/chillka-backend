@@ -58,7 +58,9 @@ const authRouter = () => {
       const options = {
         expires,
         path: '/',
-        SameSite: 'None',
+        SameSite: 'none',
+        httpOnly: false,
+        name: 'MyCoolWebAppCookieName',
         secure: true,
       };
 
