@@ -1,12 +1,10 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
+import { UserTokenCredentials } from '../type/user.type';
 import { CoreError, throwAPIError } from '../util/error-handler';
 
-interface AuthDecoded {
-  id: string;
-  displayName: string;
-  email: string;
+interface AuthDecoded extends UserTokenCredentials {
   int: number;
   exp: number;
 }
@@ -38,7 +36,7 @@ const authorizeMiddleware = (
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as AuthDecoded;
 
     req.user = {
-      _id: new mongoose.Types.ObjectId(decoded.id),
+      _id: new mongoose.Types.ObjectId(decoded._id),
       displayName: decoded.displayName,
       email: decoded.email,
     };
