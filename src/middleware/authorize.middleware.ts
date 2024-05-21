@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import { CoreError, throwAPIError } from '../util/error-handler';
 
 interface AuthDecoded {
-  _id: string;
+  id: string;
   displayName: string;
   email: string;
   int: number;
@@ -38,7 +38,7 @@ const authorizeMiddleware = (
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as AuthDecoded;
 
     req.user = {
-      _id: new mongoose.Types.ObjectId(decoded._id),
+      _id: new mongoose.Types.ObjectId(decoded.id),
       displayName: decoded.displayName,
       email: decoded.email,
     };
