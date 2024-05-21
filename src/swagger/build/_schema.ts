@@ -1043,6 +1043,44 @@ export const _schema = {
         "displayName",
         "email"
       ]
+    },
+    "SendEmailCrendtials": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "emailType": {
+          "enum": [
+            "resetPassword",
+            "verifyEmail"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "email",
+        "emailType"
+      ]
+    },
+    "ResetPasswordCrendtials": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "confirmPassword": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "confirmPassword",
+        "password",
+        "token"
+      ]
     }
   }
 };

@@ -36,3 +36,14 @@ export type UserTokenCredentials = {
 
 export type UserLoginCredentials = Omit<UserBase, 'displayName'>;
 export type UserEditCredentials = Omit<UserSchemaModel, 'password'>;
+
+export type SendEmailCrendtials = {
+  email: string;
+  emailType: 'resetPassword' | 'verifyEmail';
+};
+
+export type ResetPasswordCrendtials = {
+  token: string;
+  password: string;
+  confirmPassword: string;
+};
