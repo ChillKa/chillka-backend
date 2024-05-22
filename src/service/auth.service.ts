@@ -10,7 +10,6 @@ import {
   UserLoginCredentials,
   UserRegisterCredentials,
   UserTokenCredentials,
-  ValidateCodeCrendtials,
 } from '../type/user.type';
 import { CoreError } from '../util/error-handler';
 import generateToken from '../util/generate-token';
@@ -80,10 +79,12 @@ export const sendEmail = async ({ email, emailType }: SendEmailCrendtials) => {
         emailjsTemplate = process.env.RESET_PASSWORD_TEMPLATE!;
         redirectUrl = `${process.env.HOST}/api/demo/reset-password?validateCode=${token}`;
         // wait for frontend reset password page
+        message = '重置密碼連結已寄到您的 email 信箱';
         break;
       case 'verifyEmail':
         emailjsTemplate = process.env.VERIFY_EMAIL_TEMPLATE!;
         redirectUrl = `${process.env.HOST}/api/verify-email?validateCode=${token}`;
+        message = '驗證信箱連結已寄到您的 email 信箱';
         break;
       default:
         throw new CoreError('EmailType not found.');
@@ -106,19 +107,14 @@ export const sendEmail = async ({ email, emailType }: SendEmailCrendtials) => {
       emailjsTemplate,
       templateParams
     );
-
-    message = '重置密碼連結已寄到您的 email 信箱';
   }
 
   return { message };
 };
 
-export const verifyEmail = async ({ validateCode }: ValidateCodeCrendtials) => {
+export const verifyEmail = async (token: string) => {
   try {
-    const decoded = jwt.verify(
-      validateCode,
-      process.env.JWT_SECRET!
-    ) as AuthDecoded;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as AuthDecoded;
 
     await User.findOneAndUpdate(
       { email: decoded.email },

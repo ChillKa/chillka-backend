@@ -38,10 +38,6 @@ export type UserTokenCredentials = {
 export type UserLoginCredentials = Omit<UserBase, 'displayName'>;
 export type UserEditCredentials = Omit<UserSchemaModel, 'password'>;
 
-export type ValidateCodeCrendtials = {
-  validateCode: string;
-};
-
 export type SendEmailCrendtials = {
   email: string;
   emailType: 'resetPassword' | 'verifyEmail';

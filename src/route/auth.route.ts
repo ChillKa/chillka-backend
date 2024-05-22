@@ -68,7 +68,8 @@ const authRouter = () => {
 
   router.get('/verify-email', async (req: Request, res: Response) => {
     try {
-      const data = await AuthService.verifyEmail(req.body);
+      const token = req.query.validateCode as string;
+      const data = await AuthService.verifyEmail(token);
 
       // frontend should show the toast message in the front page
       res.redirect(`${process.env.FRONTEND}?message=${data.message}`);
@@ -88,8 +89,6 @@ const authRouter = () => {
         });
 
         res.status(200).send({ message: data.message });
-
-        res.status(200).send(data);
       } catch (error) {
         throwAPIError({ res, error, statusCode: 400 });
       }
