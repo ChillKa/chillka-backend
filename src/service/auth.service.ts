@@ -2,6 +2,7 @@ import emailjs from '@emailjs/nodejs';
 import bcrypt from 'bcryptjs';
 import 'dotenv/config';
 import jwt from 'jsonwebtoken';
+import { AuthDecoded } from '../middleware/authorize.middleware';
 import User from '../model/user.model';
 import {
   ResetPasswordCrendtials,
@@ -9,6 +10,7 @@ import {
   UserLoginCredentials,
   UserRegisterCredentials,
   UserTokenCredentials,
+  ValidateCodeCrendtials,
 } from '../type/user.type';
 import { CoreError } from '../util/error-handler';
 import generateToken from '../util/generate-token';
@@ -69,12 +71,28 @@ export const sendEmail = async ({ email, emailType }: SendEmailCrendtials) => {
 
   const user = await User.findOne({ email });
   if (user) {
+    let emailjsTemplate = '';
+    let redirectUrl = '';
     const token = generateToken(user);
 
-    // in production redirectUrl will redirect reset-password page
+    switch (emailType) {
+      case 'resetPassword':
+        emailjsTemplate = process.env.RESET_PASSWORD_TEMPLATE!;
+        redirectUrl = `${process.env.HOST}/api/demo/reset-password?validateCode=${token}`;
+        // wait for frontend reset password page
+        break;
+      case 'verifyEmail':
+        emailjsTemplate = process.env.VERIFY_EMAIL_TEMPLATE!;
+        redirectUrl = `${process.env.HOST}/api/verify-email?validateCode=${token}`;
+        break;
+      default:
+        throw new CoreError('EmailType not found.');
+        break;
+    }
+
     const templateParams = {
       receiverName: user.displayName,
-      redirectUrl: `${process.env.HOST}/api/demo/reset-password?validateCode=${token}`,
+      redirectUrl,
       receiverMail: email,
     };
 
@@ -82,11 +100,6 @@ export const sendEmail = async ({ email, emailType }: SendEmailCrendtials) => {
       publicKey: process.env.EMAILJS_PUBLICKEY!,
       privateKey: process.env.EMAILJS_PRIVATEKEY!,
     });
-
-    const emailjsTemplate =
-      emailType === 'resetPassword'
-        ? process.env.RESET_PASSWORD_TEMPLATE!
-        : process.env.VERIFY_EMAIL_TEMPLATE!;
 
     await emailjs.send(
       process.env.EMAILJS_SERVICEID!,
@@ -100,6 +113,24 @@ export const sendEmail = async ({ email, emailType }: SendEmailCrendtials) => {
   return { message };
 };
 
+export const verifyEmail = async ({ validateCode }: ValidateCodeCrendtials) => {
+  try {
+    const decoded = jwt.verify(
+      validateCode,
+      process.env.JWT_SECRET!
+    ) as AuthDecoded;
+
+    await User.findOneAndUpdate(
+      { email: decoded.email },
+      { $set: { isEmailValidate: true } }
+    );
+  } catch {
+    throw new CoreError('VerifyEmail failed.');
+  }
+
+  return { message: '信箱驗證成功' };
+};
+
 export const resetPassword = async ({
   token,
   password,
@@ -109,15 +140,12 @@ export const resetPassword = async ({
     throw new CoreError('Password and Confirm Password inconsistent');
 
   try {
-    const _decoded = jwt.verify(
-      token,
-      process.env.JWT_SECRET!
-    ) as UserTokenCredentials;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!) as AuthDecoded;
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
     await User.findOneAndUpdate(
-      { email: _decoded.email },
+      { email: decoded.email },
       { $set: { password: hashedPassword } }
     );
   } catch {

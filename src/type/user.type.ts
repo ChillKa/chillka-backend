@@ -22,6 +22,7 @@ export interface UserSchemaModel extends UserBase {
   phoneNumber?: number;
   phoneBarcode?: string;
   address?: string;
+  isEmailValidate?: string;
 }
 
 export type UserRegisterCredentials = UserBase & {
@@ -36,6 +37,10 @@ export type UserTokenCredentials = {
 
 export type UserLoginCredentials = Omit<UserBase, 'displayName'>;
 export type UserEditCredentials = Omit<UserSchemaModel, 'password'>;
+
+export type ValidateCodeCrendtials = {
+  validateCode: string;
+};
 
 export type SendEmailCrendtials = {
   email: string;

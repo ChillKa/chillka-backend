@@ -66,6 +66,36 @@ const authRouter = () => {
     }
   );
 
+  router.get('/verify-email', async (req: Request, res: Response) => {
+    try {
+      const data = await AuthService.verifyEmail(req.body);
+
+      // frontend should show the toast message in the front page
+      res.redirect(`${process.env.FRONTEND}?message=${data.message}`);
+    } catch (error) {
+      throwAPIError({ res, error, statusCode: 400 });
+    }
+  });
+
+  router.post(
+    '/verify-email',
+    zodValidateMiddleware(emailSchema),
+    async (req: Request, res: Response) => {
+      try {
+        const data = await AuthService.sendEmail({
+          ...req.body,
+          emailType: 'verifyEmail',
+        });
+
+        res.status(200).send({ message: data.message });
+
+        res.status(200).send(data);
+      } catch (error) {
+        throwAPIError({ res, error, statusCode: 400 });
+      }
+    }
+  );
+
   router.post(
     '/reset-password',
     zodValidateMiddleware(emailSchema),

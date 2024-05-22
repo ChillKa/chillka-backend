@@ -67,6 +67,10 @@ const UserSchema = new Schema<UserSchemaModel, UserModel, UserMethods>(
     address: {
       type: Schema.Types.String,
     },
+    isEmailValidate: {
+      type: Schema.Types.Boolean,
+      default: false,
+    },
   },
   {
     collection: 'users',

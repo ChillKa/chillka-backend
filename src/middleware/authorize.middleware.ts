@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import { UserTokenCredentials } from '../type/user.type';
 import { CoreError, throwAPIError } from '../util/error-handler';
 
-interface AuthDecoded extends UserTokenCredentials {
+export interface AuthDecoded extends UserTokenCredentials {
   int: number;
   exp: number;
 }
