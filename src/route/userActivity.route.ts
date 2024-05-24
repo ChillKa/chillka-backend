@@ -1,4 +1,5 @@
 import { Request, Response, Router } from 'express';
+import mongoose from 'mongoose';
 import authorizeMiddleware from '../middleware/authorize.middleware';
 import * as UserActivityService from '../service/userActivity.service';
 import { SortEnum } from '../type/model.type';
@@ -56,6 +57,27 @@ const userActivityRouter = () => {
           sort: req.query.sort === 'asc' ? SortEnum.ASC : SortEnum.DES,
         });
         res.status(200).send(activities);
+      } catch (error) {
+        throwAPIError({ res, error, statusCode: 400 });
+      }
+    }
+  );
+
+  router.patch(
+    '/activities/:activityId/cancel',
+    authorizeMiddleware,
+    async (req: Request, res: Response) => {
+      /* #swagger.tags = ['Activity'] */
+
+      const userId = req.user?._id;
+      const activityId = new mongoose.Types.ObjectId(req.params.activityId);
+      try {
+        const data = await UserActivityService.cancel(activityId);
+
+        if (!userId?.equals(data?.creatorId))
+          throwAPIError({ res, error: 'Unauthorized', statusCode: 401 });
+
+        res.status(200).send(data);
       } catch (error) {
         throwAPIError({ res, error, statusCode: 400 });
       }

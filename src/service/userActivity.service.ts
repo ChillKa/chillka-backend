@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import Activity from '../model/activity.model';
-import { GetActivitiesParams } from '../type/activity.type';
+import { GetActivitiesParams, StatusEnum } from '../type/activity.type';
 import { CoreError } from '../util/error-handler';
 import { mockActivity } from '../util/mock/data';
 import { paginator } from '../util/paginator';
@@ -44,5 +44,22 @@ export const get = async ({
     return paginatedData;
   } catch (error) {
     throw new CoreError('Get activities failed.');
+  }
+};
+
+export const cancel = async (activityId: mongoose.Types.ObjectId) => {
+  try {
+    if (!activityId)
+      throw new CoreError('Unable to cancel activity without activity id.');
+
+    const activity = await Activity.findByIdAndUpdate(
+      activityId,
+      { status: StatusEnum.CANCELLED },
+      { new: true }
+    );
+
+    return activity;
+  } catch (error) {
+    throw new CoreError('Cancel activity failed.');
   }
 };
