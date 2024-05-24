@@ -180,6 +180,30 @@
           }
         ]
       }
+    },
+    "/api/auth/activities/{activityId}/cancel": {
+      "patch": {
+        "tags": ["Activity"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
     }
   },
   "schemas": {
