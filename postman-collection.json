@@ -1,0 +1,363 @@
+{
+  "info": {
+    "_postman_id": "51722f4b-fbf9-4062-952b-576766be5315",
+    "name": "chillka-backend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "20616853"
+  },
+  "item": [
+    {
+      "name": "register",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"displayName\": \"demo\",\r\n    \"email\": \"demo@gmail.com\",\r\n    \"password\": \"north9Hex\",\r\n    \"confirmPassword\": \"north9Hex\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/register",
+          "host": ["{{HOST}}"],
+          "path": ["api", "register"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "\r",
+              "if(pm.response.code === 200) {\r",
+              "    pm.environment.set('session',pm.response.json().token)\r",
+              "}"
+            ],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"demo@gmail.com\",\r\n    \"password\": \"north9Hex\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/login",
+          "host": ["{{HOST}}"],
+          "path": ["api", "login"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "logout - just for postman test",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": ["pm.environment.set('session',null)"],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/logout",
+          "host": ["{{HOST}}"],
+          "path": ["api", "logout"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get activities",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\":\"陽明山花卉探險：春之花海\",\r\n    \"organizer\":{\r\n        \"name\":\"\",\r\n        \"contactName\":\"\",\r\n        \"contactPhone\":\"\",\r\n        \"contactEmail\":\"\"\r\n    },\r\n    \"cover\":[\"https://loremflickr.com/640/480?lock=6474321889329152\",\"https://loremflickr.com/640/480?lock=2891826849644544\",\"https://loremflickr.com/640/480?lock=5041481924476928\"],\r\n    \"thumbnail\":\"https://loremflickr.com/640/480?lock=7636866601844736\"\r\n\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/auth/activities?page=1&limit=0",
+          "host": ["{{HOST}}"],
+          "path": ["api", "auth", "activities"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "0"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "create activities",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"Miss Kelly Dare\",\r\n    \"organizer\": {\r\n        \"profilePicture\": \"https://loremflickr.com/640/480?lock=7694210111111168\",\r\n        \"name\": \"Mr. Alan Jerde\",\r\n        \"contactName\": \"Leona Spencer\",\r\n        \"contactPhone\": \"244.960.8178 x08518\",\r\n        \"contactEmail\": \"Bell.Nitzsche@gmail.com\",\r\n        \"websiteName\": \"these-human.org\",\r\n        \"websiteURL\": \"https://peaceful-plier.org/\"\r\n    },\r\n    \"cover\": [\r\n        \"https://loremflickr.com/640/480?lock=445309626875904\",\r\n        \"https://loremflickr.com/640/480?lock=7701584716759040\",\"https://loremflickr.com/640/480?lock=8167749635276800\"\r\n    ],\r\n    \"thumbnail\": \"https://loremflickr.com/640/480?lock=7914678927753216\",\r\n    \"startDateTIme\": \"2024-05-24T16:51:30.302Z\",\r\n    \"fromToday\": false,\r\n    \"endDateTIme\": \"2024-10-19T17:12:03.234Z\",\r\n    \"noEndDate\": false,\r\n    \"price\": 754,\r\n    \"category\": \"藝術文化\",\r\n    \"type\": \"線下\",\r\n    \"link\": \"https://defensive-mineshaft.net\",\r\n    \"location\": \"North Woodrow\",\r\n    \"address\": \"8412 Albany Road\",\r\n    \"summary\": \"Bestia desidero comprehendo votum attollo aggero.\",\r\n    \"details\": \"Urbanus abstergo vitiosus ipsum patria coaegresco. Derideo approbo valde vigilo odit torrens curriculum ocer vitae. Degero vergo vespillo adinventitias blandior beneficium abduco.\",\r\n    \"isPrivate\": false,\r\n    \"displayRemainingTickets\": false,\r\n    \"isRecurring\": true,\r\n    \"recurring\": {\r\n        \"period\": \"每月\",\r\n        \"week\": \"每週\",\r\n        \"day\": \"星期六\"\r\n    },\r\n    \"ticketMode\": \"售票\",\r\n    \"status\": \"有效\",\r\n    \"customField\": false,\r\n    \"ticketRequired\": false\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/auth/activities",
+          "host": ["{{HOST}}"],
+          "path": ["api", "auth", "activities"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "create tickets",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/auth/activities/664f616e7dad69e8bfe32dfe/attend",
+          "host": ["{{HOST}}"],
+          "path": [
+            "api",
+            "auth",
+            "activities",
+            "664f616e7dad69e8bfe32dfe",
+            "attend"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "demo",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/auth/activities/664f616e7dad69e8bfe32dfe/cancel",
+          "host": ["{{HOST}}"],
+          "path": [
+            "api",
+            "auth",
+            "activities",
+            "664f616e7dad69e8bfe32dfe",
+            "cancel"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "getUserById",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{HOST}}/api/auth/user/664b48393b749fac7df86816",
+          "host": ["{{HOST}}"],
+          "path": ["api", "auth", "user", "664b48393b749fac7df86816"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "resetPassword-sendEmail",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\":\"chillka.offical@gmail.com\"\r\n} ",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/reset-password",
+          "host": ["{{HOST}}"],
+          "path": ["api", "reset-password"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "verifyEmail-sendEmail",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\":\"chillka.offical@gmail.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/verify-email",
+          "host": ["{{HOST}}"],
+          "path": ["api", "verify-email"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "verifyEmail-setEmailValidate",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/verify-email?validateCode=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjRiNDgzOTNiNzQ5ZmFjN2RmODY4MTYiLCJkaXNwbGF5TmFtZSI6ImNoaWxsa2EiLCJlbWFpbCI6ImNoaWxsa2Eub2ZmaWNhbEBnbWFpbC5jb20iLCJpYXQiOjE3MTYzNTA0MjAsImV4cCI6MTcxNjQzNjgyMH0.NAyT7HA20Hi5WI_zUfiyO3QR_C_BtHC0A7UCs0rJkys",
+          "host": ["{{HOST}}"],
+          "path": ["api", "verify-email"],
+          "query": [
+            {
+              "key": "validateCode",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjRiNDgzOTNiNzQ5ZmFjN2RmODY4MTYiLCJkaXNwbGF5TmFtZSI6ImNoaWxsa2EiLCJlbWFpbCI6ImNoaWxsa2Eub2ZmaWNhbEBnbWFpbC5jb20iLCJpYXQiOjE3MTYzNTA0MjAsImV4cCI6MTcxNjQzNjgyMH0.NAyT7HA20Hi5WI_zUfiyO3QR_C_BtHC0A7UCs0rJkys"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "resetPassword-setPassword",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjRiNDgzOTNiNzQ5ZmFjN2RmODY4MTYiLCJkaXNwbGF5TmFtZSI6ImNoaWxsa2EiLCJlbWFpbCI6ImNoaWxsa2Eub2ZmaWNhbEBnbWFpbC5jb20iLCJpYXQiOjE3MTYzNTAwNDAsImV4cCI6MTcxNjQzNjQ0MH0.7fjchGa5YocepLgO2QiPgYYC92ZpYWwIja7ZKn9gxl0\",\r\n    \"password\":\"north9Hex\",\r\n    \"confirmPassword\":\"north9Hex\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/reset-password",
+          "host": ["{{HOST}}"],
+          "path": ["api", "reset-password"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{session}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [""]
+      }
+    }
+  ]
+}
