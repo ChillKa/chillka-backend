@@ -3,7 +3,12 @@ import passport from 'passport';
 import { zodValidateMiddleware } from '../middleware/validate.middleware';
 import * as AuthService from '../service/auth.service';
 import { throwAPIError } from '../util/error-handler';
-import { loginSchema, registerSchema } from '../util/zod/auth.schema';
+import {
+  emailSchema,
+  loginSchema,
+  registerSchema,
+  resetPasswordSchema,
+} from '../util/zod/auth.schema';
 
 const authRouter = () => {
   const router = Router();
@@ -54,17 +59,70 @@ const authRouter = () => {
       // create src/typings/express/index.d.ts for fix the req.user error
       const data = await AuthService.googleOauth(req.user);
 
-      const expires = new Date(Date.now() + 3600 * 1000); // 1 hour from now
-      const options = {
-        expires,
-        path: '/',
-        SameSite: 'None',
-        secure: true,
-      };
+      // wait for frontend page completed
+      res.redirect(
+        process.env.FRONTEND?.concat(`?accessToken=${data.token}`) ?? ''
+      );
+    }
+  );
 
-      res
-        .cookie('session', data.token, options)
-        .redirect(process.env.FRONTEND ?? '');
+  router.get('/verify-email', async (req: Request, res: Response) => {
+    try {
+      const token = req.query.validateCode as string;
+      const data = await AuthService.verifyEmail(token);
+
+      // frontend should show the toast message in the front page
+      res.redirect(`${process.env.FRONTEND}?message=${data.message}`);
+    } catch (error) {
+      throwAPIError({ res, error, statusCode: 400 });
+    }
+  });
+
+  router.post(
+    '/verify-email',
+    zodValidateMiddleware(emailSchema),
+    async (req: Request, res: Response) => {
+      try {
+        const data = await AuthService.sendEmail({
+          ...req.body,
+          emailType: 'verifyEmail',
+        });
+
+        res.status(200).send({ message: data.message });
+      } catch (error) {
+        throwAPIError({ res, error, statusCode: 400 });
+      }
+    }
+  );
+
+  router.post(
+    '/reset-password',
+    zodValidateMiddleware(emailSchema),
+    async (req: Request, res: Response) => {
+      try {
+        const data = await AuthService.sendEmail({
+          ...req.body,
+          emailType: 'resetPassword',
+        });
+
+        res.status(200).send({ message: data.message });
+      } catch (error) {
+        throwAPIError({ res, error, statusCode: 400 });
+      }
+    }
+  );
+
+  router.patch(
+    '/reset-password',
+    zodValidateMiddleware(resetPasswordSchema),
+    async (req: Request, res: Response) => {
+      try {
+        const data = await AuthService.resetPassword(req.body);
+
+        res.status(200).send(data);
+      } catch (error) {
+        throwAPIError({ res, error, statusCode: 400 });
+      }
     }
   );
 
