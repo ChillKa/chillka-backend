@@ -1,5 +1,6 @@
 import Activity from '../model/activity.model';
 import {
+  ActivitySchemaModel,
   CancelActivityParams,
   GetActivitiesParams,
   StatusEnum,
