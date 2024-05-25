@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 import Activity from '../model/activity.model';
-import { GetActivitiesParams, StatusEnum } from '../type/activity.type';
+import {
+  CancelActivityParams,
+  GetActivitiesParams,
+  StatusEnum,
+} from '../type/activity.type';
 import { CoreError } from '../util/error-handler';
 import { mockActivity } from '../util/mock/data';
 import { paginator } from '../util/paginator';
@@ -47,19 +51,20 @@ export const get = async ({
   }
 };
 
-export const cancel = async (activityId: mongoose.Types.ObjectId) => {
-  try {
-    if (!activityId)
-      throw new CoreError('Unable to cancel activity without activity id.');
+export const cancelActivity = async ({
+  activityId,
+  userId,
+}: CancelActivityParams) => {
+  if (!activityId)
+    throw new CoreError('Unable to cancel activity without activity id.');
 
-    const activity = await Activity.findByIdAndUpdate(
-      activityId,
-      { status: StatusEnum.CANCELLED },
-      { new: true }
-    );
+  const activity = await Activity.findById(activityId);
 
-    return activity;
-  } catch (error) {
-    throw new CoreError('Cancel activity failed.');
+  if (!userId?.equals(activity?.creatorId)) {
+    throw new CoreError('Unauthorized to cancel activity.', 403);
   }
+
+  await activity?.updateOne({ $set: { status: StatusEnum.CANCELLED } });
+
+  return activity;
 };

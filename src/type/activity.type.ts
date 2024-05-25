@@ -102,3 +102,8 @@ export type GetActivitiesParams = {
   limit?: number;
   sort?: SortType;
 };
+
+export type CancelActivityParams = {
+  userId: mongoose.Types.ObjectId | undefined;
+  activityId: mongoose.Types.ObjectId;
+};
