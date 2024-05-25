@@ -6,11 +6,278 @@
 export const _schema = {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
+    "GenderEnum": {
+      "type": "string",
+      "enum": [
+        "男",
+        "女"
+      ]
+    },
+    "UserBase": {
+      "type": "object",
+      "properties": {
+        "displayName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "displayName",
+        "email",
+        "password"
+      ]
+    },
+    "UserSchemaModel": {
+      "type": "object",
+      "properties": {
+        "googleId": {
+          "type": "string"
+        },
+        "realName": {
+          "type": "string"
+        },
+        "birthday": {
+          "type": "string"
+        },
+        "gender": {
+          "enum": [
+            "女",
+            "男"
+          ],
+          "type": "string"
+        },
+        "age": {
+          "type": "number"
+        },
+        "introduction": {
+          "type": "string"
+        },
+        "phoneAreaCode": {
+          "type": "number"
+        },
+        "phoneNumber": {
+          "type": "number"
+        },
+        "phoneBarcode": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "isEmailValidate": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "displayName",
+        "email",
+        "password"
+      ]
+    },
+    "UserRegisterCredentials": {
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "displayName": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "displayName",
+            "email",
+            "password"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "confirmPassword": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "confirmPassword"
+          ]
+        }
+      ]
+    },
+    "UserTokenCredentials": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "_id",
+        "displayName",
+        "email"
+      ]
+    },
+    "UserLoginCredentials": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "email",
+        "password"
+      ]
+    },
+    "UserEditCredentials": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "age": {
+          "type": "number"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "googleId": {
+          "type": "string"
+        },
+        "realName": {
+          "type": "string"
+        },
+        "birthday": {
+          "type": "string"
+        },
+        "gender": {
+          "enum": [
+            "女",
+            "男"
+          ],
+          "type": "string"
+        },
+        "introduction": {
+          "type": "string"
+        },
+        "phoneAreaCode": {
+          "type": "number"
+        },
+        "phoneNumber": {
+          "type": "number"
+        },
+        "phoneBarcode": {
+          "type": "string"
+        },
+        "isEmailValidate": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "displayName",
+        "email"
+      ]
+    },
+    "SendEmailCrendtials": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "emailType": {
+          "enum": [
+            "resetPassword",
+            "verifyEmail"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "email",
+        "emailType"
+      ]
+    },
+    "ResetPasswordCrendtials": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "confirmPassword": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "confirmPassword",
+        "password",
+        "token"
+      ]
+    },
     "SortEnum": {
       "type": "string",
       "enum": [
         "asc",
         "des"
+      ]
+    },
+    "AuthDecoded": {
+      "type": "object",
+      "properties": {
+        "int": {
+          "type": "number"
+        },
+        "exp": {
+          "type": "number"
+        },
+        "_id": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "_id",
+        "displayName",
+        "email",
+        "exp",
+        "int"
       ]
     },
     "SortType": {
@@ -1357,6 +1624,21 @@ export const _schema = {
         "userId"
       ]
     },
+    "CancelActivityParams": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "activityId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        }
+      },
+      "required": [
+        "activityId",
+        "userId"
+      ]
+    },
     "MessageListSchemaModel": {
       "type": "object",
       "properties": {
@@ -1393,240 +1675,6 @@ export const _schema = {
         "answer",
         "messageListId",
         "userId"
-      ]
-    },
-    "GenderEnum": {
-      "type": "string",
-      "enum": [
-        "男",
-        "女"
-      ]
-    },
-    "UserBase": {
-      "type": "object",
-      "properties": {
-        "displayName": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "displayName",
-        "email",
-        "password"
-      ]
-    },
-    "UserSchemaModel": {
-      "type": "object",
-      "properties": {
-        "googleId": {
-          "type": "string"
-        },
-        "realName": {
-          "type": "string"
-        },
-        "birthday": {
-          "type": "string"
-        },
-        "gender": {
-          "enum": [
-            "女",
-            "男"
-          ],
-          "type": "string"
-        },
-        "age": {
-          "type": "number"
-        },
-        "introduction": {
-          "type": "string"
-        },
-        "phoneAreaCode": {
-          "type": "number"
-        },
-        "phoneNumber": {
-          "type": "number"
-        },
-        "phoneBarcode": {
-          "type": "string"
-        },
-        "address": {
-          "type": "string"
-        },
-        "displayName": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "displayName",
-        "email",
-        "password"
-      ]
-    },
-    "UserRegisterCredentials": {
-      "allOf": [
-        {
-          "type": "object",
-          "properties": {
-            "displayName": {
-              "type": "string"
-            },
-            "email": {
-              "type": "string"
-            },
-            "password": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "displayName",
-            "email",
-            "password"
-          ]
-        },
-        {
-          "type": "object",
-          "properties": {
-            "confirmPassword": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "confirmPassword"
-          ]
-        }
-      ]
-    },
-    "UserTokenCredentials": {
-      "type": "object",
-      "properties": {
-        "_id": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "displayName": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "_id",
-        "displayName",
-        "email"
-      ]
-    },
-    "UserLoginCredentials": {
-      "type": "object",
-      "properties": {
-        "email": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "email",
-        "password"
-      ]
-    },
-    "UserEditCredentials": {
-      "type": "object",
-      "properties": {
-        "address": {
-          "type": "string"
-        },
-        "age": {
-          "type": "number"
-        },
-        "displayName": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "googleId": {
-          "type": "string"
-        },
-        "realName": {
-          "type": "string"
-        },
-        "birthday": {
-          "type": "string"
-        },
-        "gender": {
-          "enum": [
-            "女",
-            "男"
-          ],
-          "type": "string"
-        },
-        "introduction": {
-          "type": "string"
-        },
-        "phoneAreaCode": {
-          "type": "number"
-        },
-        "phoneNumber": {
-          "type": "number"
-        },
-        "phoneBarcode": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "displayName",
-        "email"
-      ]
-    },
-    "SendEmailCrendtials": {
-      "type": "object",
-      "properties": {
-        "email": {
-          "type": "string"
-        },
-        "emailType": {
-          "enum": [
-            "resetPassword",
-            "verifyEmail"
-          ],
-          "type": "string"
-        }
-      },
-      "required": [
-        "email",
-        "emailType"
-      ]
-    },
-    "ResetPasswordCrendtials": {
-      "type": "object",
-      "properties": {
-        "token": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
-        },
-        "confirmPassword": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "confirmPassword",
-        "password",
-        "token"
       ]
     }
   }

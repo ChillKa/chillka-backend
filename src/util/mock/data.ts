@@ -17,7 +17,6 @@ const periodValues = Object.values(PeriodEnum);
 const weekValues = Object.values(WeekEnum);
 const dayValues = Object.values(DayEnum);
 const ticketModeValues = Object.values(TicketModeEnum);
-const statusValues = Object.values(StatusEnum);
 
 // Mock data
 export const mockActivity: ActivityCreateCredentials = {
@@ -54,7 +53,7 @@ export const mockActivity: ActivityCreateCredentials = {
     day: faker.helpers.arrayElement(dayValues),
   },
   ticketMode: faker.helpers.arrayElement(ticketModeValues),
-  status: faker.helpers.arrayElement(statusValues),
+  status: StatusEnum.VALID,
   customField: faker.helpers.arrayElement([true, false]),
   ticketRequired: faker.helpers.arrayElement([true, false]),
 };

@@ -123,3 +123,8 @@ export type AttendActivityParams = {
     'userId' | 'activityId' | 'ticketStatus' | 'serialNumber'
   >;
 };
+
+export type CancelActivityParams = {
+  userId: mongoose.Types.ObjectId | undefined;
+  activityId: mongoose.Types.ObjectId;
+};

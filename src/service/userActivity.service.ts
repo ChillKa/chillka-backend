@@ -5,8 +5,10 @@ import Ticket from '../model/ticket.model';
 import User from '../model/user.model';
 import {
   AttendActivityParams,
+  CancelActivityParams,
   GetActivitiesParams,
   GetActivityParticipantParams,
+  StatusEnum,
 } from '../type/activity.type';
 import { TicketStatusEnum } from '../type/ticket.type';
 import { CoreError } from '../util/error-handler';
@@ -116,4 +118,22 @@ export const getParticipantList = async ({
   } catch (error) {
     throw new CoreError('Get participant list failed.');
   }
+};
+
+export const cancelActivity = async ({
+  activityId,
+  userId,
+}: CancelActivityParams) => {
+  if (!activityId)
+    throw new CoreError('Unable to cancel activity without activity id.');
+
+  const activity = await Activity.findById(activityId);
+
+  if (!userId?.equals(activity?.creatorId)) {
+    throw new CoreError('Unauthorized to cancel activity.', 403);
+  }
+
+  await activity?.updateOne({ $set: { status: StatusEnum.CANCELLED } });
+
+  return activity;
 };

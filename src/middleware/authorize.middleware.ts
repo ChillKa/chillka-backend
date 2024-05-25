@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
+import { AuthDecoded } from '../type/model.type';
 import { CoreError, throwAPIError } from '../util/error-handler';
 
 const authorizeMiddleware = (

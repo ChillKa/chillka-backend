@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import authorizeMiddleware from '../middleware/authorize.middleware';
 import * as UserActivityService from '../service/userActivity.service';
 import { SortEnum } from '../type/model.type';
-import { throwAPIError } from '../util/error-handler';
+import { CoreError, throwAPIError } from '../util/error-handler';
 
 const userActivityRouter = () => {
   const router = Router();
@@ -63,6 +63,31 @@ const userActivityRouter = () => {
     }
   );
 
+  router.patch(
+    '/activities/:activityId/cancel',
+    authorizeMiddleware,
+    async (req: Request, res: Response) => {
+      /* #swagger.tags = ['Activity'] */
+
+      const userId = req.user?._id;
+      const activityId = new mongoose.Types.ObjectId(req.params.activityId);
+      try {
+        const data = await UserActivityService.cancelActivity({
+          activityId,
+          userId,
+        });
+
+        res.status(200).send(data);
+      } catch (error) {
+        if (error instanceof CoreError) {
+          if (error.options.cause === 403) {
+            return throwAPIError({ res, error, statusCode: 403 });
+          }
+        }
+      }
+    }
+  );
+
   router.post(
     '/activities/:activityId/attend',
     authorizeMiddleware,
@@ -93,23 +118,6 @@ const userActivityRouter = () => {
           requestBody: req.body,
         });
         res.status(200).send(data);
-      } catch (error) {
-        throwAPIError({ res, error, statusCode: 400 });
-      }
-    }
-  );
-
-  router.get(
-    '/activities/:activityId/participants',
-    authorizeMiddleware,
-    async (req: Request, res: Response) => {
-      const activityId = req.params?.activityId;
-      try {
-        const data = await UserActivityService.getParticipantList({
-          activityId: new mongoose.Types.ObjectId(activityId),
-        });
-
-        return res.status(200).send(data);
       } catch (error) {
         throwAPIError({ res, error, statusCode: 400 });
       }

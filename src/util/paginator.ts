@@ -10,7 +10,7 @@ export const paginator = <T>(
   limit?: number
 ): Paginated<T> => {
   if (!page) page = 1;
-  if (!limit) limit = -1;
+  if (!limit) limit = 20;
 
   const offset = (page - 1) * limit;
   const paginatedItems = items.slice(offset, offset + limit);
