@@ -10,7 +10,6 @@ import {
   WeekEnum,
 } from '../type/activity.type';
 import Organizer from './organizer.model';
-import Ticket from './ticket.model';
 
 type ActivityModel = Model<ActivitySchemaModel, object>;
 
@@ -108,9 +107,6 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
     ticketRequired: {
       type: Schema.Types.Boolean,
     },
-    tickets: {
-      type: [Ticket.schema],
-    },
   },
   {
     collection: 'activities',
@@ -118,11 +114,11 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
   }
 );
 
-// ActivitySchema.virtual('tickets', {
-//   ref: 'Ticket',
-//   localField: '_id',
-//   foreignField: 'activityId',
-// });
+ActivitySchema.virtual('tickets', {
+  ref: 'Ticket',
+  localField: '_id',
+  foreignField: 'activityId',
+});
 
 ActivitySchema.virtual('messageLists', {
   ref: 'MessageList',

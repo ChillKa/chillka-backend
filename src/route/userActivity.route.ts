@@ -94,7 +94,23 @@ const userActivityRouter = () => {
         });
         res.status(200).send(data);
       } catch (error) {
-        console.log('error', error);
+        throwAPIError({ res, error, statusCode: 400 });
+      }
+    }
+  );
+
+  router.get(
+    '/activities/:activityId/participants',
+    authorizeMiddleware,
+    async (req: Request, res: Response) => {
+      const activityId = req.params?.activityId;
+      try {
+        const data = await UserActivityService.getParticipantList({
+          activityId: new mongoose.Types.ObjectId(activityId),
+        });
+
+        return res.status(200).send(data);
+      } catch (error) {
         throwAPIError({ res, error, statusCode: 400 });
       }
     }

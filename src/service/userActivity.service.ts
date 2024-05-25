@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker';
 import mongoose from 'mongoose';
 import Activity from '../model/activity.model';
+import Ticket from '../model/ticket.model';
 import User from '../model/user.model';
 import {
   AttendActivityParams,
@@ -65,27 +66,28 @@ export const attendActivity = async ({
   if (!user) {
     throw new CoreError('User not found.');
   }
-  const activity = await Activity.findById(activityId);
+  const activity = await Activity.findById(activityId).populate('tickets');
 
   if (!activity) {
     throw new CoreError('Activity not found.');
   }
 
   if (activity.tickets?.some((i) => i.userId.equals(userId))) {
-    throw new CoreError('User is already a participant.');
+    throw new CoreError('The user already attended the activity.');
   }
 
-  activity.tickets?.push({
-    userId,
-    activityId,
-    serialNumber: faker.string.uuid(),
-    ticketStatus: TicketStatusEnum.VALID,
-    ...requestBody,
-  });
-
-  await activity.save();
-
-  return activity;
+  try {
+    await Ticket.create({
+      userId,
+      activityId,
+      serialNumber: faker.string.uuid(),
+      ticketStatus: TicketStatusEnum.VALID,
+      ...requestBody,
+    });
+    return { message: 'Attend activity success.' };
+  } catch (error) {
+    throw new CoreError('Attend activity failed.');
+  }
 };
 
 export const getParticipantList = async ({
@@ -93,16 +95,23 @@ export const getParticipantList = async ({
   page,
   limit,
 }: GetActivityParticipantParams) => {
+  if (!activityId) {
+    throw new CoreError('Unable to get participant list without activity id.');
+  }
+
+  const activity = await Activity.findById(activityId).populate('tickets');
+  if (!activity) {
+    throw new CoreError('Activity not found.');
+  }
+
   try {
-    if (!activityId)
-      throw new CoreError(
-        'Unable to get participant list without activity id.'
-      );
+    const userIds = (await Ticket.find({ activityId })).map((i) => i.userId);
+    const users = await User.find({ _id: { $in: userIds } }).select(
+      '-password'
+    );
 
-    const activity = await Activity.findById(activityId).populate('tickets');
+    const paginatedData = paginator(users ?? [], page, limit);
 
-    if (!activity) throw new CoreError('Activity not found.');
-    const paginatedData = paginator(activity.tickets ?? [], page, limit);
     return paginatedData;
   } catch (error) {
     throw new CoreError('Get participant list failed.');
