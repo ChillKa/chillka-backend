@@ -17,6 +17,7 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
   {
     creatorId: {
       type: Schema.Types.ObjectId,
+      ref: 'User',
       required: true,
     },
     name: {
@@ -25,35 +26,43 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
     },
     organizer: {
       type: Organizer.schema,
+      required: true,
     },
     cover: {
       type: [Schema.Types.String],
+      required: true,
     },
     thumbnail: {
       type: Schema.Types.String,
+      required: true,
     },
     startDateTime: {
       type: Schema.Types.Date,
     },
     fromToday: {
       type: Schema.Types.Boolean,
+      required: true,
     },
     endDateTime: {
       type: Schema.Types.Date,
     },
     noEndDate: {
       type: Schema.Types.Boolean,
+      required: true,
     },
     price: {
       type: Schema.Types.Number,
+      required: true,
     },
     category: {
       type: Schema.Types.String,
       enum: CategoryEnum,
+      required: true,
     },
     type: {
       type: Schema.Types.String,
       enum: TypeEnum,
+      required: true,
     },
     link: {
       type: Schema.Types.String,
@@ -66,18 +75,23 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
     },
     summary: {
       type: Schema.Types.String,
+      required: true,
     },
     details: {
       type: Schema.Types.String,
+      required: true,
     },
     isPrivate: {
       type: Schema.Types.Boolean,
+      required: true,
     },
     displayRemainingTickets: {
       type: Schema.Types.Boolean,
+      required: true,
     },
     isRecurring: {
       type: Schema.Types.Boolean,
+      required: true,
     },
     recurring: {
       period: {
@@ -96,10 +110,12 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
     ticketMode: {
       type: Schema.Types.String,
       enum: TicketModeEnum,
+      required: true,
     },
     status: {
       type: Schema.Types.String,
       enum: StatusEnum,
+      required: true,
     },
     customField: {
       type: Schema.Types.Boolean,
