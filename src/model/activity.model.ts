@@ -108,6 +108,12 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
       required: true,
       default: StatusEnum.VALID,
     },
+    customField: {
+      type: Schema.Types.Boolean,
+    },
+    ticketRequired: {
+      type: Schema.Types.Boolean,
+    },
   },
   {
     collection: 'activities',
