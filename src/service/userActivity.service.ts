@@ -68,6 +68,11 @@ export const attendActivity = async ({
   if (!user) {
     throw new CoreError('User not found.');
   }
+
+  if (!user.isEmailValidate) {
+    throw new CoreError('User email not validated.');
+  }
+
   const activity = await Activity.findById(activityId).populate('tickets');
 
   if (!activity) {
@@ -94,6 +99,7 @@ export const attendActivity = async ({
 
 export const getParticipantList = async ({
   activityId,
+  participantName,
   page,
   limit,
 }: GetActivityParticipantParams) => {
@@ -107,12 +113,19 @@ export const getParticipantList = async ({
   }
 
   try {
-    const userIds = (await Ticket.find({ activityId })).map((i) => i.userId);
-    const users = await User.find({ _id: { $in: userIds } }).select(
-      '-password'
-    );
+    const data = await Ticket.find({
+      activityId,
+      'userInfo.name': new RegExp(participantName ?? '', 'i'),
+    }).select([
+      '-_id',
+      'userId',
+      'userInfo',
+      'payment',
+      'ticketStatus',
+      'serialNumber',
+    ]);
 
-    const paginatedData = paginator(users ?? [], page, limit);
+    const paginatedData = paginator(data ?? [], page, limit);
 
     return paginatedData;
   } catch (error) {

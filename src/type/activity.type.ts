@@ -110,6 +110,7 @@ export type GetActivitiesParams = {
 
 export type GetActivityParticipantParams = {
   activityId: mongoose.Types.ObjectId | undefined;
+  participantName?: string;
   page?: number;
   limit?: number;
   sort?: SortType;
