@@ -67,6 +67,8 @@ const authRouter = () => {
   );
 
   router.get('/verify-email', async (req: Request, res: Response) => {
+    /* #swagger.tags = ['Auth'] */
+
     try {
       const token = req.query.validateCode as string;
       const data = await AuthService.verifyEmail(token);
@@ -82,6 +84,8 @@ const authRouter = () => {
     '/verify-email',
     zodValidateMiddleware(emailSchema),
     async (req: Request, res: Response) => {
+      /* #swagger.tags = ['Auth'] */
+
       try {
         const data = await AuthService.sendEmail({
           ...req.body,
@@ -99,6 +103,8 @@ const authRouter = () => {
     '/reset-password',
     zodValidateMiddleware(emailSchema),
     async (req: Request, res: Response) => {
+      /* #swagger.tags = ['Auth'] */
+
       try {
         const data = await AuthService.sendEmail({
           ...req.body,
@@ -116,6 +122,8 @@ const authRouter = () => {
     '/reset-password',
     zodValidateMiddleware(resetPasswordSchema),
     async (req: Request, res: Response) => {
+      /* #swagger.tags = ['Auth'] */
+
       try {
         const data = await AuthService.resetPassword(req.body);
 
