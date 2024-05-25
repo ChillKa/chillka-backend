@@ -1,6 +1,10 @@
 import mongoose from 'mongoose';
 import Activity from '../model/activity.model';
-import { GetActivitiesParams } from '../type/activity.type';
+import {
+  CancelActivityParams,
+  GetActivitiesParams,
+  StatusEnum,
+} from '../type/activity.type';
 import { CoreError } from '../util/error-handler';
 import { mockActivity } from '../util/mock/data';
 import { paginator } from '../util/paginator';
@@ -45,4 +49,22 @@ export const get = async ({
   } catch (error) {
     throw new CoreError('Get activities failed.');
   }
+};
+
+export const cancelActivity = async ({
+  activityId,
+  userId,
+}: CancelActivityParams) => {
+  if (!activityId)
+    throw new CoreError('Unable to cancel activity without activity id.');
+
+  const activity = await Activity.findById(activityId);
+
+  if (!userId?.equals(activity?.creatorId)) {
+    throw new CoreError('Unauthorized to cancel activity.', 403);
+  }
+
+  await activity?.updateOne({ $set: { status: StatusEnum.CANCELLED } });
+
+  return activity;
 };
