@@ -2,8 +2,8 @@ import emailjs from '@emailjs/nodejs';
 import bcrypt from 'bcryptjs';
 import 'dotenv/config';
 import jwt from 'jsonwebtoken';
-import { AuthDecoded } from '../middleware/authorize.middleware';
 import User from '../model/user.model';
+import { AuthDecoded } from '../type/model.type';
 import {
   ResetPasswordCrendtials,
   SendEmailCrendtials,
@@ -88,7 +88,6 @@ export const sendEmail = async ({ email, emailType }: SendEmailCrendtials) => {
         break;
       default:
         throw new CoreError('EmailType not found.');
-        break;
     }
 
     const templateParams = {
