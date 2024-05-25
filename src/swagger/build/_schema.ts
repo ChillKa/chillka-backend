@@ -911,6 +911,9 @@ export const _schema = {
         "address": {
           "type": "string"
         },
+        "isEmailValidate": {
+          "type": "string"
+        },
         "displayName": {
           "type": "string"
         },
@@ -1036,6 +1039,9 @@ export const _schema = {
           "type": "number"
         },
         "phoneBarcode": {
+          "type": "string"
+        },
+        "isEmailValidate": {
           "type": "string"
         }
       },
