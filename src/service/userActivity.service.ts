@@ -1,4 +1,3 @@
-import mongoose from 'mongoose';
 import Activity from '../model/activity.model';
 import {
   CancelActivityParams,
@@ -6,22 +5,15 @@ import {
   StatusEnum,
 } from '../type/activity.type';
 import { CoreError } from '../util/error-handler';
-import { mockActivity } from '../util/mock/data';
 import { paginator } from '../util/paginator';
 
-export const create = async (userId: mongoose.Types.ObjectId | undefined) => {
-  if (!userId)
-    throw new CoreError('Unable to create activity without user id.');
-
-  const updatedActivity = new Activity({
-    ...mockActivity,
-    creatorId: userId,
-  });
+export const create = async (reqBody: ActivitySchemaModel) => {
+  const newActivity = new Activity(reqBody);
 
   try {
-    await updatedActivity.save();
+    await newActivity.save();
 
-    return updatedActivity;
+    return newActivity;
   } catch (error) {
     throw new CoreError('Create activity failed.');
   }
