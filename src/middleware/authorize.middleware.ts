@@ -1,13 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
-import { UserTokenCredentials } from '../type/user.type';
 import { CoreError, throwAPIError } from '../util/error-handler';
-
-interface AuthDecoded extends UserTokenCredentials {
-  int: number;
-  exp: number;
-}
 
 const authorizeMiddleware = (
   req: Request,

@@ -30,3 +30,20 @@ export const loginSchema = z.object({
       'At least a letter and a number'
     ),
 });
+
+export const emailSchema = z.object({
+  email: z
+    .string({ required_error: 'Email is required' })
+    .email('Not a valid email'),
+});
+
+export const resetPasswordSchema = z.object({
+  token: z.string({ required_error: 'token is required' }),
+  password: z
+    .string({ required_error: 'Password is required' })
+    .min(8, 'Minimum eight characters')
+    .refine(
+      (value) => validatePassword(value),
+      'At least a letter and a number'
+    ),
+});

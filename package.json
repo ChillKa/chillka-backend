@@ -36,6 +36,7 @@
     }
   },
   "dependencies": {
+    "@emailjs/nodejs": "^2.2.0",
     "@faker-js/faker": "^8.4.1",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.5",
