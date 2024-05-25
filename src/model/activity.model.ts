@@ -115,6 +115,7 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
       type: Schema.Types.String,
       enum: StatusEnum,
       required: true,
+      default: StatusEnum.VALID,
     },
     customField: {
       type: Schema.Types.Boolean,
