@@ -1,8 +1,8 @@
 import { Model, Schema, model } from 'mongoose';
 import {
-  TicketSchemaModel,
-  PaymentStatusEnum,
   PaymentMethodEnum,
+  PaymentStatusEnum,
+  TicketSchemaModel,
   TicketStatusEnum,
 } from '../type/ticket.type';
 

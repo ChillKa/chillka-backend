@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { SortType } from './model.type';
 import { OrganizerBase } from './organizer.type';
+import { TicketSchemaModel } from './ticket.type';
 
 export enum CategoryEnum {
   Outdoor = '戶外踏青',
@@ -61,7 +62,7 @@ export interface Recurring {
   day: DayEnum;
 }
 
-export interface ActivitySchemaModel {
+export interface ActivityBase {
   creatorId: mongoose.Types.ObjectId;
   name: string;
   organizer: OrganizerBase;
@@ -89,6 +90,10 @@ export interface ActivitySchemaModel {
   ticketRequired: boolean;
 }
 
+export interface ActivitySchemaModel extends ActivityBase {
+  tickets?: TicketSchemaModel[];
+}
+
 export type ActivityCreateCredentials = Omit<
   ActivitySchemaModel,
   'creatorId'
@@ -101,4 +106,20 @@ export type GetActivitiesParams = {
   page?: number;
   limit?: number;
   sort?: SortType;
+};
+
+export type GetActivityParticipantParams = {
+  activityId: mongoose.Types.ObjectId | undefined;
+  page?: number;
+  limit?: number;
+  sort?: SortType;
+};
+
+export type AttendActivityParams = {
+  userId: mongoose.Types.ObjectId;
+  activityId: mongoose.Types.ObjectId;
+  requestBody: Omit<
+    TicketSchemaModel,
+    'userId' | 'activityId' | 'ticketStatus' | 'serialNumber'
+  >;
 };
