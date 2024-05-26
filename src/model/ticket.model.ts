@@ -1,8 +1,8 @@
 import { Model, Schema, model } from 'mongoose';
 import {
-  TicketSchemaModel,
-  PaymentStatusEnum,
   PaymentMethodEnum,
+  PaymentStatusEnum,
+  TicketSchemaModel,
   TicketStatusEnum,
 } from '../type/ticket.type';
 
@@ -53,22 +53,32 @@ const TicketSchema = new Schema<TicketSchemaModel, TicketModel>(
     ticketsPurchaseDuplicate: {
       type: Schema.Types.Boolean,
     },
-    paymentAmount: {
-      type: Schema.Types.Number,
+    userInfo: {
+      name: {
+        type: Schema.Types.String,
+      },
+      email: {
+        type: Schema.Types.String,
+      },
+      phone: {
+        type: Schema.Types.String,
+      },
     },
-    paymentStatus: {
-      type: Schema.Types.String,
-      enum: PaymentStatusEnum,
-    },
-    paymentMethod: {
-      type: Schema.Types.String,
-      enum: PaymentMethodEnum,
-    },
-    count: {
-      type: Schema.Types.Number,
-    },
-    orderNumber: {
-      type: Schema.Types.String,
+    payment: {
+      amount: {
+        type: Schema.Types.Number,
+      },
+      status: {
+        type: Schema.Types.String,
+        enum: PaymentStatusEnum,
+      },
+      method: {
+        type: Schema.Types.String,
+        enum: PaymentMethodEnum,
+      },
+      orderNumber: {
+        type: Schema.Types.Number,
+      },
     },
     ticketStatus: {
       type: Schema.Types.String,

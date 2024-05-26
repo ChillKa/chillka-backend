@@ -20,7 +20,7 @@ export enum TicketStatusEnum {
   ERROR = '無效票券',
 }
 
-export interface TicketSchemaModel {
+export interface TicketBase {
   userId: mongoose.Types.ObjectId;
   activityId: mongoose.Types.ObjectId;
   name: string;
@@ -34,11 +34,23 @@ export interface TicketSchemaModel {
   purchaseLimit: number;
   description: string;
   ticketsPurchaseDuplicate: boolean;
-  paymentAmount: number;
-  paymentStatus: PaymentStatusEnum;
-  paymentMethod: PaymentMethodEnum;
-  count: number;
-  orderNumber: string;
+}
+
+export interface TicketAttendeeCreate {
+  userInfo: {
+    name: string;
+    email: string;
+    phone: string;
+  };
+  payment: {
+    amount: number;
+    status: PaymentStatusEnum;
+    method: PaymentMethodEnum;
+    orderNumber: number;
+  };
+}
+
+export interface TicketSchemaModel extends TicketBase, TicketAttendeeCreate {
   ticketStatus: TicketStatusEnum;
   serialNumber: string;
 }

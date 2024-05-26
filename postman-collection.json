@@ -1,9 +1,9 @@
 {
   "info": {
-    "_postman_id": "51722f4b-fbf9-4062-952b-576766be5315",
+    "_postman_id": "248a83ca-6fc0-47e3-9d0d-8716f013540d",
     "name": "chillka-backend",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "20616853"
+    "_exporter_id": "30654257"
   },
   "item": [
     {
@@ -109,6 +109,85 @@
       "response": []
     },
     {
+      "name": "reset password - send email",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\":\"chillka.offical@gmail.com\"\r\n} ",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/reset-password",
+          "host": ["{{HOST}}"],
+          "path": ["api", "reset-password"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "reset password - set password",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjRiNDgzOTNiNzQ5ZmFjN2RmODY4MTYiLCJkaXNwbGF5TmFtZSI6ImNoaWxsa2EiLCJlbWFpbCI6ImNoaWxsa2Eub2ZmaWNhbEBnbWFpbC5jb20iLCJpYXQiOjE3MTYzNTAwNDAsImV4cCI6MTcxNjQzNjQ0MH0.7fjchGa5YocepLgO2QiPgYYC92ZpYWwIja7ZKn9gxl0\",\r\n    \"password\":\"north9Hex\",\r\n    \"confirmPassword\":\"north9Hex\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/reset-password",
+          "host": ["{{HOST}}"],
+          "path": ["api", "reset-password"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "verify email - send email",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\":\"chillka.offical@gmail.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/verify-email",
+          "host": ["{{HOST}}"],
+          "path": ["api", "verify-email"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get user by Id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{HOST}}/api/auth/user/664b37ba72cf638786095cfc",
+          "host": ["{{HOST}}"],
+          "path": ["api", "auth", "user", "664b37ba72cf638786095cfc"]
+        }
+      },
+      "response": []
+    },
+    {
       "name": "get activities",
       "protocolProfileBehavior": {
         "disableBodyPruning": true
@@ -134,7 +213,7 @@
       "response": []
     },
     {
-      "name": "create activities",
+      "name": "create activity",
       "request": {
         "method": "POST",
         "header": [],
@@ -156,64 +235,91 @@
       "response": []
     },
     {
-      "name": "getUserById",
+      "name": "cancel activity by Id",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "",
+            "value": "",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{HOST}}/api/auth/activities/665347c6fce61bba7f48ca50/cancel",
+          "host": ["{{HOST}}"],
+          "path": [
+            "api",
+            "auth",
+            "activities",
+            "665347c6fce61bba7f48ca50",
+            "cancel"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "attend activity",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "",
+            "value": "",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"userInfo\":{\n        \"name\": \"chillka\",\n        \"email\": \"chillka@gmail.com\",\n        \"phone\": \"12345678\"\n    },\n    \"payment\":{\n        \"amount\": 111,\n        \"status\": \"已付款\",\n        \"method\": \"信用卡\",\n        \"orderNumber\": 1\n\n    }\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/auth/activities/6651a9a064f128ec88d6c72d/attend",
+          "host": ["{{HOST}}"],
+          "path": [
+            "api",
+            "auth",
+            "activities",
+            "6651a9a064f128ec88d6c72d",
+            "attend"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get activity participant list",
       "request": {
         "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{HOST}}/api/auth/user/664b37ba72cf638786095cfc",
-          "host": ["{{HOST}}"],
-          "path": ["api", "auth", "user", "664b37ba72cf638786095cfc"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "resetPassword-sendEmail",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"email\":\"chillka.offical@gmail.com\"\r\n} ",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
+        "header": [
+          {
+            "key": "",
+            "value": "",
+            "disabled": true
           }
-        },
+        ],
         "url": {
-          "raw": "{{HOST}}/api/reset-password",
+          "raw": "{{HOST}}/api/auth/activities/6651a9a064f128ec88d6c72d/participants",
           "host": ["{{HOST}}"],
-          "path": ["api", "reset-password"]
+          "path": [
+            "api",
+            "auth",
+            "activities",
+            "6651a9a064f128ec88d6c72d",
+            "participants"
+          ]
         }
       },
       "response": []
     },
     {
-      "name": "verifyEmail-sendEmail",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"email\":\"chillka.offical@gmail.com\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{HOST}}/api/verify-email",
-          "host": ["{{HOST}}"],
-          "path": ["api", "verify-email"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "verifyEmail-setEmailValidate",
+      "name": "verify email - set email validate",
       "protocolProfileBehavior": {
         "disableBodyPruning": true
       },
@@ -242,28 +348,6 @@
         }
       },
       "response": []
-    },
-    {
-      "name": "resetPassword-setPassword",
-      "request": {
-        "method": "PATCH",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjRiNDgzOTNiNzQ5ZmFjN2RmODY4MTYiLCJkaXNwbGF5TmFtZSI6ImNoaWxsa2EiLCJlbWFpbCI6ImNoaWxsa2Eub2ZmaWNhbEBnbWFpbC5jb20iLCJpYXQiOjE3MTYzNTAwNDAsImV4cCI6MTcxNjQzNjQ0MH0.7fjchGa5YocepLgO2QiPgYYC92ZpYWwIja7ZKn9gxl0\",\r\n    \"password\":\"north9Hex\",\r\n    \"confirmPassword\":\"north9Hex\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{HOST}}/api/reset-password",
-          "host": ["{{HOST}}"],
-          "path": ["api", "reset-password"]
-        }
-      },
-      "response": []
     }
   ],
   "auth": {
@@ -271,7 +355,7 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{session}}",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjUzNDc5MGZjZTYxYmJhN2Y0OGNhNDgiLCJkaXNwbGF5TmFtZSI6ImNoaWxsa2EiLCJlbWFpbCI6ImNoaWxsa2Eub2ZmaWNhbEBnbWFpbC5jb20iLCJpYXQiOjE3MTY3MzM4NDQsImV4cCI6MTcxNjgyMDI0NH0.xXvUvmSHb8rKk2a7zkGkWEtmzciEAz-nSjYwPDRfeoM",
         "type": "string"
       }
     ]
@@ -292,6 +376,12 @@
         "packages": {},
         "exec": [""]
       }
+    }
+  ],
+  "variable": [
+    {
+      "key": "HOST",
+      "value": "http://localhost:8000"
     }
   ]
 }
