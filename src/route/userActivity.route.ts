@@ -99,8 +99,7 @@ const userActivityRouter = () => {
       /* #swagger.tags = ['Activity'] 
           #swagger.parameters['body'] = {
             in: 'body',
-            type: 'object',
-            schema: { $ref: "#/schemas/AttendActivityParams.requestBody" },
+            schema: { $ref: "#/schemas/AttendActivityCredentials" },
           }
       */
 
@@ -130,7 +129,6 @@ const userActivityRouter = () => {
           in: 'query',
           required: false,
           type: 'string',
-          enum: ['asc', 'des'],
           }
           #swagger.parameters['page'] = {
             in: 'query',

@@ -383,7 +383,7 @@ export const _schema = {
         "無效票券"
       ]
     },
-    "TicketSchemaModel": {
+    "TicketBase": {
       "type": "object",
       "properties": {
         "userId": {
@@ -426,32 +426,88 @@ export const _schema = {
         },
         "ticketsPurchaseDuplicate": {
           "type": "boolean"
-        },
-        "paymentAmount": {
-          "type": "number"
-        },
-        "paymentStatus": {
-          "type": "string",
-          "enum": [
-            "已付款",
-            "待付款",
-            "付款失敗"
+        }
+      },
+      "required": [
+        "activityId",
+        "description",
+        "endDateTime",
+        "fromToday",
+        "name",
+        "noEndDate",
+        "participantCapacity",
+        "price",
+        "purchaseLimit",
+        "startDateTime",
+        "ticketsPurchaseDuplicate",
+        "unlimitedQuantity",
+        "userId"
+      ]
+    },
+    "TicketAttendeeCreate": {
+      "type": "object",
+      "properties": {
+        "userInfo": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "email",
+            "name",
+            "phone"
           ]
         },
-        "paymentMethod": {
-          "type": "string",
-          "enum": [
-            "信用卡",
-            "現金",
-            "系統更新"
+        "payment": {
+          "type": "object",
+          "properties": {
+            "amount": {
+              "type": "number"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "已付款",
+                "待付款",
+                "付款失敗"
+              ]
+            },
+            "method": {
+              "type": "string",
+              "enum": [
+                "信用卡",
+                "現金",
+                "系統更新"
+              ]
+            },
+            "orderNumber": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "amount",
+            "method",
+            "orderNumber",
+            "status"
           ]
-        },
-        "count": {
-          "type": "number"
-        },
-        "orderNumber": {
-          "type": "string"
-        },
+        }
+      },
+      "required": [
+        "payment",
+        "userInfo"
+      ]
+    },
+    "TicketSchemaModel": {
+      "type": "object",
+      "properties": {
         "ticketStatus": {
           "type": "string",
           "enum": [
@@ -464,21 +520,110 @@ export const _schema = {
         },
         "serialNumber": {
           "type": "string"
+        },
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "activityId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "name": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        },
+        "startDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "fromToday": {
+          "type": "boolean"
+        },
+        "endDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "noEndDate": {
+          "type": "boolean"
+        },
+        "participantCapacity": {
+          "type": "number"
+        },
+        "unlimitedQuantity": {
+          "type": "boolean"
+        },
+        "purchaseLimit": {
+          "type": "number"
+        },
+        "description": {
+          "type": "string"
+        },
+        "ticketsPurchaseDuplicate": {
+          "type": "boolean"
+        },
+        "userInfo": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "email",
+            "name",
+            "phone"
+          ]
+        },
+        "payment": {
+          "type": "object",
+          "properties": {
+            "amount": {
+              "type": "number"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "已付款",
+                "待付款",
+                "付款失敗"
+              ]
+            },
+            "method": {
+              "type": "string",
+              "enum": [
+                "信用卡",
+                "現金",
+                "系統更新"
+              ]
+            },
+            "orderNumber": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "amount",
+            "method",
+            "orderNumber",
+            "status"
+          ]
         }
       },
       "required": [
         "activityId",
-        "count",
         "description",
         "endDateTime",
         "fromToday",
         "name",
         "noEndDate",
-        "orderNumber",
         "participantCapacity",
-        "paymentAmount",
-        "paymentMethod",
-        "paymentStatus",
+        "payment",
         "price",
         "purchaseLimit",
         "serialNumber",
@@ -486,7 +631,8 @@ export const _schema = {
         "ticketStatus",
         "ticketsPurchaseDuplicate",
         "unlimitedQuantity",
-        "userId"
+        "userId",
+        "userInfo"
       ]
     },
     "CategoryEnum": {
@@ -812,6 +958,19 @@ export const _schema = {
           "items": {
             "type": "object",
             "properties": {
+              "ticketStatus": {
+                "type": "string",
+                "enum": [
+                  "有效",
+                  "取消",
+                  "已使用",
+                  "保留",
+                  "無效票券"
+                ]
+              },
+              "serialNumber": {
+                "type": "string"
+              },
               "userId": {
                 "$ref": "#/definitions/Types.ObjectId"
               },
@@ -853,58 +1012,68 @@ export const _schema = {
               "ticketsPurchaseDuplicate": {
                 "type": "boolean"
               },
-              "paymentAmount": {
-                "type": "number"
-              },
-              "paymentStatus": {
-                "type": "string",
-                "enum": [
-                  "已付款",
-                  "待付款",
-                  "付款失敗"
+              "userInfo": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email",
+                  "name",
+                  "phone"
                 ]
               },
-              "paymentMethod": {
-                "type": "string",
-                "enum": [
-                  "信用卡",
-                  "現金",
-                  "系統更新"
+              "payment": {
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": "number"
+                  },
+                  "status": {
+                    "type": "string",
+                    "enum": [
+                      "已付款",
+                      "待付款",
+                      "付款失敗"
+                    ]
+                  },
+                  "method": {
+                    "type": "string",
+                    "enum": [
+                      "信用卡",
+                      "現金",
+                      "系統更新"
+                    ]
+                  },
+                  "orderNumber": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "amount",
+                  "method",
+                  "orderNumber",
+                  "status"
                 ]
-              },
-              "count": {
-                "type": "number"
-              },
-              "orderNumber": {
-                "type": "string"
-              },
-              "ticketStatus": {
-                "type": "string",
-                "enum": [
-                  "有效",
-                  "取消",
-                  "已使用",
-                  "保留",
-                  "無效票券"
-                ]
-              },
-              "serialNumber": {
-                "type": "string"
               }
             },
             "required": [
               "activityId",
-              "count",
               "description",
               "endDateTime",
               "fromToday",
               "name",
               "noEndDate",
-              "orderNumber",
               "participantCapacity",
-              "paymentAmount",
-              "paymentMethod",
-              "paymentStatus",
+              "payment",
               "price",
               "purchaseLimit",
               "serialNumber",
@@ -912,7 +1081,8 @@ export const _schema = {
               "ticketStatus",
               "ticketsPurchaseDuplicate",
               "unlimitedQuantity",
-              "userId"
+              "userId",
+              "userInfo"
             ]
           }
         },
@@ -1162,6 +1332,19 @@ export const _schema = {
               "items": {
                 "type": "object",
                 "properties": {
+                  "ticketStatus": {
+                    "type": "string",
+                    "enum": [
+                      "有效",
+                      "取消",
+                      "已使用",
+                      "保留",
+                      "無效票券"
+                    ]
+                  },
+                  "serialNumber": {
+                    "type": "string"
+                  },
                   "userId": {
                     "$ref": "#/definitions/Types.ObjectId"
                   },
@@ -1203,58 +1386,68 @@ export const _schema = {
                   "ticketsPurchaseDuplicate": {
                     "type": "boolean"
                   },
-                  "paymentAmount": {
-                    "type": "number"
-                  },
-                  "paymentStatus": {
-                    "type": "string",
-                    "enum": [
-                      "已付款",
-                      "待付款",
-                      "付款失敗"
+                  "userInfo": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "phone": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "email",
+                      "name",
+                      "phone"
                     ]
                   },
-                  "paymentMethod": {
-                    "type": "string",
-                    "enum": [
-                      "信用卡",
-                      "現金",
-                      "系統更新"
+                  "payment": {
+                    "type": "object",
+                    "properties": {
+                      "amount": {
+                        "type": "number"
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "已付款",
+                          "待付款",
+                          "付款失敗"
+                        ]
+                      },
+                      "method": {
+                        "type": "string",
+                        "enum": [
+                          "信用卡",
+                          "現金",
+                          "系統更新"
+                        ]
+                      },
+                      "orderNumber": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "amount",
+                      "method",
+                      "orderNumber",
+                      "status"
                     ]
-                  },
-                  "count": {
-                    "type": "number"
-                  },
-                  "orderNumber": {
-                    "type": "string"
-                  },
-                  "ticketStatus": {
-                    "type": "string",
-                    "enum": [
-                      "有效",
-                      "取消",
-                      "已使用",
-                      "保留",
-                      "無效票券"
-                    ]
-                  },
-                  "serialNumber": {
-                    "type": "string"
                   }
                 },
                 "required": [
                   "activityId",
-                  "count",
                   "description",
                   "endDateTime",
                   "fromToday",
                   "name",
                   "noEndDate",
-                  "orderNumber",
                   "participantCapacity",
-                  "paymentAmount",
-                  "paymentMethod",
-                  "paymentStatus",
+                  "payment",
                   "price",
                   "purchaseLimit",
                   "serialNumber",
@@ -1262,7 +1455,8 @@ export const _schema = {
                   "ticketStatus",
                   "ticketsPurchaseDuplicate",
                   "unlimitedQuantity",
-                  "userId"
+                  "userId",
+                  "userInfo"
                 ]
               }
             },
@@ -1507,6 +1701,9 @@ export const _schema = {
         "activityId": {
           "$ref": "#/definitions/Types.ObjectId"
         },
+        "participantName": {
+          "type": "string"
+        },
         "page": {
           "type": "number"
         },
@@ -1543,9 +1740,6 @@ export const _schema = {
             "description": {
               "type": "string"
             },
-            "count": {
-              "type": "number"
-            },
             "startDateTime": {
               "type": "string",
               "format": "date-time"
@@ -1575,10 +1769,146 @@ export const _schema = {
             "ticketsPurchaseDuplicate": {
               "type": "boolean"
             },
-            "paymentAmount": {
+            "userInfo": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "email",
+                "name",
+                "phone"
+              ]
+            },
+            "payment": {
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "type": "number"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "已付款",
+                    "待付款",
+                    "付款失敗"
+                  ]
+                },
+                "method": {
+                  "type": "string",
+                  "enum": [
+                    "信用卡",
+                    "現金",
+                    "系統更新"
+                  ]
+                },
+                "orderNumber": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "amount",
+                "method",
+                "orderNumber",
+                "status"
+              ]
+            }
+          },
+          "required": [
+            "description",
+            "endDateTime",
+            "fromToday",
+            "name",
+            "noEndDate",
+            "participantCapacity",
+            "payment",
+            "price",
+            "purchaseLimit",
+            "startDateTime",
+            "ticketsPurchaseDuplicate",
+            "unlimitedQuantity",
+            "userInfo"
+          ]
+        }
+      },
+      "required": [
+        "activityId",
+        "requestBody",
+        "userId"
+      ]
+    },
+    "AttendActivityCredentials": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "startDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "fromToday": {
+          "type": "boolean"
+        },
+        "endDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "noEndDate": {
+          "type": "boolean"
+        },
+        "price": {
+          "type": "number"
+        },
+        "participantCapacity": {
+          "type": "number"
+        },
+        "unlimitedQuantity": {
+          "type": "boolean"
+        },
+        "purchaseLimit": {
+          "type": "number"
+        },
+        "ticketsPurchaseDuplicate": {
+          "type": "boolean"
+        },
+        "userInfo": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "email",
+            "name",
+            "phone"
+          ]
+        },
+        "payment": {
+          "type": "object",
+          "properties": {
+            "amount": {
               "type": "number"
             },
-            "paymentStatus": {
+            "status": {
               "type": "string",
               "enum": [
                 "已付款",
@@ -1586,7 +1916,7 @@ export const _schema = {
                 "付款失敗"
               ]
             },
-            "paymentMethod": {
+            "method": {
               "type": "string",
               "enum": [
                 "信用卡",
@@ -1595,33 +1925,31 @@ export const _schema = {
               ]
             },
             "orderNumber": {
-              "type": "string"
+              "type": "number"
             }
           },
           "required": [
-            "count",
-            "description",
-            "endDateTime",
-            "fromToday",
-            "name",
-            "noEndDate",
+            "amount",
+            "method",
             "orderNumber",
-            "participantCapacity",
-            "paymentAmount",
-            "paymentMethod",
-            "paymentStatus",
-            "price",
-            "purchaseLimit",
-            "startDateTime",
-            "ticketsPurchaseDuplicate",
-            "unlimitedQuantity"
+            "status"
           ]
         }
       },
       "required": [
-        "activityId",
-        "requestBody",
-        "userId"
+        "description",
+        "endDateTime",
+        "fromToday",
+        "name",
+        "noEndDate",
+        "participantCapacity",
+        "payment",
+        "price",
+        "purchaseLimit",
+        "startDateTime",
+        "ticketsPurchaseDuplicate",
+        "unlimitedQuantity",
+        "userInfo"
       ]
     },
     "CancelActivityParams": {
