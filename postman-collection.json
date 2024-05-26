@@ -153,6 +153,28 @@
       "response": []
     },
     {
+      "name": "change password",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"password\":\"north9Hex123\",\r\n    \"confirmPassword\":\"north9Hex123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/auth/change-password",
+          "host": ["{{HOST}}"],
+          "path": ["api", "auth", "change-password"]
+        }
+      },
+      "response": []
+    },
+    {
       "name": "verify email - send email",
       "request": {
         "method": "POST",

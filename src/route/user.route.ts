@@ -52,6 +52,13 @@ const userRouter = () => {
     authorizeMiddleware,
     zodValidateMiddleware(passwordSchema),
     async (req: Request, res: Response) => {
+      /* #swagger.tags = ['User'] 
+          #swagger.parameters['body'] = {
+          in: 'body',
+          schema: { $ref: "#/schemas/ChangePasswordCredentials" },
+          }
+      */
+
       try {
         const data = await UserService.changePassword({
           userId: new mongoose.Types.ObjectId(req.user?._id ?? ''),

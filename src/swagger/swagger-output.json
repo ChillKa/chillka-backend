@@ -194,6 +194,31 @@
         ]
       }
     },
+    "/api/auth/change-password": {
+      "put": {
+        "tags": ["User"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/schemas/ChangePasswordCredentials"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
     "/api/auth/activities": {
       "post": {
         "tags": ["Activity"],
@@ -513,7 +538,7 @@
       },
       "required": ["displayName", "email"]
     },
-    "SendEmailCrendtials": {
+    "SendEmailCredentials": {
       "type": "object",
       "properties": {
         "email": {
@@ -526,7 +551,7 @@
       },
       "required": ["email", "emailType"]
     },
-    "ResetPasswordCrendtials": {
+    "ResetPasswordCredentials": {
       "type": "object",
       "properties": {
         "token": {
@@ -540,6 +565,33 @@
         }
       },
       "required": ["confirmPassword", "password", "token"]
+    },
+    "ChangePasswordParams": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "password": {
+          "type": "string"
+        },
+        "confirmPassword": {
+          "type": "string"
+        }
+      },
+      "required": ["confirmPassword", "password", "userId"]
+    },
+    "ChangePasswordCredentials": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string"
+        },
+        "confirmPassword": {
+          "type": "string"
+        }
+      },
+      "required": ["confirmPassword", "password"]
     },
     "SortEnum": {
       "type": "string",

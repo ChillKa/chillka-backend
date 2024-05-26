@@ -208,7 +208,7 @@ export const _schema = {
         "email"
       ]
     },
-    "SendEmailCrendtials": {
+    "SendEmailCredentials": {
       "type": "object",
       "properties": {
         "email": {
@@ -227,7 +227,7 @@ export const _schema = {
         "emailType"
       ]
     },
-    "ResetPasswordCrendtials": {
+    "ResetPasswordCredentials": {
       "type": "object",
       "properties": {
         "token": {
@@ -244,6 +244,40 @@ export const _schema = {
         "confirmPassword",
         "password",
         "token"
+      ]
+    },
+    "ChangePasswordParams": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "password": {
+          "type": "string"
+        },
+        "confirmPassword": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "confirmPassword",
+        "password",
+        "userId"
+      ]
+    },
+    "ChangePasswordCredentials": {
+      "type": "object",
+      "properties": {
+        "password": {
+          "type": "string"
+        },
+        "confirmPassword": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "confirmPassword",
+        "password"
       ]
     },
     "SortEnum": {
