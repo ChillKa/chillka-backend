@@ -38,13 +38,20 @@ export type UserTokenCredentials = {
 export type UserLoginCredentials = Omit<UserBase, 'displayName'>;
 export type UserEditCredentials = Omit<UserSchemaModel, 'password'>;
 
-export type SendEmailCrendtials = {
+export type SendEmailCredentials = {
   email: string;
   emailType: 'resetPassword' | 'verifyEmail';
 };
 
-export type ResetPasswordCrendtials = {
+export type ResetPasswordCredentials = {
   token: string;
   password: string;
   confirmPassword: string;
 };
+
+export type ChangePasswordParams = {
+  userId: mongoose.Types.ObjectId;
+  password: string;
+  confirmPassword: string;
+};
+export type ChangePasswordCredentials = Omit<ChangePasswordParams, 'userId'>;

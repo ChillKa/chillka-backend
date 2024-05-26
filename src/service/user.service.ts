@@ -1,6 +1,8 @@
+import bcrypt from 'bcryptjs';
 import { isValidObjectId } from 'mongoose';
 import User from '../model/user.model';
-import { UserEditCredentials } from '../type/user.type';
+
+import { ChangePasswordParams, UserEditCredentials } from '../type/user.type';
 import { CoreError } from '../util/error-handler';
 
 export const get = async (userId: string) => {
@@ -40,4 +42,32 @@ export const edit = async (
   await existingUser.save();
 
   return existingUser;
+};
+
+export const changePassword = async ({
+  userId,
+  password,
+  confirmPassword,
+}: ChangePasswordParams) => {
+  const user = await User.findById(userId);
+
+  if (!user) {
+    throw new CoreError('User not found');
+  }
+  if (password !== confirmPassword) {
+    throw new CoreError('Password and Confirm Password inconsistent');
+  }
+
+  const newHashedPassword = await bcrypt.hash(password, 10);
+  const isSamePassword = await bcrypt.compare(password, user.password);
+
+  if (isSamePassword) {
+    throw new CoreError(
+      "New password can't be the same as the current password"
+    );
+  }
+
+  await user.updateOne({ $set: { password: newHashedPassword } });
+
+  return { message: 'Password changed successfully' };
 };
