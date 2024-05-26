@@ -5,7 +5,6 @@ import {
   DayEnum,
   PeriodEnum,
   StatusEnum,
-  TicketModeEnum,
   TypeEnum,
   WeekEnum,
 } from '../../type/activity.type';
@@ -16,7 +15,6 @@ const typeValues = Object.values(TypeEnum);
 const periodValues = Object.values(PeriodEnum);
 const weekValues = Object.values(WeekEnum);
 const dayValues = Object.values(DayEnum);
-const ticketModeValues = Object.values(TicketModeEnum);
 
 // Mock data
 export const mockActivity: ActivityCreateCredentials = {
@@ -36,7 +34,6 @@ export const mockActivity: ActivityCreateCredentials = {
   fromToday: faker.helpers.arrayElement([true, false]),
   endDateTime: faker.date.future(),
   noEndDate: faker.helpers.arrayElement([true, false]),
-  price: Math.floor(Math.random() * 1000),
   category: faker.helpers.arrayElement(categoryValues),
   type: faker.helpers.arrayElement(typeValues),
   link: faker.internet.url(),
@@ -52,8 +49,6 @@ export const mockActivity: ActivityCreateCredentials = {
     week: faker.helpers.arrayElement(weekValues),
     day: faker.helpers.arrayElement(dayValues),
   },
-  ticketMode: faker.helpers.arrayElement(ticketModeValues),
   status: StatusEnum.VALID,
-  customField: faker.helpers.arrayElement([true, false]),
-  ticketRequired: faker.helpers.arrayElement([true, false]),
+  tickets: [],
 };

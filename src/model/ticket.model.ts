@@ -13,7 +13,6 @@ const TicketSchema = new Schema<TicketSchemaModel, TicketModel>(
     userId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-      required: true,
     },
     activityId: {
       type: Schema.Types.ObjectId,
@@ -22,27 +21,38 @@ const TicketSchema = new Schema<TicketSchemaModel, TicketModel>(
     },
     name: {
       type: Schema.Types.String,
+      required: true,
+      default: 'chillka',
     },
     price: {
       type: Schema.Types.Number,
+      required: true,
+      default: 0,
     },
     startDateTime: {
       type: Schema.Types.Date,
     },
     fromToday: {
       type: Schema.Types.Boolean,
+      required: true,
+      default: false,
     },
     endDateTime: {
       type: Schema.Types.Date,
     },
     noEndDate: {
       type: Schema.Types.Boolean,
+      required: true,
+      default: false,
     },
     participantCapacity: {
       type: Schema.Types.Number,
+      required: true,
     },
     unlimitedQuantity: {
       type: Schema.Types.Boolean,
+      required: true,
+      default: false,
     },
     purchaseLimit: {
       type: Schema.Types.Number,
@@ -50,15 +60,19 @@ const TicketSchema = new Schema<TicketSchemaModel, TicketModel>(
     description: {
       type: Schema.Types.String,
     },
-    ticketsPurchaseDuplicate: {
+    purchaseDuplicate: {
       type: Schema.Types.Boolean,
+      required: true,
+      default: false,
     },
     userInfo: {
       name: {
         type: Schema.Types.String,
+        required: true,
       },
       email: {
         type: Schema.Types.String,
+        required: true,
       },
       phone: {
         type: Schema.Types.String,
@@ -71,6 +85,7 @@ const TicketSchema = new Schema<TicketSchemaModel, TicketModel>(
       status: {
         type: Schema.Types.String,
         enum: PaymentStatusEnum,
+        default: PaymentStatusEnum.UNPAID,
       },
       method: {
         type: Schema.Types.String,
@@ -83,6 +98,8 @@ const TicketSchema = new Schema<TicketSchemaModel, TicketModel>(
     ticketStatus: {
       type: Schema.Types.String,
       enum: TicketStatusEnum,
+      required: true,
+      default: TicketStatusEnum.VALID,
     },
     serialNumber: {
       type: Schema.Types.String,

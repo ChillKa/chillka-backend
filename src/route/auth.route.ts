@@ -56,7 +56,6 @@ const authRouter = () => {
     '/google-oauth/callback',
     passport.authenticate('google', { session: false }),
     async (req: Request, res: Response) => {
-      // create src/typings/express/index.d.ts for fix the req.user error
       const data = await AuthService.googleOauth(req.user);
 
       // wait for frontend page completed

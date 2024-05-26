@@ -33,7 +33,7 @@ export interface TicketBase {
   unlimitedQuantity: boolean;
   purchaseLimit: number;
   description: string;
-  ticketsPurchaseDuplicate: boolean;
+  purchaseDuplicate: boolean;
 }
 
 export interface TicketAttendeeCreate {

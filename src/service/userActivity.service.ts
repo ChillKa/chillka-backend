@@ -1,9 +1,9 @@
 import { faker } from '@faker-js/faker';
-import mongoose from 'mongoose';
 import Activity from '../model/activity.model';
 import Ticket from '../model/ticket.model';
 import User from '../model/user.model';
 import {
+  ActivityCreateCredentials,
   AttendActivityParams,
   CancelActivityParams,
   GetActivitiesParams,
@@ -12,24 +12,22 @@ import {
 } from '../type/activity.type';
 import { TicketStatusEnum } from '../type/ticket.type';
 import { CoreError } from '../util/error-handler';
-import { mockActivity } from '../util/mock/data';
 import { paginator } from '../util/paginator';
 
-export const createActivity = async (
-  userId: mongoose.Types.ObjectId | undefined
-) => {
-  if (!userId)
-    throw new CoreError('Unable to create activity without user id.');
-
-  const updatedActivity = new Activity({
-    ...mockActivity,
-    creatorId: userId,
-  });
-
+export const createActivity = async ({
+  tickets,
+  ...activityData
+}: ActivityCreateCredentials) => {
+  const newActivity = new Activity(activityData);
   try {
-    await updatedActivity.save();
+    await newActivity.save();
+    const newTickets = tickets?.map((ticket) => {
+      ticket.activityId = newActivity._id;
+      return ticket;
+    });
+    await Ticket.insertMany(newTickets);
 
-    return updatedActivity;
+    return newActivity;
   } catch (error) {
     throw new CoreError('Create activity failed.');
   }

@@ -693,7 +693,7 @@
         "description": {
           "type": "string"
         },
-        "ticketsPurchaseDuplicate": {
+        "purchaseDuplicate": {
           "type": "boolean"
         }
       },
@@ -708,7 +708,7 @@
         "price",
         "purchaseLimit",
         "startDateTime",
-        "ticketsPurchaseDuplicate",
+        "purchaseDuplicate",
         "unlimitedQuantity",
         "userId"
       ]
@@ -802,7 +802,7 @@
         "description": {
           "type": "string"
         },
-        "ticketsPurchaseDuplicate": {
+        "purchaseDuplicate": {
           "type": "boolean"
         },
         "userInfo": {
@@ -855,7 +855,7 @@
         "serialNumber",
         "startDateTime",
         "ticketStatus",
-        "ticketsPurchaseDuplicate",
+        "purchaseDuplicate",
         "unlimitedQuantity",
         "userId",
         "userInfo"
@@ -905,10 +905,6 @@
         "星期六",
         "星期日"
       ]
-    },
-    "TicketModeEnum": {
-      "type": "string",
-      "enum": ["揪咖", "售票"]
     },
     "StatusEnum": {
       "type": "string",
@@ -1189,7 +1185,7 @@
               "description": {
                 "type": "string"
               },
-              "ticketsPurchaseDuplicate": {
+              "purchaseDuplicate": {
                 "type": "boolean"
               },
               "userInfo": {
@@ -1242,7 +1238,7 @@
               "serialNumber",
               "startDateTime",
               "ticketStatus",
-              "ticketsPurchaseDuplicate",
+              "purchaseDuplicate",
               "unlimitedQuantity",
               "userId",
               "userInfo"
@@ -1515,7 +1511,7 @@
                   "description": {
                     "type": "string"
                   },
-                  "ticketsPurchaseDuplicate": {
+                  "purchaseDuplicate": {
                     "type": "boolean"
                   },
                   "userInfo": {
@@ -1568,7 +1564,7 @@
                   "serialNumber",
                   "startDateTime",
                   "ticketStatus",
-                  "ticketsPurchaseDuplicate",
+                  "purchaseDuplicate",
                   "unlimitedQuantity",
                   "userId",
                   "userInfo"
@@ -1858,7 +1854,7 @@
             "purchaseLimit": {
               "type": "number"
             },
-            "ticketsPurchaseDuplicate": {
+            "purchaseDuplicate": {
               "type": "boolean"
             },
             "userInfo": {
@@ -1908,7 +1904,7 @@
             "price",
             "purchaseLimit",
             "startDateTime",
-            "ticketsPurchaseDuplicate",
+            "purchaseDuplicate",
             "unlimitedQuantity",
             "userInfo"
           ]
@@ -1951,7 +1947,7 @@
         "purchaseLimit": {
           "type": "number"
         },
-        "ticketsPurchaseDuplicate": {
+        "purchaseDuplicate": {
           "type": "boolean"
         },
         "userInfo": {
@@ -2001,7 +1997,7 @@
         "price",
         "purchaseLimit",
         "startDateTime",
-        "ticketsPurchaseDuplicate",
+        "purchaseDuplicate",
         "unlimitedQuantity",
         "userInfo"
       ]
