@@ -67,11 +67,13 @@ export const activitySchema = z.object({
         purchaseLimit: z.number().optional(),
         description: z.string().optional(),
         purchaseDuplicate: z.boolean().optional(),
-        userInfo: z.object({
-          name: z.string({ required_error: 'Name is required' }),
-          email: z.string({ required_error: 'Name is required' }),
-          phone: z.string().optional(),
-        }),
+        userInfo: z
+          .object({
+            name: z.string({ required_error: 'Name is required' }).optional(),
+            email: z.string({ required_error: 'Name is required' }).optional(),
+            phone: z.string().optional(),
+          })
+          .optional(),
         payment: z
           .object({
             amount: z.number().optional(),
