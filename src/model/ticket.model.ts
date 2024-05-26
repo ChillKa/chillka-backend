@@ -68,11 +68,9 @@ const TicketSchema = new Schema<TicketSchemaModel, TicketModel>(
     userInfo: {
       name: {
         type: Schema.Types.String,
-        required: true,
       },
       email: {
         type: Schema.Types.String,
-        required: true,
       },
       phone: {
         type: Schema.Types.String,
@@ -98,7 +96,6 @@ const TicketSchema = new Schema<TicketSchemaModel, TicketModel>(
     ticketStatus: {
       type: Schema.Types.String,
       enum: TicketStatusEnum,
-      required: true,
       default: TicketStatusEnum.VALID,
     },
     serialNumber: {
