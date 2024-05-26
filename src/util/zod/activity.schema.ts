@@ -29,7 +29,6 @@ export const activitySchema = z.object({
   noEndDate: z.boolean({
     required_error: 'NoEndDate is required',
   }),
-  price: z.number({ required_error: 'Price is required' }),
   category: z.string({ required_error: 'Category is required' }),
   type: z.string({ required_error: 'Type is required' }),
   link: z.string().optional(),
@@ -49,8 +48,24 @@ export const activitySchema = z.object({
       day: z.string(),
     })
     .optional(),
-  ticketMode: z.string({ required_error: 'TicketMode is required' }),
   status: z.string({ required_error: 'Status is required' }),
-  customField: z.boolean().optional(),
-  ticketRequired: z.boolean().optional(),
+  tickets: z.array(
+    z.object({
+      name: z.string({ required_error: 'Name is required' }),
+      price: z.number({ required_error: 'Price is required' }),
+      startDateTime: z.date().optional(),
+      fromToday: z.boolean({ required_error: 'FromToday is required' }),
+      endDateTime: z.date().optional(),
+      noEndDate: z.boolean({ required_error: 'NoEndDate is required' }),
+      participantCapacity: z.number({
+        required_error: 'ParticipantCapacity is required',
+      }),
+      unlimitedQuantity: z.boolean({
+        required_error: 'UnlimitedQuantity is required',
+      }),
+      purchaseLimit: z.number().optional(),
+      description: z.string().optional(),
+      purchaseDuplicate: z.boolean().optional(),
+    })
+  ),
 });

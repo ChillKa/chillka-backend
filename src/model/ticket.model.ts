@@ -1,8 +1,8 @@
 import { Model, Schema, model } from 'mongoose';
 import {
-  TicketSchemaModel,
-  PaymentStatusEnum,
   PaymentMethodEnum,
+  PaymentStatusEnum,
+  TicketSchemaModel,
   TicketStatusEnum,
 } from '../type/ticket.type';
 
@@ -22,27 +22,38 @@ const TicketSchema = new Schema<TicketSchemaModel, TicketModel>(
     },
     name: {
       type: Schema.Types.String,
+      required: true,
+      default: 'chillka',
     },
     price: {
       type: Schema.Types.Number,
+      required: true,
+      default: 0,
     },
     startDateTime: {
       type: Schema.Types.Date,
     },
     fromToday: {
       type: Schema.Types.Boolean,
+      required: true,
+      default: false,
     },
     endDateTime: {
       type: Schema.Types.Date,
     },
     noEndDate: {
       type: Schema.Types.Boolean,
+      required: true,
+      default: false,
     },
     participantCapacity: {
       type: Schema.Types.Number,
+      required: true,
     },
     unlimitedQuantity: {
       type: Schema.Types.Boolean,
+      required: true,
+      default: false,
     },
     purchaseLimit: {
       type: Schema.Types.Number,
@@ -50,7 +61,7 @@ const TicketSchema = new Schema<TicketSchemaModel, TicketModel>(
     description: {
       type: Schema.Types.String,
     },
-    ticketsPurchaseDuplicate: {
+    purchaseDuplicate: {
       type: Schema.Types.Boolean,
     },
     paymentAmount: {
@@ -73,6 +84,8 @@ const TicketSchema = new Schema<TicketSchemaModel, TicketModel>(
     ticketStatus: {
       type: Schema.Types.String,
       enum: TicketStatusEnum,
+      required: true,
+      default: TicketStatusEnum.VALID,
     },
     serialNumber: {
       type: Schema.Types.String,

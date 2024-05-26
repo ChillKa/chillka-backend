@@ -1,6 +1,7 @@
 import Activity from '../model/activity.model';
+import Ticket from '../model/ticket.model';
 import {
-  ActivitySchemaModel,
+  ActivityCreateCredentials,
   CancelActivityParams,
   GetActivitiesParams,
   StatusEnum,
@@ -8,11 +9,19 @@ import {
 import { CoreError } from '../util/error-handler';
 import { paginator } from '../util/paginator';
 
-export const create = async (reqBody: ActivitySchemaModel) => {
-  const newActivity = new Activity(reqBody);
-
+export const create = async ({
+  tickets,
+  ...activityData
+}: ActivityCreateCredentials) => {
+  const newActivity = new Activity(activityData);
+  const newTickets = tickets.map((ticket) => {
+    ticket.activityId = newActivity._id;
+    ticket.userId = newActivity.creatorId;
+    return ticket;
+  });
   try {
     await newActivity.save();
+    await Ticket.insertMany(newTickets);
 
     return newActivity;
   } catch (error) {

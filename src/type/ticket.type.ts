@@ -33,7 +33,7 @@ export interface TicketSchemaModel {
   unlimitedQuantity: boolean;
   purchaseLimit: number;
   description: string;
-  ticketsPurchaseDuplicate: boolean;
+  purchaseDuplicate: boolean;
   paymentAmount: number;
   paymentStatus: PaymentStatusEnum;
   paymentMethod: PaymentMethodEnum;

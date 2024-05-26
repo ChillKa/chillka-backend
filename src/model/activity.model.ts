@@ -5,7 +5,6 @@ import {
   DayEnum,
   PeriodEnum,
   StatusEnum,
-  TicketModeEnum,
   TypeEnum,
   WeekEnum,
 } from '../type/activity.type';
@@ -48,10 +47,6 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
     },
     noEndDate: {
       type: Schema.Types.Boolean,
-      required: true,
-    },
-    price: {
-      type: Schema.Types.Number,
       required: true,
     },
     category: {
@@ -107,22 +102,11 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
         enum: DayEnum,
       },
     },
-    ticketMode: {
-      type: Schema.Types.String,
-      enum: TicketModeEnum,
-      required: true,
-    },
     status: {
       type: Schema.Types.String,
       enum: StatusEnum,
       required: true,
       default: StatusEnum.VALID,
-    },
-    customField: {
-      type: Schema.Types.Boolean,
-    },
-    ticketRequired: {
-      type: Schema.Types.Boolean,
     },
   },
   {

@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { SortType } from './model.type';
 import { OrganizerBase } from './organizer.type';
+import { TicketSchemaModel } from './ticket.type';
 
 export enum CategoryEnum {
   Outdoor = '戶外踏青',
@@ -44,11 +45,6 @@ export enum DayEnum {
   SUNDAY = '星期日',
 }
 
-export enum TicketModeEnum {
-  CHILLKA = '揪咖',
-  SALE = '售票',
-}
-
 export enum StatusEnum {
   VALID = '有效',
   CANCELLED = '取消',
@@ -71,7 +67,6 @@ export interface ActivitySchemaModel {
   fromToday: boolean;
   endDateTime: Date;
   noEndDate: boolean;
-  price: number;
   category: CategoryEnum;
   type: TypeEnum;
   link: string;
@@ -83,10 +78,7 @@ export interface ActivitySchemaModel {
   displayRemainingTickets: boolean;
   isRecurring: boolean;
   recurring: Recurring;
-  ticketMode: TicketModeEnum;
   status: StatusEnum;
-  customField: boolean;
-  ticketRequired: boolean;
 }
 
 export type ActivityCreateCredentials = Omit<
@@ -94,6 +86,7 @@ export type ActivityCreateCredentials = Omit<
   'creatorId'
 > & {
   organizer: OrganizerBase;
+  tickets: TicketSchemaModel[];
 };
 
 export type GetActivitiesParams = {
