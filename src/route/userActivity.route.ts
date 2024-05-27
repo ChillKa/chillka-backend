@@ -8,7 +8,6 @@ import parser from '../util/cloudinary';
 import { CoreError, throwAPIError } from '../util/error-handler';
 import { activitySchema } from '../util/zod/activity.schema';
 // import { userAttendSchema } from "../util/zod/userActivity.schema";
-import parser from '../util/cloudinary';
 
 const userActivityRouter = () => {
   const router = Router();
