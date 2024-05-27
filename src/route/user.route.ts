@@ -4,7 +4,7 @@ import authorizeMiddleware from '../middleware/authorize.middleware';
 import { zodValidateMiddleware } from '../middleware/validate.middleware';
 import * as UserService from '../service/user.service';
 import { throwAPIError } from '../util/error-handler';
-import { passwordSchema } from '../util/zod/auth.schema';
+import { changePasswordSchema } from '../util/zod/auth.schema';
 import { editUserSchema } from '../util/zod/user.schema';
 
 const userRouter = () => {
@@ -50,7 +50,7 @@ const userRouter = () => {
   router.put(
     '/change-password',
     authorizeMiddleware,
-    zodValidateMiddleware(passwordSchema),
+    zodValidateMiddleware(changePasswordSchema),
     async (req: Request, res: Response) => {
       /* #swagger.tags = ['User'] 
           #swagger.parameters['body'] = {

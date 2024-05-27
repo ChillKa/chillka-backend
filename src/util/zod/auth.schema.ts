@@ -37,8 +37,8 @@ export const emailSchema = z.object({
     .email('Not a valid email'),
 });
 
-export const passwordSchema = z.object({
-  password: z
+export const changePasswordSchema = z.object({
+  newPassword: z
     .string({ required_error: 'Password is required' })
     .min(8, 'Minimum eight characters')
     .refine(

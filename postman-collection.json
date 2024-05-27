@@ -159,7 +159,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"password\":\"north9Hex123\",\r\n    \"confirmPassword\":\"north9Hex123\"\r\n}",
+          "raw": "{\r\n    \"oldPassword\":\"north9Hex123\",\r\n    \"newPassword\":\"north9Hex124\",\r\n    \"confirmNewPassword\":\"north9Hex124\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
