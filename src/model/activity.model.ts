@@ -138,6 +138,12 @@ ActivitySchema.virtual('messageLists', {
   foreignField: 'activityId',
 });
 
+ActivitySchema.virtual('savedActivities', {
+  ref: 'SavedActivity',
+  localField: '_id',
+  foreignField: 'activityId',
+});
+
 const Activity = model<ActivitySchemaModel, ActivityModel>(
   'Activity',
   ActivitySchema

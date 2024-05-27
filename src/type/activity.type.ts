@@ -125,3 +125,14 @@ export type CancelActivityParams = {
   userId: mongoose.Types.ObjectId | undefined;
   activityId: mongoose.Types.ObjectId;
 };
+
+export type CollectActivityParams = {
+  userId: mongoose.Types.ObjectId | undefined;
+  activityId: mongoose.Types.ObjectId;
+};
+
+export type GetSavedActivityParams = {
+  userId: mongoose.Types.ObjectId | undefined;
+  page?: number;
+  limit?: number;
+};

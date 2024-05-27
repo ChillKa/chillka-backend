@@ -1,13 +1,16 @@
 import { faker } from '@faker-js/faker';
 import Activity from '../model/activity.model';
+import SavedActivity from '../model/saved-activity.model';
 import Ticket from '../model/ticket.model';
 import User from '../model/user.model';
 import {
   ActivityCreateCredentials,
   AttendActivityParams,
   CancelActivityParams,
+  CollectActivityParams,
   GetActivitiesParams,
   GetActivityParticipantParams,
+  GetSavedActivityParams,
   StatusEnum,
 } from '../type/activity.type';
 import { TicketStatusEnum } from '../type/ticket.type';
@@ -148,4 +151,50 @@ export const cancelActivity = async ({
   await activity?.save();
 
   return activity;
+};
+
+export const collectActivity = async ({
+  activityId,
+  userId,
+}: CollectActivityParams) => {
+  if (!activityId) {
+    throw new CoreError('Unable to collect activity without activity id.');
+  }
+
+  const activity = await Activity.findById(activityId);
+
+  if (!activity) {
+    throw new CoreError('Activity not found.');
+  }
+
+  try {
+    await SavedActivity.create({
+      activityId,
+      userId,
+    });
+
+    return { message: 'Collect activity success.' };
+  } catch (error) {
+    throw new CoreError('Collect activity failed.');
+  }
+};
+
+export const getSavedActivityList = async ({
+  userId,
+  page,
+  limit,
+}: GetSavedActivityParams) => {
+  if (!userId) {
+    throw new CoreError('Unable to get saved activity list without user id.');
+  }
+
+  try {
+    const data = await SavedActivity.find({ userId }).populate('activityId');
+
+    const paginatedData = paginator(data, page, limit);
+
+    return paginatedData;
+  } catch (error) {
+    throw new CoreError('Get saved activity list failed.');
+  }
 };

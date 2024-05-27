@@ -102,6 +102,12 @@ UserSchema.virtual('messages', {
   foreignField: 'userId',
 });
 
+UserSchema.virtual('savedActivities', {
+  ref: 'SavedActivity',
+  localField: '_id',
+  foreignField: 'userId',
+});
+
 UserSchema.methods.comparePassword = async function (password) {
   try {
     return await bcrypt.compare(password, this.password);
