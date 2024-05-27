@@ -4,8 +4,8 @@ import authorizeMiddleware from '../middleware/authorize.middleware';
 import { zodValidateMiddleware } from '../middleware/validate.middleware';
 import * as UserActivityService from '../service/userActivity.service';
 import { SortEnum } from '../type/model.type';
+import parser from '../util/cloudinary';
 import { CoreError, throwAPIError } from '../util/error-handler';
-// import { userAttendSchema } from "../util/zod/userActivity.schema";
 import { activitySchema } from '../util/zod/activity.schema';
 
 const userActivityRouter = () => {
@@ -157,6 +157,22 @@ const userActivityRouter = () => {
           page: Number(req.query.page),
           limit: Number(req.query.limit),
         });
+
+        res.status(200).send(data);
+      } catch (error) {
+        throwAPIError({ res, error, statusCode: 400 });
+      }
+    }
+  );
+
+  router.post(
+    '/activities/upload-image',
+    authorizeMiddleware,
+    parser.single('image'),
+    async (req: Request, res: Response) => {
+      try {
+        const data = { iamgeUrl: req?.file?.path };
+        if (!data.iamgeUrl) throw new CoreError('Upload Image is failed');
 
         res.status(200).send(data);
       } catch (error) {
