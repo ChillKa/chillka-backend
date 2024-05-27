@@ -1,6 +1,5 @@
 import { faker } from '@faker-js/faker';
 import Activity from '../model/activity.model';
-import SavedActivity from '../model/saved-activity.model';
 import Ticket from '../model/ticket.model';
 import User from '../model/user.model';
 import {
@@ -162,16 +161,22 @@ export const collectActivity = async ({
   }
 
   const activity = await Activity.findById(activityId);
-
   if (!activity) {
     throw new CoreError('Activity not found.');
   }
 
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new CoreError('User not found.');
+  }
+
   try {
-    await SavedActivity.create({
-      activityId,
-      userId,
-    });
+    if (user.savedActivities?.includes(activityId)) {
+      return { message: 'Activity already collected.' };
+    }
+
+    user.savedActivities?.push(activityId);
+    await user?.save();
 
     return { message: 'Collect activity success.' };
   } catch (error) {
@@ -189,9 +194,9 @@ export const getSavedActivityList = async ({
   }
 
   try {
-    const data = await SavedActivity.find({ userId }).populate('activityId');
-
-    const paginatedData = paginator(data, page, limit);
+    const user = await User.findById(userId).populate('savedActivities');
+    const data = user?.savedActivities;
+    const paginatedData = paginator(data ?? [], page, limit);
 
     return paginatedData;
   } catch (error) {

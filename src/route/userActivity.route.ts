@@ -166,15 +166,10 @@ const userActivityRouter = () => {
   );
 
   router.post(
-    '/saved-activities/:activityId/collect',
+    '/saved-activities/:activityId',
     authorizeMiddleware,
     async (req: Request, res: Response) => {
-      /* #swagger.tags = ['Activity'] 
-          #swagger.parameters['body'] = {
-            in: 'body',
-            schema: { $ref: "#/schemas/CollectActivityParams" },
-          }
-      */
+      /* #swagger.tags = ['Activity'] */
 
       const userId = req.user?._id;
       const activityId = req.params?.activityId;
@@ -199,7 +194,7 @@ const userActivityRouter = () => {
       /* #swagger.tags = ['Activity'] 
           #swagger.parameters['body'] = {
             in: 'body',
-            schema: { $ref: "#/schemas/GetSavedActivityParams" },
+            schema: { $ref: "#/schemas/GetActivitiesCredentials" },
           }
       */
 

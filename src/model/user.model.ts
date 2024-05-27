@@ -71,6 +71,7 @@ const UserSchema = new Schema<UserSchemaModel, UserModel, UserMethods>(
       type: Schema.Types.Boolean,
       default: false,
     },
+    savedActivities: [{ type: Schema.Types.ObjectId, ref: 'Activity' }],
   },
   {
     collection: 'users',
@@ -98,12 +99,6 @@ UserSchema.virtual('messageLists', {
 
 UserSchema.virtual('messages', {
   ref: 'Message',
-  localField: '_id',
-  foreignField: 'userId',
-});
-
-UserSchema.virtual('savedActivities', {
-  ref: 'SavedActivity',
   localField: '_id',
   foreignField: 'userId',
 });

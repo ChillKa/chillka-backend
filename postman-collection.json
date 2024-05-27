@@ -50,7 +50,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"email\": \"chillka.offical@gmail.com\",\r\n    \"password\": \"north9Hex\"\r\n}",
+          "raw": "{\r\n    \"email\": \"chillka.offical@gmail.com\",\r\n    \"password\": \"north9Hex125\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -159,7 +159,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"oldPassword\":\"north9Hex123\",\r\n    \"newPassword\":\"north9Hex124\",\r\n    \"confirmNewPassword\":\"north9Hex124\"\r\n}",
+          "raw": "{\r\n    \"oldPassword\":\"north9Hex124\",\r\n    \"newPassword\":\"north9Hex125\",\r\n    \"confirmNewPassword\":\"north9Hex125\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -192,6 +192,37 @@
           "raw": "{{HOST}}/api/verify-email",
           "host": ["{{HOST}}"],
           "path": ["api", "verify-email"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "verify email - set email validate",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/verify-email?validateCode=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjRiNDgzOTNiNzQ5ZmFjN2RmODY4MTYiLCJkaXNwbGF5TmFtZSI6ImNoaWxsa2EiLCJlbWFpbCI6ImNoaWxsa2Eub2ZmaWNhbEBnbWFpbC5jb20iLCJpYXQiOjE3MTYzNTA0MjAsImV4cCI6MTcxNjQzNjgyMH0.NAyT7HA20Hi5WI_zUfiyO3QR_C_BtHC0A7UCs0rJkys",
+          "host": ["{{HOST}}"],
+          "path": ["api", "verify-email"],
+          "query": [
+            {
+              "key": "validateCode",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjRiNDgzOTNiNzQ5ZmFjN2RmODY4MTYiLCJkaXNwbGF5TmFtZSI6ImNoaWxsa2EiLCJlbWFpbCI6ImNoaWxsa2Eub2ZmaWNhbEBnbWFpbC5jb20iLCJpYXQiOjE3MTYzNTA0MjAsImV4cCI6MTcxNjQzNjgyMH0.NAyT7HA20Hi5WI_zUfiyO3QR_C_BtHC0A7UCs0rJkys"
+            }
+          ]
         }
       },
       "response": []
@@ -302,13 +333,13 @@
           }
         },
         "url": {
-          "raw": "{{HOST}}/api/auth/activities/6651a9a064f128ec88d6c72d/attend",
+          "raw": "{{HOST}}/api/auth/activities/665347c6fce61bba7f48ca50/attend",
           "host": ["{{HOST}}"],
           "path": [
             "api",
             "auth",
             "activities",
-            "6651a9a064f128ec88d6c72d",
+            "665347c6fce61bba7f48ca50",
             "attend"
           ]
         }
@@ -327,13 +358,13 @@
           }
         ],
         "url": {
-          "raw": "{{HOST}}/api/auth/activities/6651a9a064f128ec88d6c72d/participants",
+          "raw": "{{HOST}}/api/auth/activities/665347c6fce61bba7f48ca50/participants",
           "host": ["{{HOST}}"],
           "path": [
             "api",
             "auth",
             "activities",
-            "6651a9a064f128ec88d6c72d",
+            "665347c6fce61bba7f48ca50",
             "participants"
           ]
         }
@@ -341,31 +372,48 @@
       "response": []
     },
     {
-      "name": "verify email - set email validate",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
+      "name": "collect activity",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "",
+            "value": "",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{HOST}}/api/auth/saved-activities/6651a9a264f128ec88d6c733",
+          "host": ["{{HOST}}"],
+          "path": [
+            "api",
+            "auth",
+            "saved-activities",
+            "6651a9a264f128ec88d6c733"
+          ]
+        }
       },
+      "response": []
+    },
+    {
+      "name": "get saved-activities list",
       "request": {
         "method": "GET",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
+        "header": [
+          {
+            "key": "",
+            "value": "",
+            "disabled": true
           }
-        },
+        ],
         "url": {
-          "raw": "{{HOST}}/api/verify-email?validateCode=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjRiNDgzOTNiNzQ5ZmFjN2RmODY4MTYiLCJkaXNwbGF5TmFtZSI6ImNoaWxsa2EiLCJlbWFpbCI6ImNoaWxsa2Eub2ZmaWNhbEBnbWFpbC5jb20iLCJpYXQiOjE3MTYzNTA0MjAsImV4cCI6MTcxNjQzNjgyMH0.NAyT7HA20Hi5WI_zUfiyO3QR_C_BtHC0A7UCs0rJkys",
+          "raw": "{{HOST}}/api/auth/saved-activities/6651a9a064f128ec88d6c72d",
           "host": ["{{HOST}}"],
-          "path": ["api", "verify-email"],
-          "query": [
-            {
-              "key": "validateCode",
-              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjRiNDgzOTNiNzQ5ZmFjN2RmODY4MTYiLCJkaXNwbGF5TmFtZSI6ImNoaWxsa2EiLCJlbWFpbCI6ImNoaWxsa2Eub2ZmaWNhbEBnbWFpbC5jb20iLCJpYXQiOjE3MTYzNTA0MjAsImV4cCI6MTcxNjQzNjgyMH0.NAyT7HA20Hi5WI_zUfiyO3QR_C_BtHC0A7UCs0rJkys"
-            }
+          "path": [
+            "api",
+            "auth",
+            "saved-activities",
+            "6651a9a064f128ec88d6c72d"
           ]
         }
       },
@@ -377,7 +425,7 @@
     "bearer": [
       {
         "key": "token",
-        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjUzNDc5MGZjZTYxYmJhN2Y0OGNhNDgiLCJkaXNwbGF5TmFtZSI6ImNoaWxsa2EiLCJlbWFpbCI6ImNoaWxsa2Eub2ZmaWNhbEBnbWFpbC5jb20iLCJpYXQiOjE3MTY3MzM4NDQsImV4cCI6MTcxNjgyMDI0NH0.xXvUvmSHb8rKk2a7zkGkWEtmzciEAz-nSjYwPDRfeoM",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjUzNDc5MGZjZTYxYmJhN2Y0OGNhNDgiLCJkaXNwbGF5TmFtZSI6ImNoaWxsa2EiLCJlbWFpbCI6ImNoaWxsa2Eub2ZmaWNhbEBnbWFpbC5jb20iLCJpYXQiOjE3MTY3Nzc5MzksImV4cCI6MTcxNjg2NDMzOX0.bA8m8TGdmNtI79uT3qJYJ-Ek8X4_fpLCErqf4MVqUok",
         "type": "string"
       }
     ]

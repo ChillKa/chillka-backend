@@ -72,6 +72,12 @@ export const _schema = {
         "isEmailValidate": {
           "type": "string"
         },
+        "savedActivities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Types.ObjectId"
+          }
+        },
         "displayName": {
           "type": "string"
         },
@@ -201,6 +207,12 @@ export const _schema = {
         },
         "isEmailValidate": {
           "type": "string"
+        },
+        "savedActivities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Types.ObjectId"
+          }
         }
       },
       "required": [
@@ -1513,6 +1525,49 @@ export const _schema = {
         "activityId",
         "userId"
       ]
+    },
+    "CollectActivityParams": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "activityId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        }
+      },
+      "required": [
+        "activityId",
+        "userId"
+      ]
+    },
+    "GetSavedActivityParams": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "page": {
+          "type": "number"
+        },
+        "limit": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "userId"
+      ]
+    },
+    "GetActivitiesCredentials": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "number"
+        },
+        "limit": {
+          "type": "number"
+        }
+      }
     },
     "MessageListSchemaModel": {
       "type": "object",

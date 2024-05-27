@@ -136,3 +136,4 @@ export type GetSavedActivityParams = {
   page?: number;
   limit?: number;
 };
+export type GetActivitiesCredentials = Omit<GetSavedActivityParams, 'userId'>;

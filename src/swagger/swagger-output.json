@@ -366,6 +366,59 @@
           }
         ]
       }
+    },
+    "/api/auth/saved-activities/{activityId}": {
+      "post": {
+        "tags": ["Activity"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      },
+      "get": {
+        "tags": ["Activity"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "activityId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "$ref": "#/schemas/GetActivitiesCredentials"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
     }
   },
   "schemas": {
@@ -424,6 +477,12 @@
         },
         "isEmailValidate": {
           "type": "string"
+        },
+        "savedActivities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Types.ObjectId"
+          }
         },
         "displayName": {
           "type": "string"
@@ -534,6 +593,12 @@
         },
         "isEmailValidate": {
           "type": "string"
+        },
+        "savedActivities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Types.ObjectId"
+          }
         }
       },
       "required": ["displayName", "email"]
@@ -2072,6 +2137,44 @@
       },
       "required": ["activityId", "userId"]
     },
+    "CollectActivityParams": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "activityId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        }
+      },
+      "required": ["activityId", "userId"]
+    },
+    "GetSavedActivityParams": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "page": {
+          "type": "number"
+        },
+        "limit": {
+          "type": "number"
+        }
+      },
+      "required": ["userId"]
+    },
+    "GetActivitiesCredentials": {
+      "type": "object",
+      "properties": {
+        "page": {
+          "type": "number"
+        },
+        "limit": {
+          "type": "number"
+        }
+      }
+    },
     "MessageListSchemaModel": {
       "type": "object",
       "properties": {
@@ -2101,6 +2204,18 @@
         }
       },
       "required": ["answer", "messageListId", "userId"]
+    },
+    "SavedActivitySchemaModel": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "activityId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        }
+      },
+      "required": ["activityId", "userId"]
     }
   }
 }
