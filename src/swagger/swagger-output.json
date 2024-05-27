@@ -513,7 +513,7 @@
       },
       "required": ["displayName", "email"]
     },
-    "SendEmailCrendtials": {
+    "SendEmailCredentials": {
       "type": "object",
       "properties": {
         "email": {
@@ -526,7 +526,7 @@
       },
       "required": ["email", "emailType"]
     },
-    "ResetPasswordCrendtials": {
+    "ResetPasswordCredentials": {
       "type": "object",
       "properties": {
         "token": {

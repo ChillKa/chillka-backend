@@ -208,7 +208,7 @@ export const _schema = {
         "email"
       ]
     },
-    "SendEmailCrendtials": {
+    "SendEmailCredentials": {
       "type": "object",
       "properties": {
         "email": {
@@ -227,7 +227,7 @@ export const _schema = {
         "emailType"
       ]
     },
-    "ResetPasswordCrendtials": {
+    "ResetPasswordCredentials": {
       "type": "object",
       "properties": {
         "token": {
@@ -1596,144 +1596,10 @@ export const _schema = {
                 "websiteName",
                 "websiteURL"
               ]
-            },
-            "tickets": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "ticketStatus": {
-                    "type": "string",
-                    "enum": [
-                      "有效",
-                      "取消",
-                      "已使用",
-                      "保留",
-                      "無效票券"
-                    ]
-                  },
-                  "serialNumber": {
-                    "type": "string"
-                  },
-                  "userId": {
-                    "$ref": "#/definitions/Types.ObjectId"
-                  },
-                  "activityId": {
-                    "$ref": "#/definitions/Types.ObjectId"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "price": {
-                    "type": "number"
-                  },
-                  "startDateTime": {
-                    "type": "string",
-                    "format": "date-time"
-                  },
-                  "fromToday": {
-                    "type": "boolean"
-                  },
-                  "endDateTime": {
-                    "type": "string",
-                    "format": "date-time"
-                  },
-                  "noEndDate": {
-                    "type": "boolean"
-                  },
-                  "participantCapacity": {
-                    "type": "number"
-                  },
-                  "unlimitedQuantity": {
-                    "type": "boolean"
-                  },
-                  "purchaseLimit": {
-                    "type": "number"
-                  },
-                  "description": {
-                    "type": "string"
-                  },
-                  "purchaseDuplicate": {
-                    "type": "boolean"
-                  },
-                  "userInfo": {
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "email": {
-                        "type": "string"
-                      },
-                      "phone": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "email",
-                      "name",
-                      "phone"
-                    ]
-                  },
-                  "payment": {
-                    "type": "object",
-                    "properties": {
-                      "amount": {
-                        "type": "number"
-                      },
-                      "status": {
-                        "type": "string",
-                        "enum": [
-                          "已付款",
-                          "待付款",
-                          "付款失敗"
-                        ]
-                      },
-                      "method": {
-                        "type": "string",
-                        "enum": [
-                          "信用卡",
-                          "現金",
-                          "系統更新"
-                        ]
-                      },
-                      "orderNumber": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "amount",
-                      "method",
-                      "orderNumber",
-                      "status"
-                    ]
-                  }
-                },
-                "required": [
-                  "activityId",
-                  "description",
-                  "endDateTime",
-                  "fromToday",
-                  "name",
-                  "noEndDate",
-                  "participantCapacity",
-                  "payment",
-                  "price",
-                  "purchaseDuplicate",
-                  "purchaseLimit",
-                  "serialNumber",
-                  "startDateTime",
-                  "ticketStatus",
-                  "unlimitedQuantity",
-                  "userId",
-                  "userInfo"
-                ]
-              }
             }
           },
           "required": [
-            "organizer",
-            "tickets"
+            "organizer"
           ]
         }
       ]
