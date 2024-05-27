@@ -165,6 +165,22 @@ const userActivityRouter = () => {
     }
   );
 
+  router.post(
+    '/activities/upload-image',
+    authorizeMiddleware,
+    parser.single('image'),
+    async (req: Request, res: Response) => {
+      try {
+        const data = { iamgeUrl: req?.file?.path };
+        if (!data.iamgeUrl) throw new CoreError('Upload Image is failed');
+
+        res.status(200).send(data);
+      } catch (error) {
+        throwAPIError({ res, error, statusCode: 400 });
+      }
+    }
+  );
+
   return router;
 };
 const userActivityRoute = userActivityRouter();
