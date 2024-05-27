@@ -5,8 +5,8 @@ import jwt from 'jsonwebtoken';
 import User from '../model/user.model';
 import { AuthDecoded } from '../type/model.type';
 import {
-  ResetPasswordCrendtials,
-  SendEmailCrendtials,
+  ResetPasswordCredentials,
+  SendEmailCredentials,
   UserLoginCredentials,
   UserRegisterCredentials,
   UserTokenCredentials,
@@ -65,7 +65,7 @@ export const googleOauth = async (user: UserTokenCredentials | undefined) => {
   return data;
 };
 
-export const sendEmail = async ({ email, emailType }: SendEmailCrendtials) => {
+export const sendEmail = async ({ email, emailType }: SendEmailCredentials) => {
   let message = 'email not found';
 
   const user = await User.findOne({ email });
@@ -130,7 +130,7 @@ export const resetPassword = async ({
   token,
   password,
   confirmPassword,
-}: ResetPasswordCrendtials) => {
+}: ResetPasswordCredentials) => {
   if (password !== confirmPassword)
     throw new CoreError('Password and Confirm Password inconsistent');
 
