@@ -75,7 +75,8 @@ export const changePassword = async ({
     );
   }
 
-  await user.updateOne({ $set: { password: newHashedPassword } });
+  user.$set({ password: newHashedPassword });
+  await user.save();
 
   return { message: 'Password changed successfully' };
 };

@@ -146,7 +146,8 @@ export const cancelActivity = async ({
     throw new CoreError('Unauthorized to cancel activity.', 403);
   }
 
-  await activity?.updateOne({ $set: { status: StatusEnum.CANCELLED } });
+  activity?.$set({ status: StatusEnum.CANCELLED });
+  await activity?.save();
 
   return activity;
 };
