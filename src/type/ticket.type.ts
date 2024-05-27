@@ -51,6 +51,7 @@ export interface TicketAttendeeCreate {
 }
 
 export interface TicketSchemaModel extends TicketBase, TicketAttendeeCreate {
+  _id?: string;
   ticketStatus: TicketStatusEnum;
   serialNumber: string;
 }

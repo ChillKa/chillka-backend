@@ -4,10 +4,10 @@ import authorizeMiddleware from '../middleware/authorize.middleware';
 import { zodValidateMiddleware } from '../middleware/validate.middleware';
 import * as UserActivityService from '../service/userActivity.service';
 import { SortEnum } from '../type/model.type';
+import parser from '../util/cloudinary';
 import { CoreError, throwAPIError } from '../util/error-handler';
 import { activitySchema } from '../util/zod/activity.schema';
 import { userAttendSchema } from '../util/zod/userActivity.schema';
-import parser from '../util/cloudinary';
 
 const userActivityRouter = () => {
   const router = Router();
@@ -25,6 +25,26 @@ const userActivityRouter = () => {
       try {
         const data = await UserActivityService.createActivity({
           creatorId,
+          ...req.body,
+        });
+        res.status(200).send(data);
+      } catch (error) {
+        throwAPIError({ res, error, statusCode: 400 });
+      }
+    }
+  );
+
+  router.put(
+    '/activities/:activityId',
+    authorizeMiddleware,
+    zodValidateMiddleware(activitySchema),
+    async (req: Request, res: Response) => {
+      const activityId = new mongoose.Types.ObjectId(req.params.activityId);
+      if (!activityId)
+        throw new CoreError('Unable to create activity without activity id.');
+      try {
+        const data = await UserActivityService.editActivity({
+          activityId,
           ...req.body,
         });
         res.status(200).send(data);

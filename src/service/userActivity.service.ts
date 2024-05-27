@@ -4,6 +4,7 @@ import Ticket from '../model/ticket.model';
 import User from '../model/user.model';
 import {
   ActivityCreateCredentials,
+  ActivityEditCredentials,
   AttendActivityParams,
   CancelActivityParams,
   GetActivitiesParams,
@@ -28,6 +29,38 @@ export const createActivity = async ({
     await Ticket.insertMany(newTickets);
 
     return newActivity;
+  } catch (error) {
+    throw new CoreError('Create activity failed.');
+  }
+};
+
+export const editActivity = async ({
+  activityId,
+  tickets,
+  ...activityData
+}: ActivityEditCredentials) => {
+  try {
+    const updateActivity = await Activity.findByIdAndUpdate(
+      { _id: activityId },
+      { ...activityData },
+      { new: true }
+    );
+
+    if (updateActivity) {
+      updateActivity.tickets = [];
+      if (tickets)
+        for (const ticket of tickets) {
+          const updateTicket = await Ticket.findByIdAndUpdate(
+            { _id: ticket._id },
+            { ...ticket },
+            { new: true }
+          );
+
+          if (updateTicket) updateActivity.tickets.push(updateTicket);
+        }
+    }
+
+    return updateActivity;
   } catch (error) {
     throw new CoreError('Create activity failed.');
   }

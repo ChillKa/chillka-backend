@@ -92,6 +92,10 @@ export type ActivityCreateCredentials = Omit<
   organizer: OrganizerBase;
 };
 
+export type ActivityEditCredentials = ActivityCreateCredentials & {
+  activityId: string;
+};
+
 export type GetActivitiesParams = {
   userId: mongoose.Types.ObjectId | undefined;
   page?: number;
