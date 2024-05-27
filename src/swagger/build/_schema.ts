@@ -1552,6 +1552,13 @@ export const _schema = {
         },
         "limit": {
           "type": "number"
+        },
+        "sort": {
+          "enum": [
+            "asc",
+            "des"
+          ],
+          "type": "string"
         }
       },
       "required": [
@@ -1561,6 +1568,13 @@ export const _schema = {
     "GetActivitiesCredentials": {
       "type": "object",
       "properties": {
+        "sort": {
+          "enum": [
+            "asc",
+            "des"
+          ],
+          "type": "string"
+        },
         "page": {
           "type": "number"
         },

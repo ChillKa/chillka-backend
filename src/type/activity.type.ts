@@ -135,5 +135,6 @@ export type GetSavedActivityParams = {
   userId: mongoose.Types.ObjectId | undefined;
   page?: number;
   limit?: number;
+  sort?: SortType;
 };
 export type GetActivitiesCredentials = Omit<GetSavedActivityParams, 'userId'>;

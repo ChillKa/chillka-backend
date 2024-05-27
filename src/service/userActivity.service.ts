@@ -188,13 +188,18 @@ export const getSavedActivityList = async ({
   userId,
   page,
   limit,
+  sort,
 }: GetSavedActivityParams) => {
   if (!userId) {
     throw new CoreError('Unable to get saved activity list without user id.');
   }
 
   try {
-    const user = await User.findById(userId).populate('savedActivities');
+    const user = await User.findById(userId)
+      .populate('savedActivities')
+      .sort({
+        createdAt: sort === 'des' ? -1 : 1,
+      });
     const data = user?.savedActivities;
     const paginatedData = paginator(data ?? [], page, limit);
 

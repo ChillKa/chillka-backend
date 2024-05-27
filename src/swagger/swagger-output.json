@@ -2160,6 +2160,10 @@
         },
         "limit": {
           "type": "number"
+        },
+        "sort": {
+          "enum": ["asc", "des"],
+          "type": "string"
         }
       },
       "required": ["userId"]
@@ -2167,6 +2171,10 @@
     "GetActivitiesCredentials": {
       "type": "object",
       "properties": {
+        "sort": {
+          "enum": ["asc", "des"],
+          "type": "string"
+        },
         "page": {
           "type": "number"
         },
