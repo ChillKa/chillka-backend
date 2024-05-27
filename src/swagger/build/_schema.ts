@@ -252,32 +252,40 @@ export const _schema = {
         "userId": {
           "$ref": "#/definitions/Types.ObjectId"
         },
-        "password": {
+        "oldPassword": {
           "type": "string"
         },
-        "confirmPassword": {
+        "newPassword": {
+          "type": "string"
+        },
+        "confirmNewPassword": {
           "type": "string"
         }
       },
       "required": [
-        "confirmPassword",
-        "password",
+        "confirmNewPassword",
+        "newPassword",
+        "oldPassword",
         "userId"
       ]
     },
     "ChangePasswordCredentials": {
       "type": "object",
       "properties": {
-        "password": {
+        "oldPassword": {
           "type": "string"
         },
-        "confirmPassword": {
+        "newPassword": {
+          "type": "string"
+        },
+        "confirmNewPassword": {
           "type": "string"
         }
       },
       "required": [
-        "confirmPassword",
-        "password"
+        "confirmNewPassword",
+        "newPassword",
+        "oldPassword"
       ]
     },
     "SortEnum": {

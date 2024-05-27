@@ -572,26 +572,32 @@
         "userId": {
           "$ref": "#/definitions/Types.ObjectId"
         },
-        "password": {
+        "oldPassword": {
           "type": "string"
         },
-        "confirmPassword": {
+        "newPassword": {
+          "type": "string"
+        },
+        "confirmNewPassword": {
           "type": "string"
         }
       },
-      "required": ["confirmPassword", "password", "userId"]
+      "required": ["confirmNewPassword", "newPassword", "oldPassword", "userId"]
     },
     "ChangePasswordCredentials": {
       "type": "object",
       "properties": {
-        "password": {
+        "oldPassword": {
           "type": "string"
         },
-        "confirmPassword": {
+        "newPassword": {
+          "type": "string"
+        },
+        "confirmNewPassword": {
           "type": "string"
         }
       },
-      "required": ["confirmPassword", "password"]
+      "required": ["confirmNewPassword", "newPassword", "oldPassword"]
     },
     "SortEnum": {
       "type": "string",

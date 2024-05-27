@@ -46,20 +46,28 @@ export const edit = async (
 
 export const changePassword = async ({
   userId,
-  password,
-  confirmPassword,
+  oldPassword,
+  newPassword,
+  confirmNewPassword,
 }: ChangePasswordParams) => {
   const user = await User.findById(userId);
 
   if (!user) {
     throw new CoreError('User not found');
   }
-  if (password !== confirmPassword) {
+  if (newPassword !== confirmNewPassword) {
     throw new CoreError('Password and Confirm Password inconsistent');
   }
 
-  const newHashedPassword = await bcrypt.hash(password, 10);
-  const isSamePassword = await bcrypt.compare(password, user.password);
+  const newHashedPassword = await bcrypt.hash(newPassword, 10);
+  const isOldPassword = await bcrypt.compare(oldPassword, user.password);
+  const isSamePassword = await bcrypt.compare(newPassword, user.password);
+
+  if (!isOldPassword) {
+    throw new CoreError(
+      'Have to provide correct old password to change password'
+    );
+  }
 
   if (isSamePassword) {
     throw new CoreError(

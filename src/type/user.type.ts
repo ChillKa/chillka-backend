@@ -51,7 +51,8 @@ export type ResetPasswordCredentials = {
 
 export type ChangePasswordParams = {
   userId: mongoose.Types.ObjectId;
-  password: string;
-  confirmPassword: string;
+  oldPassword: string;
+  newPassword: string;
+  confirmNewPassword: string;
 };
 export type ChangePasswordCredentials = Omit<ChangePasswordParams, 'userId'>;

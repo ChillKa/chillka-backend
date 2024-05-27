@@ -62,8 +62,9 @@ const userRouter = () => {
       try {
         const data = await UserService.changePassword({
           userId: new mongoose.Types.ObjectId(req.user?._id ?? ''),
-          password: req.body.password,
-          confirmPassword: req.body.confirmPassword,
+          oldPassword: req.body.oldPassword,
+          newPassword: req.body.newPassword,
+          confirmNewPassword: req.body.confirmNewPassword,
         });
 
         res.status(200).send(data);
