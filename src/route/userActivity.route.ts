@@ -167,26 +167,6 @@ const userActivityRouter = () => {
   );
 
   router.post(
-    '/activities/upload-image',
-    authorizeMiddleware,
-    async (req: Request, res: Response) => {
-      try {
-        uploadSingleImage(req, res, function (err) {
-          if (err)
-            throw new CoreError('Please upload an image of size less than 1MB');
-
-          const data = { iamgeUrl: req.file?.path };
-          if (!data.iamgeUrl) throw new CoreError('Upload Image is failed');
-
-          res.status(200).send(data);
-        });
-      } catch (error) {
-        throwAPIError({ res, error, statusCode: 400 });
-      }
-    }
-  );
-
-  router.post(
     '/saved-activities/:activityId',
     authorizeMiddleware,
     async (req: Request, res: Response) => {
@@ -227,6 +207,26 @@ const userActivityRouter = () => {
         });
 
         res.status(200).send(data);
+      } catch (error) {
+        throwAPIError({ res, error, statusCode: 400 });
+      }
+    }
+  );
+
+  router.post(
+    '/activities/upload-image',
+    authorizeMiddleware,
+    async (req: Request, res: Response) => {
+      try {
+        uploadSingleImage(req, res, function (err) {
+          if (err)
+            throw new CoreError('Please upload an image of size less than 1MB');
+
+          const data = { iamgeUrl: req.file?.path };
+          if (!data.iamgeUrl) throw new CoreError('Upload Image is failed');
+
+          res.status(200).send(data);
+        });
       } catch (error) {
         throwAPIError({ res, error, statusCode: 400 });
       }
