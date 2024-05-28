@@ -6,8 +6,10 @@ import {
   ActivityCreateCredentials,
   AttendActivityParams,
   CancelActivityParams,
+  CollectActivityParams,
   GetActivitiesParams,
   GetActivityParticipantParams,
+  GetSavedActivityParams,
   StatusEnum,
 } from '../type/activity.type';
 import { TicketStatusEnum } from '../type/ticket.type';
@@ -148,4 +150,61 @@ export const cancelActivity = async ({
   await activity?.save();
 
   return activity;
+};
+
+export const collectActivity = async ({
+  activityId,
+  userId,
+}: CollectActivityParams) => {
+  if (!activityId) {
+    throw new CoreError('Unable to collect activity without activity id.');
+  }
+
+  const activity = await Activity.findById(activityId);
+  if (!activity) {
+    throw new CoreError('Activity not found.');
+  }
+
+  const user = await User.findById(userId);
+  if (!user) {
+    throw new CoreError('User not found.');
+  }
+
+  try {
+    if (user.savedActivities?.includes(activityId)) {
+      return { message: 'Activity already collected.' };
+    }
+
+    user.savedActivities?.push(activityId);
+    await user?.save();
+
+    return { message: 'Collect activity success.' };
+  } catch (error) {
+    throw new CoreError('Collect activity failed.');
+  }
+};
+
+export const getSavedActivityList = async ({
+  userId,
+  page,
+  limit,
+  sort,
+}: GetSavedActivityParams) => {
+  if (!userId) {
+    throw new CoreError('Unable to get saved activity list without user id.');
+  }
+
+  try {
+    const user = await User.findById(userId)
+      .populate('savedActivities')
+      .sort({
+        createdAt: sort === 'des' ? -1 : 1,
+      });
+    const data = user?.savedActivities;
+    const paginatedData = paginator(data ?? [], page, limit);
+
+    return paginatedData;
+  } catch (error) {
+    throw new CoreError('Get saved activity list failed.');
+  }
 };

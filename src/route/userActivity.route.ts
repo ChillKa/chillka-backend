@@ -165,6 +165,53 @@ const userActivityRouter = () => {
     }
   );
 
+  router.post(
+    '/saved-activities/:activityId',
+    authorizeMiddleware,
+    async (req: Request, res: Response) => {
+      /* #swagger.tags = ['Activity'] */
+
+      const userId = req.user?._id;
+      const activityId = req.params?.activityId;
+
+      try {
+        const data = await UserActivityService.collectActivity({
+          activityId: new mongoose.Types.ObjectId(activityId),
+          userId: new mongoose.Types.ObjectId(userId),
+        });
+
+        res.status(200).send(data);
+      } catch (error) {
+        throwAPIError({ res, error, statusCode: 400 });
+      }
+    }
+  );
+
+  router.get(
+    '/saved-activities',
+    authorizeMiddleware,
+    async (req: Request, res: Response) => {
+      /* #swagger.tags = ['Activity'] 
+          #swagger.parameters['body'] = {
+            in: 'body',
+            schema: { $ref: "#/schemas/GetActivitiesCredentials" },
+          }
+      */
+
+      const userId = req.user?._id;
+
+      try {
+        const data = await UserActivityService.getSavedActivityList({
+          userId: new mongoose.Types.ObjectId(userId),
+        });
+
+        res.status(200).send(data);
+      } catch (error) {
+        throwAPIError({ res, error, statusCode: 400 });
+      }
+    }
+  );
+
   return router;
 };
 const userActivityRoute = userActivityRouter();

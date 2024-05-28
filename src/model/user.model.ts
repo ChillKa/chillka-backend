@@ -71,6 +71,7 @@ const UserSchema = new Schema<UserSchemaModel, UserModel, UserMethods>(
       type: Schema.Types.Boolean,
       default: false,
     },
+    savedActivities: [{ type: Schema.Types.ObjectId, ref: 'Activity' }],
   },
   {
     collection: 'users',

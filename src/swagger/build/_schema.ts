@@ -72,6 +72,12 @@ export const _schema = {
         "isEmailValidate": {
           "type": "string"
         },
+        "savedActivities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Types.ObjectId"
+          }
+        },
         "displayName": {
           "type": "string"
         },
@@ -201,6 +207,12 @@ export const _schema = {
         },
         "isEmailValidate": {
           "type": "string"
+        },
+        "savedActivities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Types.ObjectId"
+          }
         }
       },
       "required": [
@@ -579,7 +591,7 @@ export const _schema = {
         "week"
       ]
     },
-    "ActivityBase": {
+    "ActivitySchemaModel": {
       "type": "object",
       "properties": {
         "creatorId": {
@@ -739,35 +751,7 @@ export const _schema = {
             "取消",
             "結束"
           ]
-        }
-      },
-      "required": [
-        "address",
-        "category",
-        "cover",
-        "creatorId",
-        "details",
-        "displayRemainingTickets",
-        "endDateTime",
-        "fromToday",
-        "isPrivate",
-        "isRecurring",
-        "link",
-        "location",
-        "name",
-        "noEndDate",
-        "organizer",
-        "recurring",
-        "startDateTime",
-        "status",
-        "summary",
-        "thumbnail",
-        "type"
-      ]
-    },
-    "ActivitySchemaModel": {
-      "type": "object",
-      "properties": {
+        },
         "tickets": {
           "type": "array",
           "items": {
@@ -840,164 +824,6 @@ export const _schema = {
               "unlimitedQuantity"
             ]
           }
-        },
-        "creatorId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "name": {
-          "type": "string"
-        },
-        "organizer": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "profilePicture": {
-              "type": "string"
-            },
-            "contactName": {
-              "type": "string"
-            },
-            "contactPhone": {
-              "type": "string"
-            },
-            "contactEmail": {
-              "type": "string"
-            },
-            "websiteName": {
-              "type": "string"
-            },
-            "websiteURL": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "contactEmail",
-            "contactName",
-            "contactPhone",
-            "name",
-            "profilePicture",
-            "websiteName",
-            "websiteURL"
-          ]
-        },
-        "cover": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "thumbnail": {
-          "type": "string"
-        },
-        "startDateTime": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "fromToday": {
-          "type": "boolean"
-        },
-        "endDateTime": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "noEndDate": {
-          "type": "boolean"
-        },
-        "category": {
-          "type": "string",
-          "enum": [
-            "戶外踏青",
-            "社交活動",
-            "興趣嗜好",
-            "運動健身",
-            "健康生活",
-            "科技玩物",
-            "藝術文化",
-            "遊戲"
-          ]
-        },
-        "type": {
-          "type": "string",
-          "enum": [
-            "線下",
-            "線上"
-          ]
-        },
-        "link": {
-          "type": "string"
-        },
-        "location": {
-          "type": "string"
-        },
-        "address": {
-          "type": "string"
-        },
-        "summary": {
-          "type": "string"
-        },
-        "details": {
-          "type": "string"
-        },
-        "isPrivate": {
-          "type": "boolean"
-        },
-        "displayRemainingTickets": {
-          "type": "boolean"
-        },
-        "isRecurring": {
-          "type": "boolean"
-        },
-        "recurring": {
-          "type": "object",
-          "properties": {
-            "period": {
-              "type": "string",
-              "enum": [
-                "隔週",
-                "每月",
-                "每季"
-              ]
-            },
-            "week": {
-              "type": "string",
-              "enum": [
-                "每週",
-                "隔週",
-                "第一週",
-                "第二週",
-                "第三週",
-                "第四週",
-                "最後一週"
-              ]
-            },
-            "day": {
-              "type": "string",
-              "enum": [
-                "星期一",
-                "星期二",
-                "星期三",
-                "星期四",
-                "星期五",
-                "星期六",
-                "星期日"
-              ]
-            }
-          },
-          "required": [
-            "day",
-            "period",
-            "week"
-          ]
-        },
-        "status": {
-          "type": "string",
-          "enum": [
-            "有效",
-            "取消",
-            "結束"
-          ]
         }
       },
       "required": [
@@ -1021,6 +847,7 @@ export const _schema = {
         "status",
         "summary",
         "thumbnail",
+        "tickets",
         "type"
       ]
     },
@@ -1061,79 +888,6 @@ export const _schema = {
                 "取消",
                 "結束"
               ]
-            },
-            "tickets": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "activityId": {
-                    "$ref": "#/definitions/Types.ObjectId"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "price": {
-                    "type": "number"
-                  },
-                  "startDateTime": {
-                    "type": "string",
-                    "format": "date-time"
-                  },
-                  "fromToday": {
-                    "type": "boolean"
-                  },
-                  "endDateTime": {
-                    "type": "string",
-                    "format": "date-time"
-                  },
-                  "noEndDate": {
-                    "type": "boolean"
-                  },
-                  "participantCapacity": {
-                    "type": "number"
-                  },
-                  "unlimitedQuantity": {
-                    "type": "boolean"
-                  },
-                  "purchaseLimit": {
-                    "type": "number"
-                  },
-                  "description": {
-                    "type": "string"
-                  },
-                  "purchaseDuplicate": {
-                    "type": "boolean"
-                  },
-                  "ticketStatus": {
-                    "type": "string",
-                    "enum": [
-                      "可購買",
-                      "已售完",
-                      "結束售票"
-                    ]
-                  },
-                  "serialNumber": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "activityId",
-                  "description",
-                  "endDateTime",
-                  "fromToday",
-                  "name",
-                  "noEndDate",
-                  "participantCapacity",
-                  "price",
-                  "purchaseDuplicate",
-                  "purchaseLimit",
-                  "serialNumber",
-                  "startDateTime",
-                  "ticketStatus",
-                  "unlimitedQuantity"
-                ]
-              }
             },
             "organizer": {
               "type": "object",
@@ -1256,6 +1010,79 @@ export const _schema = {
                 "period",
                 "week"
               ]
+            },
+            "tickets": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "activityId": {
+                    "$ref": "#/definitions/Types.ObjectId"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "price": {
+                    "type": "number"
+                  },
+                  "startDateTime": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "fromToday": {
+                    "type": "boolean"
+                  },
+                  "endDateTime": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "noEndDate": {
+                    "type": "boolean"
+                  },
+                  "participantCapacity": {
+                    "type": "number"
+                  },
+                  "unlimitedQuantity": {
+                    "type": "boolean"
+                  },
+                  "purchaseLimit": {
+                    "type": "number"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "purchaseDuplicate": {
+                    "type": "boolean"
+                  },
+                  "ticketStatus": {
+                    "type": "string",
+                    "enum": [
+                      "可購買",
+                      "已售完",
+                      "結束售票"
+                    ]
+                  },
+                  "serialNumber": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "activityId",
+                  "description",
+                  "endDateTime",
+                  "fromToday",
+                  "name",
+                  "noEndDate",
+                  "participantCapacity",
+                  "price",
+                  "purchaseDuplicate",
+                  "purchaseLimit",
+                  "serialNumber",
+                  "startDateTime",
+                  "ticketStatus",
+                  "unlimitedQuantity"
+                ]
+              }
             }
           },
           "required": [
@@ -1278,6 +1105,7 @@ export const _schema = {
             "status",
             "summary",
             "thumbnail",
+            "tickets",
             "type"
           ]
         },
@@ -1514,6 +1342,63 @@ export const _schema = {
         "userId"
       ]
     },
+    "CollectActivityParams": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "activityId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        }
+      },
+      "required": [
+        "activityId",
+        "userId"
+      ]
+    },
+    "GetSavedActivityParams": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "page": {
+          "type": "number"
+        },
+        "limit": {
+          "type": "number"
+        },
+        "sort": {
+          "enum": [
+            "asc",
+            "des"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "userId"
+      ]
+    },
+    "GetActivitiesCredentials": {
+      "type": "object",
+      "properties": {
+        "sort": {
+          "enum": [
+            "asc",
+            "des"
+          ],
+          "type": "string"
+        },
+        "page": {
+          "type": "number"
+        },
+        "limit": {
+          "type": "number"
+        }
+      }
+    },
     "MessageListSchemaModel": {
       "type": "object",
       "properties": {
@@ -1698,6 +1583,21 @@ export const _schema = {
         "serialNumber",
         "startDateTime",
         "ticketId",
+        "userId"
+      ]
+    },
+    "SavedActivitySchemaModel": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "activityId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        }
+      },
+      "required": [
+        "activityId",
         "userId"
       ]
     }
