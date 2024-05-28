@@ -188,7 +188,7 @@ const userActivityRouter = () => {
   );
 
   router.get(
-    '/saved-activities/:activityId',
+    '/saved-activities',
     authorizeMiddleware,
     async (req: Request, res: Response) => {
       /* #swagger.tags = ['Activity'] 

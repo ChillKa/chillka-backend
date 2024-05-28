@@ -38,7 +38,7 @@ export enum WeekEnum {
 export enum DayEnum {
   MONDAY = '星期一',
   TUESDAY = '星期二',
-  WENDNESDAY = '星期三',
+  WEDNESDAY = '星期三',
   THURSDAY = '星期四',
   FRIDAY = '星期五',
   SATURDAY = '星期六',
@@ -57,7 +57,7 @@ export interface Recurring {
   day: DayEnum;
 }
 
-export interface ActivityBase {
+export interface ActivitySchemaModel {
   creatorId: mongoose.Types.ObjectId;
   name: string;
   organizer: OrganizerBase;
@@ -79,10 +79,7 @@ export interface ActivityBase {
   isRecurring: boolean;
   recurring: Recurring;
   status: StatusEnum;
-}
-
-export interface ActivitySchemaModel extends ActivityBase {
-  tickets?: TicketSchemaModel[];
+  tickets: TicketSchemaModel[];
 }
 
 export type ActivityCreateCredentials = Omit<
