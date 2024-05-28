@@ -49,42 +49,25 @@ export const activitySchema = z.object({
     })
     .optional(),
   status: z.string({ required_error: 'Status is required' }),
-  tickets: z
-    .array(
-      z.object({
-        name: z.string({ required_error: 'Name is required' }),
-        price: z.number({ required_error: 'Price is required' }),
-        startDateTime: z.date().optional(),
-        fromToday: z.boolean({ required_error: 'FromToday is required' }),
-        endDateTime: z.date().optional(),
-        noEndDate: z.boolean({ required_error: 'NoEndDate is required' }),
-        participantCapacity: z.number({
-          required_error: 'ParticipantCapacity is required',
-        }),
-        unlimitedQuantity: z.boolean({
-          required_error: 'UnlimitedQuantity is required',
-        }),
-        purchaseLimit: z.number().optional(),
-        description: z.string().optional(),
-        purchaseDuplicate: z.boolean().optional(),
-        userInfo: z
-          .object({
-            name: z.string({ required_error: 'Name is required' }).optional(),
-            email: z.string({ required_error: 'Name is required' }).optional(),
-            phone: z.string().optional(),
-          })
-          .optional(),
-        payment: z
-          .object({
-            amount: z.number().optional(),
-            status: z.string().optional(),
-            method: z.string().optional(),
-            orderNumber: z.number().optional(),
-          })
-          .optional(),
-        ticketStatus: z.string().optional(),
-        serialNumber: z.string().optional(),
-      })
-    )
-    .optional(),
+  tickets: z.array(
+    z.object({
+      name: z.string({ required_error: 'Name is required' }),
+      price: z.number({ required_error: 'Price is required' }),
+      startDateTime: z.date().optional(),
+      fromToday: z.boolean({ required_error: 'FromToday is required' }),
+      endDateTime: z.date().optional(),
+      noEndDate: z.boolean({ required_error: 'NoEndDate is required' }),
+      participantCapacity: z.number({
+        required_error: 'ParticipantCapacity is required',
+      }),
+      unlimitedQuantity: z.boolean({
+        required_error: 'UnlimitedQuantity is required',
+      }),
+      purchaseLimit: z.number().optional(),
+      description: z.string().optional(),
+      purchaseDuplicate: z.boolean().optional(),
+      ticketStatus: z.string().optional(),
+      serialNumber: z.string().optional(),
+    })
+  ),
 });
