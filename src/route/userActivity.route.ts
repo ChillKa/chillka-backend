@@ -6,7 +6,7 @@ import * as UserActivityService from '../service/userActivity.service';
 import { SortEnum } from '../type/model.type';
 import { CoreError, throwAPIError } from '../util/error-handler';
 // import { userAttendSchema } from "../util/zod/userActivity.schema";
-import uploadSingleImage from '../util/cloudinary';
+import uploadSingleImage from '../util/multer-cloudinary';
 import { activitySchema } from '../util/zod/activity.schema';
 
 const userActivityRouter = () => {
