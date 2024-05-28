@@ -4,9 +4,11 @@ import authorizeMiddleware from '../middleware/authorize.middleware';
 import { zodValidateMiddleware } from '../middleware/validate.middleware';
 import * as UserActivityService from '../service/userActivity.service';
 import { SortEnum } from '../type/model.type';
+import parser from '../util/cloudinary';
 import { CoreError, throwAPIError } from '../util/error-handler';
-// import { userAttendSchema } from "../util/zod/userActivity.schema";
 import { activitySchema } from '../util/zod/activity.schema';
+import { userAttendSchema } from '../util/zod/userActivity.schema';
+import parser from '../util/cloudinary';
 
 const userActivityRouter = () => {
   const router = Router();
