@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { PaymentMethodEnum, PaymentStatusEnum } from '../../type/ticket.type';
+// import { PaymentMethodEnum, PaymentStatusEnum } from '../../type/ticket.type';
 import { validateInt } from '../validator';
 
 export const userAttendSchema = z.object({
@@ -16,8 +16,8 @@ export const userAttendSchema = z.object({
   }),
   payment: z.object({
     amount: z.number({ required_error: 'Amount is required' }),
-    status: z.nativeEnum(PaymentStatusEnum),
-    method: z.nativeEnum(PaymentMethodEnum),
+    // status: z.nativeEnum(PaymentStatusEnum),
+    // method: z.nativeEnum(PaymentMethodEnum),
     orderNumber: z.number({ required_error: 'Order number is required' }),
   }),
 });
