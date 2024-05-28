@@ -51,7 +51,6 @@ export const login = async ({ email, password }: UserLoginCredentials) => {
   return data;
 };
 
-// declare user undefined because the passport request is possible be undefined
 export const googleOauth = async (user: UserTokenCredentials | undefined) => {
   if (!user) throw new CoreError('User not found');
 

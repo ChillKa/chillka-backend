@@ -45,11 +45,6 @@ export enum DayEnum {
   SUNDAY = '星期日',
 }
 
-export enum TicketModeEnum {
-  CHILLKA = '揪咖',
-  SALE = '售票',
-}
-
 export enum StatusEnum {
   VALID = '有效',
   CANCELLED = '取消',
@@ -72,7 +67,6 @@ export interface ActivityBase {
   fromToday: boolean;
   endDateTime: Date;
   noEndDate: boolean;
-  price: number;
   category: CategoryEnum;
   type: TypeEnum;
   link: string;
@@ -84,10 +78,7 @@ export interface ActivityBase {
   displayRemainingTickets: boolean;
   isRecurring: boolean;
   recurring: Recurring;
-  ticketMode: TicketModeEnum;
   status: StatusEnum;
-  customField: boolean;
-  ticketRequired: boolean;
 }
 
 export interface ActivitySchemaModel extends ActivityBase {

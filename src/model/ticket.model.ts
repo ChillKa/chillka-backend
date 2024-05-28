@@ -1,20 +1,10 @@
 import { Model, Schema, model } from 'mongoose';
-import {
-  PaymentMethodEnum,
-  PaymentStatusEnum,
-  TicketSchemaModel,
-  TicketStatusEnum,
-} from '../type/ticket.type';
+import { TicketSchemaModel, TicketStatusEnum } from '../type/ticket.type';
 
 type TicketModel = Model<TicketSchemaModel, object>;
 
 const TicketSchema = new Schema<TicketSchemaModel, TicketModel>(
   {
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-      required: true,
-    },
     activityId: {
       type: Schema.Types.ObjectId,
       ref: 'Activity',
@@ -22,27 +12,38 @@ const TicketSchema = new Schema<TicketSchemaModel, TicketModel>(
     },
     name: {
       type: Schema.Types.String,
+      required: true,
+      default: 'chillka',
     },
     price: {
       type: Schema.Types.Number,
+      required: true,
+      default: 0,
     },
     startDateTime: {
       type: Schema.Types.Date,
     },
     fromToday: {
       type: Schema.Types.Boolean,
+      required: true,
+      default: false,
     },
     endDateTime: {
       type: Schema.Types.Date,
     },
     noEndDate: {
       type: Schema.Types.Boolean,
+      required: true,
+      default: false,
     },
     participantCapacity: {
       type: Schema.Types.Number,
+      required: true,
     },
     unlimitedQuantity: {
       type: Schema.Types.Boolean,
+      required: true,
+      default: false,
     },
     purchaseLimit: {
       type: Schema.Types.Number,
@@ -50,39 +51,16 @@ const TicketSchema = new Schema<TicketSchemaModel, TicketModel>(
     description: {
       type: Schema.Types.String,
     },
-    ticketsPurchaseDuplicate: {
+    purchaseDuplicate: {
       type: Schema.Types.Boolean,
-    },
-    userInfo: {
-      name: {
-        type: Schema.Types.String,
-      },
-      email: {
-        type: Schema.Types.String,
-      },
-      phone: {
-        type: Schema.Types.String,
-      },
-    },
-    payment: {
-      amount: {
-        type: Schema.Types.Number,
-      },
-      status: {
-        type: Schema.Types.String,
-        enum: PaymentStatusEnum,
-      },
-      method: {
-        type: Schema.Types.String,
-        enum: PaymentMethodEnum,
-      },
-      orderNumber: {
-        type: Schema.Types.Number,
-      },
+      required: true,
+      default: false,
     },
     ticketStatus: {
       type: Schema.Types.String,
       enum: TicketStatusEnum,
+      default: TicketStatusEnum.VALID,
+      required: true,
     },
     serialNumber: {
       type: Schema.Types.String,
@@ -93,6 +71,12 @@ const TicketSchema = new Schema<TicketSchemaModel, TicketModel>(
     timestamps: true,
   }
 );
+
+TicketSchema.virtual('orders', {
+  ref: 'Order',
+  localField: '_id',
+  foreignField: 'ticketId',
+});
 
 const Ticket = model<TicketSchemaModel, TicketModel>('Ticket', TicketSchema);
 

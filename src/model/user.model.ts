@@ -78,14 +78,14 @@ const UserSchema = new Schema<UserSchemaModel, UserModel, UserMethods>(
   }
 );
 
-UserSchema.virtual('organizers', {
-  ref: 'Organizer',
+UserSchema.virtual('activities', {
+  ref: 'Activity',
   localField: '_id',
-  foreignField: 'userId',
+  foreignField: 'creatorId',
 });
 
-UserSchema.virtual('tickets', {
-  ref: 'Ticket',
+UserSchema.virtual('orders', {
+  ref: 'Order',
   localField: '_id',
   foreignField: 'userId',
 });

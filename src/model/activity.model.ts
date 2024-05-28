@@ -5,7 +5,6 @@ import {
   DayEnum,
   PeriodEnum,
   StatusEnum,
-  TicketModeEnum,
   TypeEnum,
   WeekEnum,
 } from '../type/activity.type';
@@ -17,6 +16,7 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
   {
     creatorId: {
       type: Schema.Types.ObjectId,
+      ref: 'User',
       required: true,
     },
     name: {
@@ -25,35 +25,41 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
     },
     organizer: {
       type: Organizer.schema,
+      required: true,
     },
     cover: {
       type: [Schema.Types.String],
+      required: true,
     },
     thumbnail: {
       type: Schema.Types.String,
+      required: true,
     },
     startDateTime: {
       type: Schema.Types.Date,
     },
     fromToday: {
       type: Schema.Types.Boolean,
+      required: true,
+      default: false,
     },
     endDateTime: {
       type: Schema.Types.Date,
     },
     noEndDate: {
       type: Schema.Types.Boolean,
-    },
-    price: {
-      type: Schema.Types.Number,
+      required: true,
+      default: false,
     },
     category: {
       type: Schema.Types.String,
       enum: CategoryEnum,
+      required: true,
     },
     type: {
       type: Schema.Types.String,
       enum: TypeEnum,
+      required: true,
     },
     link: {
       type: Schema.Types.String,
@@ -66,18 +72,26 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
     },
     summary: {
       type: Schema.Types.String,
+      required: true,
     },
     details: {
       type: Schema.Types.String,
+      required: true,
     },
     isPrivate: {
       type: Schema.Types.Boolean,
+      required: true,
+      default: false,
     },
     displayRemainingTickets: {
       type: Schema.Types.Boolean,
+      required: true,
+      default: false,
     },
     isRecurring: {
       type: Schema.Types.Boolean,
+      required: true,
+      default: false,
     },
     recurring: {
       period: {
@@ -93,19 +107,11 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
         enum: DayEnum,
       },
     },
-    ticketMode: {
-      type: Schema.Types.String,
-      enum: TicketModeEnum,
-    },
     status: {
       type: Schema.Types.String,
       enum: StatusEnum,
-    },
-    customField: {
-      type: Schema.Types.Boolean,
-    },
-    ticketRequired: {
-      type: Schema.Types.Boolean,
+      required: true,
+      default: StatusEnum.VALID,
     },
   },
   {
@@ -116,6 +122,12 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
 
 ActivitySchema.virtual('tickets', {
   ref: 'Ticket',
+  localField: '_id',
+  foreignField: 'activityId',
+});
+
+ActivitySchema.virtual('orders', {
+  ref: 'Order',
   localField: '_id',
   foreignField: 'activityId',
 });
