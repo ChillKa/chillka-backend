@@ -6,6 +6,7 @@ import * as UserActivityService from '../service/userActivity.service';
 import { SortEnum } from '../type/model.type';
 import { CoreError, throwAPIError } from '../util/error-handler';
 // import { userAttendSchema } from "../util/zod/userActivity.schema";
+import uploadSingleImage from '../util/cloudinary';
 import { activitySchema } from '../util/zod/activity.schema';
 
 const userActivityRouter = () => {
@@ -159,6 +160,26 @@ const userActivityRouter = () => {
         });
 
         res.status(200).send(data);
+      } catch (error) {
+        throwAPIError({ res, error, statusCode: 400 });
+      }
+    }
+  );
+
+  router.post(
+    '/activities/upload-image',
+    authorizeMiddleware,
+    async (req: Request, res: Response) => {
+      try {
+        uploadSingleImage(req, res, function (err) {
+          if (err)
+            throw new CoreError('Please upload an image of size less than 1MB');
+
+          const data = { iamgeUrl: req.file?.path };
+          if (!data.iamgeUrl) throw new CoreError('Upload Image is failed');
+
+          res.status(200).send(data);
+        });
       } catch (error) {
         throwAPIError({ res, error, statusCode: 400 });
       }

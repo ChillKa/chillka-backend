@@ -29,6 +29,7 @@ const UserSchema = new Schema<UserSchemaModel, UserModel, UserMethods>(
         message: (props) => `${props.value} is not a valid email`,
       },
       unique: true,
+      lowercase: true,
     },
     password: {
       type: Schema.Types.String,

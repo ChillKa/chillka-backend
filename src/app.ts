@@ -3,6 +3,7 @@ import express from 'express';
 import jwt from 'jsonwebtoken';
 import mongoose from 'mongoose';
 import swaggerUi from 'swagger-ui-express';
+import User from './model/user.model';
 import authRoute from './route/auth.route';
 import swaggerRoute from './route/swagger.route';
 import userRoute from './route/user.route';
@@ -42,6 +43,13 @@ app.use(
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocument, options)
 );
+
+// delete me in production
+app.get('/api/demo', async (req, res) => {
+  await User.updateMany({ isEmailValidate: false }, { isEmailValidate: true });
+
+  res.redirect(process.env.FRONTEND!);
+});
 
 // demo page until frontend page is ready
 app.get('/api/demo/reset-password', async (req, res) => {
