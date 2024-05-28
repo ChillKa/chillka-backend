@@ -77,9 +77,9 @@ export const attendActivity = async ({
     throw new CoreError('Activity not found.');
   }
 
-  if (activity.tickets?.some((i) => i.userId.equals(userId))) {
-    throw new CoreError('The user already attended the activity.');
-  }
+  // if (activity.tickets?.some((i) => i.userId.equals(userId))) {
+  //   throw new CoreError('The user already attended the activity.');
+  // }
 
   try {
     await Ticket.create({

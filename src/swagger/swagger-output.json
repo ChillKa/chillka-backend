@@ -710,7 +710,7 @@
       "type": "string",
       "enum": ["有效", "取消", "已使用", "保留", "無效票券"]
     },
-    "TicketBase": {
+    "TicketSchemaModel": {
       "type": "object",
       "properties": {
         "userId": {

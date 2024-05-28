@@ -1,27 +1,12 @@
 import mongoose from 'mongoose';
 
-export enum PaymentStatusEnum {
-  PAID = '已付款',
-  UNPAID = '待付款',
-  ERROR = '付款失敗',
-}
-
-export enum PaymentMethodEnum {
-  CREDIT_CARD = '信用卡',
-  CASH = '現金',
-  SYSTEM_UPDATE = '系統更新',
-}
-
 export enum TicketStatusEnum {
-  VALID = '有效',
-  CANCELLED = '取消',
-  USED = '已使用',
-  HOLD = '保留',
-  ERROR = '無效票券',
+  VALID = '可購買',
+  SOLD_OUT = '已售完',
+  CANCELLED = '結束售票',
 }
 
-export interface TicketBase {
-  userId: mongoose.Types.ObjectId;
+export interface TicketSchemaModel {
   activityId: mongoose.Types.ObjectId;
   name: string;
   price: number;
@@ -34,23 +19,6 @@ export interface TicketBase {
   purchaseLimit: number;
   description: string;
   purchaseDuplicate: boolean;
-}
-
-export interface TicketAttendeeCreate {
-  userInfo: {
-    name: string;
-    email: string;
-    phone: string;
-  };
-  payment: {
-    amount: number;
-    status: PaymentStatusEnum;
-    method: PaymentMethodEnum;
-    orderNumber: number;
-  };
-}
-
-export interface TicketSchemaModel extends TicketBase, TicketAttendeeCreate {
   ticketStatus: TicketStatusEnum;
   serialNumber: string;
 }

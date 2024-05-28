@@ -1,19 +1,10 @@
 import { Model, Schema, model } from 'mongoose';
-import {
-  PaymentMethodEnum,
-  PaymentStatusEnum,
-  TicketSchemaModel,
-  TicketStatusEnum,
-} from '../type/ticket.type';
+import { TicketSchemaModel, TicketStatusEnum } from '../type/ticket.type';
 
 type TicketModel = Model<TicketSchemaModel, object>;
 
 const TicketSchema = new Schema<TicketSchemaModel, TicketModel>(
   {
-    userId: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-    },
     activityId: {
       type: Schema.Types.ObjectId,
       ref: 'Activity',
@@ -65,38 +56,11 @@ const TicketSchema = new Schema<TicketSchemaModel, TicketModel>(
       required: true,
       default: false,
     },
-    userInfo: {
-      name: {
-        type: Schema.Types.String,
-      },
-      email: {
-        type: Schema.Types.String,
-      },
-      phone: {
-        type: Schema.Types.String,
-      },
-    },
-    payment: {
-      amount: {
-        type: Schema.Types.Number,
-      },
-      status: {
-        type: Schema.Types.String,
-        enum: PaymentStatusEnum,
-        default: PaymentStatusEnum.UNPAID,
-      },
-      method: {
-        type: Schema.Types.String,
-        enum: PaymentMethodEnum,
-      },
-      orderNumber: {
-        type: Schema.Types.Number,
-      },
-    },
     ticketStatus: {
       type: Schema.Types.String,
       enum: TicketStatusEnum,
       default: TicketStatusEnum.VALID,
+      required: true,
     },
     serialNumber: {
       type: Schema.Types.String,
@@ -107,6 +71,12 @@ const TicketSchema = new Schema<TicketSchemaModel, TicketModel>(
     timestamps: true,
   }
 );
+
+TicketSchema.virtual('orders', {
+  ref: 'Order',
+  localField: '_id',
+  foreignField: 'ticketId',
+});
 
 const Ticket = model<TicketSchemaModel, TicketModel>('Ticket', TicketSchema);
 

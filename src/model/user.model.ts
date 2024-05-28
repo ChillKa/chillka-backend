@@ -84,8 +84,8 @@ UserSchema.virtual('activities', {
   foreignField: 'creatorId',
 });
 
-UserSchema.virtual('tickets', {
-  ref: 'Ticket',
+UserSchema.virtual('orders', {
+  ref: 'Order',
   localField: '_id',
   foreignField: 'userId',
 });
