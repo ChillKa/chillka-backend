@@ -1381,6 +1381,27 @@ export const _schema = {
         "userId"
       ]
     },
+    "QuestionCredentials": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "activityId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "question": {
+          "type": "string"
+        },
+        "questionId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        }
+      },
+      "required": [
+        "activityId",
+        "userId"
+      ]
+    },
     "GetActivitiesCredentials": {
       "type": "object",
       "properties": {
@@ -1408,12 +1429,16 @@ export const _schema = {
         "userId": {
           "$ref": "#/definitions/Types.ObjectId"
         },
+        "displayName": {
+          "type": "string"
+        },
         "question": {
           "type": "string"
         }
       },
       "required": [
         "activityId",
+        "displayName",
         "question",
         "userId"
       ]

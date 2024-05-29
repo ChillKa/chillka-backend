@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker';
 import Activity from '../model/activity.model';
+import MessageList from '../model/message-list.model';
 import Ticket from '../model/ticket.model';
 import User from '../model/user.model';
 import {
@@ -10,6 +11,7 @@ import {
   GetActivitiesParams,
   GetActivityParticipantParams,
   GetSavedActivityParams,
+  QuestionCredentials,
   StatusEnum,
 } from '../type/activity.type';
 import { TicketStatusEnum } from '../type/ticket.type';
@@ -20,8 +22,8 @@ export const createActivity = async ({
   tickets,
   ...activityData
 }: ActivityCreateCredentials) => {
-  const newActivity = new Activity(activityData);
   try {
+    const newActivity = new Activity(activityData);
     await newActivity.save();
     const newTickets = tickets?.map((ticket) => {
       ticket.activityId = newActivity._id;
@@ -206,5 +208,76 @@ export const getSavedActivityList = async ({
     return paginatedData;
   } catch (error) {
     throw new CoreError('Get saved activity list failed.');
+  }
+};
+
+export const createQuestion = async ({
+  userId,
+  activityId,
+  question,
+}: QuestionCredentials) => {
+  try {
+    const existingActivity = await Activity.findById(activityId);
+    if (!existingActivity || existingActivity.creatorId.equals(userId))
+      throw new CoreError('Unable to ask question with activity creator.');
+    const user = await User.findById(userId).select('displayName');
+    const messageList = await MessageList.create({
+      activityId,
+      userId,
+      question,
+      displayName: user?.displayName,
+    });
+
+    return messageList;
+  } catch (error) {
+    throw new CoreError('Ask question failed.');
+  }
+};
+
+export const editQuestion = async ({
+  userId,
+  activityId,
+  question,
+  questionId,
+}: QuestionCredentials) => {
+  try {
+    const existingActivity = await Activity.findById(activityId);
+    if (!existingActivity)
+      throw new CoreError('Unable to edit question without activity.');
+    const existingQuestion = await MessageList.findById(questionId);
+    if (!existingQuestion || !existingQuestion.userId.equals(userId))
+      throw new CoreError('Unable to edit question without question creator.');
+
+    const messageList = await MessageList.findOneAndUpdate(
+      { _id: questionId },
+      { $set: { question } },
+      { new: true }
+    );
+
+    return messageList;
+  } catch (error) {
+    throw new CoreError('Ask question failed.');
+  }
+};
+
+export const deleteQuestion = async ({
+  userId,
+  activityId,
+  questionId,
+}: QuestionCredentials) => {
+  try {
+    const existingActivity = await Activity.findById(activityId);
+    if (!existingActivity)
+      throw new CoreError('Unable to delete question without activity.');
+    const existingQuestion = await MessageList.findById(questionId);
+    if (!existingQuestion || !existingQuestion.userId.equals(userId))
+      throw new CoreError(
+        'Unable to delete question without question creator.'
+      );
+    await MessageList.deleteOne({ _id: questionId });
+
+    return { message: 'success delete' };
+  } catch (error) {
+    throw new CoreError('Ask question failed.');
   }
 };
