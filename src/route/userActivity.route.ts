@@ -33,6 +33,30 @@ const userActivityRouter = () => {
     }
   );
 
+  router.put(
+    '/activities/:activityId',
+    authorizeMiddleware,
+    zodValidateMiddleware(activitySchema),
+    async (req: Request, res: Response) => {
+      const creatorId = req.user?._id;
+      if (!creatorId)
+        throw new CoreError('Unable to edit activity without user id.');
+      const activityId = new mongoose.Types.ObjectId(req.params.activityId);
+      if (!activityId)
+        throw new CoreError('Unable to edit activity without activity id.');
+      try {
+        const data = await UserActivityService.editActivity({
+          creatorId,
+          activityId,
+          ...req.body,
+        });
+        res.status(200).send(data);
+      } catch (error) {
+        throwAPIError({ res, error, statusCode: 400 });
+      }
+    }
+  );
+
   router.get(
     '/activities',
     authorizeMiddleware,
