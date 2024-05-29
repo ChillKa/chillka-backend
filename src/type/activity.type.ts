@@ -82,11 +82,12 @@ export interface ActivitySchemaModel {
   tickets: TicketSchemaModel[];
 }
 
-export type ActivityCreateCredentials = Omit<
-  ActivitySchemaModel,
-  'creatorId'
-> & {
+export type ActivityCreateCredentials = ActivitySchemaModel & {
   organizer: OrganizerBase;
+};
+
+export type ActivityEditCredentials = ActivityCreateCredentials & {
+  activityId: string;
 };
 
 export type GetActivitiesParams = {
