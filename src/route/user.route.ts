@@ -94,7 +94,7 @@ const userRouter = () => {
           if (!data.iamgeUrl)
             throwAPIError({
               res,
-              error: new CoreError('Upload Image is failed'),
+              error: new CoreError('Upload image is failed'),
               statusCode: 401,
             });
 
