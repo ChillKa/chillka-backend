@@ -257,8 +257,8 @@ export const editQuestion = async ({
     );
   if (!existingQuestion.userId.equals(userId))
     throw new CoreError('Only the questioner can modify the question.');
-  const existingMessage = await Message.find({ messageListId: questionId });
-  if (existingMessage.length)
+  const existingMessages = await Message.find({ messageListId: questionId });
+  if (existingMessages.length)
     throw new CoreError(
       'You cannot modify the question if there is already a reply.'
     );
