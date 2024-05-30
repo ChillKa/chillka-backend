@@ -19,8 +19,6 @@ const userActivityRouter = () => {
       /* #swagger.tags = ['Activity'] */
 
       const creatorId = req.user?._id;
-      if (!creatorId)
-        throw new CoreError('Unable to create activity without user id.');
       try {
         const data = await UserActivityService.createActivity({
           creatorId,
@@ -39,12 +37,8 @@ const userActivityRouter = () => {
     zodValidateMiddleware(activitySchema),
     async (req: Request, res: Response) => {
       const creatorId = req.user?._id;
-      if (!creatorId)
-        throw new CoreError('Unable to edit activity without user id.');
-      const activityId = new mongoose.Types.ObjectId(req.params.activityId);
-      if (!activityId)
-        throw new CoreError('Unable to edit activity without activity id.');
       try {
+        const activityId = new mongoose.Types.ObjectId(req.params.activityId);
         const data = await UserActivityService.editActivity({
           creatorId,
           activityId,
@@ -102,8 +96,8 @@ const userActivityRouter = () => {
       /* #swagger.tags = ['Activity'] */
 
       const userId = req.user?._id;
-      const activityId = new mongoose.Types.ObjectId(req.params.activityId);
       try {
+        const activityId = new mongoose.Types.ObjectId(req.params.activityId);
         const data = await UserActivityService.cancelActivity({
           activityId,
           userId,
@@ -197,7 +191,6 @@ const userActivityRouter = () => {
 
       const userId = req.user?._id;
       const activityId = req.params?.activityId;
-
       try {
         const data = await UserActivityService.collectActivity({
           activityId: new mongoose.Types.ObjectId(activityId),
@@ -223,7 +216,6 @@ const userActivityRouter = () => {
       */
 
       const userId = req.user?._id;
-
       try {
         const data = await UserActivityService.getSavedActivityList({
           userId: new mongoose.Types.ObjectId(userId),

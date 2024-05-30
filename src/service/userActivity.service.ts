@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker';
 import mongoose from 'mongoose';
 import Activity from '../model/activity.model';
+import Order from '../model/order.model';
 import Ticket from '../model/ticket.model';
 import User from '../model/user.model';
 import {
@@ -22,8 +23,8 @@ export const createActivity = async ({
   tickets,
   ...activityData
 }: ActivityCreateCredentials) => {
-  const newActivity = new Activity(activityData);
   try {
+    const newActivity = new Activity(activityData);
     await newActivity.save();
     const newTickets = tickets?.map((ticket) => {
       ticket.activityId = newActivity._id;
@@ -37,49 +38,77 @@ export const createActivity = async ({
   }
 };
 
+// the tickets have three conditions:
+//   1. with _id
+//      - _id is existing tickets (update)
+//      - _id not found (throw new Error)
+//   2. ticket data without _id
+//      - create new tickets
+//   3. the existing tickets' _id are not pass to backend
+//      - delete the existing tickets if ticket is not sold
+//      - throw new Error if tickets is sold
 export const editActivity = async ({
   creatorId,
   activityId,
   tickets,
   ...activityData
 }: ActivityEditCredentials) => {
-  try {
-    const existingActivity = await Activity.findById(activityId);
-    if (!existingActivity?.creatorId.equals(creatorId))
-      throw new CoreError('Unable to edit activity without creator.');
-    await existingActivity.updateOne(activityData);
+  const existingActivity = await Activity.findById(activityId);
+  if (!existingActivity?.creatorId.equals(creatorId))
+    throw new CoreError('Activity cannot be edited by non-creators.');
+  const activityOrders = await Order.find({ activityId });
+  if (activityOrders.length) {
+    // todo：send notices to participant if tickets are sold
+  }
 
-    // the tickets have three conditions:
-    //   1. with _id
-    //      - _id is existing tickets (update)
-    //      - _id is not existing tickets (throw new Error)
-    //   2. without _id
-    //      - create new tickets
-    //   3. the existing tickets' _id are not pass to backend
-    //      - delete the existing tickets
+  const existingTicketIds = (
+    await Ticket.find({ activityId }).select('_id')
+  ).map((ticket) => ticket._id.toString());
+  const updateTickets = [];
+  const createTickets = [];
+  const deleteTickets = [];
 
-    const existingTicketIds = (
-      await Ticket.find({ activityId }).select('_id')
-    ).map((ticket) => ticket._id.toString());
-
-    for (const ticket of tickets) {
-      if (ticket?._id) {
-        // 1. check if the ticket already exists and update it
-        const ticketIndex = existingTicketIds.indexOf(ticket?._id.toString());
-        if (ticketIndex === -1)
-          throw new CoreError('Unable to edit ticket without wrong id.');
-        await Ticket.findByIdAndUpdate({ _id: ticket._id }, ticket);
-        existingTicketIds.splice(ticketIndex, 1);
-      } else {
-        // 2. create new ticket
-        ticket.activityId = new mongoose.Types.ObjectId(activityId);
-        await Ticket.create(ticket);
-      }
+  for (const ticket of tickets) {
+    if (ticket?._id) {
+      // 1. check if the ticket already exists and update it
+      const ticketIndex = existingTicketIds.indexOf(ticket?._id.toString());
+      if (ticketIndex === -1)
+        throw new CoreError(
+          'The ticket does not exist so the activity cannot be edited.'
+        );
+      updateTickets.push(ticket);
+      existingTicketIds.splice(ticketIndex, 1);
+    } else {
+      // 2. create new ticket
+      createTickets.push(ticket);
     }
+  }
 
-    if (existingTicketIds.length) {
-      // 3. delete the existing ticket
-      await Ticket.deleteMany({ _id: { $in: existingTicketIds } });
+  // 3. delete the existing ticket if not pass to backend
+  if (existingTicketIds.length) {
+    for (const deleteTicketId of existingTicketIds) {
+      const deleteTicketOrders = await Order.find({
+        ticketId: deleteTicketId,
+      });
+      if (deleteTicketOrders.length)
+        throw new CoreError(
+          'Tickets cannot be deleted when they have been sold.'
+        );
+      deleteTickets.push(deleteTicketId);
+    }
+  }
+
+  try {
+    await existingActivity.updateOne(activityData);
+    for (const updateTicket of updateTickets) {
+      await Ticket.findByIdAndUpdate({ _id: updateTicket._id }, updateTicket);
+    }
+    for (const createTicket of createTickets) {
+      createTicket.activityId = new mongoose.Types.ObjectId(activityId);
+      await Ticket.create(createTicket);
+    }
+    for (const deleteTicket of deleteTickets) {
+      await Ticket.deleteOne({ _id: deleteTicket });
     }
 
     return { message: 'success update' };
@@ -94,10 +123,8 @@ export const getActivityList = async ({
   limit,
   sort,
 }: GetActivitiesParams) => {
+  if (!userId) throw new CoreError('Unable to get activities without user id.');
   try {
-    if (!userId)
-      throw new CoreError('Unable to get activities without user id.');
-
     const activities = await Activity.find({
       creatorId: userId,
     }).sort({
