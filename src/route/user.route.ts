@@ -3,7 +3,8 @@ import mongoose from 'mongoose';
 import authorizeMiddleware from '../middleware/authorize.middleware';
 import { zodValidateMiddleware } from '../middleware/validate.middleware';
 import * as UserService from '../service/user.service';
-import { throwAPIError } from '../util/error-handler';
+import { CoreError, throwAPIError } from '../util/error-handler';
+import uploadSingleImage from '../util/multer-cloudinary';
 import { changePasswordSchema } from '../util/zod/auth.schema';
 import { editUserSchema } from '../util/zod/user.schema';
 
@@ -68,6 +69,26 @@ const userRouter = () => {
         });
 
         res.status(200).send(data);
+      } catch (error) {
+        throwAPIError({ res, error, statusCode: 400 });
+      }
+    }
+  );
+
+  router.post(
+    '/upload-image',
+    authorizeMiddleware,
+    async (req: Request, res: Response) => {
+      try {
+        uploadSingleImage(req, res, function (err) {
+          if (err)
+            throw new CoreError('Please upload an image of size less than 5MB');
+
+          const data = { iamgeUrl: req.file?.path };
+          if (!data.iamgeUrl) throw new CoreError('Upload Image is failed');
+
+          res.status(200).send(data);
+        });
       } catch (error) {
         throwAPIError({ res, error, statusCode: 400 });
       }

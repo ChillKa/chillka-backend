@@ -21,7 +21,7 @@ const uploadSingleImage = multer({
     cb(null, true);
   },
   limits: {
-    fileSize: 1024 * 1024,
+    fileSize: 5 * 1024 * 1024,
   },
 }).single('image');
 

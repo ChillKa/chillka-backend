@@ -48,7 +48,7 @@ app.use(
 app.get('/api/demo', async (req, res) => {
   await User.updateMany({ isEmailValidate: false }, { isEmailValidate: true });
 
-  res.redirect(process.env.FRONTEND!);
+  res.send('success validate email');
 });
 
 // demo page until frontend page is ready
