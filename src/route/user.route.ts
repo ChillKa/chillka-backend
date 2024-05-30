@@ -82,10 +82,21 @@ const userRouter = () => {
       try {
         uploadSingleImage(req, res, function (err) {
           if (err)
-            throw new CoreError('Please upload an image of size less than 5MB');
+            if (err.message === 'Please upload an image') {
+              return throwAPIError({
+                res,
+                error: new CoreError('Please upload as image'),
+                statusCode: 401,
+              });
+            }
 
           const data = { iamgeUrl: req.file?.path };
-          if (!data.iamgeUrl) throw new CoreError('Upload Image is failed');
+          if (!data.iamgeUrl)
+            throwAPIError({
+              res,
+              error: new CoreError('Upload Image is failed'),
+              statusCode: 401,
+            });
 
           res.status(200).send(data);
         });
