@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import Activity from '../model/activity.model';
 import MessageList from '../model/message-list.model';
+import Message from '../model/message.model';
 import Order from '../model/order.model';
 import Ticket from '../model/ticket.model';
 import User from '../model/user.model';
@@ -276,10 +277,14 @@ export const createQuestion = async ({
   activityId,
   question,
 }: QuestionCredentials) => {
+  const existingActivity = await Activity.findById(activityId);
+  if (!existingActivity)
+    throw new CoreError(
+      'Cannot ask questions because the activity does not exist.'
+    );
+  if (existingActivity.creatorId.equals(userId))
+    throw new CoreError('The creator of the activity cannot ask questions.');
   try {
-    const existingActivity = await Activity.findById(activityId);
-    if (!existingActivity || existingActivity.creatorId.equals(userId))
-      throw new CoreError('Unable to ask question with activity creator.');
     const user = await User.findById(userId).select('displayName');
     const messageList = await MessageList.create({
       activityId,
@@ -300,14 +305,24 @@ export const editQuestion = async ({
   question,
   questionId,
 }: QuestionCredentials) => {
+  const existingActivity = await Activity.findById(activityId);
+  if (!existingActivity)
+    throw new CoreError(
+      'Cannot edit questions because the activity does not exist.'
+    );
+  const existingQuestion = await MessageList.findById(questionId);
+  if (!existingQuestion)
+    throw new CoreError(
+      'Cannot edit questions because the question does not exist.'
+    );
+  if (!existingQuestion.userId.equals(userId))
+    throw new CoreError('Only the questioner can modify the question.');
+  const existingMessage = await Message.find({ messageListId: questionId });
+  if (existingMessage.length)
+    throw new CoreError(
+      'You cannot modify the question if there is already a reply.'
+    );
   try {
-    const existingActivity = await Activity.findById(activityId);
-    if (!existingActivity)
-      throw new CoreError('Unable to edit question without activity.');
-    const existingQuestion = await MessageList.findById(questionId);
-    if (!existingQuestion || !existingQuestion.userId.equals(userId))
-      throw new CoreError('Unable to edit question without question creator.');
-
     const messageList = await MessageList.findOneAndUpdate(
       { _id: questionId },
       { $set: { question } },
@@ -325,15 +340,25 @@ export const deleteQuestion = async ({
   activityId,
   questionId,
 }: QuestionCredentials) => {
+  const existingActivity = await Activity.findById(activityId);
+  if (!existingActivity)
+    throw new CoreError(
+      'Cannot delete questions because the activity does not exist.'
+    );
+  const existingQuestion = await MessageList.findById(questionId);
+  if (!existingQuestion)
+    throw new CoreError(
+      'Cannot delete questions because the question does not exist.'
+    );
+  if (!existingQuestion.userId.equals(userId))
+    throw new CoreError('Only the questioner can delete the question.');
+  const existingMessages = (
+    await Message.find({ messageListId: questionId }).select('_id')
+  ).map((message) => message._id.toString());
   try {
-    const existingActivity = await Activity.findById(activityId);
-    if (!existingActivity)
-      throw new CoreError('Unable to delete question without activity.');
-    const existingQuestion = await MessageList.findById(questionId);
-    if (!existingQuestion || !existingQuestion.userId.equals(userId))
-      throw new CoreError(
-        'Unable to delete question without question creator.'
-      );
+    if (existingMessages.length) {
+      await Message.deleteMany({ _id: { $in: existingMessages } });
+    }
     await MessageList.deleteOne({ _id: questionId });
 
     return { message: 'success delete' };

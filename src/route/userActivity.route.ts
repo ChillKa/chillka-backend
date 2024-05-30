@@ -183,11 +183,7 @@ const userActivityRouter = () => {
       /* #swagger.tags = ['Activity'] */
       try {
         const userId = req.user?._id;
-        if (!userId)
-          throw new CoreError('Unable to ask question without user id.');
         const activityId = new mongoose.Types.ObjectId(req.params?.activityId);
-        if (!activityId)
-          throw new CoreError('Unable to ask question without activity id.');
         const data = await UserActivityService.createQuestion({
           userId,
           activityId,
@@ -208,11 +204,7 @@ const userActivityRouter = () => {
       /* #swagger.tags = ['Activity'] */
       try {
         const userId = req.user?._id;
-        if (!userId)
-          throw new CoreError('Unable to edit question without user id.');
         const activityId = new mongoose.Types.ObjectId(req.params?.activityId);
-        if (!activityId)
-          throw new CoreError('Unable to edit question without activity id.');
         const data = await UserActivityService.editQuestion({
           userId,
           activityId,
@@ -233,11 +225,7 @@ const userActivityRouter = () => {
       /* #swagger.tags = ['Activity'] */
       try {
         const userId = req.user?._id;
-        if (!userId)
-          throw new CoreError('Unable to edit question without user id.');
         const activityId = new mongoose.Types.ObjectId(req.params?.activityId);
-        if (!activityId)
-          throw new CoreError('Unable to edit question without activity id.');
         const data = await UserActivityService.deleteQuestion({
           userId,
           activityId,
