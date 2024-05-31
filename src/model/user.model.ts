@@ -16,8 +16,8 @@ const UserSchema = new Schema<UserSchemaModel, UserModel, UserMethods>(
     displayName: {
       type: Schema.Types.String,
       required: true,
-      minlength: 2,
-      maxlength: 50,
+      minLength: 2,
+      maxLength: 50,
     },
     email: {
       type: Schema.Types.String,
@@ -29,6 +29,7 @@ const UserSchema = new Schema<UserSchemaModel, UserModel, UserMethods>(
         message: (props) => `${props.value} is not a valid email`,
       },
       unique: true,
+      lowercase: true,
     },
     password: {
       type: Schema.Types.String,

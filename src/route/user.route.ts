@@ -3,7 +3,8 @@ import mongoose from 'mongoose';
 import authorizeMiddleware from '../middleware/authorize.middleware';
 import { zodValidateMiddleware } from '../middleware/validate.middleware';
 import * as UserService from '../service/user.service';
-import { throwAPIError } from '../util/error-handler';
+import { CoreError, throwAPIError } from '../util/error-handler';
+import uploadSingleImage from '../util/multer-cloudinary';
 import { changePasswordSchema } from '../util/zod/auth.schema';
 import { editUserSchema } from '../util/zod/user.schema';
 
@@ -68,6 +69,37 @@ const userRouter = () => {
         });
 
         res.status(200).send(data);
+      } catch (error) {
+        throwAPIError({ res, error, statusCode: 400 });
+      }
+    }
+  );
+
+  router.post(
+    '/upload-image',
+    authorizeMiddleware,
+    async (req: Request, res: Response) => {
+      try {
+        uploadSingleImage(req, res, function (err) {
+          if (err)
+            if (err.message === 'Please upload an image') {
+              return throwAPIError({
+                res,
+                error: new CoreError('Please upload as image'),
+                statusCode: 401,
+              });
+            }
+
+          const data = { imageUrl: req.file?.path };
+          if (!data.imageUrl)
+            throwAPIError({
+              res,
+              error: new CoreError('Upload image is failed'),
+              statusCode: 401,
+            });
+
+          res.status(200).send(data);
+        });
       } catch (error) {
         throwAPIError({ res, error, statusCode: 400 });
       }
