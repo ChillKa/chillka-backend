@@ -96,7 +96,7 @@ export const activitySchema = z.object({
   ),
 });
 
-export const questionSchema = z.object({
+export const messageListSchema = z.object({
   questionId: z.string().optional(),
   question: z.string().optional(),
 });

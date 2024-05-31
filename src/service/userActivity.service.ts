@@ -14,7 +14,7 @@ import {
   GetActivityDetailCredential,
   GetActivityParticipantParams,
   GetSavedActivityParams,
-  QuestionCredentials,
+  MessageListCredentials,
   StatusEnum,
 } from '../type/activity.type';
 import { CoreError } from '../util/error-handler';
@@ -272,11 +272,11 @@ export const getSavedActivityList = async ({
   }
 };
 
-export const createQuestion = async ({
+export const createMessageList = async ({
   userId,
   activityId,
   question,
-}: QuestionCredentials) => {
+}: MessageListCredentials) => {
   const existingActivity = await Activity.findById(activityId);
   if (!existingActivity)
     throw new CoreError(
@@ -299,23 +299,23 @@ export const createQuestion = async ({
   }
 };
 
-export const editQuestion = async ({
+export const editMessageList = async ({
   userId,
   activityId,
   question,
   questionId,
-}: QuestionCredentials) => {
+}: MessageListCredentials) => {
   const existingActivity = await Activity.findById(activityId);
   if (!existingActivity)
     throw new CoreError(
       'Cannot edit questions because the activity does not exist.'
     );
-  const existingQuestion = await MessageList.findById(questionId);
-  if (!existingQuestion)
+  const existingMessageList = await MessageList.findById(questionId);
+  if (!existingMessageList)
     throw new CoreError(
       'Cannot edit questions because the question does not exist.'
     );
-  if (!existingQuestion.userId.equals(userId))
+  if (!existingMessageList.userId.equals(userId))
     throw new CoreError('Only the questioner can modify the question.');
   const existingMessages = await Message.find({ messageListId: questionId });
   if (existingMessages.length)
@@ -335,22 +335,22 @@ export const editQuestion = async ({
   }
 };
 
-export const deleteQuestion = async ({
+export const deleteMessageList = async ({
   userId,
   activityId,
   questionId,
-}: QuestionCredentials) => {
+}: MessageListCredentials) => {
   const existingActivity = await Activity.findById(activityId);
   if (!existingActivity)
     throw new CoreError(
       'Cannot delete questions because the activity does not exist.'
     );
-  const existingQuestion = await MessageList.findById(questionId);
-  if (!existingQuestion)
+  const existingMessageList = await MessageList.findById(questionId);
+  if (!existingMessageList)
     throw new CoreError(
       'Cannot delete questions because the question does not exist.'
     );
-  if (!existingQuestion.userId.equals(userId))
+  if (!existingMessageList.userId.equals(userId))
     throw new CoreError('Only the questioner can delete the question.');
   const existingMessages = (
     await Message.find({ messageListId: questionId }).select('_id')
