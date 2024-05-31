@@ -16,8 +16,8 @@ const UserSchema = new Schema<UserSchemaModel, UserModel, UserMethods>(
     displayName: {
       type: Schema.Types.String,
       required: true,
-      minlength: 2,
-      maxlength: 50,
+      minLength: 2,
+      maxLength: 50,
     },
     email: {
       type: Schema.Types.String,
