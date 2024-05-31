@@ -90,8 +90,8 @@ const userRouter = () => {
               });
             }
 
-          const data = { iamgeUrl: req.file?.path };
-          if (!data.iamgeUrl)
+          const data = { imageUrl: req.file?.path };
+          if (!data.imageUrl)
             throwAPIError({
               res,
               error: new CoreError('Upload image is failed'),
