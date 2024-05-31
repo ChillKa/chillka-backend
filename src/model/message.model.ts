@@ -5,12 +5,16 @@ type MessageModel = Model<MessageSchemaModel, object>;
 
 const MessageSchema = new Schema<MessageSchemaModel, MessageModel>(
   {
+    activityId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Activity',
+      required: true,
+    },
     messageListId: {
       type: Schema.Types.ObjectId,
       ref: 'MessageList',
       required: true,
     },
-
     userId: {
       type: Schema.Types.ObjectId,
       ref: 'User',

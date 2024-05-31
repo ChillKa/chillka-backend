@@ -8,7 +8,7 @@ import { CoreError, throwAPIError } from '../util/error-handler';
 // import { userAttendSchema } from "../util/zod/userActivity.schema";
 import {
   activitySchema,
-  questionSchema,
+  messageListSchema,
 } from '../util/zod/userActivity.schema';
 
 const userActivityRouter = () => {
@@ -189,13 +189,13 @@ const userActivityRouter = () => {
   router.post(
     '/activities/:activityId/q-and-a',
     authorizeMiddleware,
-    zodValidateMiddleware(questionSchema),
+    zodValidateMiddleware(messageListSchema),
     async (req: Request, res: Response) => {
       /* #swagger.tags = ['Activity'] */
       try {
         const userId = req.user?._id;
         const activityId = new mongoose.Types.ObjectId(req.params?.activityId);
-        const data = await UserActivityService.createQuestion({
+        const data = await UserActivityService.createMessageList({
           userId,
           activityId,
           ...req.body,
@@ -210,13 +210,13 @@ const userActivityRouter = () => {
   router.patch(
     '/activities/:activityId/q-and-a',
     authorizeMiddleware,
-    zodValidateMiddleware(questionSchema),
+    zodValidateMiddleware(messageListSchema),
     async (req: Request, res: Response) => {
       /* #swagger.tags = ['Activity'] */
       try {
         const userId = req.user?._id;
         const activityId = new mongoose.Types.ObjectId(req.params?.activityId);
-        const data = await UserActivityService.editQuestion({
+        const data = await UserActivityService.editMessageList({
           userId,
           activityId,
           ...req.body,
@@ -231,13 +231,13 @@ const userActivityRouter = () => {
   router.delete(
     '/activities/:activityId/q-and-a',
     authorizeMiddleware,
-    zodValidateMiddleware(questionSchema),
+    zodValidateMiddleware(messageListSchema),
     async (req: Request, res: Response) => {
       /* #swagger.tags = ['Activity'] */
       try {
         const userId = req.user?._id;
         const activityId = new mongoose.Types.ObjectId(req.params?.activityId);
-        const data = await UserActivityService.deleteQuestion({
+        const data = await UserActivityService.deleteMessageList({
           userId,
           activityId,
           ...req.body,
