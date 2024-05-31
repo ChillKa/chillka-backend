@@ -87,6 +87,7 @@ export type ActivityCreateCredentials = ActivitySchemaModel & {
 };
 
 export type ActivityEditCredentials = ActivityCreateCredentials & {
+  userId: mongoose.Types.ObjectId | undefined;
   activityId: string;
 };
 
