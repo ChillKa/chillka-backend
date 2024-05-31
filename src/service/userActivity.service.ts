@@ -48,13 +48,13 @@ export const createActivity = async ({
 //      - delete the existing tickets if ticket is not sold
 //      - throw new Error if tickets is sold
 export const editActivity = async ({
-  creatorId,
+  userId,
   activityId,
   tickets,
   ...activityData
 }: ActivityEditCredentials) => {
   const existingActivity = await Activity.findById(activityId);
-  if (!existingActivity?.creatorId.equals(creatorId))
+  if (!existingActivity?.creatorId.equals(userId))
     throw new CoreError('Activity cannot be edited by non-creators.');
   const activityOrders = await Order.find({ activityId });
   if (activityOrders.length) {

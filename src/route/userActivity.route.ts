@@ -36,11 +36,11 @@ const userActivityRouter = () => {
     authorizeMiddleware,
     zodValidateMiddleware(activitySchema),
     async (req: Request, res: Response) => {
-      const creatorId = req.user?._id;
+      const userId = req.user?._id;
       try {
         const activityId = new mongoose.Types.ObjectId(req.params.activityId);
         const data = await UserActivityService.editActivity({
-          creatorId,
+          userId,
           activityId,
           ...req.body,
         });
