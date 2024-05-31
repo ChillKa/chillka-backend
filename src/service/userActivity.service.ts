@@ -286,14 +286,14 @@ export const createMessageList = async ({
     throw new CoreError('The creator of the activity cannot ask questions.');
   try {
     const user = await User.findById(userId).select('displayName');
-    const messageList = await MessageList.create({
+    const newMessageList = await MessageList.create({
       activityId,
       userId,
       question,
       displayName: user?.displayName,
     });
 
-    return messageList;
+    return newMessageList;
   } catch (error) {
     throw new CoreError('Ask question failed.');
   }
@@ -323,13 +323,13 @@ export const editMessageList = async ({
       'You cannot modify the question if there is already a reply.'
     );
   try {
-    const messageList = await MessageList.findOneAndUpdate(
+    const editMessageList = await MessageList.findOneAndUpdate(
       { _id: questionId },
       { $set: { question } },
       { new: true }
     );
 
-    return messageList;
+    return editMessageList;
   } catch (error) {
     throw new CoreError('Ask question failed.');
   }
