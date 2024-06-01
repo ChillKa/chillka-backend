@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { SortType } from './model.type';
 
 export enum PaymentStatusEnum {
   PAID = '已付款',
@@ -45,13 +46,25 @@ export interface OrderSchemaModel {
 
 export type CreateOrderParams = {
   userId: mongoose.Types.ObjectId;
-  activityId: mongoose.Types.ObjectId;
-  requestBody: Pick<OrderSchemaModel, 'orderContact' | 'payment'> & {
-    ticketId: mongoose.Types.ObjectId;
-  };
+  requestBody: Pick<
+    OrderSchemaModel,
+    'activityId' | 'ticketId' | 'orderContact' | 'payment'
+  >;
 };
 
 export type CreateOrderCredentials = Pick<
   OrderSchemaModel,
   'orderContact' | 'payment'
 >;
+
+export type GetOrdersParams = {
+  userId?: mongoose.Types.ObjectId;
+  page?: number;
+  limit?: number;
+  sort?: SortType;
+};
+
+export type CancelOrderParams = {
+  userId?: mongoose.Types.ObjectId;
+  orderId: mongoose.Types.ObjectId;
+};
