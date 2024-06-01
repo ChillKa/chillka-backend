@@ -25,23 +25,19 @@ const OrderSchema = new Schema<OrderSchemaModel, OrderModel>(
       ref: 'Ticket',
       required: true,
     },
-    name: {
-      type: Schema.Types.String,
-      required: true,
-    },
-    email: {
-      type: Schema.Types.String,
-      required: true,
-    },
-    phone: {
-      type: Schema.Types.String,
-      required: true,
-    },
-    startDateTime: {
-      type: Schema.Types.Date,
-    },
-    endDateTime: {
-      type: Schema.Types.Date,
+    orderContact: {
+      name: {
+        type: Schema.Types.String,
+        required: true,
+      },
+      email: {
+        type: Schema.Types.String,
+        required: true,
+      },
+      phone: {
+        type: Schema.Types.String,
+        required: true,
+      },
     },
     payment: {
       amount: {

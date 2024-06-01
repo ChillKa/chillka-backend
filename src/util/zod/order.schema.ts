@@ -2,7 +2,7 @@ import { z } from 'zod';
 // import { PaymentMethodEnum, PaymentStatusEnum } from '../../type/ticket.type';
 import { validateInt } from '../validator';
 
-export const userAttendSchema = z.object({
+export const createOrderSchema = z.object({
   userInfo: z.object({
     name: z.string({ required_error: 'Name is required' }),
     email: z

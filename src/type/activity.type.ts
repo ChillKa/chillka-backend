@@ -106,15 +106,6 @@ export type GetActivityParticipantParams = {
   sort?: SortType;
 };
 
-export type AttendActivityParams = {
-  userId: mongoose.Types.ObjectId;
-  activityId: mongoose.Types.ObjectId;
-  requestBody: Omit<
-    TicketSchemaModel,
-    'userId' | 'activityId' | 'ticketStatus' | 'serialNumber'
-  >;
-};
-
 export type AttendActivityCredentials = Omit<
   TicketSchemaModel,
   'userId' | 'activityId' | 'ticketStatus' | 'serialNumber'

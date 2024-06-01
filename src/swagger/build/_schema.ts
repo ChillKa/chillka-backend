@@ -1205,75 +1205,6 @@ export const _schema = {
         "activityId"
       ]
     },
-    "AttendActivityParams": {
-      "type": "object",
-      "properties": {
-        "userId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "activityId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "requestBody": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "description": {
-              "type": "string"
-            },
-            "startDateTime": {
-              "type": "string",
-              "format": "date-time"
-            },
-            "fromToday": {
-              "type": "boolean"
-            },
-            "endDateTime": {
-              "type": "string",
-              "format": "date-time"
-            },
-            "noEndDate": {
-              "type": "boolean"
-            },
-            "price": {
-              "type": "number"
-            },
-            "participantCapacity": {
-              "type": "number"
-            },
-            "unlimitedQuantity": {
-              "type": "boolean"
-            },
-            "purchaseLimit": {
-              "type": "number"
-            },
-            "purchaseDuplicate": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "description",
-            "endDateTime",
-            "fromToday",
-            "name",
-            "noEndDate",
-            "participantCapacity",
-            "price",
-            "purchaseDuplicate",
-            "purchaseLimit",
-            "startDateTime",
-            "unlimitedQuantity"
-          ]
-        }
-      },
-      "required": [
-        "activityId",
-        "requestBody",
-        "userId"
-      ]
-    },
     "AttendActivityCredentials": {
       "type": "object",
       "properties": {
@@ -1463,6 +1394,25 @@ export const _schema = {
         "無效票券"
       ]
     },
+    "OrderContact": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "email",
+        "name",
+        "phone"
+      ]
+    },
     "OrderPayment": {
       "type": "object",
       "properties": {
@@ -1508,22 +1458,24 @@ export const _schema = {
         "ticketId": {
           "$ref": "#/definitions/Types.ObjectId"
         },
-        "name": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "phone": {
-          "type": "string"
-        },
-        "startDateTime": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "endDateTime": {
-          "type": "string",
-          "format": "date-time"
+        "orderContact": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "email",
+            "name",
+            "phone"
+          ]
         },
         "payment": {
           "type": "object",
@@ -1574,16 +1526,150 @@ export const _schema = {
       },
       "required": [
         "activityId",
-        "email",
-        "endDateTime",
-        "name",
+        "orderContact",
         "orderStatus",
         "payment",
-        "phone",
         "serialNumber",
-        "startDateTime",
         "ticketId",
         "userId"
+      ]
+    },
+    "CreateOrderParams": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "activityId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "requestBody": {
+          "type": "object",
+          "properties": {
+            "orderContact": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "email",
+                "name",
+                "phone"
+              ]
+            },
+            "payment": {
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "type": "number"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": [
+                    "已付款",
+                    "待付款",
+                    "付款失敗"
+                  ]
+                },
+                "method": {
+                  "type": "string",
+                  "enum": [
+                    "信用卡",
+                    "現金",
+                    "系統更新"
+                  ]
+                },
+                "orderNumber": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "amount",
+                "method",
+                "orderNumber",
+                "status"
+              ]
+            }
+          },
+          "required": [
+            "orderContact",
+            "payment"
+          ]
+        }
+      },
+      "required": [
+        "activityId",
+        "requestBody",
+        "userId"
+      ]
+    },
+    "CreateOrderCredentials": {
+      "type": "object",
+      "properties": {
+        "orderContact": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "email",
+            "name",
+            "phone"
+          ]
+        },
+        "payment": {
+          "type": "object",
+          "properties": {
+            "amount": {
+              "type": "number"
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "已付款",
+                "待付款",
+                "付款失敗"
+              ]
+            },
+            "method": {
+              "type": "string",
+              "enum": [
+                "信用卡",
+                "現金",
+                "系統更新"
+              ]
+            },
+            "orderNumber": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "amount",
+            "method",
+            "orderNumber",
+            "status"
+          ]
+        }
+      },
+      "required": [
+        "orderContact",
+        "payment"
       ]
     },
     "SavedActivitySchemaModel": {

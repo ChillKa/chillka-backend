@@ -20,6 +20,12 @@ export enum OrderStatusEnum {
   ERROR = '無效票券',
 }
 
+export type OrderContact = {
+  name: string;
+  email: string;
+  phone: string;
+};
+
 export type OrderPayment = {
   amount: number;
   status: PaymentStatusEnum;
@@ -31,12 +37,19 @@ export interface OrderSchemaModel {
   userId: mongoose.Types.ObjectId;
   activityId: mongoose.Types.ObjectId;
   ticketId: mongoose.Types.ObjectId;
-  name: string;
-  email: string;
-  phone: string;
-  startDateTime: Date;
-  endDateTime: Date;
+  orderContact: OrderContact;
   payment: OrderPayment;
   orderStatus: OrderStatusEnum;
   serialNumber: string;
 }
+
+export type CreateOrderParams = {
+  userId: mongoose.Types.ObjectId;
+  activityId: mongoose.Types.ObjectId;
+  requestBody: Pick<OrderSchemaModel, 'orderContact' | 'payment'>;
+};
+
+export type CreateOrderCredentials = Pick<
+  OrderSchemaModel,
+  'orderContact' | 'payment'
+>;
