@@ -3,7 +3,8 @@ import { z } from 'zod';
 import { validateInt } from '../validator';
 
 export const createOrderSchema = z.object({
-  userInfo: z.object({
+  ticketId: z.string({ required_error: 'Ticket id is required' }),
+  orderContact: z.object({
     name: z.string({ required_error: 'Name is required' }),
     email: z
       .string({ required_error: 'Email is required' })

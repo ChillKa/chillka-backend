@@ -46,7 +46,9 @@ export interface OrderSchemaModel {
 export type CreateOrderParams = {
   userId: mongoose.Types.ObjectId;
   activityId: mongoose.Types.ObjectId;
-  requestBody: Pick<OrderSchemaModel, 'orderContact' | 'payment'>;
+  requestBody: Pick<OrderSchemaModel, 'orderContact' | 'payment'> & {
+    ticketId: mongoose.Types.ObjectId;
+  };
 };
 
 export type CreateOrderCredentials = Pick<

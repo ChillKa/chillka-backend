@@ -1,8 +1,9 @@
 import { faker } from '@faker-js/faker';
+import mongoose from 'mongoose';
 import Activity from '../model/activity.model';
 import Order from '../model/order.model';
 import User from '../model/user.model';
-import { CreateOrderParams, OrderStatusEnum } from '../type/order.type';
+import { CreateOrderParams } from '../type/order.type';
 import { CoreError } from '../util/error-handler';
 
 export const createOrder = async ({
@@ -19,20 +20,25 @@ export const createOrder = async ({
     throw new CoreError('User email not validated.');
   }
 
-  const activity = await Activity.findById(activityId).populate('tickets');
-
+  const activity = await Activity.findById(activityId);
   if (!activity) {
     throw new CoreError('Activity not found.');
   }
 
+  const body = {
+    ...requestBody,
+    ticketId: new mongoose.Types.ObjectId(requestBody.ticketId),
+  };
+
+  const order = {
+    userId,
+    activityId,
+    serialNumber: faker.string.uuid(),
+    ...body,
+  };
+
   try {
-    await Order.create({
-      userId,
-      activityId,
-      serialNumber: faker.string.uuid(),
-      ticketStatus: OrderStatusEnum.VALID,
-      ...requestBody,
-    });
+    await Order.create(order);
     return { message: 'Create order success.' };
   } catch (error) {
     throw new CoreError('Create order failed.');

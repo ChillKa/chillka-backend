@@ -9,6 +9,7 @@ import {
   CancelActivityParams,
   CollectActivityParams,
   GetActivitiesParams,
+  GetActivityDetailCredential,
   GetActivityParticipantParams,
   GetSavedActivityParams,
   StatusEnum,
@@ -135,6 +136,27 @@ export const getActivityList = async ({
     return paginatedData;
   } catch (error) {
     throw new CoreError('Get activities failed.');
+  }
+};
+
+export const getActivityDetail = async ({
+  activityId,
+}: GetActivityDetailCredential) => {
+  try {
+    const activity = await Activity.find({
+      _id: activityId,
+    });
+    const tickets = await Ticket.find({
+      activityId,
+    }).select('-activityId');
+    const data = {
+      activity,
+      tickets,
+    };
+
+    return data;
+  } catch (error) {
+    throw new CoreError('Get activity details failed.');
   }
 };
 
