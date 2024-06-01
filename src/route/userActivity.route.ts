@@ -106,7 +106,7 @@ const userActivityRouter = () => {
     }
   );
 
-  router.patch(
+  router.put(
     '/activities/:activityId/cancel',
     authorizeMiddleware,
     async (req: Request, res: Response) => {
@@ -197,9 +197,21 @@ const userActivityRouter = () => {
     authorizeMiddleware,
     async (req: Request, res: Response) => {
       /* #swagger.tags = ['Activity'] 
-          #swagger.parameters['body'] = {
-            in: 'body',
-            schema: { $ref: "#/schemas/GetActivitiesCredentials" },
+          #swagger.parameters['sort'] = {
+            in: 'query',
+            required: false,
+            type: 'string',
+            enum: ['asc', 'des'],
+          }
+          #swagger.parameters['page'] = {
+            in: 'query',
+            required: false,
+            type: 'number',
+          }
+          #swagger.parameters['limit'] = {
+            in: 'query',
+            required: false,
+            type: 'number',
           }
       */
 

@@ -58,6 +58,8 @@ export const getOrderList = async ({
   try {
     const orders = await Order.find({ userId })
       .select(['-userId', '-activityId', '-ticketId'])
+      .where('orderStatus')
+      .ne(OrderStatusEnum.CANCELLED)
       .sort({
         createdAt: sort === 'des' ? -1 : 1,
       });

@@ -11,7 +11,7 @@ const orderRouter = () => {
   const router = Router();
 
   router.post(
-    '/orders/:activityId',
+    '/orders',
     authorizeMiddleware,
     zodValidateMiddleware(createOrderSchema),
     async (req: Request, res: Response) => {
@@ -81,12 +81,7 @@ const orderRouter = () => {
     '/orders/:orderId/cancel',
     authorizeMiddleware,
     async (req: Request, res: Response) => {
-      /* #swagger.tags = ['Order'] 
-          #swagger.parameters['body'] = {
-            in: 'body',
-            schema: { $ref: "#/schemas/CreateOrderCredentials" },
-          }
-      */
+      /* #swagger.tags = ['Order'] */
 
       const userId = req.user?._id;
 
