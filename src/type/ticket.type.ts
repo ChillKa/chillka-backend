@@ -7,6 +7,7 @@ export enum TicketStatusEnum {
 }
 
 export interface TicketSchemaModel {
+  _id?: mongoose.Types.ObjectId;
   activityId: mongoose.Types.ObjectId;
   name: string;
   price: number;

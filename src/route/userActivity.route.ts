@@ -19,11 +19,29 @@ const userActivityRouter = () => {
       /* #swagger.tags = ['Activity'] */
 
       const creatorId = req.user?._id;
-      if (!creatorId)
-        throw new CoreError('Unable to create activity without user id.');
       try {
         const data = await UserActivityService.createActivity({
           creatorId,
+          ...req.body,
+        });
+        res.status(200).send(data);
+      } catch (error) {
+        throwAPIError({ res, error, statusCode: 400 });
+      }
+    }
+  );
+
+  router.put(
+    '/activities/:activityId',
+    authorizeMiddleware,
+    zodValidateMiddleware(activitySchema),
+    async (req: Request, res: Response) => {
+      const userId = req.user?._id;
+      try {
+        const activityId = new mongoose.Types.ObjectId(req.params.activityId);
+        const data = await UserActivityService.editActivity({
+          userId,
+          activityId,
           ...req.body,
         });
         res.status(200).send(data);
@@ -78,8 +96,8 @@ const userActivityRouter = () => {
       /* #swagger.tags = ['Activity'] */
 
       const userId = req.user?._id;
-      const activityId = new mongoose.Types.ObjectId(req.params.activityId);
       try {
+        const activityId = new mongoose.Types.ObjectId(req.params.activityId);
         const data = await UserActivityService.cancelActivity({
           activityId,
           userId,
@@ -173,7 +191,6 @@ const userActivityRouter = () => {
 
       const userId = req.user?._id;
       const activityId = req.params?.activityId;
-
       try {
         const data = await UserActivityService.collectActivity({
           activityId: new mongoose.Types.ObjectId(activityId),
@@ -199,7 +216,6 @@ const userActivityRouter = () => {
       */
 
       const userId = req.user?._id;
-
       try {
         const data = await UserActivityService.getSavedActivityList({
           userId: new mongoose.Types.ObjectId(userId),
