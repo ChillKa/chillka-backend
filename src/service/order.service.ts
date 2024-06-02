@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import mongoose from 'mongoose';
+import mongoose, { isValidObjectId } from 'mongoose';
 import Order from '../model/order.model';
 import User from '../model/user.model';
 import {
@@ -15,6 +15,9 @@ export const createOrder = async ({
   userId,
   requestBody,
 }: CreateOrderParams) => {
+  if (!isValidObjectId(userId)) {
+    throw new CoreError('Invalid user ID');
+  }
   const user = await User.findById(userId);
   if (!user) {
     throw new CoreError('User not found.');

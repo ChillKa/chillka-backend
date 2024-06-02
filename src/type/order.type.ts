@@ -65,6 +65,6 @@ export type GetOrdersParams = {
 };
 
 export type CancelOrderParams = {
-  userId?: mongoose.Types.ObjectId;
+  userId: mongoose.Types.ObjectId | undefined;
   orderId: mongoose.Types.ObjectId;
 };

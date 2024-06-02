@@ -58,13 +58,13 @@ const OrderSchema = new Schema<OrderSchemaModel, OrderModel>(
       },
       orderNumber: {
         type: Schema.Types.Number,
+        required: true,
       },
     },
     orderStatus: {
       type: Schema.Types.String,
       enum: OrderStatusEnum,
       default: OrderStatusEnum.VALID,
-      required: true,
     },
     serialNumber: {
       type: Schema.Types.String,

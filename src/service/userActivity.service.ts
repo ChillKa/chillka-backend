@@ -143,9 +143,7 @@ export const getActivityDetail = async ({
   activityId,
 }: GetActivityDetailCredential) => {
   try {
-    const activity = await Activity.findById({ _id: activityId }).populate(
-      'tickets'
-    );
+    const activity = await Activity.findById(activityId).populate('tickets');
     const data = {
       activity,
       tickets: activity?.tickets,
