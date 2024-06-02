@@ -143,15 +143,12 @@ export const getActivityDetail = async ({
   activityId,
 }: GetActivityDetailCredential) => {
   try {
-    const activity = await Activity.find({
-      _id: activityId,
-    });
-    const tickets = await Ticket.find({
-      activityId,
-    }).select('-activityId');
+    const activity = await Activity.findById({ _id: activityId }).populate(
+      'tickets'
+    );
     const data = {
       activity,
-      tickets,
+      tickets: activity?.tickets,
     };
 
     return data;
