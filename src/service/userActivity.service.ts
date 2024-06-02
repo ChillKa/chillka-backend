@@ -61,9 +61,9 @@ export const editActivity = async ({
     // todo：send notices to participant if tickets are sold
   }
 
-  const existingTicketIds = (
-    await Ticket.find({ activityId }).select('_id')
-  ).map((ticket) => ticket._id.toString());
+  const existingTicketObjectIds = await Ticket.find({ activityId }).select(
+    '_id'
+  );
   const updateTickets = [];
   const createTickets = [];
   const deleteTickets = [];
@@ -71,13 +71,15 @@ export const editActivity = async ({
   for (const ticket of tickets) {
     if (ticket?._id) {
       // 1. check if the ticket already exists and update it
-      const ticketIndex = existingTicketIds.indexOf(ticket?._id.toString());
+      const ticketIndex = existingTicketObjectIds
+        .map((id) => id.toString())
+        .indexOf(ticket?._id.toString());
       if (ticketIndex === -1)
         throw new CoreError(
           'The ticket does not exist so the activity cannot be edited.'
         );
       updateTickets.push(ticket);
-      existingTicketIds.splice(ticketIndex, 1);
+      existingTicketObjectIds.splice(ticketIndex, 1);
     } else {
       // 2. create new ticket
       createTickets.push(ticket);
@@ -85,8 +87,8 @@ export const editActivity = async ({
   }
 
   // 3. delete the existing ticket if not pass to backend
-  if (existingTicketIds.length) {
-    for (const deleteTicketId of existingTicketIds) {
+  if (existingTicketObjectIds.length) {
+    for (const deleteTicketId of existingTicketObjectIds) {
       const deleteTicketOrders = await Order.find({
         ticketId: deleteTicketId,
       });
