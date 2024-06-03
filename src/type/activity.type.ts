@@ -136,4 +136,12 @@ export type GetSavedActivityParams = {
   limit?: number;
   sort?: SortType;
 };
+
+export type QuestionCredentials = {
+  userId: mongoose.Types.ObjectId;
+  activityId: mongoose.Types.ObjectId;
+  question?: string;
+  questionId?: mongoose.Types.ObjectId;
+};
+
 export type GetActivitiesCredentials = Omit<GetSavedActivityParams, 'userId'>;
