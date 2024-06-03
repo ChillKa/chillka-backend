@@ -1891,7 +1891,7 @@
         }
       }
     },
-    "MessageListSchemaModel": {
+    "QuestionSchemaModel": {
       "type": "object",
       "properties": {
         "activityId": {
@@ -1900,26 +1900,26 @@
         "userId": {
           "$ref": "#/definitions/Types.ObjectId"
         },
-        "question": {
+        "content": {
           "type": "string"
         }
       },
-      "required": ["activityId", "question", "userId"]
+      "required": ["activityId", "content", "userId"]
     },
-    "MessageSchemaModel": {
+    "ReplySchemaModel": {
       "type": "object",
       "properties": {
-        "messageListId": {
+        "questionId": {
           "$ref": "#/definitions/Types.ObjectId"
         },
         "userId": {
           "$ref": "#/definitions/Types.ObjectId"
         },
-        "answer": {
+        "content": {
           "type": "string"
         }
       },
-      "required": ["answer", "messageListId", "userId"]
+      "required": ["content", "questionId", "userId"]
     },
     "PaymentStatusEnum": {
       "type": "string",

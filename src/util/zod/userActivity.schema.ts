@@ -48,6 +48,7 @@ export const activitySchema = z.object({
       day: z.string(),
     })
     .optional(),
+  status: z.string({ required_error: 'Status is required' }).optional(),
   tickets: z.array(
     z.object({
       _id: z.string().optional(), // optional for edit activity
@@ -70,4 +71,9 @@ export const activitySchema = z.object({
       serialNumber: z.string().optional(),
     })
   ),
+});
+
+export const questionSchema = z.object({
+  questionId: z.string().optional(),
+  content: z.string().optional(),
 });
