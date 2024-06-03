@@ -48,9 +48,10 @@ export const activitySchema = z.object({
       day: z.string(),
     })
     .optional(),
-  status: z.string({ required_error: 'Status is required' }),
+  status: z.string({ required_error: 'Status is required' }).optional(),
   tickets: z.array(
     z.object({
+      _id: z.string().optional(), // optional for edit activity
       name: z.string({ required_error: 'Name is required' }),
       price: z.number({ required_error: 'Price is required' }),
       startDateTime: z.date().optional(),
