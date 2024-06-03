@@ -1,9 +1,11 @@
 import { z } from 'zod';
-// import { PaymentMethodEnum, PaymentStatusEnum } from '../../type/ticket.type';
+import { PaymentMethodEnum, PaymentStatusEnum } from '../../type/order.type';
 import { validateInt } from '../validator';
 
-export const userAttendSchema = z.object({
-  userInfo: z.object({
+export const createOrderSchema = z.object({
+  activityId: z.string({ required_error: 'Activity id is required' }),
+  ticketId: z.string({ required_error: 'Ticket id is required' }),
+  orderContact: z.object({
     name: z.string({ required_error: 'Name is required' }),
     email: z
       .string({ required_error: 'Email is required' })
@@ -16,8 +18,8 @@ export const userAttendSchema = z.object({
   }),
   payment: z.object({
     amount: z.number({ required_error: 'Amount is required' }),
-    // status: z.nativeEnum(PaymentStatusEnum),
-    // method: z.nativeEnum(PaymentMethodEnum),
+    status: z.nativeEnum(PaymentStatusEnum).optional(),
+    method: z.nativeEnum(PaymentMethodEnum).optional(),
     orderNumber: z.number({ required_error: 'Order number is required' }),
   }),
 });

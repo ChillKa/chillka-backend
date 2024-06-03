@@ -5,7 +5,6 @@ import { zodValidateMiddleware } from '../middleware/validate.middleware';
 import * as UserActivityService from '../service/userActivity.service';
 import { SortEnum } from '../type/model.type';
 import { CoreError, throwAPIError } from '../util/error-handler';
-// import { userAttendSchema } from "../util/zod/userActivity.schema";
 import { activitySchema } from '../util/zod/activity.schema';
 
 const userActivityRouter = () => {
@@ -89,7 +88,25 @@ const userActivityRouter = () => {
     }
   );
 
-  router.patch(
+  router.get(
+    '/activities/:activityId',
+    authorizeMiddleware,
+    async (req: Request, res: Response) => {
+      /* #swagger.tags = ['Activity'] */
+      const activityId = req.params.activityId;
+
+      try {
+        const activities = await UserActivityService.getActivityDetail({
+          activityId: new mongoose.Types.ObjectId(activityId),
+        });
+        res.status(200).send(activities);
+      } catch (error) {
+        throwAPIError({ res, error, statusCode: 400 });
+      }
+    }
+  );
+
+  router.put(
     '/activities/:activityId/cancel',
     authorizeMiddleware,
     async (req: Request, res: Response) => {
@@ -110,35 +127,6 @@ const userActivityRouter = () => {
             return throwAPIError({ res, error, statusCode: 403 });
           }
         }
-        throwAPIError({ res, error, statusCode: 400 });
-      }
-    }
-  );
-
-  router.post(
-    '/activities/:activityId/attend',
-    authorizeMiddleware,
-    // zodValidateMiddleware(userAttendSchema),
-    async (req: Request, res: Response) => {
-      /* #swagger.tags = ['Activity'] 
-          #swagger.parameters['body'] = {
-            in: 'body',
-            schema: { $ref: "#/schemas/AttendActivityCredentials" },
-          }
-      */
-
-      const userId = req.user?._id;
-      const activityId = req.params?.activityId;
-
-      try {
-        const data = await UserActivityService.attendActivity({
-          userId: new mongoose.Types.ObjectId(userId),
-          activityId: new mongoose.Types.ObjectId(activityId),
-          requestBody: req.body,
-        });
-
-        res.status(200).send(data);
-      } catch (error) {
         throwAPIError({ res, error, statusCode: 400 });
       }
     }
@@ -209,9 +197,21 @@ const userActivityRouter = () => {
     authorizeMiddleware,
     async (req: Request, res: Response) => {
       /* #swagger.tags = ['Activity'] 
-          #swagger.parameters['body'] = {
-            in: 'body',
-            schema: { $ref: "#/schemas/GetActivitiesCredentials" },
+          #swagger.parameters['sort'] = {
+            in: 'query',
+            required: false,
+            type: 'string',
+            enum: ['asc', 'des'],
+          }
+          #swagger.parameters['page'] = {
+            in: 'query',
+            required: false,
+            type: 'number',
+          }
+          #swagger.parameters['limit'] = {
+            in: 'query',
+            required: false,
+            type: 'number',
           }
       */
 

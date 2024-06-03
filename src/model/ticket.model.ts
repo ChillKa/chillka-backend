@@ -62,9 +62,6 @@ const TicketSchema = new Schema<TicketSchemaModel, TicketModel>(
       default: TicketStatusEnum.VALID,
       required: true,
     },
-    serialNumber: {
-      type: Schema.Types.String,
-    },
   },
   {
     collection: 'tickets',

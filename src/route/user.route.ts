@@ -79,6 +79,8 @@ const userRouter = () => {
     '/upload-image',
     authorizeMiddleware,
     async (req: Request, res: Response) => {
+      /* #swagger.tags = ['User'] */
+
       try {
         uploadSingleImage(req, res, function (err) {
           if (err)
