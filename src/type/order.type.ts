@@ -9,7 +9,10 @@ export enum PaymentStatusEnum {
 
 export enum PaymentMethodEnum {
   CREDIT_CARD = '信用卡',
-  CASH = '現金',
+  WEB_ATM = '網路 ATM',
+  ATM = 'ATM',
+  CVS = '超商代碼',
+  BARCODE = '條碼',
   SYSTEM_UPDATE = '系統更新',
 }
 
@@ -29,8 +32,8 @@ export type OrderContact = {
 
 export type OrderPayment = {
   amount: number;
-  status: PaymentStatusEnum;
-  method: PaymentMethodEnum;
+  status?: PaymentStatusEnum;
+  method?: PaymentMethodEnum;
   orderNumber: number;
 };
 

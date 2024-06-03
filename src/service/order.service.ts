@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import mongoose, { isValidObjectId } from 'mongoose';
+import mongoose from 'mongoose';
 import Order from '../model/order.model';
 import User from '../model/user.model';
 import {
@@ -15,9 +15,6 @@ export const createOrder = async ({
   userId,
   requestBody,
 }: CreateOrderParams) => {
-  if (!isValidObjectId(userId)) {
-    throw new CoreError('Invalid user ID');
-  }
   const user = await User.findById(userId);
   if (!user) {
     throw new CoreError('User not found.');
@@ -27,19 +24,19 @@ export const createOrder = async ({
     throw new CoreError('User email not validated.');
   }
 
-  const body = {
-    ...requestBody,
-    activityId: new mongoose.Types.ObjectId(requestBody.activityId),
-    ticketId: new mongoose.Types.ObjectId(requestBody.ticketId),
-  };
-
-  const order = {
-    userId,
-    serialNumber: faker.string.uuid(),
-    ...body,
-  };
-
   try {
+    const body = {
+      ...requestBody,
+      activityId: new mongoose.Types.ObjectId(requestBody.activityId),
+      ticketId: new mongoose.Types.ObjectId(requestBody.ticketId),
+    };
+
+    const order = {
+      userId,
+      serialNumber: faker.string.uuid(),
+      ...body,
+    };
+
     await Order.create(order);
     return { message: 'Create order success.' };
   } catch (error) {

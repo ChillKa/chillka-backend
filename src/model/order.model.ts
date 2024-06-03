@@ -49,12 +49,11 @@ const OrderSchema = new Schema<OrderSchemaModel, OrderModel>(
         type: Schema.Types.String,
         enum: PaymentStatusEnum,
         default: PaymentStatusEnum.UNPAID,
-        required: true,
       },
       method: {
         type: Schema.Types.String,
         enum: PaymentMethodEnum,
-        required: true,
+        default: undefined,
       },
       orderNumber: {
         type: Schema.Types.Number,
