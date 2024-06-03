@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import swaggerUi from 'swagger-ui-express';
 import User from './model/user.model';
 import authRoute from './route/auth.route';
+import orderRoute from './route/order.route';
 import swaggerRoute from './route/swagger.route';
 import userRoute from './route/user.route';
 import userActivityRoute from './route/userActivity.route';
@@ -36,7 +37,8 @@ app.use(
   '/api/auth',
   // #swagger.security = [{ "apiKeyAuth": [] }]
   userRoute,
-  userActivityRoute
+  userActivityRoute,
+  orderRoute
 );
 app.use(
   '/api-docs',

@@ -82,9 +82,7 @@ export interface ActivitySchemaModel {
   tickets: TicketSchemaModel[];
 }
 
-export type ActivityCreateCredentials = ActivitySchemaModel & {
-  organizer: OrganizerBase;
-};
+export type ActivityCreateCredentials = ActivitySchemaModel;
 
 export type ActivityEditCredentials = ActivityCreateCredentials & {
   userId: mongoose.Types.ObjectId | undefined;
@@ -98,6 +96,10 @@ export type GetActivitiesParams = {
   sort?: SortType;
 };
 
+export type GetActivityDetailCredential = {
+  activityId: mongoose.Types.ObjectId;
+};
+
 export type GetActivityParticipantParams = {
   activityId: mongoose.Types.ObjectId | undefined;
   participantName?: string;
@@ -105,20 +107,6 @@ export type GetActivityParticipantParams = {
   limit?: number;
   sort?: SortType;
 };
-
-export type AttendActivityParams = {
-  userId: mongoose.Types.ObjectId;
-  activityId: mongoose.Types.ObjectId;
-  requestBody: Omit<
-    TicketSchemaModel,
-    'userId' | 'activityId' | 'ticketStatus' | 'serialNumber'
-  >;
-};
-
-export type AttendActivityCredentials = Omit<
-  TicketSchemaModel,
-  'userId' | 'activityId' | 'ticketStatus' | 'serialNumber'
->;
 
 export type CancelActivityParams = {
   userId: mongoose.Types.ObjectId | undefined;

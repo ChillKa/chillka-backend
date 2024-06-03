@@ -422,6 +422,9 @@ export const _schema = {
     "TicketSchemaModel": {
       "type": "object",
       "properties": {
+        "_id": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
         "activityId": {
           "$ref": "#/definitions/Types.ObjectId"
         },
@@ -467,9 +470,6 @@ export const _schema = {
             "已售完",
             "結束售票"
           ]
-        },
-        "serialNumber": {
-          "type": "string"
         }
       },
       "required": [
@@ -483,7 +483,6 @@ export const _schema = {
         "price",
         "purchaseDuplicate",
         "purchaseLimit",
-        "serialNumber",
         "startDateTime",
         "ticketStatus",
         "unlimitedQuantity"
@@ -757,6 +756,9 @@ export const _schema = {
           "items": {
             "type": "object",
             "properties": {
+              "_id": {
+                "$ref": "#/definitions/Types.ObjectId"
+              },
               "activityId": {
                 "$ref": "#/definitions/Types.ObjectId"
               },
@@ -802,9 +804,6 @@ export const _schema = {
                   "已售完",
                   "結束售票"
                 ]
-              },
-              "serialNumber": {
-                "type": "string"
               }
             },
             "required": [
@@ -818,7 +817,6 @@ export const _schema = {
               "price",
               "purchaseDuplicate",
               "purchaseLimit",
-              "serialNumber",
               "startDateTime",
               "ticketStatus",
               "unlimitedQuantity"
@@ -852,42 +850,274 @@ export const _schema = {
       ]
     },
     "ActivityCreateCredentials": {
+      "type": "object",
+      "properties": {
+        "creatorId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "name": {
+          "type": "string"
+        },
+        "organizer": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "profilePicture": {
+              "type": "string"
+            },
+            "contactName": {
+              "type": "string"
+            },
+            "contactPhone": {
+              "type": "string"
+            },
+            "contactEmail": {
+              "type": "string"
+            },
+            "websiteName": {
+              "type": "string"
+            },
+            "websiteURL": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "contactEmail",
+            "contactName",
+            "contactPhone",
+            "name",
+            "profilePicture",
+            "websiteName",
+            "websiteURL"
+          ]
+        },
+        "cover": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "thumbnail": {
+          "type": "string"
+        },
+        "startDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "fromToday": {
+          "type": "boolean"
+        },
+        "endDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "noEndDate": {
+          "type": "boolean"
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "戶外踏青",
+            "社交活動",
+            "興趣嗜好",
+            "運動健身",
+            "健康生活",
+            "科技玩物",
+            "藝術文化",
+            "遊戲"
+          ]
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "線下",
+            "線上"
+          ]
+        },
+        "link": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "details": {
+          "type": "string"
+        },
+        "isPrivate": {
+          "type": "boolean"
+        },
+        "displayRemainingTickets": {
+          "type": "boolean"
+        },
+        "isRecurring": {
+          "type": "boolean"
+        },
+        "recurring": {
+          "type": "object",
+          "properties": {
+            "period": {
+              "type": "string",
+              "enum": [
+                "隔週",
+                "每月",
+                "每季"
+              ]
+            },
+            "week": {
+              "type": "string",
+              "enum": [
+                "每週",
+                "隔週",
+                "第一週",
+                "第二週",
+                "第三週",
+                "第四週",
+                "最後一週"
+              ]
+            },
+            "day": {
+              "type": "string",
+              "enum": [
+                "星期一",
+                "星期二",
+                "星期三",
+                "星期四",
+                "星期五",
+                "星期六",
+                "星期日"
+              ]
+            }
+          },
+          "required": [
+            "day",
+            "period",
+            "week"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "有效",
+            "取消",
+            "結束"
+          ]
+        },
+        "tickets": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "_id": {
+                "$ref": "#/definitions/Types.ObjectId"
+              },
+              "activityId": {
+                "$ref": "#/definitions/Types.ObjectId"
+              },
+              "name": {
+                "type": "string"
+              },
+              "price": {
+                "type": "number"
+              },
+              "startDateTime": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "fromToday": {
+                "type": "boolean"
+              },
+              "endDateTime": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "noEndDate": {
+                "type": "boolean"
+              },
+              "participantCapacity": {
+                "type": "number"
+              },
+              "unlimitedQuantity": {
+                "type": "boolean"
+              },
+              "purchaseLimit": {
+                "type": "number"
+              },
+              "description": {
+                "type": "string"
+              },
+              "purchaseDuplicate": {
+                "type": "boolean"
+              },
+              "ticketStatus": {
+                "type": "string",
+                "enum": [
+                  "可購買",
+                  "已售完",
+                  "結束售票"
+                ]
+              }
+            },
+            "required": [
+              "activityId",
+              "description",
+              "endDateTime",
+              "fromToday",
+              "name",
+              "noEndDate",
+              "participantCapacity",
+              "price",
+              "purchaseDuplicate",
+              "purchaseLimit",
+              "startDateTime",
+              "ticketStatus",
+              "unlimitedQuantity"
+            ]
+          }
+        }
+      },
+      "required": [
+        "address",
+        "category",
+        "cover",
+        "creatorId",
+        "details",
+        "displayRemainingTickets",
+        "endDateTime",
+        "fromToday",
+        "isPrivate",
+        "isRecurring",
+        "link",
+        "location",
+        "name",
+        "noEndDate",
+        "organizer",
+        "recurring",
+        "startDateTime",
+        "status",
+        "summary",
+        "thumbnail",
+        "tickets",
+        "type"
+      ]
+    },
+    "ActivityEditCredentials": {
       "allOf": [
         {
           "type": "object",
           "properties": {
-            "link": {
-              "type": "string"
-            },
-            "type": {
-              "type": "string",
-              "enum": [
-                "線下",
-                "線上"
-              ]
-            },
-            "location": {
-              "type": "string"
-            },
-            "address": {
-              "type": "string"
+            "creatorId": {
+              "$ref": "#/definitions/Types.ObjectId"
             },
             "name": {
               "type": "string"
-            },
-            "details": {
-              "type": "string"
-            },
-            "summary": {
-              "type": "string"
-            },
-            "status": {
-              "type": "string",
-              "enum": [
-                "有效",
-                "取消",
-                "結束"
-              ]
             },
             "organizer": {
               "type": "object",
@@ -960,6 +1190,28 @@ export const _schema = {
                 "遊戲"
               ]
             },
+            "type": {
+              "type": "string",
+              "enum": [
+                "線下",
+                "線上"
+              ]
+            },
+            "link": {
+              "type": "string"
+            },
+            "location": {
+              "type": "string"
+            },
+            "address": {
+              "type": "string"
+            },
+            "summary": {
+              "type": "string"
+            },
+            "details": {
+              "type": "string"
+            },
             "isPrivate": {
               "type": "boolean"
             },
@@ -1011,11 +1263,22 @@ export const _schema = {
                 "week"
               ]
             },
+            "status": {
+              "type": "string",
+              "enum": [
+                "有效",
+                "取消",
+                "結束"
+              ]
+            },
             "tickets": {
               "type": "array",
               "items": {
                 "type": "object",
                 "properties": {
+                  "_id": {
+                    "$ref": "#/definitions/Types.ObjectId"
+                  },
                   "activityId": {
                     "$ref": "#/definitions/Types.ObjectId"
                   },
@@ -1061,9 +1324,6 @@ export const _schema = {
                       "已售完",
                       "結束售票"
                     ]
-                  },
-                  "serialNumber": {
-                    "type": "string"
                   }
                 },
                 "required": [
@@ -1077,7 +1337,6 @@ export const _schema = {
                   "price",
                   "purchaseDuplicate",
                   "purchaseLimit",
-                  "serialNumber",
                   "startDateTime",
                   "ticketStatus",
                   "unlimitedQuantity"
@@ -1089,6 +1348,7 @@ export const _schema = {
             "address",
             "category",
             "cover",
+            "creatorId",
             "details",
             "displayRemainingTickets",
             "endDateTime",
@@ -1112,44 +1372,16 @@ export const _schema = {
         {
           "type": "object",
           "properties": {
-            "organizer": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "profilePicture": {
-                  "type": "string"
-                },
-                "contactName": {
-                  "type": "string"
-                },
-                "contactPhone": {
-                  "type": "string"
-                },
-                "contactEmail": {
-                  "type": "string"
-                },
-                "websiteName": {
-                  "type": "string"
-                },
-                "websiteURL": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "contactEmail",
-                "contactName",
-                "contactPhone",
-                "name",
-                "profilePicture",
-                "websiteName",
-                "websiteURL"
-              ]
+            "userId": {
+              "$ref": "#/definitions/Types.ObjectId"
+            },
+            "activityId": {
+              "type": "string"
             }
           },
           "required": [
-            "organizer"
+            "activityId",
+            "userId"
           ]
         }
       ]
@@ -1178,6 +1410,17 @@ export const _schema = {
         "userId"
       ]
     },
+    "GetActivityDetailCredential": {
+      "type": "object",
+      "properties": {
+        "activityId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        }
+      },
+      "required": [
+        "activityId"
+      ]
+    },
     "GetActivityParticipantParams": {
       "type": "object",
       "properties": {
@@ -1203,128 +1446,6 @@ export const _schema = {
       },
       "required": [
         "activityId"
-      ]
-    },
-    "AttendActivityParams": {
-      "type": "object",
-      "properties": {
-        "userId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "activityId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "requestBody": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "description": {
-              "type": "string"
-            },
-            "startDateTime": {
-              "type": "string",
-              "format": "date-time"
-            },
-            "fromToday": {
-              "type": "boolean"
-            },
-            "endDateTime": {
-              "type": "string",
-              "format": "date-time"
-            },
-            "noEndDate": {
-              "type": "boolean"
-            },
-            "price": {
-              "type": "number"
-            },
-            "participantCapacity": {
-              "type": "number"
-            },
-            "unlimitedQuantity": {
-              "type": "boolean"
-            },
-            "purchaseLimit": {
-              "type": "number"
-            },
-            "purchaseDuplicate": {
-              "type": "boolean"
-            }
-          },
-          "required": [
-            "description",
-            "endDateTime",
-            "fromToday",
-            "name",
-            "noEndDate",
-            "participantCapacity",
-            "price",
-            "purchaseDuplicate",
-            "purchaseLimit",
-            "startDateTime",
-            "unlimitedQuantity"
-          ]
-        }
-      },
-      "required": [
-        "activityId",
-        "requestBody",
-        "userId"
-      ]
-    },
-    "AttendActivityCredentials": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "startDateTime": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "fromToday": {
-          "type": "boolean"
-        },
-        "endDateTime": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "noEndDate": {
-          "type": "boolean"
-        },
-        "price": {
-          "type": "number"
-        },
-        "participantCapacity": {
-          "type": "number"
-        },
-        "unlimitedQuantity": {
-          "type": "boolean"
-        },
-        "purchaseLimit": {
-          "type": "number"
-        },
-        "purchaseDuplicate": {
-          "type": "boolean"
-        }
-      },
-      "required": [
-        "description",
-        "endDateTime",
-        "fromToday",
-        "name",
-        "noEndDate",
-        "participantCapacity",
-        "price",
-        "purchaseDuplicate",
-        "purchaseLimit",
-        "startDateTime",
-        "unlimitedQuantity"
       ]
     },
     "CancelActivityParams": {
@@ -1449,7 +1570,10 @@ export const _schema = {
       "type": "string",
       "enum": [
         "信用卡",
-        "現金",
+        "網路 ATM",
+        "ATM",
+        "超商代碼",
+        "條碼",
         "系統更新"
       ]
     },
@@ -1463,6 +1587,25 @@ export const _schema = {
         "無效票券"
       ]
     },
+    "OrderContact": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "email",
+        "name",
+        "phone"
+      ]
+    },
     "OrderPayment": {
       "type": "object",
       "properties": {
@@ -1470,20 +1613,23 @@ export const _schema = {
           "type": "number"
         },
         "status": {
-          "type": "string",
           "enum": [
+            "付款失敗",
             "已付款",
-            "待付款",
-            "付款失敗"
-          ]
+            "待付款"
+          ],
+          "type": "string"
         },
         "method": {
-          "type": "string",
           "enum": [
+            "ATM",
             "信用卡",
-            "現金",
-            "系統更新"
-          ]
+            "條碼",
+            "系統更新",
+            "網路 ATM",
+            "超商代碼"
+          ],
+          "type": "string"
         },
         "orderNumber": {
           "type": "number"
@@ -1491,9 +1637,7 @@ export const _schema = {
       },
       "required": [
         "amount",
-        "method",
-        "orderNumber",
-        "status"
+        "orderNumber"
       ]
     },
     "OrderSchemaModel": {
@@ -1508,22 +1652,24 @@ export const _schema = {
         "ticketId": {
           "$ref": "#/definitions/Types.ObjectId"
         },
-        "name": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "phone": {
-          "type": "string"
-        },
-        "startDateTime": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "endDateTime": {
-          "type": "string",
-          "format": "date-time"
+        "orderContact": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "email",
+            "name",
+            "phone"
+          ]
         },
         "payment": {
           "type": "object",
@@ -1532,20 +1678,23 @@ export const _schema = {
               "type": "number"
             },
             "status": {
-              "type": "string",
               "enum": [
+                "付款失敗",
                 "已付款",
-                "待付款",
-                "付款失敗"
-              ]
+                "待付款"
+              ],
+              "type": "string"
             },
             "method": {
-              "type": "string",
               "enum": [
+                "ATM",
                 "信用卡",
-                "現金",
-                "系統更新"
-              ]
+                "條碼",
+                "系統更新",
+                "網路 ATM",
+                "超商代碼"
+              ],
+              "type": "string"
             },
             "orderNumber": {
               "type": "number"
@@ -1553,9 +1702,7 @@ export const _schema = {
           },
           "required": [
             "amount",
-            "method",
-            "orderNumber",
-            "status"
+            "orderNumber"
           ]
         },
         "orderStatus": {
@@ -1574,15 +1721,191 @@ export const _schema = {
       },
       "required": [
         "activityId",
-        "email",
-        "endDateTime",
-        "name",
+        "orderContact",
         "orderStatus",
         "payment",
-        "phone",
         "serialNumber",
-        "startDateTime",
         "ticketId",
+        "userId"
+      ]
+    },
+    "CreateOrderParams": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "requestBody": {
+          "type": "object",
+          "properties": {
+            "activityId": {
+              "$ref": "#/definitions/Types.ObjectId"
+            },
+            "ticketId": {
+              "$ref": "#/definitions/Types.ObjectId"
+            },
+            "orderContact": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "email",
+                "name",
+                "phone"
+              ]
+            },
+            "payment": {
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "type": "number"
+                },
+                "status": {
+                  "enum": [
+                    "付款失敗",
+                    "已付款",
+                    "待付款"
+                  ],
+                  "type": "string"
+                },
+                "method": {
+                  "enum": [
+                    "ATM",
+                    "信用卡",
+                    "條碼",
+                    "系統更新",
+                    "網路 ATM",
+                    "超商代碼"
+                  ],
+                  "type": "string"
+                },
+                "orderNumber": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "amount",
+                "orderNumber"
+              ]
+            }
+          },
+          "required": [
+            "activityId",
+            "orderContact",
+            "payment",
+            "ticketId"
+          ]
+        }
+      },
+      "required": [
+        "requestBody",
+        "userId"
+      ]
+    },
+    "CreateOrderCredentials": {
+      "type": "object",
+      "properties": {
+        "orderContact": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "phone": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "email",
+            "name",
+            "phone"
+          ]
+        },
+        "payment": {
+          "type": "object",
+          "properties": {
+            "amount": {
+              "type": "number"
+            },
+            "status": {
+              "enum": [
+                "付款失敗",
+                "已付款",
+                "待付款"
+              ],
+              "type": "string"
+            },
+            "method": {
+              "enum": [
+                "ATM",
+                "信用卡",
+                "條碼",
+                "系統更新",
+                "網路 ATM",
+                "超商代碼"
+              ],
+              "type": "string"
+            },
+            "orderNumber": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "amount",
+            "orderNumber"
+          ]
+        }
+      },
+      "required": [
+        "orderContact",
+        "payment"
+      ]
+    },
+    "GetOrdersParams": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "page": {
+          "type": "number"
+        },
+        "limit": {
+          "type": "number"
+        },
+        "sort": {
+          "enum": [
+            "asc",
+            "des"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    "CancelOrderParams": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "orderId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        }
+      },
+      "required": [
+        "orderId",
         "userId"
       ]
     },

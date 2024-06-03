@@ -25,23 +25,19 @@ const OrderSchema = new Schema<OrderSchemaModel, OrderModel>(
       ref: 'Ticket',
       required: true,
     },
-    name: {
-      type: Schema.Types.String,
-      required: true,
-    },
-    email: {
-      type: Schema.Types.String,
-      required: true,
-    },
-    phone: {
-      type: Schema.Types.String,
-      required: true,
-    },
-    startDateTime: {
-      type: Schema.Types.Date,
-    },
-    endDateTime: {
-      type: Schema.Types.Date,
+    orderContact: {
+      name: {
+        type: Schema.Types.String,
+        required: true,
+      },
+      email: {
+        type: Schema.Types.String,
+        required: true,
+      },
+      phone: {
+        type: Schema.Types.String,
+        required: true,
+      },
     },
     payment: {
       amount: {
@@ -53,22 +49,21 @@ const OrderSchema = new Schema<OrderSchemaModel, OrderModel>(
         type: Schema.Types.String,
         enum: PaymentStatusEnum,
         default: PaymentStatusEnum.UNPAID,
-        required: true,
       },
       method: {
         type: Schema.Types.String,
         enum: PaymentMethodEnum,
-        required: true,
+        default: undefined,
       },
       orderNumber: {
         type: Schema.Types.Number,
+        required: true,
       },
     },
     orderStatus: {
       type: Schema.Types.String,
       enum: OrderStatusEnum,
       default: OrderStatusEnum.VALID,
-      required: true,
     },
     serialNumber: {
       type: Schema.Types.String,

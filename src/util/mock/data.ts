@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import {
-  ActivityCreateCredentials,
+  ActivitySchemaModel,
   CategoryEnum,
   DayEnum,
   PeriodEnum,
@@ -8,6 +8,7 @@ import {
   TypeEnum,
   WeekEnum,
 } from '../../type/activity.type';
+import { TicketSchemaModel, TicketStatusEnum } from '../../type/ticket.type';
 
 // Enum values
 const categoryValues = Object.values(CategoryEnum);
@@ -17,7 +18,10 @@ const weekValues = Object.values(WeekEnum);
 const dayValues = Object.values(DayEnum);
 
 // Mock data
-export const mockActivity: ActivityCreateCredentials = {
+export const mockActivity: Omit<
+  ActivitySchemaModel,
+  'creatorId' | 'tickets'
+> & { tickets: Omit<TicketSchemaModel, 'activityId'>[] } = {
   name: faker.person.fullName(),
   organizer: {
     profilePicture: faker.image.urlLoremFlickr(),
@@ -50,5 +54,20 @@ export const mockActivity: ActivityCreateCredentials = {
     day: faker.helpers.arrayElement(dayValues),
   },
   status: StatusEnum.VALID,
-  tickets: [],
+  tickets: [
+    {
+      name: faker.commerce.productName(),
+      price: 100,
+      startDateTime: faker.date.recent(),
+      fromToday: faker.helpers.arrayElement([true, false]),
+      endDateTime: faker.date.future(),
+      noEndDate: faker.helpers.arrayElement([true, false]),
+      participantCapacity: 20,
+      unlimitedQuantity: faker.helpers.arrayElement([true, false]),
+      purchaseLimit: 20,
+      description: faker.lorem.sentence(),
+      purchaseDuplicate: faker.helpers.arrayElement([true, false]),
+      ticketStatus: TicketStatusEnum.VALID,
+    },
+  ],
 };

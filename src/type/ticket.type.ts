@@ -21,5 +21,4 @@ export interface TicketSchemaModel {
   description: string;
   purchaseDuplicate: boolean;
   ticketStatus: TicketStatusEnum;
-  serialNumber: string;
 }

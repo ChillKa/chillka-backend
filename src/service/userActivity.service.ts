@@ -1,4 +1,3 @@
-import { faker } from '@faker-js/faker';
 import mongoose from 'mongoose';
 import Activity from '../model/activity.model';
 import Order from '../model/order.model';
@@ -7,15 +6,14 @@ import User from '../model/user.model';
 import {
   ActivityCreateCredentials,
   ActivityEditCredentials,
-  AttendActivityParams,
   CancelActivityParams,
   CollectActivityParams,
   GetActivitiesParams,
+  GetActivityDetailCredential,
   GetActivityParticipantParams,
   GetSavedActivityParams,
   StatusEnum,
 } from '../type/activity.type';
-import { TicketStatusEnum } from '../type/ticket.type';
 import { CoreError } from '../util/error-handler';
 import { paginator } from '../util/paginator';
 
@@ -141,41 +139,19 @@ export const getActivityList = async ({
   }
 };
 
-export const attendActivity = async ({
-  userId,
+export const getActivityDetail = async ({
   activityId,
-  requestBody,
-}: AttendActivityParams) => {
-  const user = await User.findById(userId);
-  if (!user) {
-    throw new CoreError('User not found.');
-  }
-
-  if (!user.isEmailValidate) {
-    throw new CoreError('User email not validated.');
-  }
-
-  const activity = await Activity.findById(activityId).populate('tickets');
-
-  if (!activity) {
-    throw new CoreError('Activity not found.');
-  }
-
-  // if (activity.tickets?.some((i) => i.userId.equals(userId))) {
-  //   throw new CoreError('The user already attended the activity.');
-  // }
-
+}: GetActivityDetailCredential) => {
   try {
-    await Ticket.create({
-      userId,
-      activityId,
-      serialNumber: faker.string.uuid(),
-      ticketStatus: TicketStatusEnum.VALID,
-      ...requestBody,
-    });
-    return { message: 'Attend activity success.' };
+    const activity = await Activity.findById(activityId).populate('tickets');
+    const data = {
+      activity,
+      tickets: activity?.tickets,
+    };
+
+    return data;
   } catch (error) {
-    throw new CoreError('Attend activity failed.');
+    throw new CoreError('Get activity details failed.');
   }
 };
 
