@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker';
 import mongoose from 'mongoose';
 import {
+  ActivityCreateCredentials,
   CategoryEnum,
   DayEnum,
   PeriodEnum,
@@ -54,6 +55,7 @@ export const mockActivity: ActivityCreateCredentials = {
   status: StatusEnum.VALID,
   tickets: [
     {
+      activityId: new mongoose.Types.ObjectId(),
       name: faker.commerce.productName(),
       price: 100,
       startDateTime: faker.date.recent(),
