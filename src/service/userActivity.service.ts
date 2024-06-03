@@ -26,6 +26,7 @@ export const createActivity = async ({
 }: ActivityCreateCredentials) => {
   try {
     const newActivity = new Activity(activityData);
+    const newActivity = new Activity(activityData);
     await newActivity.save();
     const newTickets = tickets?.map((ticket) => {
       ticket.activityId = newActivity._id;
@@ -73,6 +74,7 @@ export const editActivity = async ({
     if (ticket?._id) {
       // 1. check if the ticket already exists and update it
       const ticketIndex = existingTicketObjectIds
+        .map((item) => item._id.toString())
         .map((item) => item._id.toString())
         .indexOf(ticket?._id.toString());
       if (ticketIndex === -1)

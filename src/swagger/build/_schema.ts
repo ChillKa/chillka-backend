@@ -1781,12 +1781,16 @@ export const _schema = {
         "displayName": {
           "type": "string"
         },
+        "displayName": {
+          "type": "string"
+        },
         "question": {
           "type": "string"
         }
       },
       "required": [
         "activityId",
+        "displayName",
         "displayName",
         "question",
         "userId"
