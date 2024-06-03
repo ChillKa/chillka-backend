@@ -317,11 +317,7 @@ export const editMessageList = async ({
     );
   if (!existingMessageList.userId.equals(userId))
     throw new CoreError('Only the questioner can modify the question.');
-  const existingMessages = await Message.find({ messageListId: questionId });
-  if (existingMessages.length)
-    throw new CoreError(
-      'You cannot modify the question if there is already a reply.'
-    );
+
   try {
     const editMessageList = await MessageList.findOneAndUpdate(
       { _id: questionId },

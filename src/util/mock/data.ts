@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
+import mongoose from 'mongoose';
 import {
-  ActivitySchemaModel,
   CategoryEnum,
   DayEnum,
   PeriodEnum,
@@ -8,7 +8,7 @@ import {
   TypeEnum,
   WeekEnum,
 } from '../../type/activity.type';
-import { TicketSchemaModel, TicketStatusEnum } from '../../type/ticket.type';
+import { TicketStatusEnum } from '../../type/ticket.type';
 
 // Enum values
 const categoryValues = Object.values(CategoryEnum);
@@ -18,10 +18,8 @@ const weekValues = Object.values(WeekEnum);
 const dayValues = Object.values(DayEnum);
 
 // Mock data
-export const mockActivity: Omit<
-  ActivitySchemaModel,
-  'creatorId' | 'tickets'
-> & { tickets: Omit<TicketSchemaModel, 'activityId'>[] } = {
+export const mockActivity: ActivityCreateCredentials = {
+  creatorId: new mongoose.Types.ObjectId(),
   name: faker.person.fullName(),
   organizer: {
     profilePicture: faker.image.urlLoremFlickr(),
