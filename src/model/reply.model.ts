@@ -1,18 +1,18 @@
 import { Model, Schema, model } from 'mongoose';
-import { MessageSchemaModel } from '../type/message.type';
+import { ReplySchemaModel } from '../type/reply.type';
 
-type MessageModel = Model<MessageSchemaModel, object>;
+type ReplyModel = Model<ReplySchemaModel, object>;
 
-const MessageSchema = new Schema<MessageSchemaModel, MessageModel>(
+const ReplySchema = new Schema<ReplySchemaModel, ReplyModel>(
   {
     activityId: {
       type: Schema.Types.ObjectId,
       ref: 'Activity',
       required: true,
     },
-    messageListId: {
+    questionId: {
       type: Schema.Types.ObjectId,
-      ref: 'MessageList',
+      ref: 'Question',
       required: true,
     },
     userId: {
@@ -20,20 +20,17 @@ const MessageSchema = new Schema<MessageSchemaModel, MessageModel>(
       ref: 'User',
       required: true,
     },
-    answer: {
+    content: {
       type: Schema.Types.String,
       required: true,
     },
   },
   {
-    collection: 'messages',
+    collection: 'replies',
     timestamps: true,
   }
 );
 
-const Message = model<MessageSchemaModel, MessageModel>(
-  'Message',
-  MessageSchema
-);
+const Reply = model<ReplySchemaModel, ReplyModel>('Reply', ReplySchema);
 
-export default Message;
+export default Reply;

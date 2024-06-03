@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 
-export interface MessageSchemaModel {
+export interface ReplySchemaModel {
   activityId: mongoose.Types.ObjectId;
-  messageListId: mongoose.Types.ObjectId;
+  questionId: mongoose.Types.ObjectId;
   userId: mongoose.Types.ObjectId;
-  answer: string;
+  content: string;
 }

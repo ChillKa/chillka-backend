@@ -1502,7 +1502,7 @@ export const _schema = {
         "userId"
       ]
     },
-    "MessageListCredentials": {
+    "QuestionCredentials": {
       "type": "object",
       "properties": {
         "userId": {
@@ -1514,7 +1514,7 @@ export const _schema = {
         "questionId": {
           "$ref": "#/definitions/Types.ObjectId"
         },
-        "question": {
+        "content": {
           "type": "string"
         }
       },
@@ -1540,52 +1540,6 @@ export const _schema = {
           "type": "number"
         }
       }
-    },
-    "MessageListSchemaModel": {
-      "type": "object",
-      "properties": {
-        "activityId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "userId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "displayName": {
-          "type": "string"
-        },
-        "question": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "activityId",
-        "displayName",
-        "question",
-        "userId"
-      ]
-    },
-    "MessageSchemaModel": {
-      "type": "object",
-      "properties": {
-        "activityId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "messageListId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "userId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "answer": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "activityId",
-        "answer",
-        "messageListId",
-        "userId"
-      ]
     },
     "PaymentStatusEnum": {
       "type": "string",
@@ -1935,6 +1889,52 @@ export const _schema = {
       },
       "required": [
         "orderId",
+        "userId"
+      ]
+    },
+    "QuestionSchemaModel": {
+      "type": "object",
+      "properties": {
+        "activityId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "activityId",
+        "content",
+        "displayName",
+        "userId"
+      ]
+    },
+    "ReplySchemaModel": {
+      "type": "object",
+      "properties": {
+        "activityId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "questionId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "activityId",
+        "content",
+        "questionId",
         "userId"
       ]
     },

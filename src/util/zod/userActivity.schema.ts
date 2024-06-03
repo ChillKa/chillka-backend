@@ -73,7 +73,7 @@ export const activitySchema = z.object({
   ),
 });
 
-export const messageListSchema = z.object({
+export const questionSchema = z.object({
   questionId: z.string().optional(),
-  question: z.string().optional(),
+  content: z.string().optional(),
 });

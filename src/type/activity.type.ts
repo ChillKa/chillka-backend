@@ -125,11 +125,11 @@ export type GetSavedActivityParams = {
   sort?: SortType;
 };
 
-export type MessageListCredentials = {
+export type QuestionCredentials = {
   userId: mongoose.Types.ObjectId;
   activityId: mongoose.Types.ObjectId;
   questionId?: mongoose.Types.ObjectId;
-  question?: string;
+  content?: string;
 };
 
 export type GetActivitiesCredentials = Omit<GetSavedActivityParams, 'userId'>;

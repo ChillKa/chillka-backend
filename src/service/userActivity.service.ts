@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 import Activity from '../model/activity.model';
-import MessageList from '../model/message-list.model';
-import Message from '../model/message.model';
 import Order from '../model/order.model';
+import Question from '../model/question.model';
+import Reply from '../model/reply.model';
 import Ticket from '../model/ticket.model';
 import User from '../model/user.model';
 import {
@@ -14,7 +14,7 @@ import {
   GetActivityDetailCredential,
   GetActivityParticipantParams,
   GetSavedActivityParams,
-  MessageListCredentials,
+  QuestionCredentials,
   StatusEnum,
 } from '../type/activity.type';
 import { CoreError } from '../util/error-handler';
@@ -272,11 +272,11 @@ export const getSavedActivityList = async ({
   }
 };
 
-export const createMessageList = async ({
+export const createQuestion = async ({
   userId,
   activityId,
-  question,
-}: MessageListCredentials) => {
+  content,
+}: QuestionCredentials) => {
   const existingActivity = await Activity.findById(activityId);
   if (!existingActivity)
     throw new CoreError(
@@ -286,76 +286,76 @@ export const createMessageList = async ({
     throw new CoreError('The creator of the activity cannot ask questions.');
   try {
     const user = await User.findById(userId).select('displayName');
-    const newMessageList = await MessageList.create({
+    const newQuestion = await Question.create({
       activityId,
       userId,
-      question,
+      content,
       displayName: user?.displayName,
     });
 
-    return newMessageList;
+    return newQuestion;
   } catch (error) {
     throw new CoreError('Ask question failed.');
   }
 };
 
-export const editMessageList = async ({
+export const editQuestion = async ({
   userId,
   activityId,
-  question,
+  content,
   questionId,
-}: MessageListCredentials) => {
+}: QuestionCredentials) => {
   const existingActivity = await Activity.findById(activityId);
   if (!existingActivity)
     throw new CoreError(
       'Cannot edit questions because the activity does not exist.'
     );
-  const existingMessageList = await MessageList.findById(questionId);
-  if (!existingMessageList)
+  const existingQuestion = await Question.findById(questionId);
+  if (!existingQuestion)
     throw new CoreError(
       'Cannot edit questions because the question does not exist.'
     );
-  if (!existingMessageList.userId.equals(userId))
+  if (!existingQuestion.userId.equals(userId))
     throw new CoreError('Only the questioner can modify the question.');
 
   try {
-    const editMessageList = await MessageList.findOneAndUpdate(
+    const editQuestion = await Question.findOneAndUpdate(
       { _id: questionId },
-      { $set: { question } },
+      { $set: { content } },
       { new: true }
     );
 
-    return editMessageList;
+    return editQuestion;
   } catch (error) {
     throw new CoreError('Ask question failed.');
   }
 };
 
-export const deleteMessageList = async ({
+export const deleteQuestion = async ({
   userId,
   activityId,
   questionId,
-}: MessageListCredentials) => {
+}: QuestionCredentials) => {
   const existingActivity = await Activity.findById(activityId);
   if (!existingActivity)
     throw new CoreError(
       'Cannot delete questions because the activity does not exist.'
     );
-  const existingMessageList = await MessageList.findById(questionId);
-  if (!existingMessageList)
+  const existingQuestion = await Question.findById(questionId);
+  if (!existingQuestion)
     throw new CoreError(
       'Cannot delete questions because the question does not exist.'
     );
-  if (!existingMessageList.userId.equals(userId))
+  if (!existingQuestion.userId.equals(userId))
     throw new CoreError('Only the questioner can delete the question.');
-  const existingMessages = (
-    await Message.find({ messageListId: questionId }).select('_id')
-  ).map((message) => message._id.toString());
+  const existingReplies = (await Reply.find({ questionId }).select('_id')).map(
+    (reply) => reply._id.toString()
+  );
   try {
-    if (existingMessages.length) {
-      await Message.deleteMany({ _id: { $in: existingMessages } });
+    if (existingReplies.length) {
+      await Reply.deleteMany({ _id: { $in: existingReplies } });
     }
-    await MessageList.deleteOne({ _id: questionId });
+    await Question.deleteOne({ _id: questionId });
 
     return { message: 'success delete' };
   } catch (error) {

@@ -5,10 +5,9 @@ import { zodValidateMiddleware } from '../middleware/validate.middleware';
 import * as UserActivityService from '../service/userActivity.service';
 import { SortEnum } from '../type/model.type';
 import { CoreError, throwAPIError } from '../util/error-handler';
-// import { userAttendSchema } from "../util/zod/userActivity.schema";
 import {
   activitySchema,
-  messageListSchema,
+  questionSchema,
 } from '../util/zod/userActivity.schema';
 
 const userActivityRouter = () => {
@@ -178,13 +177,13 @@ const userActivityRouter = () => {
   router.post(
     '/activities/:activityId/q-and-a',
     authorizeMiddleware,
-    zodValidateMiddleware(messageListSchema),
+    zodValidateMiddleware(questionSchema),
     async (req: Request, res: Response) => {
       /* #swagger.tags = ['Activity'] */
       try {
         const userId = req.user?._id;
         const activityId = new mongoose.Types.ObjectId(req.params?.activityId);
-        const data = await UserActivityService.createMessageList({
+        const data = await UserActivityService.createQuestion({
           userId,
           activityId,
           ...req.body,
@@ -199,13 +198,13 @@ const userActivityRouter = () => {
   router.patch(
     '/activities/:activityId/q-and-a',
     authorizeMiddleware,
-    zodValidateMiddleware(messageListSchema),
+    zodValidateMiddleware(questionSchema),
     async (req: Request, res: Response) => {
       /* #swagger.tags = ['Activity'] */
       try {
         const userId = req.user?._id;
         const activityId = new mongoose.Types.ObjectId(req.params?.activityId);
-        const data = await UserActivityService.editMessageList({
+        const data = await UserActivityService.editQuestion({
           userId,
           activityId,
           ...req.body,
@@ -220,13 +219,13 @@ const userActivityRouter = () => {
   router.delete(
     '/activities/:activityId/q-and-a',
     authorizeMiddleware,
-    zodValidateMiddleware(messageListSchema),
+    zodValidateMiddleware(questionSchema),
     async (req: Request, res: Response) => {
       /* #swagger.tags = ['Activity'] */
       try {
         const userId = req.user?._id;
         const activityId = new mongoose.Types.ObjectId(req.params?.activityId);
-        const data = await UserActivityService.deleteMessageList({
+        const data = await UserActivityService.deleteQuestion({
           userId,
           activityId,
           ...req.body,

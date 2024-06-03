@@ -92,14 +92,14 @@ UserSchema.virtual('orders', {
   foreignField: 'userId',
 });
 
-UserSchema.virtual('messageLists', {
-  ref: 'MessageList',
+UserSchema.virtual('questions', {
+  ref: 'Question',
   localField: '_id',
   foreignField: 'userId',
 });
 
-UserSchema.virtual('messages', {
-  ref: 'Message',
+UserSchema.virtual('replies', {
+  ref: 'Reply',
   localField: '_id',
   foreignField: 'userId',
 });
