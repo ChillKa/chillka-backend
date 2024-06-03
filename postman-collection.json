@@ -7,41 +7,13 @@
   },
   "item": [
     {
-      "name": "ask question",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"question\": \"test1\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{HOST}}/api/auth/activities/6656db2b511dba0998741e18/q-and-a",
-          "host": ["{{HOST}}"],
-          "path": [
-            "api",
-            "auth",
-            "activities",
-            "6656db2b511dba0998741e18",
-            "q-and-a"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
       "name": "attend activity",
       "request": {
         "method": "POST",
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"name\": \"string\",\r\n  \"description\": \"string\",\r\n  \"startDateTime\": \"2024-05-26T13:44:42.579Z\",\r\n  \"fromToday\": true,\r\n  \"endDateTime\": \"2024-05-26T13:44:42.579Z\",\r\n  \"noEndDate\": true,\r\n  \"price\": 0,\r\n  \"participantCapacity\": 0,\r\n  \"unlimitedQuantity\": true,\r\n  \"purchaseLimit\": 0,\r\n  \"ticketsPurchaseDuplicate\": true,\r\n  \"userInfo\": {\r\n    \"name\": \"string\",\r\n    \"email\": \"chillka.offical@gmail.com\",\r\n    \"phone\": \"1234657\"\r\n  },\r\n  \"payment\": {\r\n    \"amount\": 0,\r\n    \"status\": \"已付款\",\r\n    \"method\": \"信用卡\",\r\n    \"orderNumber\": 0\r\n  }\r\n}",
+          "raw": "{\r\n    \"name\": \"string\",\r\n    \"description\": \"string\",\r\n    \"startDateTime\": \"2024-05-26T13:44:42.579Z\",\r\n    \"fromToday\": true,\r\n    \"endDateTime\": \"2024-05-26T13:44:42.579Z\",\r\n    \"noEndDate\": true,\r\n    \"price\": 0,\r\n    \"participantCapacity\": 0,\r\n    \"unlimitedQuantity\": true,\r\n    \"purchaseLimit\": 0,\r\n    \"ticketsPurchaseDuplicate\": true,\r\n    \"userInfo\": {\r\n        \"name\": \"string\",\r\n        \"email\": \"chillka.offical@gmail.com\",\r\n        \"phone\": \"1234657\"\r\n    },\r\n    \"payment\": {\r\n        \"amount\": 0,\r\n        \"status\": \"已付款\",\r\n        \"method\": \"信用卡\",\r\n        \"orderNumber\": 0\r\n    }\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -73,6 +45,15 @@
             "disabled": true
           }
         ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
         "url": {
           "raw": "{{HOST}}/api/auth/activities/665347c6fce61bba7f48ca50/cancel",
           "host": ["{{HOST}}"],
@@ -81,6 +62,40 @@
             "auth",
             "activities",
             "665347c6fce61bba7f48ca50",
+            "cancel"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "cancel order by Id",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "",
+            "value": "",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/auth/orders/665c1e0affc1af0d081e89c1/cancel",
+          "host": ["{{HOST}}"],
+          "path": [
+            "api",
+            "auth",
+            "orders",
+            "665c1e0affc1af0d081e89c1",
             "cancel"
           ]
         }
@@ -174,13 +189,63 @@
       "response": []
     },
     {
+      "name": "create orders",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"activityId\": \"6656db2b511dba0998741e18\",\r\n    \"ticketId\": \"6656e971ef22c91c1421814a\",\r\n    \"orderContact\": {\r\n        \"name\": \"chillka2\",\r\n        \"email\": \"chillka2.offical@gmail.com\",\r\n        \"phone\": \"1234567\"\r\n    },\r\n    \"payment\": {\r\n        \"amount\": 0,\r\n        \"orderNumber\": 0,\r\n        \"status\": \"待付款\",\r\n        \"method\": \"信用卡\"\r\n    }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/auth/orders",
+          "host": ["{{HOST}}"],
+          "path": ["api", "auth", "orders"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "create question",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"question\": \"test1\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/auth/activities/665d19b812b31b3aae335a25/q-and-a",
+          "host": ["{{HOST}}"],
+          "path": [
+            "api",
+            "auth",
+            "activities",
+            "665d19b812b31b3aae335a25",
+            "q-and-a"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
       "name": "delete question",
       "request": {
         "method": "DELETE",
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"questionId\":\"665739fca95ca7a96d058247\"\r\n}",
+          "raw": "{\r\n    \"questionId\": \"665739fca95ca7a96d058247\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -208,7 +273,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"name\": \"Miss Kelly Dare\",\r\n    \"organizer\": {\r\n        \"profilePicture\": \"https://loremflickr.com/640/480?lock=7694210111111168\",\r\n        \"name\": \"Mr. Alan Jerde\",\r\n        \"contactName\": \"Leona Spencer\",\r\n        \"contactPhone\": \"244.960.8178 x08518\",\r\n        \"contactEmail\": \"Bell.Nitzsche@gmail.com\",\r\n        \"websiteName\": \"these-human.org\",\r\n        \"websiteURL\": \"https://peaceful-plier.org/\"\r\n    },\r\n    \"cover\": [\r\n        \"https://loremflickr.com/640/480?lock=445309626875904\",\r\n        \"https://loremflickr.com/640/480?lock=7701584716759040\",\r\n        \"https://loremflickr.com/640/480?lock=8167749635276800\"\r\n    ],\r\n    \"thumbnail\": \"https://loremflickr.com/640/480?lock=7914678927753216\",\r\n    \"startDateTIme\": \"2024-05-24T16:51:30.302Z\",\r\n    \"fromToday\": false,\r\n    \"endDateTIme\": \"2024-10-19T17:12:03.234Z\",\r\n    \"noEndDate\": false,\r\n    \"category\": \"藝術文化\",\r\n    \"type\": \"線下\",\r\n    \"link\": \"https://defensive-mineshaft.net\",\r\n    \"location\": \"North Woodrow\",\r\n    \"address\": \"8412 Albany Road\",\r\n    \"summary\": \"Bestia desidero comprehendo votum attollo aggero.\",\r\n    \"details\": \"Urbanus abstergo vitiosus ipsum patria coaegresco. Derideo approbo valde vigilo odit torrens curriculum ocer vitae. Degero vergo vespillo adinventitias blandior beneficium abduco.\",\r\n    \"isPrivate\": false,\r\n    \"displayRemainingTickets\": false,\r\n    \"isRecurring\": true,\r\n    \"recurring\": {\r\n        \"period\": \"每月\",\r\n        \"week\": \"每週\",\r\n        \"day\": \"星期六\"\r\n    },\r\n    \"status\": \"有效\",\r\n    \"tickets\": [\r\n        {\r\n            \"_id\": \"6656e971ef22c91c1421814a\",\r\n            \"name\": \"VIP星空露營體驗券\",\r\n            \"price\": 1200,\r\n            \"startDateTIme\": \"2024-03-28T00:00:30.302Z\",\r\n            \"fromToday\": false,\r\n            \"endDateTIme\": \"2024-03-29T00:00:03.234Z\",\r\n            \"noEndDate\": false,\r\n            \"participantCapacity\": 20,\r\n            \"unlimitedQuantity\": false,\r\n            \"purchaseLimit\": 1,\r\n            \"description\": \"這張星空冒險導覽套票包含專屬導覽、望遠鏡租借和美食饗宴，帶您進入星空的奇妙世界。\",\r\n            \"purchaseDuplicate\": false\r\n        },\r\n        {\r\n            \"_id\": \"6656e971ef22c91c1421814c\",\r\n            \"name\": \"星空夜行免費入場券\",\r\n            \"price\": 500,\r\n            \"startDateTIme\": \"2024-05-24T16:51:30.302Z\",\r\n            \"fromToday\": false,\r\n            \"endDateTIme\": \"2024-10-19T17:12:03.234Z\",\r\n            \"noEndDate\": false,\r\n            \"participantCapacity\": 43,\r\n            \"unlimitedQuantity\": true,\r\n            \"purchaseLimit\": 1,\r\n            \"description\": \"這張星空冒險導覽套票包含專屬導覽、望遠鏡租借和美食饗宴，帶您進入星空的奇妙世界。\",\r\n            \"purchaseDuplicate\": false\r\n        }\r\n    ]\r\n}",
+          "raw": "{\r\n    \"name\": \"Miss Kelly Dare\",\r\n    \"organizer\": {\r\n        \"profilePicture\": \"https://loremflickr.com/640/480?lock=7694210111111168\",\r\n        \"name\": \"Mr. Alan Jerde\",\r\n        \"contactName\": \"Leona Spencer\",\r\n        \"contactPhone\": \"244.960.8178 x08518\",\r\n        \"contactEmail\": \"Bell.Nitzsche@gmail.com\",\r\n        \"websiteName\": \"these-human.org\",\r\n        \"websiteURL\": \"https://peaceful-plier.org/\"\r\n    },\r\n    \"cover\": [\r\n        \"https://loremflickr.com/640/480?lock=445309626875904\",\r\n        \"https://loremflickr.com/640/480?lock=7701584716759040\",\r\n        \"https://loremflickr.com/640/480?lock=8167749635276800\"\r\n    ],\r\n    \"thumbnail\": \"https://loremflickr.com/640/480?lock=7914678927753216\",\r\n    \"startDateTIme\": \"2024-05-24T16:51:30.302Z\",\r\n    \"fromToday\": false,\r\n    \"endDateTIme\": \"2024-10-19T17:12:03.234Z\",\r\n    \"noEndDate\": false,\r\n    \"category\": \"藝術文化\",\r\n    \"type\": \"線下\",\r\n    \"link\": \"https://defensive-mineshaft.net\",\r\n    \"location\": \"North Woodrow\",\r\n    \"address\": \"8412 Albany Road\",\r\n    \"summary\": \"Bestia desidero comprehendo votum attollo aggero.\",\r\n    \"details\": \"Urbanus abstergo vitiosus ipsum patria coaegresco. Derideo approbo valde vigilo odit torrens curriculum ocer vitae. Degero vergo vespillo adinventitias blandior beneficium abduco.\",\r\n    \"isPrivate\": false,\r\n    \"displayRemainingTickets\": false,\r\n    \"isRecurring\": true,\r\n    \"recurring\": {\r\n        \"period\": \"每月\",\r\n        \"week\": \"每週\",\r\n        \"day\": \"星期六\"\r\n    },\r\n    \"status\": \"有效\",\r\n    \"tickets\": [\r\n        {\r\n            \"_id\": \"665d19b812b31b3aae335a28\",\r\n            \"name\": \"VIP星空露營體驗券\",\r\n            \"price\": 1200,\r\n            \"startDateTIme\": \"2024-03-28T00:00:30.302Z\",\r\n            \"fromToday\": false,\r\n            \"endDateTIme\": \"2024-03-29T00:00:03.234Z\",\r\n            \"noEndDate\": false,\r\n            \"participantCapacity\": 20,\r\n            \"unlimitedQuantity\": false,\r\n            \"purchaseLimit\": 1,\r\n            \"description\": \"這張星空冒險導覽套票包含專屬導覽、望遠鏡租借和美食饗宴，帶您進入星空的奇妙世界。\",\r\n            \"purchaseDuplicate\": false\r\n        }\r\n    ]\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -216,9 +281,9 @@
           }
         },
         "url": {
-          "raw": "{{HOST}}/api/auth/activities/6656db2b511dba0998741e18",
+          "raw": "{{HOST}}/api/auth/activities/665d19b812b31b3aae335a25",
           "host": ["{{HOST}}"],
-          "path": ["api", "auth", "activities", "6656db2b511dba0998741e18"]
+          "path": ["api", "auth", "activities", "665d19b812b31b3aae335a25"]
         }
       },
       "response": []
@@ -230,7 +295,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"questionId\":\"665739fca95ca7a96d058247\",\r\n    \"question\": \"test\"\r\n}",
+          "raw": "{\r\n    \"questionId\": \"665dbdd9ad496831d666aed8\",\r\n    \"question\": \"test2\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -238,13 +303,13 @@
           }
         },
         "url": {
-          "raw": "{{HOST}}/api/auth/activities/6656db2b511dba0998741e18/q-and-a",
+          "raw": "{{HOST}}/api/auth/activities/665d19b812b31b3aae335a25/q-and-a",
           "host": ["{{HOST}}"],
           "path": [
             "api",
             "auth",
             "activities",
-            "6656db2b511dba0998741e18",
+            "665d19b812b31b3aae335a25",
             "q-and-a"
           ]
         }
@@ -261,7 +326,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"name\":\"陽明山花卉探險：春之花海\",\r\n    \"organizer\":{\r\n        \"name\":\"\",\r\n        \"contactName\":\"\",\r\n        \"contactPhone\":\"\",\r\n        \"contactEmail\":\"\"\r\n    },\r\n    \"cover\":[\"https://loremflickr.com/640/480?lock=6474321889329152\",\"https://loremflickr.com/640/480?lock=2891826849644544\",\"https://loremflickr.com/640/480?lock=5041481924476928\"],\r\n    \"thumbnail\":\"https://loremflickr.com/640/480?lock=7636866601844736\"\r\n\r\n}",
+          "raw": "{\r\n    \"name\": \"陽明山花卉探險：春之花海\",\r\n    \"organizer\": {\r\n        \"name\": \"\",\r\n        \"contactName\": \"\",\r\n        \"contactPhone\": \"\",\r\n        \"contactEmail\": \"\"\r\n    },\r\n    \"cover\": [\r\n        \"https://loremflickr.com/640/480?lock=6474321889329152\",\r\n        \"https://loremflickr.com/640/480?lock=2891826849644544\",\r\n        \"https://loremflickr.com/640/480?lock=5041481924476928\"\r\n    ],\r\n    \"thumbnail\": \"https://loremflickr.com/640/480?lock=7636866601844736\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -269,19 +334,34 @@
           }
         },
         "url": {
-          "raw": "{{HOST}}/api/auth/activities?page=1&limit=0",
+          "raw": "{{HOST}}/api/auth/activities",
           "host": ["{{HOST}}"],
-          "path": ["api", "auth", "activities"],
-          "query": [
-            {
-              "key": "page",
-              "value": "1"
-            },
-            {
-              "key": "limit",
-              "value": "0"
+          "path": ["api", "auth", "activities"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get activitiy detail",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
             }
-          ]
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/auth/activities/6656db2b511dba0998741e18",
+          "host": ["{{HOST}}"],
+          "path": ["api", "auth", "activities", "6656db2b511dba0998741e18"]
         }
       },
       "response": []
@@ -333,6 +413,9 @@
     },
     {
       "name": "get saved - activities list",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
       "request": {
         "method": "GET",
         "header": [
@@ -342,6 +425,15 @@
             "disabled": true
           }
         ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
         "url": {
           "raw": "{{HOST}}/api/auth/saved-activities",
           "host": ["{{HOST}}"],
@@ -351,10 +443,47 @@
       "response": []
     },
     {
-      "name": "get user by Id",
+      "name": "get orders",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
       "request": {
         "method": "GET",
         "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/auth/orders",
+          "host": ["{{HOST}}"],
+          "path": ["api", "auth", "orders"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get user by Id",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
         "url": {
           "raw": "{{HOST}}/api/auth/user/664b48393b749fac7df86816",
           "host": ["{{HOST}}"],
@@ -472,7 +601,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"email\":\"chillka.offical@gmail.com\"\r\n} ",
+          "raw": "{\r\n    \"email\": \"chillka.offical@gmail.com\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -494,7 +623,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjRiNDgzOTNiNzQ5ZmFjN2RmODY4MTYiLCJkaXNwbGF5TmFtZSI6ImNoaWxsa2EiLCJlbWFpbCI6ImNoaWxsa2Eub2ZmaWNhbEBnbWFpbC5jb20iLCJpYXQiOjE3MTY2MjM2MDIsImV4cCI6MTcxNjcxMDAwMn0.RzAxiEBTccz_I6MMY6G59gCmPGbRt9HffLgwyHgtxSQ\",\r\n    \"password\":\"north9Hex123\",\r\n    \"confirmPassword\":\"north9Hex123\"\r\n}",
+          "raw": "{\r\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjRiNDgzOTNiNzQ5ZmFjN2RmODY4MTYiLCJkaXNwbGF5TmFtZSI6ImNoaWxsa2EiLCJlbWFpbCI6ImNoaWxsa2Eub2ZmaWNhbEBnbWFpbC5jb20iLCJpYXQiOjE3MTY2MjM2MDIsImV4cCI6MTcxNjcxMDAwMn0.RzAxiEBTccz_I6MMY6G59gCmPGbRt9HffLgwyHgtxSQ\",\r\n    \"password\": \"north9Hex123\",\r\n    \"confirmPassword\": \"north9Hex123\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -549,7 +678,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"email\":\"chillka.offical@gmail.com\"\r\n}",
+          "raw": "{\r\n    \"email\": \"chillka.offical@gmail.com\"\r\n}",
           "options": {
             "raw": {
               "language": "json"

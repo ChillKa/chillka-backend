@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 import Activity from '../model/activity.model';
 import Order from '../model/order.model';
+import Question from '../model/question.model';
+import Reply from '../model/reply.model';
 import Ticket from '../model/ticket.model';
 import User from '../model/user.model';
 import {
@@ -12,6 +14,7 @@ import {
   GetActivityDetailCredential,
   GetActivityParticipantParams,
   GetSavedActivityParams,
+  QuestionCredentials,
   StatusEnum,
 } from '../type/activity.type';
 import { CoreError } from '../util/error-handler';
@@ -70,7 +73,7 @@ export const editActivity = async ({
     if (ticket?._id) {
       // 1. check if the ticket already exists and update it
       const ticketIndex = existingTicketObjectIds
-        .map((id) => id.toString())
+        .map((item) => item._id.toString())
         .indexOf(ticket?._id.toString());
       if (ticketIndex === -1)
         throw new CoreError(
@@ -266,5 +269,96 @@ export const getSavedActivityList = async ({
     return paginatedData;
   } catch (error) {
     throw new CoreError('Get saved activity list failed.');
+  }
+};
+
+export const createQuestion = async ({
+  userId,
+  activityId,
+  content,
+}: QuestionCredentials) => {
+  const existingActivity = await Activity.findById(activityId);
+  if (!existingActivity)
+    throw new CoreError(
+      'Cannot ask questions because the activity does not exist.'
+    );
+  if (existingActivity.creatorId.equals(userId))
+    throw new CoreError('The creator of the activity cannot ask questions.');
+  try {
+    const user = await User.findById(userId).select('displayName');
+    const newQuestion = await Question.create({
+      activityId,
+      userId,
+      content,
+      displayName: user?.displayName,
+    });
+
+    return newQuestion;
+  } catch (error) {
+    throw new CoreError('Ask question failed.');
+  }
+};
+
+export const editQuestion = async ({
+  userId,
+  activityId,
+  content,
+  questionId,
+}: QuestionCredentials) => {
+  const existingActivity = await Activity.findById(activityId);
+  if (!existingActivity)
+    throw new CoreError(
+      'Cannot edit questions because the activity does not exist.'
+    );
+  const existingQuestion = await Question.findById(questionId);
+  if (!existingQuestion)
+    throw new CoreError(
+      'Cannot edit questions because the question does not exist.'
+    );
+  if (!existingQuestion.userId.equals(userId))
+    throw new CoreError('Only the questioner can modify the question.');
+
+  try {
+    const editQuestion = await Question.findOneAndUpdate(
+      { _id: questionId },
+      { $set: { content } },
+      { new: true }
+    );
+
+    return editQuestion;
+  } catch (error) {
+    throw new CoreError('Ask question failed.');
+  }
+};
+
+export const deleteQuestion = async ({
+  userId,
+  activityId,
+  questionId,
+}: QuestionCredentials) => {
+  const existingActivity = await Activity.findById(activityId);
+  if (!existingActivity)
+    throw new CoreError(
+      'Cannot delete questions because the activity does not exist.'
+    );
+  const existingQuestion = await Question.findById(questionId);
+  if (!existingQuestion)
+    throw new CoreError(
+      'Cannot delete questions because the question does not exist.'
+    );
+  if (!existingQuestion.userId.equals(userId))
+    throw new CoreError('Only the questioner can delete the question.');
+  const existingReplies = (await Reply.find({ questionId }).select('_id')).map(
+    (reply) => reply._id.toString()
+  );
+  try {
+    if (existingReplies.length) {
+      await Reply.deleteMany({ _id: { $in: existingReplies } });
+    }
+    await Question.deleteOne({ _id: questionId });
+
+    return { message: 'success delete' };
+  } catch (error) {
+    throw new CoreError('Ask question failed.');
   }
 };

@@ -86,7 +86,7 @@ export type ActivityCreateCredentials = ActivitySchemaModel;
 
 export type ActivityEditCredentials = ActivityCreateCredentials & {
   userId: mongoose.Types.ObjectId | undefined;
-  activityId: string;
+  activityId: mongoose.Types.ObjectId;
 };
 
 export type GetActivitiesParams = {
@@ -124,4 +124,12 @@ export type GetSavedActivityParams = {
   limit?: number;
   sort?: SortType;
 };
+
+export type QuestionCredentials = {
+  userId: mongoose.Types.ObjectId;
+  activityId: mongoose.Types.ObjectId;
+  questionId?: mongoose.Types.ObjectId;
+  content?: string;
+};
+
 export type GetActivitiesCredentials = Omit<GetSavedActivityParams, 'userId'>;

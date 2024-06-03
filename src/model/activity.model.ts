@@ -132,8 +132,8 @@ ActivitySchema.virtual('orders', {
   foreignField: 'activityId',
 });
 
-ActivitySchema.virtual('messageLists', {
-  ref: 'MessageList',
+ActivitySchema.virtual('questions', {
+  ref: 'Question',
   localField: '_id',
   foreignField: 'activityId',
 });
