@@ -15,6 +15,10 @@ const MessageListSchema = new Schema<MessageListSchemaModel, MessageListModel>(
       ref: 'User',
       required: true,
     },
+    displayName: {
+      type: Schema.Types.String,
+      required: true,
+    },
     question: {
       type: Schema.Types.String,
       required: true,
