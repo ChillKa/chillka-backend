@@ -28,6 +28,7 @@ export const createActivity = async ({
 }: ActivityCreateCredentials) => {
   try {
     const newActivity = new Activity(activityData);
+    const newActivity = new Activity(activityData);
     await newActivity.save();
     const newTickets = tickets?.map((ticket) => {
       ticket.activityId = newActivity._id;
@@ -293,6 +294,101 @@ export const getSavedActivityList = async ({
     return paginatedData;
   } catch (error) {
     throw new CoreError('Get saved activity list failed.');
+  }
+};
+
+export const createMessageList = async ({
+  userId,
+  activityId,
+  question,
+}: MessageListCredentials) => {
+  const existingActivity = await Activity.findById(activityId);
+  if (!existingActivity)
+    throw new CoreError(
+      'Cannot ask questions because the activity does not exist.'
+    );
+  if (existingActivity.creatorId.equals(userId))
+    throw new CoreError('The creator of the activity cannot ask questions.');
+  try {
+    const user = await User.findById(userId).select('displayName');
+    const newMessageList = await MessageList.create({
+      activityId,
+      userId,
+      question,
+      displayName: user?.displayName,
+    });
+
+    return newMessageList;
+  } catch (error) {
+    throw new CoreError('Ask question failed.');
+  }
+};
+
+export const editMessageList = async ({
+  userId,
+  activityId,
+  question,
+  questionId,
+}: MessageListCredentials) => {
+  const existingActivity = await Activity.findById(activityId);
+  if (!existingActivity)
+    throw new CoreError(
+      'Cannot edit questions because the activity does not exist.'
+    );
+  const existingMessageList = await MessageList.findById(questionId);
+  if (!existingMessageList)
+    throw new CoreError(
+      'Cannot edit questions because the question does not exist.'
+    );
+  if (!existingMessageList.userId.equals(userId))
+    throw new CoreError('Only the questioner can modify the question.');
+  const existingMessages = await Message.find({ messageListId: questionId });
+  if (existingMessages.length)
+    throw new CoreError(
+      'You cannot modify the question if there is already a reply.'
+    );
+  try {
+    const editMessageList = await MessageList.findOneAndUpdate(
+      { _id: questionId },
+      { $set: { question } },
+      { new: true }
+    );
+
+    return editMessageList;
+  } catch (error) {
+    throw new CoreError('Ask question failed.');
+  }
+};
+
+export const deleteMessageList = async ({
+  userId,
+  activityId,
+  questionId,
+}: MessageListCredentials) => {
+  const existingActivity = await Activity.findById(activityId);
+  if (!existingActivity)
+    throw new CoreError(
+      'Cannot delete questions because the activity does not exist.'
+    );
+  const existingMessageList = await MessageList.findById(questionId);
+  if (!existingMessageList)
+    throw new CoreError(
+      'Cannot delete questions because the question does not exist.'
+    );
+  if (!existingMessageList.userId.equals(userId))
+    throw new CoreError('Only the questioner can delete the question.');
+  const existingMessages = (
+    await Message.find({ messageListId: questionId }).select('_id')
+  ).map((message) => message._id.toString());
+  try {
+    if (existingMessages.length) {
+      await Message.deleteMany({ _id: { $in: existingMessages } });
+    }
+    await MessageList.deleteOne({ _id: questionId });
+
+    return { message: 'success delete' };
+  } catch (error) {
+    throw new CoreError('Ask question failed.');
   }
 };
 
