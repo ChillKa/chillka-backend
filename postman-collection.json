@@ -211,13 +211,13 @@
       "response": []
     },
     {
-      "name": "create question",
+      "name": "create Q and A",
       "request": {
         "method": "POST",
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"question\": \"test1\"\r\n}",
+          "raw": "{\r\n    \"content\": \"test1\",\r\n    \"type\": \"reply\",\r\n    \"questionId\": \"665ea08a727acc58b67f7423\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -239,13 +239,13 @@
       "response": []
     },
     {
-      "name": "delete question",
+      "name": "delete Q and A",
       "request": {
         "method": "DELETE",
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"questionId\": \"665739fca95ca7a96d058247\"\r\n}",
+          "raw": "{\r\n    \"type\": \"reply\",\r\n    \"questionId\": \"665ea09c727acc58b67f7428\",\r\n    \"replyId\": \"665ea2fb28052fc546ce28ee\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -253,13 +253,13 @@
           }
         },
         "url": {
-          "raw": "{{HOST}}/api/auth/activities/6656db2b511dba0998741e18/q-and-a",
+          "raw": "{{HOST}}/api/auth/activities/665d19b812b31b3aae335a25/q-and-a",
           "host": ["{{HOST}}"],
           "path": [
             "api",
             "auth",
             "activities",
-            "6656db2b511dba0998741e18",
+            "665d19b812b31b3aae335a25",
             "q-and-a"
           ]
         }
@@ -289,13 +289,13 @@
       "response": []
     },
     {
-      "name": "edit question",
+      "name": "edit Q and A",
       "request": {
         "method": "PATCH",
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"questionId\": \"665dbdd9ad496831d666aed8\",\r\n    \"question\": \"test2\"\r\n}",
+          "raw": "{\r\n    \"type\": \"reply\",\r\n    \"questionId\": \"665ea09c727acc58b67f7428\",\r\n    \"content\": \"test2\",\r\n    \"replyId\": \"665ea12a727acc58b67f7436\"\r\n}",
           "options": {
             "raw": {
               "language": "json"

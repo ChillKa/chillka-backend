@@ -73,7 +73,21 @@ export const activitySchema = z.object({
   ),
 });
 
-export const questionSchema = z.object({
+export const qAndACreateSchema = z.object({
+  type: z.enum(['question', 'reply']),
+  content: z.string(),
   questionId: z.string().optional(),
-  content: z.string().optional(),
+});
+
+export const qAndAEditSchema = z.object({
+  type: z.enum(['question', 'reply']),
+  content: z.string(),
+  questionId: z.string(),
+  replyId: z.string().optional(),
+});
+
+export const qAndADeleteSchema = z.object({
+  type: z.enum(['question', 'reply']),
+  questionId: z.string(),
+  replyId: z.string().optional(),
 });

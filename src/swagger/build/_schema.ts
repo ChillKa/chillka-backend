@@ -1502,9 +1502,12 @@ export const _schema = {
         "userId"
       ]
     },
-    "QuestionCredentials": {
+    "QAndACredentials": {
       "type": "object",
       "properties": {
+        "type": {
+          "type": "string"
+        },
         "userId": {
           "$ref": "#/definitions/Types.ObjectId"
         },
@@ -1516,10 +1519,14 @@ export const _schema = {
         },
         "content": {
           "type": "string"
+        },
+        "replyId": {
+          "$ref": "#/definitions/Types.ObjectId"
         }
       },
       "required": [
         "activityId",
+        "type",
         "userId"
       ]
     },

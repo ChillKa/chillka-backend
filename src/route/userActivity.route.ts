@@ -7,7 +7,9 @@ import { SortEnum } from '../type/model.type';
 import { CoreError, throwAPIError } from '../util/error-handler';
 import {
   activitySchema,
-  questionSchema,
+  qAndACreateSchema,
+  qAndADeleteSchema,
+  qAndAEditSchema,
 } from '../util/zod/userActivity.schema';
 
 const userActivityRouter = () => {
@@ -177,13 +179,23 @@ const userActivityRouter = () => {
   router.post(
     '/activities/:activityId/q-and-a',
     authorizeMiddleware,
-    zodValidateMiddleware(questionSchema),
+    zodValidateMiddleware(qAndACreateSchema),
     async (req: Request, res: Response) => {
       /* #swagger.tags = ['Activity'] */
+      if (req.body.type === 'reply' && !req.body.questionId) {
+        return throwAPIError({
+          res,
+          error: new CoreError(
+            'Please provide questionId to reply to the question'
+          ),
+          statusCode: 400,
+        });
+      }
+
       try {
         const userId = req.user?._id;
         const activityId = new mongoose.Types.ObjectId(req.params?.activityId);
-        const data = await UserActivityService.createQuestion({
+        const data = await UserActivityService.createQAndA({
           userId,
           activityId,
           ...req.body,
@@ -198,13 +210,21 @@ const userActivityRouter = () => {
   router.patch(
     '/activities/:activityId/q-and-a',
     authorizeMiddleware,
-    zodValidateMiddleware(questionSchema),
+    zodValidateMiddleware(qAndAEditSchema),
     async (req: Request, res: Response) => {
       /* #swagger.tags = ['Activity'] */
+      if (req.body.type === 'reply' && !req.body.replyId) {
+        return throwAPIError({
+          res,
+          error: new CoreError('Please provide replyId to modify reply'),
+          statusCode: 400,
+        });
+      }
+
       try {
         const userId = req.user?._id;
         const activityId = new mongoose.Types.ObjectId(req.params?.activityId);
-        const data = await UserActivityService.editQuestion({
+        const data = await UserActivityService.editQAndA({
           userId,
           activityId,
           ...req.body,
@@ -219,13 +239,21 @@ const userActivityRouter = () => {
   router.delete(
     '/activities/:activityId/q-and-a',
     authorizeMiddleware,
-    zodValidateMiddleware(questionSchema),
+    zodValidateMiddleware(qAndADeleteSchema),
     async (req: Request, res: Response) => {
       /* #swagger.tags = ['Activity'] */
+      if (req.body.type === 'reply' && !req.body.replyId) {
+        return throwAPIError({
+          res,
+          error: new CoreError('Please provide id to delete reply'),
+          statusCode: 400,
+        });
+      }
+
       try {
         const userId = req.user?._id;
         const activityId = new mongoose.Types.ObjectId(req.params?.activityId);
-        const data = await UserActivityService.deleteQuestion({
+        const data = await UserActivityService.deleteQAndA({
           userId,
           activityId,
           ...req.body,
