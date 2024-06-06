@@ -1376,7 +1376,7 @@ export const _schema = {
               "$ref": "#/definitions/Types.ObjectId"
             },
             "activityId": {
-              "type": "string"
+              "$ref": "#/definitions/Types.ObjectId"
             }
           },
           "required": [
@@ -1502,6 +1502,27 @@ export const _schema = {
         "userId"
       ]
     },
+    "QuestionCredentials": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "activityId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "questionId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "activityId",
+        "userId"
+      ]
+    },
     "GetActivitiesCredentials": {
       "type": "object",
       "properties": {
@@ -1519,44 +1540,6 @@ export const _schema = {
           "type": "number"
         }
       }
-    },
-    "MessageListSchemaModel": {
-      "type": "object",
-      "properties": {
-        "activityId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "userId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "question": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "activityId",
-        "question",
-        "userId"
-      ]
-    },
-    "MessageSchemaModel": {
-      "type": "object",
-      "properties": {
-        "messageListId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "userId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "answer": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "answer",
-        "messageListId",
-        "userId"
-      ]
     },
     "PaymentStatusEnum": {
       "type": "string",
@@ -1906,6 +1889,52 @@ export const _schema = {
       },
       "required": [
         "orderId",
+        "userId"
+      ]
+    },
+    "QuestionSchemaModel": {
+      "type": "object",
+      "properties": {
+        "activityId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "activityId",
+        "content",
+        "displayName",
+        "userId"
+      ]
+    },
+    "ReplySchemaModel": {
+      "type": "object",
+      "properties": {
+        "activityId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "questionId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "activityId",
+        "content",
+        "questionId",
         "userId"
       ]
     },
