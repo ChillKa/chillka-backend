@@ -1549,15 +1549,29 @@ export const _schema = {
         "付款失敗"
       ]
     },
-    "PaymentMethodEnum": {
+    "PaymentTypeEnum": {
       "type": "string",
       "enum": [
+        "台灣銀行WebATM",
+        "中國信託WebATM",
+        "第一銀行WebATM",
+        "土地銀行WebATM",
+        "台灣銀行ATM",
+        "中國信託ATM",
+        "第一銀行ATM",
+        "土地銀行ATM",
+        "國泰世華ATM",
+        "板信銀行ATM",
+        "超商代碼繳款",
+        "OK超商代碼繳款",
+        "全家超商代碼繳款",
+        "萊爾富超商代碼繳款",
+        "7-11 ibon代碼繳款",
+        "超商條碼繳款",
         "信用卡",
-        "網路 ATM",
-        "ATM",
-        "超商代碼",
-        "條碼",
-        "系統更新"
+        "圓夢彈性分期",
+        "歐付寶TWQR 行動支付",
+        "裕富數位無卡分期"
       ]
     },
     "OrderStatusEnum": {
@@ -1593,7 +1607,7 @@ export const _schema = {
       "type": "object",
       "properties": {
         "amount": {
-          "type": "number"
+          "type": "string"
         },
         "status": {
           "enum": [
@@ -1603,14 +1617,28 @@ export const _schema = {
           ],
           "type": "string"
         },
-        "method": {
+        "type": {
           "enum": [
-            "ATM",
+            "7-11 ibon代碼繳款",
+            "OK超商代碼繳款",
+            "中國信託ATM",
+            "中國信託WebATM",
             "信用卡",
-            "條碼",
-            "系統更新",
-            "網路 ATM",
-            "超商代碼"
+            "全家超商代碼繳款",
+            "台灣銀行ATM",
+            "台灣銀行WebATM",
+            "國泰世華ATM",
+            "圓夢彈性分期",
+            "土地銀行ATM",
+            "土地銀行WebATM",
+            "板信銀行ATM",
+            "歐付寶TWQR 行動支付",
+            "第一銀行ATM",
+            "第一銀行WebATM",
+            "萊爾富超商代碼繳款",
+            "裕富數位無卡分期",
+            "超商代碼繳款",
+            "超商條碼繳款"
           ],
           "type": "string"
         },
@@ -1658,7 +1686,7 @@ export const _schema = {
           "type": "object",
           "properties": {
             "amount": {
-              "type": "number"
+              "type": "string"
             },
             "status": {
               "enum": [
@@ -1668,14 +1696,28 @@ export const _schema = {
               ],
               "type": "string"
             },
-            "method": {
+            "type": {
               "enum": [
-                "ATM",
+                "7-11 ibon代碼繳款",
+                "OK超商代碼繳款",
+                "中國信託ATM",
+                "中國信託WebATM",
                 "信用卡",
-                "條碼",
-                "系統更新",
-                "網路 ATM",
-                "超商代碼"
+                "全家超商代碼繳款",
+                "台灣銀行ATM",
+                "台灣銀行WebATM",
+                "國泰世華ATM",
+                "圓夢彈性分期",
+                "土地銀行ATM",
+                "土地銀行WebATM",
+                "板信銀行ATM",
+                "歐付寶TWQR 行動支付",
+                "第一銀行ATM",
+                "第一銀行WebATM",
+                "萊爾富超商代碼繳款",
+                "裕富數位無卡分期",
+                "超商代碼繳款",
+                "超商條碼繳款"
               ],
               "type": "string"
             },
@@ -1698,6 +1740,9 @@ export const _schema = {
             "無效票券"
           ]
         },
+        "transactionId": {
+          "type": "string"
+        },
         "serialNumber": {
           "type": "string"
         }
@@ -1709,6 +1754,7 @@ export const _schema = {
         "payment",
         "serialNumber",
         "ticketId",
+        "transactionId",
         "userId"
       ]
     },
@@ -1750,7 +1796,7 @@ export const _schema = {
               "type": "object",
               "properties": {
                 "amount": {
-                  "type": "number"
+                  "type": "string"
                 },
                 "status": {
                   "enum": [
@@ -1760,14 +1806,28 @@ export const _schema = {
                   ],
                   "type": "string"
                 },
-                "method": {
+                "type": {
                   "enum": [
-                    "ATM",
+                    "7-11 ibon代碼繳款",
+                    "OK超商代碼繳款",
+                    "中國信託ATM",
+                    "中國信託WebATM",
                     "信用卡",
-                    "條碼",
-                    "系統更新",
-                    "網路 ATM",
-                    "超商代碼"
+                    "全家超商代碼繳款",
+                    "台灣銀行ATM",
+                    "台灣銀行WebATM",
+                    "國泰世華ATM",
+                    "圓夢彈性分期",
+                    "土地銀行ATM",
+                    "土地銀行WebATM",
+                    "板信銀行ATM",
+                    "歐付寶TWQR 行動支付",
+                    "第一銀行ATM",
+                    "第一銀行WebATM",
+                    "萊爾富超商代碼繳款",
+                    "裕富數位無卡分期",
+                    "超商代碼繳款",
+                    "超商條碼繳款"
                   ],
                   "type": "string"
                 },
@@ -1779,81 +1839,23 @@ export const _schema = {
                 "amount",
                 "orderNumber"
               ]
+            },
+            "transactionId": {
+              "type": "string"
             }
           },
           "required": [
             "activityId",
             "orderContact",
             "payment",
-            "ticketId"
+            "ticketId",
+            "transactionId"
           ]
         }
       },
       "required": [
         "requestBody",
         "userId"
-      ]
-    },
-    "CreateOrderCredentials": {
-      "type": "object",
-      "properties": {
-        "orderContact": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "email": {
-              "type": "string"
-            },
-            "phone": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "email",
-            "name",
-            "phone"
-          ]
-        },
-        "payment": {
-          "type": "object",
-          "properties": {
-            "amount": {
-              "type": "number"
-            },
-            "status": {
-              "enum": [
-                "付款失敗",
-                "已付款",
-                "待付款"
-              ],
-              "type": "string"
-            },
-            "method": {
-              "enum": [
-                "ATM",
-                "信用卡",
-                "條碼",
-                "系統更新",
-                "網路 ATM",
-                "超商代碼"
-              ],
-              "type": "string"
-            },
-            "orderNumber": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "amount",
-            "orderNumber"
-          ]
-        }
-      },
-      "required": [
-        "orderContact",
-        "payment"
       ]
     },
     "GetOrdersParams": {
@@ -1890,6 +1892,101 @@ export const _schema = {
       "required": [
         "orderId",
         "userId"
+      ]
+    },
+    "TriggerPaymentCredentials": {
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "orderContact": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "phone": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "email",
+                "name",
+                "phone"
+              ]
+            },
+            "payment": {
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "type": "string"
+                },
+                "status": {
+                  "enum": [
+                    "付款失敗",
+                    "已付款",
+                    "待付款"
+                  ],
+                  "type": "string"
+                },
+                "type": {
+                  "enum": [
+                    "7-11 ibon代碼繳款",
+                    "OK超商代碼繳款",
+                    "中國信託ATM",
+                    "中國信託WebATM",
+                    "信用卡",
+                    "全家超商代碼繳款",
+                    "台灣銀行ATM",
+                    "台灣銀行WebATM",
+                    "國泰世華ATM",
+                    "圓夢彈性分期",
+                    "土地銀行ATM",
+                    "土地銀行WebATM",
+                    "板信銀行ATM",
+                    "歐付寶TWQR 行動支付",
+                    "第一銀行ATM",
+                    "第一銀行WebATM",
+                    "萊爾富超商代碼繳款",
+                    "裕富數位無卡分期",
+                    "超商代碼繳款",
+                    "超商條碼繳款"
+                  ],
+                  "type": "string"
+                },
+                "orderNumber": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "amount",
+                "orderNumber"
+              ]
+            }
+          },
+          "required": [
+            "orderContact",
+            "payment"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "tradeDesc": {
+              "type": "string"
+            },
+            "itemName": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "itemName",
+            "tradeDesc"
+          ]
+        }
       ]
     },
     "QuestionSchemaModel": {

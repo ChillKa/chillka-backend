@@ -2,8 +2,8 @@ import { Model, Schema, model } from 'mongoose';
 import {
   OrderSchemaModel,
   OrderStatusEnum,
-  PaymentMethodEnum,
   PaymentStatusEnum,
+  PaymentTypeEnum,
 } from '../type/order.type';
 
 type OrderModel = Model<OrderSchemaModel, object>;
@@ -41,18 +41,17 @@ const OrderSchema = new Schema<OrderSchemaModel, OrderModel>(
     },
     payment: {
       amount: {
-        type: Schema.Types.Number,
+        type: Schema.Types.String,
         required: true,
-        default: 0,
       },
       status: {
         type: Schema.Types.String,
         enum: PaymentStatusEnum,
         default: PaymentStatusEnum.UNPAID,
       },
-      method: {
+      type: {
         type: Schema.Types.String,
-        enum: PaymentMethodEnum,
+        enum: PaymentTypeEnum,
         default: undefined,
       },
       orderNumber: {
@@ -64,6 +63,9 @@ const OrderSchema = new Schema<OrderSchemaModel, OrderModel>(
       type: Schema.Types.String,
       enum: OrderStatusEnum,
       default: OrderStatusEnum.VALID,
+    },
+    transactionId: {
+      type: Schema.Types.String,
     },
     serialNumber: {
       type: Schema.Types.String,
