@@ -1548,6 +1548,21 @@ export const _schema = {
         }
       }
     },
+    "KeywordSchemaModel": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "count": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "content",
+        "count"
+      ]
+    },
     "PaymentStatusEnum": {
       "type": "string",
       "enum": [

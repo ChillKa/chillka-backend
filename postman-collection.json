@@ -412,6 +412,31 @@
       "response": []
     },
     {
+      "name": "get popular keywords",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/activities/popular-keywords",
+          "host": ["{{HOST}}"],
+          "path": ["api", "activities", "popular-keywords"]
+        }
+      },
+      "response": []
+    },
+    {
       "name": "get saved - activities list",
       "protocolProfileBehavior": {
         "disableBodyPruning": true
