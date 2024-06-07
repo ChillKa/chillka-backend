@@ -8,7 +8,7 @@ export const getPopularKeywords = async () => {
       await Keyword.find({}).limit(5).sort({ count: -1 })
     ).map((keyword) => keyword.content);
 
-    return popularKeywords.concat(defaultKeywords).slice(0, 5);
+    return { data: popularKeywords.concat(defaultKeywords).slice(0, 5) };
   } catch (error) {
     throw new CoreError('Create activity failed.');
   }
