@@ -1894,6 +1894,21 @@ export const _schema = {
         "userId"
       ]
     },
+    "UseSerialNumberOrderParams": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "serialNumber": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "serialNumber",
+        "userId"
+      ]
+    },
     "TriggerPaymentCredentials": {
       "allOf": [
         {

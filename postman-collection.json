@@ -1,9 +1,9 @@
 {
   "info": {
-    "_postman_id": "51722f4b-fbf9-4062-952b-576766be5315",
+    "_postman_id": "1bcda153-d986-4c00-bb86-eebe8d1bc531",
     "name": "chillka-backend",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "20616853"
+    "_exporter_id": "30654257"
   },
   "item": [
     {
@@ -672,6 +672,38 @@
       "response": []
     },
     {
+      "name": "use serial number",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"serialNumber\": \"\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/auth/orders/use-serial-number",
+          "host": ["{{HOST}}"],
+          "path": ["api", "auth", "orders", "use-serial-number"]
+        }
+      },
+      "response": []
+    },
+    {
       "name": "verify email - send email",
       "request": {
         "method": "POST",
@@ -730,7 +762,7 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{session}}",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjU4YWE2MTJjMjU3MzMwODZjMzVhZDkiLCJkaXNwbGF5TmFtZSI6ImNoaWxsa2EiLCJlbWFpbCI6ImNoaWxsa2Eub2ZmaWNhbEBnbWFpbC5jb20iLCJpYXQiOjE3MTc4MzIyMjgsImV4cCI6MTcxNzkxODYyOH0.IDL-Ll0zj3SEvdFC6yOlAPychEzluLIFF4arEju4EY4",
         "type": "string"
       }
     ]
@@ -751,6 +783,12 @@
         "packages": {},
         "exec": [""]
       }
+    }
+  ],
+  "variable": [
+    {
+      "key": "HOST",
+      "value": "http://localhost:8000"
     }
   ]
 }

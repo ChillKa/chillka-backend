@@ -81,3 +81,8 @@ export type CancelOrderParams = {
   userId: mongoose.Types.ObjectId | undefined;
   orderId: mongoose.Types.ObjectId;
 };
+
+export type UseSerialNumberOrderParams = {
+  userId: mongoose.Types.ObjectId | undefined;
+  serialNumber: string;
+};

@@ -7,6 +7,7 @@ import {
   CreateOrderParams,
   GetOrdersParams,
   OrderStatusEnum,
+  UseSerialNumberOrderParams,
 } from '../type/order.type';
 import { CoreError } from '../util/error-handler';
 import { paginator } from '../util/paginator';
@@ -85,5 +86,25 @@ export const cancelOrder = async ({ userId, orderId }: CancelOrderParams) => {
     return { message: 'Cancel order success.' };
   } catch (error) {
     throw new CoreError('Create order failed.');
+  }
+};
+
+export const useSerialNumberOrder = async ({
+  userId,
+  serialNumber,
+}: UseSerialNumberOrderParams) => {
+  const order = await Order.findOne({ serialNumber });
+
+  if (!order?.userId.equals(userId)) {
+    throw new CoreError('The user is not the order creator.');
+  }
+
+  try {
+    order.$set({ orderStatus: OrderStatusEnum.USED });
+    await order.save();
+
+    return { message: 'Use order success.' };
+  } catch (error) {
+    throw new CoreError('Use order failed.');
   }
 };
