@@ -1,12 +1,13 @@
 import ecpay_payment from 'ecpay_aio_nodejs';
 import { Request, Response, Router } from 'express';
+import mongoose from 'mongoose';
+import authorizeMiddleware from '../middleware/authorize.middleware';
 import { zodValidateMiddleware } from '../middleware/validate.middleware';
+import Order from '../model/order.model';
+import * as OrderService from '../service/order.service';
+import { PaymentStatusEnum, PaymentTypeEnum } from '../type/order.type';
 import { throwAPIError } from '../util/error-handler';
 import { paymentCheckoutSchema } from '../util/zod/payment.schema';
-import * as OrderService from '../service/order.service';
-import mongoose from 'mongoose';
-import Order from '../model/order.model';
-import { PaymentStatusEnum, PaymentTypeEnum } from '../type/order.type';
 
 const options = {
   OperationMode: 'Test',
@@ -15,6 +16,7 @@ const options = {
     HashKey: process.env.HASHKEY,
     HashIV: process.env.HASHIV,
   },
+  IgnorePayment: [],
   IsProjectContractor: false,
 };
 
@@ -23,6 +25,7 @@ const paymentRouter = () => {
 
   router.get(
     '/payment',
+    authorizeMiddleware,
     zodValidateMiddleware(paymentCheckoutSchema),
     async (req: Request, res: Response) => {
       /* #swagger.tags = ['Payment'] 
@@ -124,6 +127,7 @@ const paymentRouter = () => {
 
       res.send('1|OK');
     } catch (error) {
+      console.log('error', error);
       throwAPIError({ res, error, statusCode: 400 });
     }
   });
