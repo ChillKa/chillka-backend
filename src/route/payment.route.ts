@@ -3,9 +3,7 @@ import { Request, Response, Router } from 'express';
 import mongoose from 'mongoose';
 import authorizeMiddleware from '../middleware/authorize.middleware';
 import { zodValidateMiddleware } from '../middleware/validate.middleware';
-import Order from '../model/order.model';
 import * as OrderService from '../service/order.service';
-import { PaymentStatusEnum, PaymentTypeEnum } from '../type/order.type';
 import { throwAPIError } from '../util/error-handler';
 import { paymentCheckoutSchema } from '../util/zod/payment.schema';
 
@@ -92,31 +90,31 @@ const paymentRouter = () => {
     /* #swagger.ignore = true */
 
     try {
-      const { RtnCode, MerchantTradeNo, PaymentType, CheckMacValue } = req.body;
+      const { CheckMacValue } = req.body;
       const data = { ...req.body };
       delete data.CheckMacValue; // 此段不驗證
 
       const create = new ecpay_payment(options);
       const checkValue = create.payment_client.helper.gen_chk_mac_value(data);
 
-      if (RtnCode == 1) {
-        await Order.findByIdAndUpdate(
-          { transactionId: MerchantTradeNo },
-          {
-            payment: {
-              status: PaymentStatusEnum.PAID,
-              type: PaymentTypeEnum[
-                PaymentType as keyof typeof PaymentTypeEnum
-              ],
-            },
-          }
-        );
-      } else {
-        await Order.findByIdAndUpdate(
-          { transactionId: MerchantTradeNo },
-          { payment: { status: PaymentStatusEnum.ERROR } }
-        );
-      }
+      // if (RtnCode == 1) {
+      //   await Order.findByIdAndUpdate(
+      //     { transactionId: MerchantTradeNo },
+      //     {
+      //       payment: {
+      //         status: PaymentStatusEnum.PAID,
+      //         type: PaymentTypeEnum[
+      //           PaymentType as keyof typeof PaymentTypeEnum
+      //         ],
+      //       },
+      //     }
+      //   );
+      // } else {
+      //   await Order.findByIdAndUpdate(
+      //     { transactionId: MerchantTradeNo },
+      //     { payment: { status: PaymentStatusEnum.ERROR } }
+      //   );
+      // }
 
       console.log(
         '確認交易正確性：',
@@ -125,7 +123,7 @@ const paymentRouter = () => {
         checkValue
       );
 
-      res.send('1|OK');
+      res.send(req.body);
     } catch (error) {
       // console.log('error', error);
       // throwAPIError({ res, error, statusCode: 400 });
