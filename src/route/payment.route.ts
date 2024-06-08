@@ -127,8 +127,9 @@ const paymentRouter = () => {
 
       res.send('1|OK');
     } catch (error) {
-      console.log('error', error);
-      throwAPIError({ res, error, statusCode: 400 });
+      // console.log('error', error);
+      // throwAPIError({ res, error, statusCode: 400 });
+      res.status(500).send(error);
     }
   });
 
