@@ -125,10 +125,11 @@ export type GetSavedActivityParams = {
   sort?: SortType;
 };
 
-export type QuestionCredentials = {
+export type CommentCredentials = {
   userId: mongoose.Types.ObjectId;
   activityId: mongoose.Types.ObjectId;
-  questionId?: mongoose.Types.ObjectId;
+  commentId: mongoose.Types.ObjectId;
+  type?: string;
   content?: string;
 };
 

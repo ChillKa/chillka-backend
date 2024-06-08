@@ -1,8 +1,7 @@
 import mongoose from 'mongoose';
 import Activity from '../model/activity.model';
 import Order from '../model/order.model';
-import Question from '../model/question.model';
-import Reply from '../model/reply.model';
+import Comment from '../model/comment.model';
 import Ticket from '../model/ticket.model';
 import User from '../model/user.model';
 import {
@@ -14,7 +13,7 @@ import {
   GetActivityDetailCredential,
   GetActivityParticipantParams,
   GetSavedActivityParams,
-  QuestionCredentials,
+  CommentCredentials,
   StatusEnum,
 } from '../type/activity.type';
 import { CoreError } from '../util/error-handler';
@@ -272,93 +271,100 @@ export const getSavedActivityList = async ({
   }
 };
 
-export const createQuestion = async ({
+export const createComment = async ({
   userId,
   activityId,
+  type,
+  commentId,
   content,
-}: QuestionCredentials) => {
+}: CommentCredentials) => {
   const existingActivity = await Activity.findById(activityId);
+  const existingQuestion = await Comment.findOne({
+    _id: commentId,
+    type: '提問',
+  });
   if (!existingActivity)
     throw new CoreError(
-      'Cannot ask questions because the activity does not exist.'
+      'Cannot create comments because the activity does not exist.'
     );
-  if (existingActivity.creatorId.equals(userId))
-    throw new CoreError('The creator of the activity cannot ask questions.');
+  if (type === '提問' && existingActivity.creatorId.equals(userId))
+    throw new CoreError('The creator of the activity cannot create comments.');
+  if (type === '回覆' && !existingQuestion)
+    throw new CoreError(
+      'Cannot reply to the question because there is no question.'
+    );
+
   try {
     const user = await User.findById(userId).select('displayName');
-    const newQuestion = await Question.create({
+    const newComment = await Comment.create({
       activityId,
       userId,
+      type,
       content,
+      commentId,
       displayName: user?.displayName,
     });
 
-    return newQuestion;
+    return newComment;
   } catch (error) {
-    throw new CoreError('Ask question failed.');
+    throw new CoreError('Create comment failed.');
   }
 };
 
-export const editQuestion = async ({
+export const editComment = async ({
   userId,
   activityId,
+  commentId,
   content,
-  questionId,
-}: QuestionCredentials) => {
+}: CommentCredentials) => {
   const existingActivity = await Activity.findById(activityId);
   if (!existingActivity)
     throw new CoreError(
-      'Cannot edit questions because the activity does not exist.'
+      'Cannot edit comments because the activity does not exist.'
     );
-  const existingQuestion = await Question.findById(questionId);
-  if (!existingQuestion)
+  const existingComment = await Comment.findById(commentId);
+  if (!existingComment)
     throw new CoreError(
-      'Cannot edit questions because the question does not exist.'
+      'Cannot edit comments because the comment does not exist.'
     );
-  if (!existingQuestion.userId.equals(userId))
-    throw new CoreError('Only the questioner can modify the question.');
+  if (!existingComment.userId.equals(userId))
+    throw new CoreError('Only commenter can edit the comment.');
 
   try {
-    const editQuestion = await Question.findOneAndUpdate(
-      { _id: questionId },
+    const editComment = await Comment.findOneAndUpdate(
+      { _id: commentId },
       { $set: { content } },
       { new: true }
     );
 
-    return editQuestion;
+    return editComment;
   } catch (error) {
-    throw new CoreError('Ask question failed.');
+    throw new CoreError('Edit comment failed.');
   }
 };
 
-export const deleteQuestion = async ({
+export const deleteComment = async ({
   userId,
   activityId,
-  questionId,
-}: QuestionCredentials) => {
+  commentId,
+}: CommentCredentials) => {
   const existingActivity = await Activity.findById(activityId);
   if (!existingActivity)
     throw new CoreError(
-      'Cannot delete questions because the activity does not exist.'
+      'Cannot delete comments because the activity does not exist.'
     );
-  const existingQuestion = await Question.findById(questionId);
-  if (!existingQuestion)
+  const existingComment = await Comment.findById(commentId);
+  if (!existingComment)
     throw new CoreError(
-      'Cannot delete questions because the question does not exist.'
+      'Cannot delete comments because the comment does not exist.'
     );
-  if (!existingQuestion.userId.equals(userId))
-    throw new CoreError('Only the questioner can delete the question.');
-  const existingReplies = (await Reply.find({ questionId }).select('_id')).map(
-    (reply) => reply._id.toString()
-  );
+  if (!existingComment.userId.equals(userId))
+    throw new CoreError('Only commenter can delete the comment.');
   try {
-    if (existingReplies.length) {
-      await Reply.deleteMany({ _id: { $in: existingReplies } });
-    }
-    await Question.deleteOne({ _id: questionId });
+    await Comment.deleteMany({ $or: [{ _id: commentId }, { commentId }] });
 
     return { message: 'success delete' };
   } catch (error) {
-    throw new CoreError('Ask question failed.');
+    throw new CoreError('Ask comment failed.');
   }
 };

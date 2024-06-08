@@ -94,7 +94,7 @@ const userRouter = () => {
 
           const data = { imageUrl: req.file?.path };
           if (!data.imageUrl)
-            throwAPIError({
+            return throwAPIError({
               res,
               error: new CoreError('Upload image is failed'),
               statusCode: 401,

@@ -5,10 +5,7 @@ import { zodValidateMiddleware } from '../middleware/validate.middleware';
 import * as UserActivityService from '../service/userActivity.service';
 import { SortEnum } from '../type/model.type';
 import { CoreError, throwAPIError } from '../util/error-handler';
-import {
-  activitySchema,
-  questionSchema,
-} from '../util/zod/userActivity.schema';
+import { activitySchema, commentSchema } from '../util/zod/userActivity.schema';
 
 const userActivityRouter = () => {
   const router = Router();
@@ -175,15 +172,15 @@ const userActivityRouter = () => {
   );
 
   router.post(
-    '/activities/:activityId/q-and-a',
+    '/activities/:activityId/comments',
     authorizeMiddleware,
-    zodValidateMiddleware(questionSchema),
+    zodValidateMiddleware(commentSchema),
     async (req: Request, res: Response) => {
       /* #swagger.tags = ['Activity'] */
       try {
         const userId = req.user?._id;
         const activityId = new mongoose.Types.ObjectId(req.params?.activityId);
-        const data = await UserActivityService.createQuestion({
+        const data = await UserActivityService.createComment({
           userId,
           activityId,
           ...req.body,
@@ -196,15 +193,15 @@ const userActivityRouter = () => {
   );
 
   router.patch(
-    '/activities/:activityId/q-and-a',
+    '/activities/:activityId/comments',
     authorizeMiddleware,
-    zodValidateMiddleware(questionSchema),
+    zodValidateMiddleware(commentSchema),
     async (req: Request, res: Response) => {
       /* #swagger.tags = ['Activity'] */
       try {
         const userId = req.user?._id;
         const activityId = new mongoose.Types.ObjectId(req.params?.activityId);
-        const data = await UserActivityService.editQuestion({
+        const data = await UserActivityService.editComment({
           userId,
           activityId,
           ...req.body,
@@ -217,15 +214,15 @@ const userActivityRouter = () => {
   );
 
   router.delete(
-    '/activities/:activityId/q-and-a',
+    '/activities/:activityId/comments',
     authorizeMiddleware,
-    zodValidateMiddleware(questionSchema),
+    zodValidateMiddleware(commentSchema),
     async (req: Request, res: Response) => {
       /* #swagger.tags = ['Activity'] */
       try {
         const userId = req.user?._id;
         const activityId = new mongoose.Types.ObjectId(req.params?.activityId);
-        const data = await UserActivityService.deleteQuestion({
+        const data = await UserActivityService.deleteComment({
           userId,
           activityId,
           ...req.body,
