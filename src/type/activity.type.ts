@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { CommentSchemaModel } from './comment.type';
 import { SortType } from './model.type';
 import { OrganizerBase } from './organizer.type';
 import { TicketSchemaModel } from './ticket.type';
@@ -80,6 +81,7 @@ export interface ActivitySchemaModel {
   recurring: Recurring;
   status: StatusEnum;
   tickets: TicketSchemaModel[];
+  comments: CommentSchemaModel[];
 }
 
 export type ActivityCreateCredentials = ActivitySchemaModel;
@@ -133,4 +135,7 @@ export type CommentCredentials = {
   content?: string;
 };
 
+export type replyObject = {
+  [key: string]: CommentSchemaModel[];
+};
 export type GetActivitiesCredentials = Omit<GetSavedActivityParams, 'userId'>;

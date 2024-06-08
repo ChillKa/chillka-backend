@@ -6,6 +6,16 @@
 export const _schema = {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
+    "TypeEnum": {
+      "type": "string",
+      "enum": [
+        "提問",
+        "回覆"
+      ]
+    },
+    "CommentSchemaModel": {
+      "$ref": "#/definitions/CommentSchemaModel"
+    },
     "GenderEnum": {
       "type": "string",
       "enum": [
@@ -501,13 +511,6 @@ export const _schema = {
         "遊戲"
       ]
     },
-    "TypeEnum": {
-      "type": "string",
-      "enum": [
-        "線下",
-        "線上"
-      ]
-    },
     "PeriodEnum": {
       "type": "string",
       "enum": [
@@ -822,11 +825,18 @@ export const _schema = {
               "unlimitedQuantity"
             ]
           }
+        },
+        "comments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CommentSchemaModel"
+          }
         }
       },
       "required": [
         "address",
         "category",
+        "comments",
         "cover",
         "creatorId",
         "details",
@@ -1081,11 +1091,18 @@ export const _schema = {
               "unlimitedQuantity"
             ]
           }
+        },
+        "comments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CommentSchemaModel"
+          }
         }
       },
       "required": [
         "address",
         "category",
+        "comments",
         "cover",
         "creatorId",
         "details",
@@ -1342,11 +1359,18 @@ export const _schema = {
                   "unlimitedQuantity"
                 ]
               }
+            },
+            "comments": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/CommentSchemaModel"
+              }
             }
           },
           "required": [
             "address",
             "category",
+            "comments",
             "cover",
             "creatorId",
             "details",
@@ -1502,7 +1526,7 @@ export const _schema = {
         "userId"
       ]
     },
-    "QuestionCredentials": {
+    "CommentCredentials": {
       "type": "object",
       "properties": {
         "userId": {
@@ -1511,8 +1535,11 @@ export const _schema = {
         "activityId": {
           "$ref": "#/definitions/Types.ObjectId"
         },
-        "questionId": {
+        "commentId": {
           "$ref": "#/definitions/Types.ObjectId"
+        },
+        "type": {
+          "type": "string"
         },
         "content": {
           "type": "string"
@@ -1520,8 +1547,18 @@ export const _schema = {
       },
       "required": [
         "activityId",
+        "commentId",
         "userId"
       ]
+    },
+    "replyObject": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/CommentSchemaModel"
+        }
+      }
     },
     "GetActivitiesCredentials": {
       "type": "object",
@@ -1987,52 +2024,6 @@ export const _schema = {
             "tradeDesc"
           ]
         }
-      ]
-    },
-    "QuestionSchemaModel": {
-      "type": "object",
-      "properties": {
-        "activityId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "userId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "displayName": {
-          "type": "string"
-        },
-        "content": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "activityId",
-        "content",
-        "displayName",
-        "userId"
-      ]
-    },
-    "ReplySchemaModel": {
-      "type": "object",
-      "properties": {
-        "activityId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "questionId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "userId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "content": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "activityId",
-        "content",
-        "questionId",
-        "userId"
       ]
     },
     "SavedActivitySchemaModel": {

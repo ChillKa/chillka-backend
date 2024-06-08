@@ -7,37 +7,9 @@
   },
   "item": [
     {
-      "name": "attend activity",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"name\": \"string\",\r\n    \"description\": \"string\",\r\n    \"startDateTime\": \"2024-05-26T13:44:42.579Z\",\r\n    \"fromToday\": true,\r\n    \"endDateTime\": \"2024-05-26T13:44:42.579Z\",\r\n    \"noEndDate\": true,\r\n    \"price\": 0,\r\n    \"participantCapacity\": 0,\r\n    \"unlimitedQuantity\": true,\r\n    \"purchaseLimit\": 0,\r\n    \"ticketsPurchaseDuplicate\": true,\r\n    \"userInfo\": {\r\n        \"name\": \"string\",\r\n        \"email\": \"chillka.offical@gmail.com\",\r\n        \"phone\": \"1234657\"\r\n    },\r\n    \"payment\": {\r\n        \"amount\": 0,\r\n        \"status\": \"已付款\",\r\n        \"method\": \"信用卡\",\r\n        \"orderNumber\": 0\r\n    }\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{HOST}}/api/auth/activities/6652e1f0e15385975e5cb478/attend",
-          "host": ["{{HOST}}"],
-          "path": [
-            "api",
-            "auth",
-            "activities",
-            "6652e1f0e15385975e5cb478",
-            "attend"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
       "name": "cancel activity by Id",
       "request": {
-        "method": "PATCH",
+        "method": "PUT",
         "header": [
           {
             "key": "",
@@ -55,15 +27,46 @@
           }
         },
         "url": {
-          "raw": "{{HOST}}/api/auth/activities/665347c6fce61bba7f48ca50/cancel",
+          "raw": "{{HOST}}/api/auth/activities/665d19b812b31b3aae335a25/cancel",
           "host": ["{{HOST}}"],
           "path": [
             "api",
             "auth",
             "activities",
-            "665347c6fce61bba7f48ca50",
+            "665d19b812b31b3aae335a25",
             "cancel"
           ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get saved - activities list",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "",
+            "value": "",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/auth/saved-activities",
+          "host": ["{{HOST}}"],
+          "path": ["api", "auth", "saved-activities"]
         }
       },
       "response": []
@@ -211,13 +214,13 @@
       "response": []
     },
     {
-      "name": "create question",
+      "name": "create comments",
       "request": {
         "method": "POST",
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"question\": \"test1\"\r\n}",
+          "raw": "{\r\n    \"type\": \"提問\",\r\n    \"content\": \"question4\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -225,27 +228,27 @@
           }
         },
         "url": {
-          "raw": "{{HOST}}/api/auth/activities/665d19b812b31b3aae335a25/q-and-a",
+          "raw": "{{HOST}}/api/auth/activities/665d19b812b31b3aae335a25/comments",
           "host": ["{{HOST}}"],
           "path": [
             "api",
             "auth",
             "activities",
             "665d19b812b31b3aae335a25",
-            "q-and-a"
+            "comments"
           ]
         }
       },
       "response": []
     },
     {
-      "name": "delete question",
+      "name": "delete comments",
       "request": {
         "method": "DELETE",
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"questionId\": \"665739fca95ca7a96d058247\"\r\n}",
+          "raw": "{\r\n    \"commentId\": \"66645313169d5824c7b66945\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -253,14 +256,14 @@
           }
         },
         "url": {
-          "raw": "{{HOST}}/api/auth/activities/6656db2b511dba0998741e18/q-and-a",
+          "raw": "{{HOST}}/api/auth/activities/665d19b812b31b3aae335a25/comments",
           "host": ["{{HOST}}"],
           "path": [
             "api",
             "auth",
             "activities",
-            "6656db2b511dba0998741e18",
-            "q-and-a"
+            "665d19b812b31b3aae335a25",
+            "comments"
           ]
         }
       },
@@ -289,13 +292,13 @@
       "response": []
     },
     {
-      "name": "edit question",
+      "name": "edit comments",
       "request": {
         "method": "PATCH",
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"questionId\": \"665dbdd9ad496831d666aed8\",\r\n    \"question\": \"test2\"\r\n}",
+          "raw": "{\r\n    \"commentId\": \"666453aa169d5824c7b66973\",\r\n    \"content\": \"test2\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -303,14 +306,14 @@
           }
         },
         "url": {
-          "raw": "{{HOST}}/api/auth/activities/665d19b812b31b3aae335a25/q-and-a",
+          "raw": "{{HOST}}/api/auth/activities/665d19b812b31b3aae335a25/comments",
           "host": ["{{HOST}}"],
           "path": [
             "api",
             "auth",
             "activities",
             "665d19b812b31b3aae335a25",
-            "q-and-a"
+            "comments"
           ]
         }
       },
@@ -359,9 +362,9 @@
           }
         },
         "url": {
-          "raw": "{{HOST}}/api/auth/activities/6656db2b511dba0998741e18",
+          "raw": "{{HOST}}/api/auth/activities/665d19b812b31b3aae335a25",
           "host": ["{{HOST}}"],
-          "path": ["api", "auth", "activities", "6656db2b511dba0998741e18"]
+          "path": ["api", "auth", "activities", "665d19b812b31b3aae335a25"]
         }
       },
       "response": []
@@ -412,19 +415,13 @@
       "response": []
     },
     {
-      "name": "get saved - activities list",
+      "name": "get popular keywords",
       "protocolProfileBehavior": {
         "disableBodyPruning": true
       },
       "request": {
         "method": "GET",
-        "header": [
-          {
-            "key": "",
-            "value": "",
-            "disabled": true
-          }
-        ],
+        "header": [],
         "body": {
           "mode": "raw",
           "raw": "",
@@ -435,9 +432,9 @@
           }
         },
         "url": {
-          "raw": "{{HOST}}/api/auth/saved-activities",
+          "raw": "{{HOST}}/api/activities/popular-keywords",
           "host": ["{{HOST}}"],
-          "path": ["api", "auth", "saved-activities"]
+          "path": ["api", "activities", "popular-keywords"]
         }
       },
       "response": []
@@ -514,7 +511,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"email\": \"chillka.offical@gmail.com\",\r\n    \"password\": \"north9Hex\"\r\n}",
+          "raw": "{\r\n    \"email\": \"chillka2.offical@gmail.com\",\r\n    \"password\": \"north9Hex\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -524,7 +521,14 @@
         "url": {
           "raw": "{{HOST}}/api/login",
           "host": ["{{HOST}}"],
-          "path": ["api", "login"]
+          "path": ["api", "login"],
+          "query": [
+            {
+              "key": "HOST",
+              "value": "",
+              "disabled": true
+            }
+          ]
         }
       },
       "response": []
