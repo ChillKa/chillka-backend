@@ -6,6 +6,7 @@ import swaggerUi from 'swagger-ui-express';
 import User from './model/user.model';
 import authRoute from './route/auth.route';
 import orderRoute from './route/order.route';
+import paymentRoute from './route/payment.route';
 import swaggerRoute from './route/swagger.route';
 import userRoute from './route/user.route';
 import userActivityRoute from './route/userActivity.route';
@@ -38,7 +39,8 @@ app.use(
   // #swagger.security = [{ "apiKeyAuth": [] }]
   userRoute,
   userActivityRoute,
-  orderRoute
+  orderRoute,
+  paymentRoute
 );
 app.use(
   '/api-docs',
