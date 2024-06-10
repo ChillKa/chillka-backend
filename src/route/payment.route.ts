@@ -89,9 +89,9 @@ const paymentRouter = () => {
     )
     .post('/payment_result', async (req: Request, res: Response) => {
       /* #swagger.ignore = true */
-      console.log('req.body', req.body);
+
       try {
-        const { RtnCode, MerchantTradeNo, PaymentType, CheckMacValue } =
+        const { RtnMsg, MerchantTradeNo, PaymentType, CheckMacValue } =
           req.body;
         const data = { ...req.body };
         delete data.CheckMacValue; // 此段不驗證
@@ -99,37 +99,33 @@ const paymentRouter = () => {
         const create = new ecpay_payment(options);
         const checkValue = create.payment_client.helper.gen_chk_mac_value(data);
 
-        if (RtnCode == 1) {
-          await Order.findByIdAndUpdate(
+        if (RtnMsg === '交易成功' && CheckMacValue === checkValue) {
+          await Order.findOneAndUpdate(
             { transactionId: MerchantTradeNo },
             {
-              payment: {
-                status: PaymentStatusEnum.PAID,
-                type: PaymentTypeEnum[
-                  PaymentType as keyof typeof PaymentTypeEnum
-                ],
+              $set: {
+                'payment.status': PaymentStatusEnum.PAID,
+                'payment.type':
+                  PaymentTypeEnum[PaymentType as keyof typeof PaymentTypeEnum],
               },
-            }
+            },
+            { new: true }
           );
         } else {
-          await Order.findByIdAndUpdate(
+          await Order.findOneAndUpdate(
             { transactionId: MerchantTradeNo },
-            { payment: { status: PaymentStatusEnum.ERROR } }
+            {
+              $set: {
+                'payment.status': PaymentStatusEnum.ERROR,
+              },
+            },
+            { new: true }
           );
         }
 
-        console.log(
-          '確認交易正確性：',
-          CheckMacValue === checkValue,
-          CheckMacValue,
-          checkValue
-        );
-
         res.send('1|OK');
       } catch (error) {
-        // console.log('error', error);
-        // throwAPIError({ res, error, statusCode: 400 });
-        res.status(500).send(error);
+        throwAPIError({ res, error, statusCode: 400 });
       }
     });
 
