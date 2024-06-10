@@ -41,7 +41,7 @@ const OrderSchema = new Schema<OrderSchemaModel, OrderModel>(
     },
     payment: {
       amount: {
-        type: Schema.Types.String,
+        type: Schema.Types.Number,
         required: true,
       },
       status: {
