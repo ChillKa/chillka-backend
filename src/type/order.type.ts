@@ -45,7 +45,7 @@ export type OrderContact = {
 };
 
 export type OrderPayment = {
-  amount: string;
+  amount: number;
   status?: PaymentStatusEnum;
   type?: PaymentTypeEnum;
   orderNumber: number;

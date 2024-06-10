@@ -17,9 +17,7 @@ export const paymentCheckoutSchema = z.object({
       .refine((value) => validateInt(value), 'Not a number'),
   }),
   payment: z.object({
-    amount: z
-      .string({ required_error: 'Amount is required' })
-      .refine((value) => validateInt(value), 'Not a number'),
+    amount: z.number({ required_error: 'Amount is required' }),
     status: z.nativeEnum(PaymentStatusEnum).optional(),
     type: z.nativeEnum(PaymentTypeEnum).optional(),
     orderNumber: z.number({ required_error: 'Order number is required' }),
