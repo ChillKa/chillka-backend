@@ -41,37 +41,6 @@
       "response": []
     },
     {
-      "name": "get saved - activities list",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
-      "request": {
-        "method": "GET",
-        "header": [
-          {
-            "key": "",
-            "value": "",
-            "disabled": true
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{HOST}}/api/auth/saved-activities",
-          "host": ["{{HOST}}"],
-          "path": ["api", "auth", "saved-activities"]
-        }
-      },
-      "response": []
-    },
-    {
       "name": "cancel order by Id",
       "request": {
         "method": "PUT",
@@ -220,7 +189,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"type\": \"提問\",\r\n    \"content\": \"question4\"\r\n}",
+          "raw": "{\r\n    \"type\": \"提問\",\r\n    \"content\": \"reply5\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -298,7 +267,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"commentId\": \"666453aa169d5824c7b66973\",\r\n    \"content\": \"test2\"\r\n}",
+          "raw": "{\r\n    \"commentId\": \"6664789fb6809743a9745aeb\",\r\n    \"content\": \"test2\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -321,21 +290,9 @@
     },
     {
       "name": "get activities",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
       "request": {
         "method": "GET",
         "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"name\": \"陽明山花卉探險：春之花海\",\r\n    \"organizer\": {\r\n        \"name\": \"\",\r\n        \"contactName\": \"\",\r\n        \"contactPhone\": \"\",\r\n        \"contactEmail\": \"\"\r\n    },\r\n    \"cover\": [\r\n        \"https://loremflickr.com/640/480?lock=6474321889329152\",\r\n        \"https://loremflickr.com/640/480?lock=2891826849644544\",\r\n        \"https://loremflickr.com/640/480?lock=5041481924476928\"\r\n    ],\r\n    \"thumbnail\": \"https://loremflickr.com/640/480?lock=7636866601844736\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
         "url": {
           "raw": "{{HOST}}/api/auth/activities",
           "host": ["{{HOST}}"],
@@ -346,46 +303,22 @@
     },
     {
       "name": "get activitiy detail",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
       "request": {
         "method": "GET",
         "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
         "url": {
-          "raw": "{{HOST}}/api/auth/activities/665d19b812b31b3aae335a25",
+          "raw": "{{HOST}}/api/activities/665d19b812b31b3aae335a25",
           "host": ["{{HOST}}"],
-          "path": ["api", "auth", "activities", "665d19b812b31b3aae335a25"]
+          "path": ["api", "activities", "665d19b812b31b3aae335a25"]
         }
       },
       "response": []
     },
     {
       "name": "get activity participant list",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
       "request": {
         "method": "GET",
         "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
         "url": {
           "raw": "{{HOST}}/api/auth/activities/6652e1f0e15385975e5cb478/participants?participantName=chillka&limit=&page=",
           "host": ["{{HOST}}"],
@@ -440,22 +373,29 @@
       "response": []
     },
     {
-      "name": "get orders",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
+      "name": "get saved - activities list",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "",
+            "value": "",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{HOST}}/api/auth/saved-activities",
+          "host": ["{{HOST}}"],
+          "path": ["api", "auth", "saved-activities"]
+        }
       },
+      "response": []
+    },
+    {
+      "name": "get orders",
       "request": {
         "method": "GET",
         "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
         "url": {
           "raw": "{{HOST}}/api/auth/orders",
           "host": ["{{HOST}}"],
@@ -466,21 +406,9 @@
     },
     {
       "name": "get user by Id",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
       "request": {
         "method": "GET",
         "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
         "url": {
           "raw": "{{HOST}}/api/auth/user/664b48393b749fac7df86816",
           "host": ["{{HOST}}"],

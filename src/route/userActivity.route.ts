@@ -88,24 +88,6 @@ const userActivityRouter = () => {
     }
   );
 
-  router.get(
-    '/activities/:activityId',
-    authorizeMiddleware,
-    async (req: Request, res: Response) => {
-      /* #swagger.tags = ['Activity'] */
-      const activityId = req.params.activityId;
-
-      try {
-        const activities = await UserActivityService.getActivityDetail({
-          activityId: new mongoose.Types.ObjectId(activityId),
-        });
-        res.status(200).send(activities);
-      } catch (error) {
-        throwAPIError({ res, error, statusCode: 400 });
-      }
-    }
-  );
-
   router.put(
     '/activities/:activityId/cancel',
     authorizeMiddleware,
