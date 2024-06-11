@@ -16,7 +16,7 @@ const uploadMultipleImages = multer({
   storage: storage,
   fileFilter(req, file, cb) {
     if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-      cb(new Error('Please upload an image'));
+      cb(new Error('Please upload images'));
     }
     cb(null, true);
   },

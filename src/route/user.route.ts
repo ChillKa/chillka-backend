@@ -77,7 +77,7 @@ const userRouter = () => {
   );
 
   router.post(
-    '/upload-image',
+    '/upload-images',
     authorizeMiddleware,
     async (req: Request, res: Response) => {
       /* #swagger.tags = ['User'] */
