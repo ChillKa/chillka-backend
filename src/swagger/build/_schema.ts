@@ -6,6 +6,16 @@
 export const _schema = {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
+    "TypeEnum": {
+      "type": "string",
+      "enum": [
+        "提問",
+        "回覆"
+      ]
+    },
+    "QuestionSchemaModel": {
+      "$ref": "#/definitions/QuestionSchemaModel"
+    },
     "GenderEnum": {
       "type": "string",
       "enum": [
@@ -501,13 +511,6 @@ export const _schema = {
         "遊戲"
       ]
     },
-    "TypeEnum": {
-      "type": "string",
-      "enum": [
-        "線下",
-        "線上"
-      ]
-    },
     "PeriodEnum": {
       "type": "string",
       "enum": [
@@ -822,6 +825,12 @@ export const _schema = {
               "unlimitedQuantity"
             ]
           }
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QuestionSchemaModel"
+          }
         }
       },
       "required": [
@@ -840,6 +849,7 @@ export const _schema = {
         "name",
         "noEndDate",
         "organizer",
+        "questions",
         "recurring",
         "startDateTime",
         "status",
@@ -1081,6 +1091,12 @@ export const _schema = {
               "unlimitedQuantity"
             ]
           }
+        },
+        "questions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QuestionSchemaModel"
+          }
         }
       },
       "required": [
@@ -1099,6 +1115,7 @@ export const _schema = {
         "name",
         "noEndDate",
         "organizer",
+        "questions",
         "recurring",
         "startDateTime",
         "status",
@@ -1342,6 +1359,12 @@ export const _schema = {
                   "unlimitedQuantity"
                 ]
               }
+            },
+            "questions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/QuestionSchemaModel"
+              }
             }
           },
           "required": [
@@ -1360,6 +1383,7 @@ export const _schema = {
             "name",
             "noEndDate",
             "organizer",
+            "questions",
             "recurring",
             "startDateTime",
             "status",
@@ -1415,6 +1439,9 @@ export const _schema = {
       "properties": {
         "activityId": {
           "$ref": "#/definitions/Types.ObjectId"
+        },
+        "userId": {
+          "type": "string"
         }
       },
       "required": [
@@ -1514,14 +1541,27 @@ export const _schema = {
         "questionId": {
           "$ref": "#/definitions/Types.ObjectId"
         },
+        "type": {
+          "type": "string"
+        },
         "content": {
           "type": "string"
         }
       },
       "required": [
         "activityId",
+        "questionId",
         "userId"
       ]
+    },
+    "replyObject": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/QuestionSchemaModel"
+        }
+      }
     },
     "GetActivitiesCredentials": {
       "type": "object",
@@ -2002,52 +2042,6 @@ export const _schema = {
             "tradeDesc"
           ]
         }
-      ]
-    },
-    "QuestionSchemaModel": {
-      "type": "object",
-      "properties": {
-        "activityId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "userId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "displayName": {
-          "type": "string"
-        },
-        "content": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "activityId",
-        "content",
-        "displayName",
-        "userId"
-      ]
-    },
-    "ReplySchemaModel": {
-      "type": "object",
-      "properties": {
-        "activityId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "questionId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "userId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "content": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "activityId",
-        "content",
-        "questionId",
-        "userId"
       ]
     },
     "SavedActivitySchemaModel": {

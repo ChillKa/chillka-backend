@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { SortType } from './model.type';
 import { OrganizerBase } from './organizer.type';
+import { QuestionSchemaModel } from './question.type';
 import { TicketSchemaModel } from './ticket.type';
 
 export enum CategoryEnum {
@@ -80,6 +81,7 @@ export interface ActivitySchemaModel {
   recurring: Recurring;
   status: StatusEnum;
   tickets: TicketSchemaModel[];
+  questions: QuestionSchemaModel[];
 }
 
 export type ActivityCreateCredentials = ActivitySchemaModel;
@@ -98,6 +100,7 @@ export type GetActivitiesParams = {
 
 export type GetActivityDetailCredential = {
   activityId: mongoose.Types.ObjectId;
+  userId?: string;
 };
 
 export type GetActivityParticipantParams = {
@@ -128,8 +131,22 @@ export type GetSavedActivityParams = {
 export type QuestionCredentials = {
   userId: mongoose.Types.ObjectId;
   activityId: mongoose.Types.ObjectId;
-  questionId?: mongoose.Types.ObjectId;
+  questionId: mongoose.Types.ObjectId;
+  type?: string;
   content?: string;
 };
 
+export type replyObject = {
+  [key: string]: QuestionSchemaModel[];
+};
 export type GetActivitiesCredentials = Omit<GetSavedActivityParams, 'userId'>;
+
+export type ImageFile = {
+  fieldname: string;
+  originalname: string;
+  encoding: string;
+  mimetype: string;
+  path: string;
+  size: number;
+  filename: string;
+};
