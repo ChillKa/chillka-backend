@@ -9,10 +9,12 @@ const publicActivityRouter = () => {
   router.get('/activities/:activityId', async (req: Request, res: Response) => {
     /* #swagger.tags = ['Activity'] */
     const activityId = req.params.activityId;
+    const userId = req.query.userId as string;
 
     try {
       const activities = await PublicActivityService.getActivityDetail({
         activityId: new mongoose.Types.ObjectId(activityId),
+        userId,
       });
       res.status(200).send(activities);
     } catch (error) {

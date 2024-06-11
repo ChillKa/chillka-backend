@@ -5,13 +5,13 @@ export enum TypeEnum {
   REPLY = '回覆',
 }
 
-export interface CommentSchemaModel {
+export interface QuestionSchemaModel {
   _id: mongoose.Types.ObjectId;
   activityId: mongoose.Types.ObjectId;
   userId: mongoose.Types.ObjectId;
-  commentId: mongoose.Types.ObjectId;
+  questionId: mongoose.Types.ObjectId;
   displayName: string;
   content: string;
   type: TypeEnum;
-  replies: CommentSchemaModel[];
+  replies: QuestionSchemaModel[];
 }

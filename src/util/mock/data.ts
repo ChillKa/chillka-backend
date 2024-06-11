@@ -70,5 +70,5 @@ export const mockActivity: ActivityCreateCredentials = {
       ticketStatus: TicketStatusEnum.VALID,
     },
   ],
-  comments: [],
+  questions: [],
 };

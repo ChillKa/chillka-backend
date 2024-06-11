@@ -73,8 +73,8 @@ export const activitySchema = z.object({
   ),
 });
 
-export const commentSchema = z.object({
+export const questionSchema = z.object({
   type: z.string().optional(),
   content: z.string().optional(),
-  commentId: z.string().optional(),
+  questionId: z.string().optional(),
 });

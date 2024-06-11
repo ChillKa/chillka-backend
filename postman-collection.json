@@ -183,13 +183,13 @@
       "response": []
     },
     {
-      "name": "create comments",
+      "name": "create questions",
       "request": {
         "method": "POST",
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"type\": \"提問\",\r\n    \"content\": \"reply5\"\r\n}",
+          "raw": "{\r\n    \"type\": \"回覆\",\r\n    \"content\": \"reply3\",\r\n    \"questionId\": \"6667a79760100b564b7e7a12\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -197,27 +197,27 @@
           }
         },
         "url": {
-          "raw": "{{HOST}}/api/auth/activities/665d19b812b31b3aae335a25/comments",
+          "raw": "{{HOST}}/api/auth/activities/665d19b812b31b3aae335a25/questions",
           "host": ["{{HOST}}"],
           "path": [
             "api",
             "auth",
             "activities",
             "665d19b812b31b3aae335a25",
-            "comments"
+            "questions"
           ]
         }
       },
       "response": []
     },
     {
-      "name": "delete comments",
+      "name": "delete questions",
       "request": {
         "method": "DELETE",
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"commentId\": \"66645313169d5824c7b66945\"\r\n}",
+          "raw": "{\r\n    \"questionId\": \"6667a79760100b564b7e7a12\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -225,14 +225,14 @@
           }
         },
         "url": {
-          "raw": "{{HOST}}/api/auth/activities/665d19b812b31b3aae335a25/comments",
+          "raw": "{{HOST}}/api/auth/activities/665d19b812b31b3aae335a25/questions",
           "host": ["{{HOST}}"],
           "path": [
             "api",
             "auth",
             "activities",
             "665d19b812b31b3aae335a25",
-            "comments"
+            "questions"
           ]
         }
       },
@@ -261,13 +261,13 @@
       "response": []
     },
     {
-      "name": "edit comments",
+      "name": "edit questions",
       "request": {
         "method": "PATCH",
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"commentId\": \"6664789fb6809743a9745aeb\",\r\n    \"content\": \"test2\"\r\n}",
+          "raw": "{\r\n    \"questionId\": \"6667a79760100b564b7e7a12\",\r\n    \"content\": \"test\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -275,14 +275,14 @@
           }
         },
         "url": {
-          "raw": "{{HOST}}/api/auth/activities/665d19b812b31b3aae335a25/comments",
+          "raw": "{{HOST}}/api/auth/activities/665d19b812b31b3aae335a25/questions",
           "host": ["{{HOST}}"],
           "path": [
             "api",
             "auth",
             "activities",
             "665d19b812b31b3aae335a25",
-            "comments"
+            "questions"
           ]
         }
       },
@@ -309,7 +309,14 @@
         "url": {
           "raw": "{{HOST}}/api/activities/665d19b812b31b3aae335a25",
           "host": ["{{HOST}}"],
-          "path": ["api", "activities", "665d19b812b31b3aae335a25"]
+          "path": ["api", "activities", "665d19b812b31b3aae335a25"],
+          "query": [
+            {
+              "key": "userId",
+              "value": "6656060a066cd51095906678",
+              "disabled": true
+            }
+          ]
         }
       },
       "response": []

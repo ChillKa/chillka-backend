@@ -132,8 +132,8 @@ ActivitySchema.virtual('orders', {
   foreignField: 'activityId',
 });
 
-ActivitySchema.virtual('comments', {
-  ref: 'Comment',
+ActivitySchema.virtual('questions', {
+  ref: 'Question',
   localField: '_id',
   foreignField: 'activityId',
 });

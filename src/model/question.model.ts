@@ -1,9 +1,9 @@
 import { Model, Schema, model } from 'mongoose';
-import { TypeEnum, CommentSchemaModel } from '../type/comment.type';
+import { TypeEnum, QuestionSchemaModel } from '../type/question.type';
 
-type CommentModel = Model<CommentSchemaModel, object>;
+type QuestionModel = Model<QuestionSchemaModel, object>;
 
-const CommentSchema = new Schema<CommentSchemaModel, CommentModel>(
+const QuestionSchema = new Schema<QuestionSchemaModel, QuestionModel>(
   {
     activityId: {
       type: Schema.Types.ObjectId,
@@ -15,9 +15,9 @@ const CommentSchema = new Schema<CommentSchemaModel, CommentModel>(
       ref: 'User',
       required: true,
     },
-    commentId: {
+    questionId: {
       type: Schema.Types.ObjectId,
-      ref: 'Comment',
+      ref: 'Question',
     },
     displayName: {
       type: Schema.Types.String,
@@ -35,14 +35,14 @@ const CommentSchema = new Schema<CommentSchemaModel, CommentModel>(
     },
   },
   {
-    collection: 'comments',
+    collection: 'questions',
     timestamps: true,
   }
 );
 
-const Comment = model<CommentSchemaModel, CommentModel>(
-  'Comment',
-  CommentSchema
+const Question = model<QuestionSchemaModel, QuestionModel>(
+  'Question',
+  QuestionSchema
 );
 
-export default Comment;
+export default Question;

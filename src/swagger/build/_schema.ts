@@ -13,8 +13,8 @@ export const _schema = {
         "回覆"
       ]
     },
-    "CommentSchemaModel": {
-      "$ref": "#/definitions/CommentSchemaModel"
+    "QuestionSchemaModel": {
+      "$ref": "#/definitions/QuestionSchemaModel"
     },
     "GenderEnum": {
       "type": "string",
@@ -826,17 +826,16 @@ export const _schema = {
             ]
           }
         },
-        "comments": {
+        "questions": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/CommentSchemaModel"
+            "$ref": "#/definitions/QuestionSchemaModel"
           }
         }
       },
       "required": [
         "address",
         "category",
-        "comments",
         "cover",
         "creatorId",
         "details",
@@ -850,6 +849,7 @@ export const _schema = {
         "name",
         "noEndDate",
         "organizer",
+        "questions",
         "recurring",
         "startDateTime",
         "status",
@@ -1092,17 +1092,16 @@ export const _schema = {
             ]
           }
         },
-        "comments": {
+        "questions": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/CommentSchemaModel"
+            "$ref": "#/definitions/QuestionSchemaModel"
           }
         }
       },
       "required": [
         "address",
         "category",
-        "comments",
         "cover",
         "creatorId",
         "details",
@@ -1116,6 +1115,7 @@ export const _schema = {
         "name",
         "noEndDate",
         "organizer",
+        "questions",
         "recurring",
         "startDateTime",
         "status",
@@ -1360,17 +1360,16 @@ export const _schema = {
                 ]
               }
             },
-            "comments": {
+            "questions": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/CommentSchemaModel"
+                "$ref": "#/definitions/QuestionSchemaModel"
               }
             }
           },
           "required": [
             "address",
             "category",
-            "comments",
             "cover",
             "creatorId",
             "details",
@@ -1384,6 +1383,7 @@ export const _schema = {
             "name",
             "noEndDate",
             "organizer",
+            "questions",
             "recurring",
             "startDateTime",
             "status",
@@ -1439,6 +1439,9 @@ export const _schema = {
       "properties": {
         "activityId": {
           "$ref": "#/definitions/Types.ObjectId"
+        },
+        "userId": {
+          "type": "string"
         }
       },
       "required": [
@@ -1526,7 +1529,7 @@ export const _schema = {
         "userId"
       ]
     },
-    "CommentCredentials": {
+    "QuestionCredentials": {
       "type": "object",
       "properties": {
         "userId": {
@@ -1535,7 +1538,7 @@ export const _schema = {
         "activityId": {
           "$ref": "#/definitions/Types.ObjectId"
         },
-        "commentId": {
+        "questionId": {
           "$ref": "#/definitions/Types.ObjectId"
         },
         "type": {
@@ -1547,7 +1550,7 @@ export const _schema = {
       },
       "required": [
         "activityId",
-        "commentId",
+        "questionId",
         "userId"
       ]
     },
@@ -1556,7 +1559,7 @@ export const _schema = {
       "additionalProperties": {
         "type": "array",
         "items": {
-          "$ref": "#/definitions/CommentSchemaModel"
+          "$ref": "#/definitions/QuestionSchemaModel"
         }
       }
     },
