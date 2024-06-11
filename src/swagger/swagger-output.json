@@ -597,6 +597,36 @@
         ]
       }
     },
+    "/api/auth/orders/use-serial-number": {
+      "put": {
+        "tags": ["Order"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "serialNumber": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
     "/api/auth/payment": {
       "get": {
         "tags": ["Payment"],
@@ -2273,6 +2303,18 @@
         }
       },
       "required": ["orderId", "userId"]
+    },
+    "UseSerialNumberOrderParams": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "serialNumber": {
+          "type": "string"
+        }
+      },
+      "required": ["serialNumber", "userId"]
     },
     "TriggerPaymentCredentials": {
       "allOf": [
