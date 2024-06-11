@@ -189,7 +189,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"type\": \"回覆\",\r\n    \"content\": \"reply3\",\r\n    \"questionId\": \"6667a79760100b564b7e7a12\"\r\n}",
+          "raw": "{\r\n    \"type\": \"回覆\",\r\n    \"content\": \"reply2\",\r\n    \"questionId\": \"6667b94392675f737af4e43c\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -217,7 +217,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"questionId\": \"6667a79760100b564b7e7a12\"\r\n}",
+          "raw": "{\r\n    \"questionId\": \"6667b94692675f737af4e441\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -225,13 +225,13 @@
           }
         },
         "url": {
-          "raw": "{{HOST}}/api/auth/activities/665d19b812b31b3aae335a25/questions",
+          "raw": "{{HOST}}/api/auth/activities/6667b94692675f737af4e441/questions",
           "host": ["{{HOST}}"],
           "path": [
             "api",
             "auth",
             "activities",
-            "665d19b812b31b3aae335a25",
+            "6667b94692675f737af4e441",
             "questions"
           ]
         }
@@ -267,7 +267,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"questionId\": \"6667a79760100b564b7e7a12\",\r\n    \"content\": \"test\"\r\n}",
+          "raw": "{\r\n    \"questionId\": \"6667b94092675f737af4e437\",\r\n    \"content\": \"test\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -307,14 +307,13 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{HOST}}/api/activities/665d19b812b31b3aae335a25",
+          "raw": "{{HOST}}/api/activities/665d19b812b31b3aae335a25?userId=6656060a066cd51095906678",
           "host": ["{{HOST}}"],
           "path": ["api", "activities", "665d19b812b31b3aae335a25"],
           "query": [
             {
               "key": "userId",
-              "value": "6656060a066cd51095906678",
-              "disabled": true
+              "value": "6656060a066cd51095906678"
             }
           ]
         }
@@ -606,6 +605,38 @@
           "raw": "{{HOST}}/api/auth/upload-image",
           "host": ["{{HOST}}"],
           "path": ["api", "auth", "upload-image"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "use orders serial number",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"serialNumber\": \"0f8f643c-3fae-4324-9d0d-9b5d00b9b00e\"\r\n\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/auth/orders/use-serial-number",
+          "host": ["{{HOST}}"],
+          "path": ["api", "auth", "orders", "use-serial-number"]
         }
       },
       "response": []

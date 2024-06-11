@@ -1,5 +1,5 @@
 import { Model, Schema, model } from 'mongoose';
-import { TypeEnum, QuestionSchemaModel } from '../type/question.type';
+import { QuestionSchemaModel, TypeEnum } from '../type/question.type';
 
 type QuestionModel = Model<QuestionSchemaModel, object>;
 
@@ -32,6 +32,9 @@ const QuestionSchema = new Schema<QuestionSchemaModel, QuestionModel>(
     content: {
       type: Schema.Types.String,
       required: true,
+    },
+    replies: {
+      type: [Object],
     },
   },
   {

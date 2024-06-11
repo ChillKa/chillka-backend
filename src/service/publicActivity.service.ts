@@ -3,7 +3,7 @@ import {
   GetActivityDetailCredential,
   replyObject,
 } from '../type/activity.type';
-import { QuestionSchemaModel } from '../type/question.type';
+import { QuestionSchemaModel, TypeEnum } from '../type/question.type';
 import { CoreError } from '../util/error-handler';
 
 export const getActivityDetail = async ({
@@ -21,7 +21,7 @@ export const getActivityDetail = async ({
     const replies: replyObject = {};
     if (activity?.questions.length) {
       for (const question of activity.questions) {
-        if (question.type === '提問') {
+        if (question.type === TypeEnum.QUESTION) {
           questions.push(question);
           questionIndexes.push(question?._id.toString());
         } else {

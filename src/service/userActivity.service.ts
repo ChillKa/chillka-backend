@@ -15,6 +15,7 @@ import {
   QuestionCredentials,
   StatusEnum,
 } from '../type/activity.type';
+import { TypeEnum } from '../type/question.type';
 import { CoreError } from '../util/error-handler';
 import { paginator } from '../util/paginator';
 
@@ -264,15 +265,15 @@ export const createQuestion = async ({
   const existingActivity = await Activity.findById(activityId);
   const existingQuestion = await Question.findOne({
     _id: questionId,
-    type: '提問',
+    type: TypeEnum.QUESTION,
   });
   if (!existingActivity)
     throw new CoreError(
       'Cannot create questions because the activity does not exist.'
     );
-  if (type === '提問' && existingActivity.creatorId.equals(userId))
+  if (type === TypeEnum.QUESTION && existingActivity.creatorId.equals(userId))
     throw new CoreError('The creator of the activity cannot create questions.');
-  if (type === '回覆' && !existingQuestion)
+  if (type === TypeEnum.REPLY && !existingQuestion)
     throw new CoreError(
       'Cannot reply to the question because there is no question.'
     );
