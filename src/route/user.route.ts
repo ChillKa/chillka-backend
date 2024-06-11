@@ -3,8 +3,9 @@ import mongoose from 'mongoose';
 import authorizeMiddleware from '../middleware/authorize.middleware';
 import { zodValidateMiddleware } from '../middleware/validate.middleware';
 import * as UserService from '../service/user.service';
+import { ImageFile } from '../type/activity.type';
 import { CoreError, throwAPIError } from '../util/error-handler';
-import uploadSingleImage from '../util/multer-cloudinary';
+import uploadMultipleImages from '../util/multer-cloudinary';
 import { changePasswordSchema } from '../util/zod/auth.schema';
 import { editUserSchema } from '../util/zod/user.schema';
 
@@ -82,23 +83,27 @@ const userRouter = () => {
       /* #swagger.tags = ['User'] */
 
       try {
-        uploadSingleImage(req, res, function (err) {
+        uploadMultipleImages(req, res, function (err) {
           if (err)
-            if (err.message === 'Please upload an image') {
-              return throwAPIError({
-                res,
-                error: new CoreError('Please upload as image'),
-                statusCode: 401,
-              });
-            }
-
-          const data = { imageUrl: req.file?.path };
-          if (!data.imageUrl)
             return throwAPIError({
               res,
-              error: new CoreError('Upload image is failed'),
+              error: new CoreError(err.message),
               statusCode: 401,
             });
+
+          if (!req.files) {
+            return throwAPIError({
+              res,
+              error: new CoreError('Please upload images.'),
+              statusCode: 400,
+            });
+          }
+
+          const imageUrls = [];
+          for (const file of req.files as ImageFile[]) {
+            imageUrls.push(file.path);
+          }
+          const data = { imageUrls };
 
           res.status(200).send(data);
         });

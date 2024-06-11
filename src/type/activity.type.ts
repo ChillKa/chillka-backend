@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
-import { QuestionSchemaModel } from './question.type';
 import { SortType } from './model.type';
 import { OrganizerBase } from './organizer.type';
+import { QuestionSchemaModel } from './question.type';
 import { TicketSchemaModel } from './ticket.type';
 
 export enum CategoryEnum {
@@ -140,3 +140,13 @@ export type replyObject = {
   [key: string]: QuestionSchemaModel[];
 };
 export type GetActivitiesCredentials = Omit<GetSavedActivityParams, 'userId'>;
+
+export type ImageFile = {
+  fieldname: string;
+  originalname: string;
+  encoding: string;
+  mimetype: string;
+  path: string;
+  size: number;
+  filename: string;
+};

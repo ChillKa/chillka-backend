@@ -12,7 +12,7 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
 });
 
-const uploadSingleImage = multer({
+const uploadMultipleImages = multer({
   storage: storage,
   fileFilter(req, file, cb) {
     if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
@@ -23,6 +23,6 @@ const uploadSingleImage = multer({
   limits: {
     fileSize: 5 * 1024 * 1024,
   },
-}).single('image');
+}).array('image');
 
-export default uploadSingleImage;
+export default uploadMultipleImages;
