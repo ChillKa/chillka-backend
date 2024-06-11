@@ -33,6 +33,7 @@ const options = {
 
 googleStrategy();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/api', swaggerRoute, authRoute, publicActivityRoute);
 app.use(
