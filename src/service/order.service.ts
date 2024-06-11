@@ -99,6 +99,10 @@ export const useSerialNumberOrder = async ({
     throw new CoreError('The user is not the order creator.');
   }
 
+  if (order.orderStatus === OrderStatusEnum.USED) {
+    throw new CoreError('The order has been used.');
+  }
+
   try {
     order.$set({ orderStatus: OrderStatusEnum.USED });
     await order.save();
