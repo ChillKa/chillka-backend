@@ -577,7 +577,7 @@
       "response": []
     },
     {
-      "name": "upload image",
+      "name": "upload images",
       "event": [
         {
           "listen": "test",
@@ -598,13 +598,18 @@
               "key": "image",
               "type": "file",
               "src": "/C:/Users/lazys/OneDrive/桌面/test.png"
+            },
+            {
+              "key": "image",
+              "type": "file",
+              "src": "/C:/Users/lazys/OneDrive/桌面/test2.jpg"
             }
           ]
         },
         "url": {
-          "raw": "{{HOST}}/api/auth/upload-image",
+          "raw": "{{HOST}}/api/auth/upload-images",
           "host": ["{{HOST}}"],
-          "path": ["api", "auth", "upload-image"]
+          "path": ["api", "auth", "upload-images"]
         }
       },
       "response": []
