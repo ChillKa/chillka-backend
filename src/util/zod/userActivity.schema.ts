@@ -74,6 +74,7 @@ export const activitySchema = z.object({
 });
 
 export const questionSchema = z.object({
-  questionId: z.string().optional(),
+  type: z.string().optional(),
   content: z.string().optional(),
+  questionId: z.string().optional(),
 });

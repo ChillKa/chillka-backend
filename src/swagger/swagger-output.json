@@ -597,6 +597,36 @@
         ]
       }
     },
+    "/api/auth/orders/use-serial-number": {
+      "put": {
+        "tags": ["Order"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "serialNumber": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
     "/api/auth/payment": {
       "get": {
         "tags": ["Payment"],
@@ -1946,7 +1976,7 @@
       },
       "required": ["userId"]
     },
-    "QuestionCredentials": {
+    "CommentCredentials": {
       "type": "object",
       "properties": {
         "userId": {
@@ -2274,6 +2304,18 @@
       },
       "required": ["orderId", "userId"]
     },
+    "UseSerialNumberOrderParams": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "serialNumber": {
+          "type": "string"
+        }
+      },
+      "required": ["serialNumber", "userId"]
+    },
     "TriggerPaymentCredentials": {
       "allOf": [
         {
@@ -2352,7 +2394,7 @@
         }
       ]
     },
-    "QuestionSchemaModel": {
+    "CommentSchemaModel": {
       "type": "object",
       "properties": {
         "activityId": {
@@ -2369,24 +2411,6 @@
         }
       },
       "required": ["activityId", "content", "displayName", "userId"]
-    },
-    "ReplySchemaModel": {
-      "type": "object",
-      "properties": {
-        "activityId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "questionId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "userId": {
-          "$ref": "#/definitions/Types.ObjectId"
-        },
-        "content": {
-          "type": "string"
-        }
-      },
-      "required": ["activityId", "content", "questionId", "userId"]
     },
     "SavedActivitySchemaModel": {
       "type": "object",

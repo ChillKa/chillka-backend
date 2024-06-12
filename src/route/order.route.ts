@@ -69,6 +69,27 @@ const orderRouter = () => {
     }
   );
 
+  router.put(
+    '/orders/use-serial-number',
+    authorizeMiddleware,
+    async (req: Request, res: Response) => {
+      /* #swagger.tags = ['Order'] */
+
+      const userId = req.user?._id;
+      try {
+        const data = await OrderService.useSerialNumberOrder({
+          userId: new mongoose.Types.ObjectId(userId),
+          serialNumber: req.body.serialNumber,
+        });
+
+        res.status(200).send(data);
+      } catch (error) {
+        console.log(error);
+        throwAPIError({ res, error, statusCode: 400 });
+      }
+    }
+  );
+
   return router;
 };
 const orderRoute = orderRouter();

@@ -1,43 +1,15 @@
 {
   "info": {
-    "_postman_id": "51722f4b-fbf9-4062-952b-576766be5315",
+    "_postman_id": "1bcda153-d986-4c00-bb86-eebe8d1bc531",
     "name": "chillka-backend",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "20616853"
+    "_exporter_id": "30654257"
   },
   "item": [
     {
-      "name": "attend activity",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"name\": \"string\",\r\n    \"description\": \"string\",\r\n    \"startDateTime\": \"2024-05-26T13:44:42.579Z\",\r\n    \"fromToday\": true,\r\n    \"endDateTime\": \"2024-05-26T13:44:42.579Z\",\r\n    \"noEndDate\": true,\r\n    \"price\": 0,\r\n    \"participantCapacity\": 0,\r\n    \"unlimitedQuantity\": true,\r\n    \"purchaseLimit\": 0,\r\n    \"ticketsPurchaseDuplicate\": true,\r\n    \"userInfo\": {\r\n        \"name\": \"string\",\r\n        \"email\": \"chillka.offical@gmail.com\",\r\n        \"phone\": \"1234657\"\r\n    },\r\n    \"payment\": {\r\n        \"amount\": 0,\r\n        \"status\": \"已付款\",\r\n        \"method\": \"信用卡\",\r\n        \"orderNumber\": 0\r\n    }\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{HOST}}/api/auth/activities/6652e1f0e15385975e5cb478/attend",
-          "host": ["{{HOST}}"],
-          "path": [
-            "api",
-            "auth",
-            "activities",
-            "6652e1f0e15385975e5cb478",
-            "attend"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
       "name": "cancel activity by Id",
       "request": {
-        "method": "PATCH",
+        "method": "PUT",
         "header": [
           {
             "key": "",
@@ -55,13 +27,13 @@
           }
         },
         "url": {
-          "raw": "{{HOST}}/api/auth/activities/665347c6fce61bba7f48ca50/cancel",
+          "raw": "{{HOST}}/api/auth/activities/665d19b812b31b3aae335a25/cancel",
           "host": ["{{HOST}}"],
           "path": [
             "api",
             "auth",
             "activities",
-            "665347c6fce61bba7f48ca50",
+            "665d19b812b31b3aae335a25",
             "cancel"
           ]
         }
@@ -211,13 +183,13 @@
       "response": []
     },
     {
-      "name": "create question",
+      "name": "create questions",
       "request": {
         "method": "POST",
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"question\": \"test1\"\r\n}",
+          "raw": "{\r\n    \"type\": \"回覆\",\r\n    \"content\": \"reply2\",\r\n    \"questionId\": \"6667b94392675f737af4e43c\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -225,27 +197,27 @@
           }
         },
         "url": {
-          "raw": "{{HOST}}/api/auth/activities/665d19b812b31b3aae335a25/q-and-a",
+          "raw": "{{HOST}}/api/auth/activities/665d19b812b31b3aae335a25/questions",
           "host": ["{{HOST}}"],
           "path": [
             "api",
             "auth",
             "activities",
             "665d19b812b31b3aae335a25",
-            "q-and-a"
+            "questions"
           ]
         }
       },
       "response": []
     },
     {
-      "name": "delete question",
+      "name": "delete questions",
       "request": {
         "method": "DELETE",
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"questionId\": \"665739fca95ca7a96d058247\"\r\n}",
+          "raw": "{\r\n    \"questionId\": \"6667b94692675f737af4e441\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -253,14 +225,14 @@
           }
         },
         "url": {
-          "raw": "{{HOST}}/api/auth/activities/6656db2b511dba0998741e18/q-and-a",
+          "raw": "{{HOST}}/api/auth/activities/6667b94692675f737af4e441/questions",
           "host": ["{{HOST}}"],
           "path": [
             "api",
             "auth",
             "activities",
-            "6656db2b511dba0998741e18",
-            "q-and-a"
+            "6667b94692675f737af4e441",
+            "questions"
           ]
         }
       },
@@ -289,13 +261,13 @@
       "response": []
     },
     {
-      "name": "edit question",
+      "name": "edit questions",
       "request": {
         "method": "PATCH",
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"questionId\": \"665dbdd9ad496831d666aed8\",\r\n    \"question\": \"test2\"\r\n}",
+          "raw": "{\r\n    \"questionId\": \"6667b94092675f737af4e437\",\r\n    \"content\": \"test\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -303,14 +275,14 @@
           }
         },
         "url": {
-          "raw": "{{HOST}}/api/auth/activities/665d19b812b31b3aae335a25/q-and-a",
+          "raw": "{{HOST}}/api/auth/activities/665d19b812b31b3aae335a25/questions",
           "host": ["{{HOST}}"],
           "path": [
             "api",
             "auth",
             "activities",
             "665d19b812b31b3aae335a25",
-            "q-and-a"
+            "questions"
           ]
         }
       },
@@ -318,21 +290,9 @@
     },
     {
       "name": "get activities",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
       "request": {
         "method": "GET",
         "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"name\": \"陽明山花卉探險：春之花海\",\r\n    \"organizer\": {\r\n        \"name\": \"\",\r\n        \"contactName\": \"\",\r\n        \"contactPhone\": \"\",\r\n        \"contactEmail\": \"\"\r\n    },\r\n    \"cover\": [\r\n        \"https://loremflickr.com/640/480?lock=6474321889329152\",\r\n        \"https://loremflickr.com/640/480?lock=2891826849644544\",\r\n        \"https://loremflickr.com/640/480?lock=5041481924476928\"\r\n    ],\r\n    \"thumbnail\": \"https://loremflickr.com/640/480?lock=7636866601844736\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
         "url": {
           "raw": "{{HOST}}/api/auth/activities",
           "host": ["{{HOST}}"],
@@ -343,46 +303,28 @@
     },
     {
       "name": "get activitiy detail",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
       "request": {
         "method": "GET",
         "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
         "url": {
-          "raw": "{{HOST}}/api/auth/activities/6656db2b511dba0998741e18",
+          "raw": "{{HOST}}/api/activities/665d19b812b31b3aae335a25?userId=6656060a066cd51095906678",
           "host": ["{{HOST}}"],
-          "path": ["api", "auth", "activities", "6656db2b511dba0998741e18"]
+          "path": ["api", "activities", "665d19b812b31b3aae335a25"],
+          "query": [
+            {
+              "key": "userId",
+              "value": "6656060a066cd51095906678"
+            }
+          ]
         }
       },
       "response": []
     },
     {
       "name": "get activity participant list",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
       "request": {
         "method": "GET",
         "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
         "url": {
           "raw": "{{HOST}}/api/auth/activities/6652e1f0e15385975e5cb478/participants?participantName=chillka&limit=&page=",
           "host": ["{{HOST}}"],
@@ -412,19 +354,13 @@
       "response": []
     },
     {
-      "name": "get saved - activities list",
+      "name": "get popular keywords",
       "protocolProfileBehavior": {
         "disableBodyPruning": true
       },
       "request": {
         "method": "GET",
-        "header": [
-          {
-            "key": "",
-            "value": "",
-            "disabled": true
-          }
-        ],
+        "header": [],
         "body": {
           "mode": "raw",
           "raw": "",
@@ -434,6 +370,25 @@
             }
           }
         },
+        "url": {
+          "raw": "{{HOST}}/api/activities/popular-keywords",
+          "host": ["{{HOST}}"],
+          "path": ["api", "activities", "popular-keywords"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get saved - activities list",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "",
+            "value": "",
+            "disabled": true
+          }
+        ],
         "url": {
           "raw": "{{HOST}}/api/auth/saved-activities",
           "host": ["{{HOST}}"],
@@ -444,21 +399,9 @@
     },
     {
       "name": "get orders",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
       "request": {
         "method": "GET",
         "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
         "url": {
           "raw": "{{HOST}}/api/auth/orders",
           "host": ["{{HOST}}"],
@@ -469,21 +412,9 @@
     },
     {
       "name": "get user by Id",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
       "request": {
         "method": "GET",
         "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
         "url": {
           "raw": "{{HOST}}/api/auth/user/664b48393b749fac7df86816",
           "host": ["{{HOST}}"],
@@ -514,7 +445,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"email\": \"chillka.offical@gmail.com\",\r\n    \"password\": \"north9Hex\"\r\n}",
+          "raw": "{\r\n    \"email\": \"chillka2.offical@gmail.com\",\r\n    \"password\": \"north9Hex\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -524,7 +455,14 @@
         "url": {
           "raw": "{{HOST}}/api/login",
           "host": ["{{HOST}}"],
-          "path": ["api", "login"]
+          "path": ["api", "login"],
+          "query": [
+            {
+              "key": "HOST",
+              "value": "",
+              "disabled": true
+            }
+          ]
         }
       },
       "response": []
@@ -639,7 +577,7 @@
       "response": []
     },
     {
-      "name": "upload image",
+      "name": "upload images",
       "event": [
         {
           "listen": "test",
@@ -660,13 +598,82 @@
               "key": "image",
               "type": "file",
               "src": "/C:/Users/lazys/OneDrive/桌面/test.png"
+            },
+            {
+              "key": "image",
+              "type": "file",
+              "src": "/C:/Users/lazys/OneDrive/桌面/test2.jpg"
             }
           ]
         },
         "url": {
-          "raw": "{{HOST}}/api/auth/upload-image",
+          "raw": "{{HOST}}/api/auth/upload-images",
           "host": ["{{HOST}}"],
-          "path": ["api", "auth", "upload-image"]
+          "path": ["api", "auth", "upload-images"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "use orders serial number",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"serialNumber\": \"0f8f643c-3fae-4324-9d0d-9b5d00b9b00e\"\r\n\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/auth/orders/use-serial-number",
+          "host": ["{{HOST}}"],
+          "path": ["api", "auth", "orders", "use-serial-number"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "use serial number",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [""],
+            "type": "text/javascript",
+            "packages": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"serialNumber\": \"\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/auth/orders/use-serial-number",
+          "host": ["{{HOST}}"],
+          "path": ["api", "auth", "orders", "use-serial-number"]
         }
       },
       "response": []
@@ -730,7 +737,7 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{session}}",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjU4YWE2MTJjMjU3MzMwODZjMzVhZDkiLCJkaXNwbGF5TmFtZSI6ImNoaWxsa2EiLCJlbWFpbCI6ImNoaWxsa2Eub2ZmaWNhbEBnbWFpbC5jb20iLCJpYXQiOjE3MTc4MzIyMjgsImV4cCI6MTcxNzkxODYyOH0.IDL-Ll0zj3SEvdFC6yOlAPychEzluLIFF4arEju4EY4",
         "type": "string"
       }
     ]
@@ -751,6 +758,12 @@
         "packages": {},
         "exec": [""]
       }
+    }
+  ],
+  "variable": [
+    {
+      "key": "HOST",
+      "value": "http://localhost:8000"
     }
   ]
 }

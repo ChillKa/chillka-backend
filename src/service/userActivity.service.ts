@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 import Activity from '../model/activity.model';
 import Order from '../model/order.model';
 import Question from '../model/question.model';
-import Reply from '../model/reply.model';
 import Ticket from '../model/ticket.model';
 import User from '../model/user.model';
 import {
@@ -11,12 +10,12 @@ import {
   CancelActivityParams,
   CollectActivityParams,
   GetActivitiesParams,
-  GetActivityDetailCredential,
   GetActivityParticipantParams,
   GetSavedActivityParams,
   QuestionCredentials,
   StatusEnum,
 } from '../type/activity.type';
+import { TypeEnum } from '../type/question.type';
 import { CoreError } from '../util/error-handler';
 import { paginator } from '../util/paginator';
 
@@ -142,22 +141,6 @@ export const getActivityList = async ({
   }
 };
 
-export const getActivityDetail = async ({
-  activityId,
-}: GetActivityDetailCredential) => {
-  try {
-    const activity = await Activity.findById(activityId).populate('tickets');
-    const data = {
-      activity,
-      tickets: activity?.tickets,
-    };
-
-    return data;
-  } catch (error) {
-    throw new CoreError('Get activity details failed.');
-  }
-};
-
 export const getParticipantList = async ({
   activityId,
   participantName,
@@ -275,35 +258,48 @@ export const getSavedActivityList = async ({
 export const createQuestion = async ({
   userId,
   activityId,
+  type,
+  questionId,
   content,
 }: QuestionCredentials) => {
   const existingActivity = await Activity.findById(activityId);
+  const existingQuestion = await Question.findOne({
+    _id: questionId,
+    type: TypeEnum.QUESTION,
+  });
   if (!existingActivity)
     throw new CoreError(
-      'Cannot ask questions because the activity does not exist.'
+      'Cannot create questions because the activity does not exist.'
     );
-  if (existingActivity.creatorId.equals(userId))
-    throw new CoreError('The creator of the activity cannot ask questions.');
+  if (type === TypeEnum.QUESTION && existingActivity.creatorId.equals(userId))
+    throw new CoreError('The creator of the activity cannot create questions.');
+  if (type === TypeEnum.REPLY && !existingQuestion)
+    throw new CoreError(
+      'Cannot reply to the question because there is no question.'
+    );
+
   try {
     const user = await User.findById(userId).select('displayName');
     const newQuestion = await Question.create({
       activityId,
       userId,
+      type,
       content,
+      questionId,
       displayName: user?.displayName,
     });
 
     return newQuestion;
   } catch (error) {
-    throw new CoreError('Ask question failed.');
+    throw new CoreError('Create question failed.');
   }
 };
 
 export const editQuestion = async ({
   userId,
   activityId,
-  content,
   questionId,
+  content,
 }: QuestionCredentials) => {
   const existingActivity = await Activity.findById(activityId);
   if (!existingActivity)
@@ -316,7 +312,7 @@ export const editQuestion = async ({
       'Cannot edit questions because the question does not exist.'
     );
   if (!existingQuestion.userId.equals(userId))
-    throw new CoreError('Only the questioner can modify the question.');
+    throw new CoreError('Only questioner can edit the question.');
 
   try {
     const editQuestion = await Question.findOneAndUpdate(
@@ -327,7 +323,7 @@ export const editQuestion = async ({
 
     return editQuestion;
   } catch (error) {
-    throw new CoreError('Ask question failed.');
+    throw new CoreError('Edit question failed.');
   }
 };
 
@@ -347,15 +343,9 @@ export const deleteQuestion = async ({
       'Cannot delete questions because the question does not exist.'
     );
   if (!existingQuestion.userId.equals(userId))
-    throw new CoreError('Only the questioner can delete the question.');
-  const existingReplies = (await Reply.find({ questionId }).select('_id')).map(
-    (reply) => reply._id.toString()
-  );
+    throw new CoreError('Only questioner can delete the question.');
   try {
-    if (existingReplies.length) {
-      await Reply.deleteMany({ _id: { $in: existingReplies } });
-    }
-    await Question.deleteOne({ _id: questionId });
+    await Question.deleteMany({ $or: [{ _id: questionId }, { questionId }] });
 
     return { message: 'success delete' };
   } catch (error) {

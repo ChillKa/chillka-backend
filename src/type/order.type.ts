@@ -45,7 +45,7 @@ export type OrderContact = {
 };
 
 export type OrderPayment = {
-  amount: string;
+  amount: number;
   status?: PaymentStatusEnum;
   type?: PaymentTypeEnum;
   orderNumber: number;
@@ -80,4 +80,9 @@ export type GetOrdersParams = {
 export type CancelOrderParams = {
   userId: mongoose.Types.ObjectId | undefined;
   orderId: mongoose.Types.ObjectId;
+};
+
+export type UseSerialNumberOrderParams = {
+  userId: mongoose.Types.ObjectId | undefined;
+  serialNumber: string;
 };

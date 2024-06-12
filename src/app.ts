@@ -7,6 +7,7 @@ import User from './model/user.model';
 import authRoute from './route/auth.route';
 import orderRoute from './route/order.route';
 import paymentRoute from './route/payment.route';
+import publicActivityRoute from './route/publicActivity.route';
 import swaggerRoute from './route/swagger.route';
 import userRoute from './route/user.route';
 import userActivityRoute from './route/userActivity.route';
@@ -32,8 +33,9 @@ const options = {
 
 googleStrategy();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.use('/api', swaggerRoute, authRoute);
+app.use('/api', swaggerRoute, authRoute, publicActivityRoute);
 app.use(
   '/api/auth',
   // #swagger.security = [{ "apiKeyAuth": [] }]
