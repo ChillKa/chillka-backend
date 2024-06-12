@@ -6,6 +6,20 @@ import { throwAPIError } from '../util/error-handler';
 const publicActivityRouter = () => {
   const router = Router();
 
+  router.get(
+    '/activities/popular-keywords',
+    async (req: Request, res: Response) => {
+      /* #swagger.tags = ['Activity'] */
+
+      try {
+        const data = await PublicActivityService.getPopularKeywords();
+        res.status(200).send(data);
+      } catch (error) {
+        throwAPIError({ res, error, statusCode: 400 });
+      }
+    }
+  );
+
   router.get('/activities/:activityId', async (req: Request, res: Response) => {
     /* #swagger.tags = ['Activity'] */
     const activityId = req.params.activityId;
