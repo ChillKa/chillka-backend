@@ -6,16 +6,6 @@
 export const _schema = {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
-    "TypeEnum": {
-      "type": "string",
-      "enum": [
-        "提問",
-        "回覆"
-      ]
-    },
-    "QuestionSchemaModel": {
-      "$ref": "#/definitions/QuestionSchemaModel"
-    },
     "GenderEnum": {
       "type": "string",
       "enum": [
@@ -420,6 +410,16 @@ export const _schema = {
         "websiteName",
         "websiteURL"
       ]
+    },
+    "TypeEnum": {
+      "type": "string",
+      "enum": [
+        "提問",
+        "回覆"
+      ]
+    },
+    "QuestionSchemaModel": {
+      "$ref": "#/definitions/QuestionSchemaModel"
     },
     "TicketStatusEnum": {
       "type": "string",
@@ -1581,6 +1581,56 @@ export const _schema = {
         }
       }
     },
+    "ImageFile": {
+      "type": "object",
+      "properties": {
+        "fieldname": {
+          "type": "string"
+        },
+        "originalname": {
+          "type": "string"
+        },
+        "encoding": {
+          "type": "string"
+        },
+        "mimetype": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "size": {
+          "type": "number"
+        },
+        "filename": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "encoding",
+        "fieldname",
+        "filename",
+        "mimetype",
+        "originalname",
+        "path",
+        "size"
+      ]
+    },
+    "KeywordSchemaModel": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "count": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "content",
+        "count"
+      ]
+    },
     "PaymentStatusEnum": {
       "type": "string",
       "enum": [
@@ -1647,7 +1697,7 @@ export const _schema = {
       "type": "object",
       "properties": {
         "amount": {
-          "type": "string"
+          "type": "number"
         },
         "status": {
           "enum": [
@@ -1726,7 +1776,7 @@ export const _schema = {
           "type": "object",
           "properties": {
             "amount": {
-              "type": "string"
+              "type": "number"
             },
             "status": {
               "enum": [
@@ -1836,7 +1886,7 @@ export const _schema = {
               "type": "object",
               "properties": {
                 "amount": {
-                  "type": "string"
+                  "type": "number"
                 },
                 "status": {
                   "enum": [
@@ -1977,7 +2027,7 @@ export const _schema = {
               "type": "object",
               "properties": {
                 "amount": {
-                  "type": "string"
+                  "type": "number"
                 },
                 "status": {
                   "enum": [
