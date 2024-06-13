@@ -76,7 +76,7 @@ export const sendEmail = async ({ email, emailType }: SendEmailCredentials) => {
     switch (emailType) {
       case 'resetPassword':
         emailjsTemplate = process.env.RESET_PASSWORD_TEMPLATE!;
-        redirectUrl = `${process.env.HOST}/api/demo/reset-password?validateCode=${token}`;
+        redirectUrl = `${process.env.FRONTEND}/auth/reset-password?validateCode=${token}`;
         // wait for frontend reset password page
         message = '重置密碼連結已寄到您的 email 信箱';
         break;
