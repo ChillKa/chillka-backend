@@ -3,6 +3,7 @@ import {
   ActivitySchemaModel,
   CategoryEnum,
   DayEnum,
+  LocationEnum,
   PeriodEnum,
   StatusEnum,
   TypeEnum,
@@ -66,6 +67,7 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
     },
     location: {
       type: Schema.Types.String,
+      enum: LocationEnum,
     },
     address: {
       type: Schema.Types.String,
@@ -112,6 +114,12 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
       enum: StatusEnum,
       required: true,
       default: StatusEnum.VALID,
+    },
+    lat: {
+      type: Schema.Types.String,
+    },
+    lng: {
+      type: Schema.Types.String,
     },
   },
   {
