@@ -54,7 +54,12 @@ const authRouter = () => {
 
   router.get(
     '/google-oauth/callback',
-    passport.authenticate('google', { session: false }),
+    passport.authenticate('google', {
+      session: false,
+      failureRedirect: process.env.FRONTEND?.concat(
+        '/callback?error=access_denied'
+      ),
+    }),
     async (req: Request, res: Response) => {
       const data = await AuthService.googleOauth(req.user);
 
