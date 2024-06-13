@@ -16,8 +16,17 @@ export enum CategoryEnum {
 }
 
 export enum TypeEnum {
-  OFFLINE = '線下',
   ONLINE = '線上',
+  INDOOR = '室內',
+  OUTDOOR = '室外',
+}
+
+export enum LocationEnum {
+  NORTH = '北部',
+  CENTRAL = '中部',
+  SOUTH = '南部',
+  EAST = '東部',
+  ISLAND = '離島',
 }
 
 export enum PeriodEnum {
@@ -82,6 +91,8 @@ export interface ActivitySchemaModel {
   status: StatusEnum;
   tickets: TicketSchemaModel[];
   questions: QuestionSchemaModel[];
+  lat: string;
+  lng: string;
 }
 
 export type ActivityCreateCredentials = ActivitySchemaModel;
