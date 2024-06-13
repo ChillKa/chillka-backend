@@ -60,7 +60,8 @@ const authRouter = () => {
 
       // wait for frontend page completed
       res.redirect(
-        process.env.FRONTEND?.concat(`?accessToken=${data.token}`) ?? ''
+        process.env.FRONTEND?.concat(`/callback?accessToken=${data.token}`) ??
+          ''
       );
     }
   );
