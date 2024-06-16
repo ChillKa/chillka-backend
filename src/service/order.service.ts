@@ -68,7 +68,23 @@ export const getOrderList = async ({
 
     return paginatedData;
   } catch (error) {
-    throw new CoreError('Create order failed.');
+    throw new CoreError('Get order list failed.');
+  }
+};
+
+export const getOrderDetail = async (orderId: string) => {
+  try {
+    const orderObjectId = new mongoose.Types.ObjectId(orderId);
+    const order = await Order.findById(orderObjectId)
+      .populate('activityId')
+      .select(['-ticketId']);
+    if (!order) {
+      throw new CoreError('Order not found.');
+    }
+
+    return order;
+  } catch (error) {
+    throw new CoreError('Get order detail failed.');
   }
 };
 
@@ -85,7 +101,7 @@ export const cancelOrder = async ({ userId, orderId }: CancelOrderParams) => {
 
     return { message: 'Cancel order success.' };
   } catch (error) {
-    throw new CoreError('Create order failed.');
+    throw new CoreError('Cancel order failed.');
   }
 };
 
