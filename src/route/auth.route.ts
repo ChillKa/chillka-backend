@@ -47,6 +47,8 @@ const authRouter = () => {
 
   router.get(
     '/google-oauth',
+    /* #swagger.ignore = true */
+
     passport.authenticate('google', {
       scope: ['email', 'profile'],
     })
@@ -54,6 +56,8 @@ const authRouter = () => {
 
   router.get(
     '/google-oauth/callback',
+    /* #swagger.ignore = true */
+
     passport.authenticate('google', {
       session: false,
       failureRedirect: process.env.FRONTEND?.concat(

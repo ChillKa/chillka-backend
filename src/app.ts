@@ -58,6 +58,8 @@ app.use(
 
 // delete me in production
 app.get('/api/demo', async (req, res) => {
+  /* #swagger.description = 'Validate all of users' email' */
+
   await User.updateMany({ isEmailValidate: false }, { isEmailValidate: true });
 
   res.send('success validate email');

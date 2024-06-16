@@ -18,7 +18,9 @@ const userActivityRouter = () => {
     authorizeMiddleware,
     zodValidateMiddleware(activitySchema),
     async (req: Request, res: Response) => {
-      /* #swagger.tags = ['Activity'] */
+      /* #swagger.tags = ['Activity'] 
+          #swagger.parameters['body'] = { in: 'body', schema: { $ref: "#/schemas/ActivityCreateCredentials" }}
+      */
 
       const creatorId = req.user?._id;
       try {
@@ -38,6 +40,10 @@ const userActivityRouter = () => {
     authorizeMiddleware,
     zodValidateMiddleware(activitySchema),
     async (req: Request, res: Response) => {
+      /* #swagger.tags = ['Activity'] 
+          #swagger.parameters['body'] = { in: 'body', schema: { $ref: "#/schemas/ActivityEditCredentials" }}
+      */
+
       const userId = req.user?._id;
       try {
         const activityId = new mongoose.Types.ObjectId(req.params.activityId);

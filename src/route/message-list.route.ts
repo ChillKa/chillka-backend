@@ -13,6 +13,10 @@ const messageRouter = () => {
     authorizeMiddleware,
     zodValidateMiddleware(messageListIdSchema),
     async (req: Request, res: Response) => {
+      /* #swagger.tags = ['MessageList'] 
+          #swagger.parameters['body'] = { in: 'body', schema: { $ref: "#/schemas/GetMessageListParams" }}
+      */
+
       const { orderId, hostUserId, participantUserId } = req.body;
       try {
         const data = await MessageListService.getMessageListId({

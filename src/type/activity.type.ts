@@ -95,12 +95,17 @@ export interface ActivitySchemaModel {
   lng: string;
 }
 
-export type ActivityCreateCredentials = ActivitySchemaModel;
+export type ActivityCreateParams = ActivitySchemaModel;
+export type ActivityCreateCredentials = Omit<ActivitySchemaModel, 'creatorId'>;
 
-export type ActivityEditCredentials = ActivityCreateCredentials & {
+type EditableActivity = Omit<ActivitySchemaModel, 'creatorId' | 'questions'>;
+
+export type ActivityEditParams = EditableActivity & {
   userId: mongoose.Types.ObjectId | undefined;
   activityId: mongoose.Types.ObjectId;
 };
+
+export type ActivityEditCredentials = EditableActivity;
 
 export type GetActivitiesParams = {
   userId: mongoose.Types.ObjectId | undefined;

@@ -5,8 +5,8 @@ import Question from '../model/question.model';
 import Ticket from '../model/ticket.model';
 import User from '../model/user.model';
 import {
-  ActivityCreateCredentials,
-  ActivityEditCredentials,
+  ActivityCreateParams,
+  ActivityEditParams,
   CancelActivityParams,
   CollectActivityParams,
   GetActivitiesParams,
@@ -22,7 +22,7 @@ import { paginator } from '../util/paginator';
 export const createActivity = async ({
   tickets,
   ...activityData
-}: ActivityCreateCredentials) => {
+}: ActivityCreateParams) => {
   try {
     const newActivity = new Activity(activityData);
     await newActivity.save();
@@ -52,7 +52,7 @@ export const editActivity = async ({
   activityId,
   tickets,
   ...activityData
-}: ActivityEditCredentials) => {
+}: ActivityEditParams) => {
   const existingActivity = await Activity.findById(activityId);
   if (!existingActivity?.creatorId.equals(userId))
     throw new CoreError('Activity cannot be edited by non-creators.');
