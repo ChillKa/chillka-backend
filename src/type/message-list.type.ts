@@ -18,9 +18,13 @@ export interface MessageListSchemaModel {
 }
 
 export type GetMessageListParams = {
-  orderId: mongoose.Types.ObjectId;
-  hostUserId: mongoose.Types.ObjectId;
-  participantUserId: mongoose.Types.ObjectId;
+  orderId: string;
+  hostUserId: string;
+  participantUserId: string;
 };
 
 export type LiveMessageParams = MessageListSchemaModel;
+
+export type SocketQueryParams = {
+  messageListId: string;
+};

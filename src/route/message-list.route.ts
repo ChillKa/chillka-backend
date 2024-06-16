@@ -1,5 +1,4 @@
 import { Request, Response, Router } from 'express';
-import mongoose from 'mongoose';
 import authorizeMiddleware from '../middleware/authorize.middleware';
 import { zodValidateMiddleware } from '../middleware/validate.middleware';
 import * as MessageListService from '../service/message-list.service';
@@ -17,9 +16,9 @@ const messageRouter = () => {
       const { orderId, hostUserId, participantUserId } = req.body;
       try {
         const data = await MessageListService.getMessageListId({
-          orderId: new mongoose.Types.ObjectId(orderId),
-          hostUserId: new mongoose.Types.ObjectId(hostUserId),
-          participantUserId: new mongoose.Types.ObjectId(participantUserId),
+          orderId,
+          hostUserId,
+          participantUserId,
         });
 
         res.status(200).send(data);

@@ -1,38 +1,44 @@
 import mongoose from 'mongoose';
 import { Server } from 'socket.io';
+import { ZodError } from 'zod';
 import MessageList from '../model/message-list.model';
-import { LiveMessageParams } from '../type/message-list.type';
+import { SocketQueryParams } from '../type/message-list.type';
+import { messageSchema } from '../util/zod/message-list.schema';
+import { zodErrorHandler } from '../util/zod/zodError-hanlder';
 
 const socketRoute = (io: Server) => {
-  console.log('socketRoute');
   io.on('connection', async (socket) => {
-    // FIXME
-    const messageListId = new mongoose.Types.ObjectId(
-      (socket.handshake.query.messageListId as string) ?? ''
-    );
-
-    console.log('query', socket.handshake.query);
+    const messageListId = (socket.handshake.query as SocketQueryParams)
+      .messageListId;
 
     if (!messageListId) {
       socket.disconnect(true);
       return;
     }
 
-    const messageList = await MessageList.findById(messageListId);
+    const messageList = await MessageList.findById(
+      new mongoose.Types.ObjectId(messageListId)
+    );
 
-    // restrict to host and participant user
     socket.emit('history', messageList);
-
     socket.on('chat message', async (msg) => {
-      const data = JSON.parse(msg) as LiveMessageParams;
-      await messageList?.updateOne({
-        $push: {
-          messages: data.messages,
-        },
-      });
-
-      // restrict to host and participant user
-      io.emit('chat message', messageList);
+      try {
+        const validatedMsg = messageSchema.parse(msg);
+        await messageList?.updateOne({
+          $push: {
+            messages: validatedMsg,
+          },
+        });
+        await messageList?.save();
+        socket.emit('history', messageList);
+      } catch (error) {
+        if (error instanceof ZodError) {
+          socket.emit('error', zodErrorHandler(error));
+        } else {
+          console.log(error);
+          socket.emit('error', 'Error while sending the message');
+        }
+      }
     });
   });
 };
