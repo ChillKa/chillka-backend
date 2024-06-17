@@ -332,6 +332,19 @@
       "response": []
     },
     {
+      "name": "get comments",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{HOST}}/api/activities/comments",
+          "host": ["{{HOST}}"],
+          "path": ["api", "activities", "comments"]
+        }
+      },
+      "response": []
+    },
+    {
       "name": "get popular keywords",
       "request": {
         "method": "GET",

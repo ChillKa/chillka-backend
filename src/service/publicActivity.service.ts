@@ -1,4 +1,5 @@
 import Activity from '../model/activity.model';
+import Comment from '../model/comment.model';
 import Keyword from '../model/keyword.model';
 import {
   GetActivityDetailCredential,
@@ -15,6 +16,16 @@ export const getPopularKeywords = async () => {
     ).map((keyword) => keyword.content);
 
     return { keywords: popularKeywords.concat(defaultKeywords).slice(0, 5) };
+  } catch (error) {
+    throw new CoreError('Create activity failed.');
+  }
+};
+
+export const getComments = async () => {
+  try {
+    const comments = await Comment.aggregate().sample(3);
+
+    return { comments };
   } catch (error) {
     throw new CoreError('Create activity failed.');
   }
