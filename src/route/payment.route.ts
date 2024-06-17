@@ -59,7 +59,7 @@ const paymentRouter = () => {
         const baseParam = {
           MerchantTradeNo: TradeNo,
           MerchantTradeDate,
-          TotalAmount: payment.amount.toLocaleString(),
+          TotalAmount: payment.amount,
           TradeDesc: tradeDesc,
           ItemName: itemName,
           ReturnURL: process.env.PAYMENT_RETURN_URL,

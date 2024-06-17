@@ -22,3 +22,5 @@ export interface TicketSchemaModel {
   purchaseDuplicate: boolean;
   ticketStatus: TicketStatusEnum;
 }
+
+export type EditableTicket = Omit<TicketSchemaModel, '_id' | 'activityId'>;
