@@ -77,12 +77,17 @@ export const getOrderDetail = async (orderId: string) => {
     const orderObjectId = new mongoose.Types.ObjectId(orderId);
     const order = await Order.findById(orderObjectId)
       .populate('activityId')
-      .select(['-ticketId']);
+      .select(['-ticketId'])
+      .lean();
+
     if (!order) {
       throw new CoreError('Order not found.');
     }
 
-    return order;
+    const { activityId, ...rest } = order;
+    const data = { ...rest, activity: activityId };
+
+    return data;
   } catch (error) {
     throw new CoreError('Get order detail failed.');
   }
