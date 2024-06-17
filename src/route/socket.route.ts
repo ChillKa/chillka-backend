@@ -30,12 +30,12 @@ const socketRoute = (io: Server) => {
           },
         });
         await messageList?.save();
-        socket.emit('history', messageList);
+        const updatedMessageList = await MessageList.findById(messageList?._id);
+        socket.emit('history', updatedMessageList);
       } catch (error) {
         if (error instanceof ZodError) {
           socket.emit('error', zodErrorHandler(error));
         } else {
-          console.log(error);
           socket.emit('error', 'Error while sending the message');
         }
       }
