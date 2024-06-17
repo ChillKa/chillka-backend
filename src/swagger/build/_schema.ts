@@ -2503,6 +2503,34 @@ export const _schema = {
         "size"
       ]
     },
+    "CommentSchemaModel": {
+      "type": "object",
+      "properties": {
+        "profilePicture": {
+          "type": "string"
+        },
+        "userName": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "content": {
+          "type": "string"
+        },
+        "activityName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "activityName",
+        "content",
+        "date",
+        "profilePicture",
+        "userName"
+      ]
+    },
     "KeywordSchemaModel": {
       "type": "object",
       "properties": {

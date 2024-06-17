@@ -20,6 +20,17 @@ const publicActivityRouter = () => {
     }
   );
 
+  router.get('/activities/comments', async (req: Request, res: Response) => {
+    /* #swagger.tags = ['Activity'] */
+
+    try {
+      const data = await PublicActivityService.getComments();
+      res.status(200).send(data);
+    } catch (error) {
+      throwAPIError({ res, error, statusCode: 400 });
+    }
+  });
+
   router.get('/activities/:activityId', async (req: Request, res: Response) => {
     /* #swagger.tags = ['Activity'] */
     const activityId = req.params.activityId;
