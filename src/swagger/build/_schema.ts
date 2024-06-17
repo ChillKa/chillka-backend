@@ -1609,9 +1609,9 @@ export const _schema = {
             "period": {
               "type": "string",
               "enum": [
-                "隔週",
-                "每月",
-                "每季"
+                "線上",
+                "室內",
+                "室外"
               ]
             },
             "week": {
@@ -1981,6 +1981,12 @@ export const _schema = {
                   "ticketStatus",
                   "unlimitedQuantity"
                 ]
+              }
+            },
+            "questions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/QuestionSchemaModel"
               }
             },
             "lat": {
@@ -2501,6 +2507,34 @@ export const _schema = {
         "originalname",
         "path",
         "size"
+      ]
+    },
+    "CommentSchemaModel": {
+      "type": "object",
+      "properties": {
+        "profilePicture": {
+          "type": "string"
+        },
+        "userName": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "content": {
+          "type": "string"
+        },
+        "activityName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "activityName",
+        "content",
+        "date",
+        "profilePicture",
+        "userName"
       ]
     },
     "KeywordSchemaModel": {
