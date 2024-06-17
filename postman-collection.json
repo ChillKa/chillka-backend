@@ -332,32 +332,14 @@
       "response": []
     },
     {
-      "name": "get message list id",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
+      "name": "get comments",
       "request": {
         "method": "GET",
-        "header": [
-          {
-            "key": "",
-            "value": "",
-            "disabled": true
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n    \"orderId\": \"\",\n    \"hostUserId\": \"\",\n    \"participantUserId\": \"\"\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
+        "header": [],
         "url": {
-          "raw": "{{HOST}}/api/auth/messageListId",
+          "raw": "{{HOST}}/api/activities/comments",
           "host": ["{{HOST}}"],
-          "path": ["api", "auth", "messageListId"]
+          "path": ["api", "activities", "comments"]
         }
       },
       "response": []
