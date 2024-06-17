@@ -1609,8 +1609,9 @@ export const _schema = {
             "period": {
               "type": "string",
               "enum": [
-                "線下",
-                "線上"
+                "隔週",
+                "每月",
+                "每季"
               ]
             },
             "week": {
@@ -1982,11 +1983,11 @@ export const _schema = {
                 ]
               }
             },
-            "questions": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/QuestionSchemaModel"
-              }
+            "lat": {
+              "type": "string"
+            },
+            "lng": {
+              "type": "string"
             }
           },
           "required": [
@@ -2467,6 +2468,196 @@ export const _schema = {
         }
       }
     },
+    "ImageFile": {
+      "type": "object",
+      "properties": {
+        "fieldname": {
+          "type": "string"
+        },
+        "originalname": {
+          "type": "string"
+        },
+        "encoding": {
+          "type": "string"
+        },
+        "mimetype": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "size": {
+          "type": "number"
+        },
+        "filename": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "encoding",
+        "fieldname",
+        "filename",
+        "mimetype",
+        "originalname",
+        "path",
+        "size"
+      ]
+    },
+    "KeywordSchemaModel": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "count": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "content",
+        "count"
+      ]
+    },
+    "MessageUserType": {
+      "type": "string",
+      "enum": [
+        "舉辦者",
+        "參加者"
+      ]
+    },
+    "MessageSchemaModel": {
+      "type": "object",
+      "properties": {
+        "userType": {
+          "type": "string",
+          "enum": [
+            "舉辦者",
+            "參加者"
+          ]
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "content",
+        "userType"
+      ]
+    },
+    "MessageListSchemaModel": {
+      "type": "object",
+      "properties": {
+        "orderId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "hostUserId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "participantUserId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "messages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "userType": {
+                "type": "string",
+                "enum": [
+                  "舉辦者",
+                  "參加者"
+                ]
+              },
+              "content": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "content",
+              "userType"
+            ]
+          }
+        }
+      },
+      "required": [
+        "hostUserId",
+        "messages",
+        "orderId",
+        "participantUserId"
+      ]
+    },
+    "GetMessageListParams": {
+      "type": "object",
+      "properties": {
+        "orderId": {
+          "type": "string"
+        },
+        "hostUserId": {
+          "type": "string"
+        },
+        "participantUserId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "hostUserId",
+        "orderId",
+        "participantUserId"
+      ]
+    },
+    "LiveMessageParams": {
+      "type": "object",
+      "properties": {
+        "orderId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "hostUserId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "participantUserId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "messages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "userType": {
+                "type": "string",
+                "enum": [
+                  "舉辦者",
+                  "參加者"
+                ]
+              },
+              "content": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "content",
+              "userType"
+            ]
+          }
+        }
+      },
+      "required": [
+        "hostUserId",
+        "messages",
+        "orderId",
+        "participantUserId"
+      ]
+    },
+    "SocketQueryParams": {
+      "type": "object",
+      "properties": {
+        "messageListId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "messageListId"
+      ]
+    },
     "PaymentStatusEnum": {
       "type": "string",
       "enum": [
@@ -2533,7 +2724,7 @@ export const _schema = {
       "type": "object",
       "properties": {
         "amount": {
-          "type": "number"
+          "type": "string"
         },
         "status": {
           "enum": [
@@ -2612,7 +2803,7 @@ export const _schema = {
           "type": "object",
           "properties": {
             "amount": {
-              "type": "number"
+              "type": "string"
             },
             "status": {
               "enum": [
@@ -2722,7 +2913,7 @@ export const _schema = {
               "type": "object",
               "properties": {
                 "amount": {
-                  "type": "number"
+                  "type": "string"
                 },
                 "status": {
                   "enum": [
@@ -2863,7 +3054,7 @@ export const _schema = {
               "type": "object",
               "properties": {
                 "amount": {
-                  "type": "number"
+                  "type": "string"
                 },
                 "status": {
                   "enum": [

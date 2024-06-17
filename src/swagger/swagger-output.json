@@ -114,6 +114,17 @@
         }
       }
     },
+    "/api/activities/popular-keywords": {
+      "get": {
+        "tags": ["Activity"],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/activities/{activityId}": {
       "get": {
         "tags": ["Activity"],
@@ -2239,7 +2250,6 @@
         "name",
         "noEndDate",
         "organizer",
-        "questions",
         "recurring",
         "startDateTime",
         "status",
@@ -2486,7 +2496,6 @@
             "name",
             "noEndDate",
             "organizer",
-            "questions",
             "recurring",
             "startDateTime",
             "status",
@@ -2930,6 +2939,18 @@
         "size"
       ]
     },
+    "KeywordSchemaModel": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "count": {
+          "type": "number"
+        }
+      },
+      "required": ["content", "count"]
+    },
     "MessageUserType": {
       "type": "string",
       "enum": ["舉辦者", "參加者"]
@@ -3085,7 +3106,7 @@
       "type": "object",
       "properties": {
         "amount": {
-          "type": "number"
+          "type": "string"
         },
         "status": {
           "enum": ["付款失敗", "已付款", "待付款"],
@@ -3153,7 +3174,7 @@
           "type": "object",
           "properties": {
             "amount": {
-              "type": "number"
+              "type": "string"
             },
             "status": {
               "enum": ["付款失敗", "已付款", "待付款"],
@@ -3246,7 +3267,7 @@
               "type": "object",
               "properties": {
                 "amount": {
-                  "type": "number"
+                  "type": "string"
                 },
                 "status": {
                   "enum": ["付款失敗", "已付款", "待付款"],
@@ -3364,7 +3385,7 @@
               "type": "object",
               "properties": {
                 "amount": {
-                  "type": "number"
+                  "type": "string"
                 },
                 "status": {
                   "enum": ["付款失敗", "已付款", "待付款"],
