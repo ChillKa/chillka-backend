@@ -85,9 +85,9 @@ export const getOrderDetail = async (orderId: string) => {
     }
 
     const { activityId, ...rest } = order;
-    const data = { ...rest, activity: activityId };
+    const updatedOrder = { ...rest, activity: activityId };
 
-    return data;
+    return updatedOrder;
   } catch (error) {
     throw new CoreError('Get order detail failed.');
   }
