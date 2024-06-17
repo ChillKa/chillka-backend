@@ -1,6 +1,6 @@
 {
   "info": {
-    "_postman_id": "51722f4b-fbf9-4062-952b-576766be5315",
+    "_postman_id": "f6b33cea-df08-468d-9fa4-96fe74a04842",
     "name": "chillka-backend",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "20616853"
@@ -332,6 +332,37 @@
       "response": []
     },
     {
+      "name": "get message list id",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "",
+            "value": "",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"orderId\": \"\",\n    \"hostUserId\": \"\",\n    \"participantUserId\": \"\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/auth/messageListId",
+          "host": ["{{HOST}}"],
+          "path": ["api", "auth", "messageListId"]
+        }
+      },
+      "response": []
+    },
+    {
       "name": "get popular keywords",
       "request": {
         "method": "GET",
@@ -370,6 +401,19 @@
         "header": [],
         "url": {
           "raw": "{{HOST}}/api/auth/orders",
+          "host": ["{{HOST}}"],
+          "path": ["api", "auth", "orders"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get order detail",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{HOST}}/api/auth/orders/:orderId",
           "host": ["{{HOST}}"],
           "path": ["api", "auth", "orders"]
         }

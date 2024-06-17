@@ -48,6 +48,22 @@ const orderRouter = () => {
     }
   );
 
+  router.get(
+    '/orders/:orderId',
+    authorizeMiddleware,
+    async (req: Request, res: Response) => {
+      /* #swagger.tags = ['Order'] */
+
+      try {
+        const data = await OrderService.getOrderDetail(req.params.orderId);
+
+        res.status(200).send(data);
+      } catch (error) {
+        throwAPIError({ res, error, statusCode: 400 });
+      }
+    }
+  );
+
   router.put(
     '/orders/:orderId/cancel',
     authorizeMiddleware,
