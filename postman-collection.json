@@ -285,9 +285,9 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{HOST}}/api/activities/665d19b812b31b3aae335a25?userId=6656060a066cd51095906678",
+          "raw": "{{HOST}}/api/activities/6671a202d3004a6ac06647e6?userId=6656060a066cd51095906678",
           "host": ["{{HOST}}"],
-          "path": ["api", "activities", "665d19b812b31b3aae335a25"],
+          "path": ["api", "activities", "6671a202d3004a6ac06647e6"],
           "query": [
             {
               "key": "userId",
@@ -345,31 +345,6 @@
       "response": []
     },
     {
-      "name": "get payment",
-      "protocolProfileBehavior": {
-        "disableBodyPruning": true
-      },
-      "request": {
-        "method": "GET",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n\t\"activityId\": \"66716badf2022b29b3dbd557\",\r\n  \"ticketId\": \"66716badf2022b29b3dbd55a\",\r\n  \"orderContact\": {\r\n    \"name\": \"chillka\",\r\n    \"email\": \"chillka.offical@gmail.com\",\r\n    \"phone\": \"1234567\"\r\n  },\r\n  \"payment\": {\r\n    \"amount\": \"123\",\r\n    \"orderNumber\": 0\r\n  },\r\n  \"itemName\": \"Miss Kelly Dare\",\r\n  \"tradeDesc\": \"Bestia desidero comprehendo votum attollo aggero.\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{HOST}}/api/auth/payment",
-          "host": ["{{HOST}}"],
-          "path": ["api", "auth", "payment"]
-        }
-      },
-      "response": []
-    },
-    {
       "name": "get popular keywords",
       "request": {
         "method": "GET",
@@ -388,13 +363,14 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{HOST}}/api/activities/recommend?userId=6656060a066cd51095906678",
+          "raw": "{{HOST}}/api/activities/recommend",
           "host": ["{{HOST}}"],
           "path": ["api", "activities", "recommend"],
           "query": [
             {
               "key": "userId",
-              "value": "6656060a066cd51095906678"
+              "value": "6656060a066cd51095906678",
+              "disabled": true
             }
           ]
         }
@@ -534,6 +510,28 @@
       "response": []
     },
     {
+      "name": "post payment",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"activityId\": \"6671a202d3004a6ac06647e6\",\r\n    \"ticketId\": \"6671a202d3004a6ac06647ea\",\r\n    \"orderContact\": {\r\n        \"name\": \"chillka\",\r\n        \"email\": \"chillka.offical@gmail.com\",\r\n        \"phone\": \"1234567\"\r\n    },\r\n    \"payment\": {\r\n        \"amount\": \"123\",\r\n        \"orderNumber\": 0\r\n    },\r\n    \"itemName\": \"Miss Kelly Dare\",\r\n    \"tradeDesc\": \"Bestia desidero comprehendo votum attollo aggero.\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{HOST}}/api/auth/payment",
+          "host": ["{{HOST}}"],
+          "path": ["api", "auth", "payment"]
+        }
+      },
+      "response": []
+    },
+    {
       "name": "register",
       "request": {
         "method": "POST",
@@ -620,12 +618,17 @@
             {
               "key": "image",
               "type": "file",
-              "src": "/C:/Users/lazys/OneDrive/桌面/test.png"
+              "src": "/C:/Users/lazys/Downloads/elpotqzhtnnjdpfmmulb.png"
             },
             {
               "key": "image",
               "type": "file",
-              "src": "/C:/Users/lazys/OneDrive/桌面/test2.jpg"
+              "src": "/C:/Users/lazys/Downloads/nmlstwhc29zojmshg3bj.jpg"
+            },
+            {
+              "key": "image",
+              "type": "file",
+              "src": "/C:/Users/lazys/Downloads/rz5dy5u5tyztiyzxtur1.jpg"
             }
           ]
         },

@@ -46,6 +46,8 @@ export const mockActivity: ActivitySchemaModel = {
   details: faker.lorem.paragraph(),
   isPrivate: faker.helpers.arrayElement([true, false]),
   displayRemainingTickets: faker.helpers.arrayElement([true, false]),
+  remainingTickets: 20,
+  participantNumber: 0,
   isRecurring: faker.helpers.arrayElement([true, false]),
   recurring: {
     period: faker.helpers.arrayElement(periodValues),
@@ -53,6 +55,8 @@ export const mockActivity: ActivitySchemaModel = {
     day: faker.helpers.arrayElement(dayValues),
   },
   status: StatusEnum.VALID,
+  saved: false,
+  participated: false,
   tickets: [
     {
       activityId: new mongoose.Types.ObjectId(),
@@ -68,6 +72,7 @@ export const mockActivity: ActivitySchemaModel = {
       description: faker.lorem.sentence(),
       purchaseDuplicate: faker.helpers.arrayElement([true, false]),
       ticketStatus: TicketStatusEnum.VALID,
+      soldNumber: 0,
     },
   ],
   questions: [],
