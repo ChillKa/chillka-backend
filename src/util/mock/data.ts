@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker';
 import mongoose from 'mongoose';
 import {
+  ActivitySchemaModel,
   CategoryEnum,
   DayEnum,
   PeriodEnum,
@@ -18,7 +19,8 @@ const weekValues = Object.values(WeekEnum);
 const dayValues = Object.values(DayEnum);
 
 // Mock data
-export const mockActivity: ActivityCreateCredentials = {
+export const mockActivity: ActivitySchemaModel = {
+  creatorId: new mongoose.Types.ObjectId(),
   name: faker.person.fullName(),
   organizer: {
     profilePicture: faker.image.urlLoremFlickr(),
@@ -69,6 +71,6 @@ export const mockActivity: ActivityCreateCredentials = {
     },
   ],
   questions: [],
-  lat: 'lat',
-  lng: 'lang',
+  lat: '',
+  lng: '',
 };
