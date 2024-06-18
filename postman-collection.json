@@ -1,6 +1,6 @@
 {
   "info": {
-    "_postman_id": "a1cdc277-4363-48ec-961e-250c6fac341c",
+    "_postman_id": "f6b33cea-df08-468d-9fa4-96fe74a04842",
     "name": "chillka-backend",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "30654257"
@@ -156,25 +156,6 @@
           "raw": "{{HOST}}/api/auth/activities",
           "host": ["{{HOST}}"],
           "path": ["api", "auth", "activities"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "create mock activity",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{HOST}}/api/mock-activity?limit=10",
-          "host": ["{{HOST}}"],
-          "path": ["api", "mock-activity"],
-          "query": [
-            {
-              "key": "limit",
-              "value": "10"
-            }
-          ]
         }
       },
       "response": []
@@ -509,6 +490,19 @@
       "response": []
     },
     {
+      "name": "get order detail",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{HOST}}/api/auth/orders/:orderId",
+          "host": ["{{HOST}}"],
+          "path": ["api", "auth", "orders"]
+        }
+      },
+      "response": []
+    },
+    {
       "name": "get user by Id",
       "request": {
         "method": "GET",
@@ -830,7 +824,7 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{session}}",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjU4YWE2MTJjMjU3MzMwODZjMzVhZDkiLCJkaXNwbGF5TmFtZSI6ImNoaWxsa2EiLCJlbWFpbCI6ImNoaWxsa2Eub2ZmaWNhbEBnbWFpbC5jb20iLCJpYXQiOjE3MTg3MjM4MjgsImV4cCI6MTcxODgxMDIyOH0.SmUc0h4edLi-TjgpQ5yhFHDJeFZO68bhrIJYAW8UIVQ",
         "type": "string"
       }
     ]
@@ -851,6 +845,12 @@
         "packages": {},
         "exec": [""]
       }
+    }
+  ],
+  "variable": [
+    {
+      "key": "HOST",
+      "value": "http://localhost:8000"
     }
   ]
 }

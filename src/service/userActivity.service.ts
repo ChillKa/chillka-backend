@@ -375,25 +375,26 @@ export const createActivityMessage = async ({
   activityId: string;
   content: string;
 }) => {
+  const existingOrder = await Order.findOne({
+    userId,
+    activityId,
+  });
+  const participantObjectId = new mongoose.Types.ObjectId(participantId);
+
+  if (!participantObjectId.equals(existingOrder?.userId)) {
+    throw new CoreError('Unauthorized participantId.');
+  }
+  if (userId?.equals(participantObjectId)) {
+    throw new CoreError('User cannot send message to themselves.');
+  }
+
+  const messageListRequest = {
+    orderId: existingOrder?._id,
+    participantUserId: existingOrder?.userId,
+    hostUserId: userId,
+  };
+
   try {
-    const existingOrder = await Order.findOne({
-      userId,
-      activityId,
-    });
-    const participantObjectId = new mongoose.Types.ObjectId(participantId);
-
-    if (!participantObjectId.equals(existingOrder?.userId)) {
-      throw new CoreError('Unauthorized participantId.');
-    }
-    if (userId?.equals(participantObjectId)) {
-      throw new CoreError('User cannot send message to themselves.');
-    }
-
-    const messageListRequest = {
-      orderId: existingOrder?._id,
-      participantUserId: existingOrder?.userId,
-      hostUserId: userId,
-    };
     const messageList = await MessageList.findOne(messageListRequest);
 
     if (!messageList) {
