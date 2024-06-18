@@ -1,12 +1,98 @@
 import Activity from '../model/activity.model';
 import Comment from '../model/comment.model';
 import Keyword from '../model/keyword.model';
+import Order from '../model/order.model';
+import User from '../model/user.model';
 import {
   GetActivityDetailCredential,
+  GetRecommendActivitiesCredential,
   replyObject,
 } from '../type/activity.type';
 import { QuestionSchemaModel, TypeEnum } from '../type/question.type';
 import { CoreError } from '../util/error-handler';
+
+export const getRecommendActivities = async ({
+  userId,
+  limit,
+}: GetRecommendActivitiesCredential) => {
+  try {
+    const randomActivities = await Activity.aggregate().sample(limit);
+    await Activity.populate(randomActivities, 'tickets');
+    const validActivities = await Activity.aggregate()
+      .match({
+        $or: [{ endDateTime: { $gte: new Date() } }, { noEndDate: true }],
+      })
+      .sample(limit);
+    await Activity.populate(validActivities, 'tickets');
+    validActivities.push(...randomActivities);
+
+    if (userId) {
+      const user = await User.findById(userId).select({
+        favoriteCategories: 1,
+      });
+      if (user?.favoriteCategories.length) {
+        const favoriteActivities = await Activity.aggregate()
+          .match({
+            $and: [
+              { category: { $in: user.favoriteCategories } },
+              {
+                $or: [
+                  { endDateTime: { $gte: new Date() } },
+                  { noEndDate: true },
+                ],
+              },
+            ],
+          })
+          .sample(limit);
+        await Activity.populate(favoriteActivities, 'tickets');
+
+        validActivities.unshift(...favoriteActivities);
+      }
+    }
+
+    const activities = [];
+    for (const validActivity of validActivities.slice(0, limit)) {
+      const participantNumber = await Order.find({
+        activityId: validActivity._id,
+      }).countDocuments();
+
+      const {
+        _id,
+        thumbnail,
+        name,
+        summary,
+        startDateTime,
+        fromToday,
+        endDateTime,
+        noEndDate,
+        location,
+        organizer,
+        tickets,
+      } = validActivity;
+
+      activities.push({
+        _id,
+        thumbnail,
+        name,
+        summary,
+        startDateTime,
+        fromToday,
+        endDateTime,
+        noEndDate,
+        location,
+        participantNumber,
+        organizerName: organizer.name,
+        price: tickets[0].price,
+      });
+    }
+
+    // valid means within the activity period
+    // activities = [validFavoriteActivities, validRandomActivities, randomActivities]
+    return activities;
+  } catch (error) {
+    throw new CoreError('Get recommend activities failed.');
+  }
+};
 
 export const getPopularKeywords = async () => {
   try {
@@ -17,7 +103,7 @@ export const getPopularKeywords = async () => {
 
     return { keywords: popularKeywords.concat(defaultKeywords).slice(0, 5) };
   } catch (error) {
-    throw new CoreError('Create activity failed.');
+    throw new CoreError('Get popular keywords failed.');
   }
 };
 
@@ -27,7 +113,7 @@ export const getComments = async () => {
 
     return { comments };
   } catch (error) {
-    throw new CoreError('Create activity failed.');
+    throw new CoreError('Get comments failed.');
   }
 };
 
@@ -65,7 +151,12 @@ export const getActivityDetail = async ({
     }
 
     if (userId) {
-      // save the activity category to the user's favorites list
+      const user = await User.findById(userId);
+      if (user && activity) {
+        if (!user.favoriteCategories.includes(activity.category))
+          user.favoriteCategories.push(activity.category);
+        await user.save();
+      }
     }
 
     const data = {

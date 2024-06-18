@@ -21,11 +21,11 @@ export const activitySchema = z.object({
     z.string({ required_error: 'Cover is required at least one' })
   ),
   thumbnail: z.string({ required_error: 'Thumbnail is required' }),
-  startDateTime: z.date().optional(),
+  startDateTime: z.string().optional(),
   fromToday: z.boolean({
     required_error: 'FromToday is required',
   }),
-  endDateTime: z.date().optional(),
+  endDateTime: z.string().optional(),
   noEndDate: z.boolean({
     required_error: 'NoEndDate is required',
   }),

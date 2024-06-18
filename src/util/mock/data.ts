@@ -1,7 +1,6 @@
 import { faker } from '@faker-js/faker';
 import mongoose from 'mongoose';
 import {
-  ActivityCreateCredentials,
   CategoryEnum,
   DayEnum,
   PeriodEnum,

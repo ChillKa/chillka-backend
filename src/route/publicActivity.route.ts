@@ -6,6 +6,27 @@ import { throwAPIError } from '../util/error-handler';
 const publicActivityRouter = () => {
   const router = Router();
 
+  router.get('/activities/recommend', async (req: Request, res: Response) => {
+    /* #swagger.tags = ['Activity'] */
+
+    const userId = req.query.userId as string;
+    const queryLimit = req.query.limit;
+    const limit =
+      queryLimit && Number.isInteger(+queryLimit) && +queryLimit > 0
+        ? +queryLimit
+        : 3;
+    try {
+      const data = await PublicActivityService.getRecommendActivities({
+        userId,
+        limit,
+      });
+
+      res.status(200).send(data);
+    } catch (error) {
+      throwAPIError({ res, error, statusCode: 400 });
+    }
+  });
+
   router.get(
     '/activities/popular-keywords',
     async (req: Request, res: Response) => {
