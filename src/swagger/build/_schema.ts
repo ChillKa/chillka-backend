@@ -78,6 +78,12 @@ export const _schema = {
             "$ref": "#/definitions/Types.ObjectId"
           }
         },
+        "favoriteCategories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "displayName": {
           "type": "string"
         },
@@ -91,6 +97,7 @@ export const _schema = {
       "required": [
         "displayName",
         "email",
+        "favoriteCategories",
         "password"
       ]
     },
@@ -213,11 +220,18 @@ export const _schema = {
           "items": {
             "$ref": "#/definitions/Types.ObjectId"
           }
+        },
+        "favoriteCategories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
         "displayName",
-        "email"
+        "email",
+        "favoriteCategories"
       ]
     },
     "SendEmailCredentials": {
@@ -919,7 +933,6 @@ export const _schema = {
         "creatorId",
         "details",
         "displayRemainingTickets",
-        "endDateTime",
         "fromToday",
         "isPrivate",
         "isRecurring",
@@ -932,7 +945,6 @@ export const _schema = {
         "organizer",
         "questions",
         "recurring",
-        "startDateTime",
         "status",
         "summary",
         "thumbnail",
@@ -1194,7 +1206,6 @@ export const _schema = {
         "creatorId",
         "details",
         "displayRemainingTickets",
-        "endDateTime",
         "fromToday",
         "isPrivate",
         "isRecurring",
@@ -1207,7 +1218,6 @@ export const _schema = {
         "organizer",
         "questions",
         "recurring",
-        "startDateTime",
         "status",
         "summary",
         "thumbnail",
@@ -1465,7 +1475,6 @@ export const _schema = {
         "cover",
         "details",
         "displayRemainingTickets",
-        "endDateTime",
         "fromToday",
         "isPrivate",
         "isRecurring",
@@ -1478,7 +1487,6 @@ export const _schema = {
         "organizer",
         "questions",
         "recurring",
-        "startDateTime",
         "status",
         "summary",
         "thumbnail",
@@ -1609,9 +1617,9 @@ export const _schema = {
             "period": {
               "type": "string",
               "enum": [
-                "線上",
-                "室內",
-                "室外"
+                "隔週",
+                "每月",
+                "每季"
               ]
             },
             "week": {
@@ -1730,7 +1738,6 @@ export const _schema = {
         "cover",
         "details",
         "displayRemainingTickets",
-        "endDateTime",
         "fromToday",
         "isPrivate",
         "isRecurring",
@@ -1742,7 +1749,6 @@ export const _schema = {
         "noEndDate",
         "organizer",
         "recurring",
-        "startDateTime",
         "status",
         "summary",
         "thumbnail",
@@ -1983,12 +1989,6 @@ export const _schema = {
                 ]
               }
             },
-            "questions": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/QuestionSchemaModel"
-              }
-            },
             "lat": {
               "type": "string"
             },
@@ -2002,7 +2002,6 @@ export const _schema = {
             "cover",
             "details",
             "displayRemainingTickets",
-            "endDateTime",
             "fromToday",
             "isPrivate",
             "isRecurring",
@@ -2014,7 +2013,6 @@ export const _schema = {
             "noEndDate",
             "organizer",
             "recurring",
-            "startDateTime",
             "status",
             "summary",
             "thumbnail",
@@ -2283,7 +2281,6 @@ export const _schema = {
         "cover",
         "details",
         "displayRemainingTickets",
-        "endDateTime",
         "fromToday",
         "isPrivate",
         "isRecurring",
@@ -2295,7 +2292,6 @@ export const _schema = {
         "noEndDate",
         "organizer",
         "recurring",
-        "startDateTime",
         "status",
         "summary",
         "thumbnail",
@@ -2507,6 +2503,20 @@ export const _schema = {
         "originalname",
         "path",
         "size"
+      ]
+    },
+    "GetRecommendActivitiesCredential": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "limit"
       ]
     },
     "CommentSchemaModel": {
