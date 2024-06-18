@@ -1609,9 +1609,9 @@ export const _schema = {
             "period": {
               "type": "string",
               "enum": [
-                "線上",
-                "室內",
-                "室外"
+                "隔週",
+                "每月",
+                "每季"
               ]
             },
             "week": {
@@ -1981,12 +1981,6 @@ export const _schema = {
                   "ticketStatus",
                   "unlimitedQuantity"
                 ]
-              }
-            },
-            "questions": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/QuestionSchemaModel"
               }
             },
             "lat": {
