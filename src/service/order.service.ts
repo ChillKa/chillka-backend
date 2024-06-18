@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker';
 import mongoose from 'mongoose';
+import Activity from '../model/activity.model';
 import Order from '../model/order.model';
 import User from '../model/user.model';
 import {
@@ -39,6 +40,15 @@ export const createOrder = async ({
     };
 
     await Order.create(order);
+
+    const activity = await Activity.findById(requestBody.activityId).select({
+      category: 1,
+    });
+    if (activity) {
+      if (!user.favoriteCategories.includes(activity.category))
+        user.favoriteCategories.push(activity.category);
+      await user.save();
+    }
     return { message: 'Create order success.' };
   } catch (error) {
     throw new CoreError('Create order failed.');

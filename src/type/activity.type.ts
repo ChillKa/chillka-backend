@@ -73,9 +73,9 @@ export interface ActivitySchemaModel {
   organizer: OrganizerBase;
   cover: string[];
   thumbnail: string;
-  startDateTime: Date;
+  startDateTime?: Date;
   fromToday: boolean;
-  endDateTime: Date;
+  endDateTime?: Date;
   noEndDate: boolean;
   category: CategoryEnum;
   type: TypeEnum;
@@ -165,4 +165,9 @@ export type ImageFile = {
   path: string;
   size: number;
   filename: string;
+};
+
+export type GetRecommendActivitiesCredential = {
+  userId?: string;
+  limit: number;
 };
