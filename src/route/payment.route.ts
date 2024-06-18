@@ -24,7 +24,7 @@ const paymentRouter = () => {
   const router = Router();
 
   router
-    .get(
+    .post(
       '/payment',
       authorizeMiddleware,
       zodValidateMiddleware(paymentCheckoutSchema),
@@ -87,6 +87,7 @@ const paymentRouter = () => {
         }
       }
     )
+    // 付款完成後，綠界會將結果回傳至此
     .post('/payment_result', async (req: Request, res: Response) => {
       /* #swagger.ignore = true */
 
