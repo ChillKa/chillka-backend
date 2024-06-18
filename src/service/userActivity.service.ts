@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import Activity from '../model/activity.model';
+import MessageList from '../model/message-list.model';
 import Order from '../model/order.model';
 import Question from '../model/question.model';
 import Ticket from '../model/ticket.model';
@@ -15,6 +16,7 @@ import {
   QuestionCredentials,
   StatusEnum,
 } from '../type/activity.type';
+import { MessageUserType } from '../type/message-list.type';
 import { TypeEnum } from '../type/question.type';
 import { CoreError } from '../util/error-handler';
 import { paginator } from '../util/paginator';
@@ -359,5 +361,52 @@ export const deleteQuestion = async ({
     return { message: 'success delete' };
   } catch (error) {
     throw new CoreError('Ask question failed.');
+  }
+};
+
+export const createActivityMessage = async ({
+  userId,
+  participantId,
+  activityId,
+  content,
+}: {
+  userId?: mongoose.Types.ObjectId;
+  participantId: string;
+  activityId: string;
+  content: string;
+}) => {
+  try {
+    const existingOrder = await Order.findOne({
+      userId,
+      activityId,
+    });
+    const participantObjectId = new mongoose.Types.ObjectId(participantId);
+
+    if (!participantObjectId.equals(existingOrder?.userId)) {
+      throw new CoreError('Unauthorized participantId.');
+    }
+    if (userId?.equals(participantObjectId)) {
+      throw new CoreError('User cannot send message to themselves.');
+    }
+
+    const messageListRequest = {
+      orderId: existingOrder?._id,
+      participantUserId: existingOrder?.userId,
+      hostUserId: userId,
+    };
+    const messageList = await MessageList.findOne(messageListRequest);
+
+    if (!messageList) {
+      await MessageList.create(messageListRequest);
+    }
+
+    messageList?.messages.push({
+      userType: MessageUserType.HOST,
+      content,
+    });
+
+    return { message: 'Send message success.' };
+  } catch (error) {
+    throw new CoreError('Send message failed.');
   }
 };
