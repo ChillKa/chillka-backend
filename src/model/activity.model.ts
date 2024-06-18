@@ -90,6 +90,12 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
       required: true,
       default: false,
     },
+    remainingTickets: {
+      type: Schema.Types.Number,
+    },
+    participantNumber: {
+      type: Schema.Types.Number,
+    },
     isRecurring: {
       type: Schema.Types.Boolean,
       required: true,
@@ -120,6 +126,14 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
     },
     lng: {
       type: Schema.Types.String,
+    },
+    saved: {
+      type: Schema.Types.Boolean,
+      default: false,
+    },
+    participated: {
+      type: Schema.Types.Boolean,
+      default: false,
     },
   },
   {

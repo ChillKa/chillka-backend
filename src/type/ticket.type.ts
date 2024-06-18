@@ -16,6 +16,7 @@ export interface TicketSchemaModel {
   endDateTime: Date;
   noEndDate: boolean;
   participantCapacity: number;
+  soldNumber: number;
   unlimitedQuantity: boolean;
   purchaseLimit: number;
   description: string;

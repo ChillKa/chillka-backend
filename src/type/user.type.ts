@@ -24,6 +24,7 @@ export interface UserSchemaModel extends UserBase {
   address?: string;
   isEmailValidate?: string;
   savedActivities?: mongoose.Types.ObjectId[];
+  favoriteCategories: string[];
 }
 
 export type UserRegisterCredentials = UserBase & {

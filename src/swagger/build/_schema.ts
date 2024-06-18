@@ -78,6 +78,12 @@ export const _schema = {
             "$ref": "#/definitions/Types.ObjectId"
           }
         },
+        "favoriteCategories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "displayName": {
           "type": "string"
         },
@@ -91,6 +97,7 @@ export const _schema = {
       "required": [
         "displayName",
         "email",
+        "favoriteCategories",
         "password"
       ]
     },
@@ -213,11 +220,18 @@ export const _schema = {
           "items": {
             "$ref": "#/definitions/Types.ObjectId"
           }
+        },
+        "favoriteCategories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
       "required": [
         "displayName",
-        "email"
+        "email",
+        "favoriteCategories"
       ]
     },
     "SendEmailCredentials": {
@@ -461,6 +475,9 @@ export const _schema = {
         "participantCapacity": {
           "type": "number"
         },
+        "soldNumber": {
+          "type": "number"
+        },
         "unlimitedQuantity": {
           "type": "boolean"
         },
@@ -493,6 +510,7 @@ export const _schema = {
         "price",
         "purchaseDuplicate",
         "purchaseLimit",
+        "soldNumber",
         "startDateTime",
         "ticketStatus",
         "unlimitedQuantity"
@@ -527,6 +545,9 @@ export const _schema = {
         "participantCapacity": {
           "type": "number"
         },
+        "soldNumber": {
+          "type": "number"
+        },
         "unlimitedQuantity": {
           "type": "boolean"
         },
@@ -555,6 +576,7 @@ export const _schema = {
         "price",
         "purchaseDuplicate",
         "purchaseLimit",
+        "soldNumber",
         "startDateTime",
         "ticketStatus",
         "unlimitedQuantity"
@@ -774,6 +796,12 @@ export const _schema = {
         "displayRemainingTickets": {
           "type": "boolean"
         },
+        "remainingTickets": {
+          "type": "number"
+        },
+        "participantNumber": {
+          "type": "number"
+        },
         "isRecurring": {
           "type": "boolean"
         },
@@ -861,6 +889,9 @@ export const _schema = {
               "participantCapacity": {
                 "type": "number"
               },
+              "soldNumber": {
+                "type": "number"
+              },
               "unlimitedQuantity": {
                 "type": "boolean"
               },
@@ -893,6 +924,7 @@ export const _schema = {
               "price",
               "purchaseDuplicate",
               "purchaseLimit",
+              "soldNumber",
               "startDateTime",
               "ticketStatus",
               "unlimitedQuantity"
@@ -910,6 +942,12 @@ export const _schema = {
         },
         "lng": {
           "type": "string"
+        },
+        "saved": {
+          "type": "boolean"
+        },
+        "participated": {
+          "type": "boolean"
         }
       },
       "required": [
@@ -919,7 +957,6 @@ export const _schema = {
         "creatorId",
         "details",
         "displayRemainingTickets",
-        "endDateTime",
         "fromToday",
         "isPrivate",
         "isRecurring",
@@ -930,9 +967,12 @@ export const _schema = {
         "name",
         "noEndDate",
         "organizer",
+        "participantNumber",
+        "participated",
         "questions",
         "recurring",
-        "startDateTime",
+        "remainingTickets",
+        "saved",
         "status",
         "summary",
         "thumbnail",
@@ -1049,6 +1089,12 @@ export const _schema = {
         "displayRemainingTickets": {
           "type": "boolean"
         },
+        "remainingTickets": {
+          "type": "number"
+        },
+        "participantNumber": {
+          "type": "number"
+        },
         "isRecurring": {
           "type": "boolean"
         },
@@ -1136,6 +1182,9 @@ export const _schema = {
               "participantCapacity": {
                 "type": "number"
               },
+              "soldNumber": {
+                "type": "number"
+              },
               "unlimitedQuantity": {
                 "type": "boolean"
               },
@@ -1168,6 +1217,7 @@ export const _schema = {
               "price",
               "purchaseDuplicate",
               "purchaseLimit",
+              "soldNumber",
               "startDateTime",
               "ticketStatus",
               "unlimitedQuantity"
@@ -1185,6 +1235,12 @@ export const _schema = {
         },
         "lng": {
           "type": "string"
+        },
+        "saved": {
+          "type": "boolean"
+        },
+        "participated": {
+          "type": "boolean"
         }
       },
       "required": [
@@ -1194,7 +1250,6 @@ export const _schema = {
         "creatorId",
         "details",
         "displayRemainingTickets",
-        "endDateTime",
         "fromToday",
         "isPrivate",
         "isRecurring",
@@ -1205,9 +1260,12 @@ export const _schema = {
         "name",
         "noEndDate",
         "organizer",
+        "participantNumber",
+        "participated",
         "questions",
         "recurring",
-        "startDateTime",
+        "remainingTickets",
+        "saved",
         "status",
         "summary",
         "thumbnail",
@@ -1329,6 +1387,12 @@ export const _schema = {
         "displayRemainingTickets": {
           "type": "boolean"
         },
+        "remainingTickets": {
+          "type": "number"
+        },
+        "participantNumber": {
+          "type": "number"
+        },
         "isRecurring": {
           "type": "boolean"
         },
@@ -1408,6 +1472,9 @@ export const _schema = {
               "participantCapacity": {
                 "type": "number"
               },
+              "soldNumber": {
+                "type": "number"
+              },
               "unlimitedQuantity": {
                 "type": "boolean"
               },
@@ -1440,6 +1507,7 @@ export const _schema = {
               "price",
               "purchaseDuplicate",
               "purchaseLimit",
+              "soldNumber",
               "startDateTime",
               "ticketStatus",
               "unlimitedQuantity"
@@ -1457,6 +1525,12 @@ export const _schema = {
         },
         "lng": {
           "type": "string"
+        },
+        "saved": {
+          "type": "boolean"
+        },
+        "participated": {
+          "type": "boolean"
         }
       },
       "required": [
@@ -1465,7 +1539,6 @@ export const _schema = {
         "cover",
         "details",
         "displayRemainingTickets",
-        "endDateTime",
         "fromToday",
         "isPrivate",
         "isRecurring",
@@ -1476,9 +1549,12 @@ export const _schema = {
         "name",
         "noEndDate",
         "organizer",
+        "participantNumber",
+        "participated",
         "questions",
         "recurring",
-        "startDateTime",
+        "remainingTickets",
+        "saved",
         "status",
         "summary",
         "thumbnail",
@@ -1600,6 +1676,12 @@ export const _schema = {
         "displayRemainingTickets": {
           "type": "boolean"
         },
+        "remainingTickets": {
+          "type": "number"
+        },
+        "participantNumber": {
+          "type": "number"
+        },
         "isRecurring": {
           "type": "boolean"
         },
@@ -1679,6 +1761,9 @@ export const _schema = {
               "participantCapacity": {
                 "type": "number"
               },
+              "soldNumber": {
+                "type": "number"
+              },
               "unlimitedQuantity": {
                 "type": "boolean"
               },
@@ -1711,6 +1796,7 @@ export const _schema = {
               "price",
               "purchaseDuplicate",
               "purchaseLimit",
+              "soldNumber",
               "startDateTime",
               "ticketStatus",
               "unlimitedQuantity"
@@ -1722,6 +1808,12 @@ export const _schema = {
         },
         "lng": {
           "type": "string"
+        },
+        "saved": {
+          "type": "boolean"
+        },
+        "participated": {
+          "type": "boolean"
         }
       },
       "required": [
@@ -1730,7 +1822,6 @@ export const _schema = {
         "cover",
         "details",
         "displayRemainingTickets",
-        "endDateTime",
         "fromToday",
         "isPrivate",
         "isRecurring",
@@ -1741,8 +1832,11 @@ export const _schema = {
         "name",
         "noEndDate",
         "organizer",
+        "participantNumber",
+        "participated",
         "recurring",
-        "startDateTime",
+        "remainingTickets",
+        "saved",
         "status",
         "summary",
         "thumbnail",
@@ -1866,6 +1960,12 @@ export const _schema = {
             "displayRemainingTickets": {
               "type": "boolean"
             },
+            "remainingTickets": {
+              "type": "number"
+            },
+            "participantNumber": {
+              "type": "number"
+            },
             "isRecurring": {
               "type": "boolean"
             },
@@ -1945,6 +2045,9 @@ export const _schema = {
                   "participantCapacity": {
                     "type": "number"
                   },
+                  "soldNumber": {
+                    "type": "number"
+                  },
                   "unlimitedQuantity": {
                     "type": "boolean"
                   },
@@ -1977,6 +2080,7 @@ export const _schema = {
                   "price",
                   "purchaseDuplicate",
                   "purchaseLimit",
+                  "soldNumber",
                   "startDateTime",
                   "ticketStatus",
                   "unlimitedQuantity"
@@ -1988,6 +2092,12 @@ export const _schema = {
             },
             "lng": {
               "type": "string"
+            },
+            "saved": {
+              "type": "boolean"
+            },
+            "participated": {
+              "type": "boolean"
             }
           },
           "required": [
@@ -1996,7 +2106,6 @@ export const _schema = {
             "cover",
             "details",
             "displayRemainingTickets",
-            "endDateTime",
             "fromToday",
             "isPrivate",
             "isRecurring",
@@ -2007,8 +2116,11 @@ export const _schema = {
             "name",
             "noEndDate",
             "organizer",
+            "participantNumber",
+            "participated",
             "recurring",
-            "startDateTime",
+            "remainingTickets",
+            "saved",
             "status",
             "summary",
             "thumbnail",
@@ -2147,6 +2259,12 @@ export const _schema = {
         "displayRemainingTickets": {
           "type": "boolean"
         },
+        "remainingTickets": {
+          "type": "number"
+        },
+        "participantNumber": {
+          "type": "number"
+        },
         "isRecurring": {
           "type": "boolean"
         },
@@ -2226,6 +2344,9 @@ export const _schema = {
               "participantCapacity": {
                 "type": "number"
               },
+              "soldNumber": {
+                "type": "number"
+              },
               "unlimitedQuantity": {
                 "type": "boolean"
               },
@@ -2258,6 +2379,7 @@ export const _schema = {
               "price",
               "purchaseDuplicate",
               "purchaseLimit",
+              "soldNumber",
               "startDateTime",
               "ticketStatus",
               "unlimitedQuantity"
@@ -2269,6 +2391,12 @@ export const _schema = {
         },
         "lng": {
           "type": "string"
+        },
+        "saved": {
+          "type": "boolean"
+        },
+        "participated": {
+          "type": "boolean"
         }
       },
       "required": [
@@ -2277,7 +2405,6 @@ export const _schema = {
         "cover",
         "details",
         "displayRemainingTickets",
-        "endDateTime",
         "fromToday",
         "isPrivate",
         "isRecurring",
@@ -2288,8 +2415,11 @@ export const _schema = {
         "name",
         "noEndDate",
         "organizer",
+        "participantNumber",
+        "participated",
         "recurring",
-        "startDateTime",
+        "remainingTickets",
+        "saved",
         "status",
         "summary",
         "thumbnail",
@@ -2501,6 +2631,20 @@ export const _schema = {
         "originalname",
         "path",
         "size"
+      ]
+    },
+    "GetRecommendActivitiesCredential": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "limit"
       ]
     },
     "CommentSchemaModel": {
