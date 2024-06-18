@@ -73,6 +73,11 @@ const UserSchema = new Schema<UserSchemaModel, UserModel, UserMethods>(
       default: false,
     },
     savedActivities: [{ type: Schema.Types.ObjectId, ref: 'Activity' }],
+    favoriteCategories: {
+      type: [Schema.Types.String],
+      required: true,
+      default: [],
+    },
   },
   {
     collection: 'users',

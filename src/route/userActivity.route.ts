@@ -23,10 +23,13 @@ const userActivityRouter = () => {
       */
 
       const creatorId = req.user?._id;
+      const { startDateTime, endDateTime, ...reqBody } = req.body;
       try {
         const data = await UserActivityService.createActivity({
           creatorId,
-          ...req.body,
+          startDateTime: startDateTime ? new Date(startDateTime) : undefined,
+          endDateTime: endDateTime ? new Date(endDateTime) : undefined,
+          ...reqBody,
         });
         res.status(200).send(data);
       } catch (error) {

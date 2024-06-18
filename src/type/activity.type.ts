@@ -5,14 +5,14 @@ import { QuestionSchemaModel } from './question.type';
 import { TicketSchemaModel } from './ticket.type';
 
 export enum CategoryEnum {
-  Outdoor = '戶外踏青',
-  Social = '社交活動',
-  Hobbies = '興趣嗜好',
-  Sports = '運動健身',
-  Health = '健康生活',
-  Technology = '科技玩物',
-  Art = '藝術文化',
-  Games = '遊戲',
+  OUTDOOR = '戶外踏青',
+  SOCIAL = '社交活動',
+  HOBBIES = '興趣嗜好',
+  SPORTS = '運動健身',
+  HEALTH = '健康生活',
+  TECHNOLOGY = '科技玩物',
+  ART = '藝術文化',
+  GAMES = '遊戲',
 }
 
 export enum TypeEnum {
@@ -73,9 +73,9 @@ export interface ActivitySchemaModel {
   organizer: OrganizerBase;
   cover: string[];
   thumbnail: string;
-  startDateTime: Date;
+  startDateTime?: Date;
   fromToday: boolean;
-  endDateTime: Date;
+  endDateTime?: Date;
   noEndDate: boolean;
   category: CategoryEnum;
   type: TypeEnum;
@@ -86,6 +86,8 @@ export interface ActivitySchemaModel {
   details: string;
   isPrivate: boolean;
   displayRemainingTickets: boolean;
+  remainingTickets: number;
+  participantNumber: number;
   isRecurring: boolean;
   recurring: Recurring;
   status: StatusEnum;
@@ -93,6 +95,8 @@ export interface ActivitySchemaModel {
   questions: QuestionSchemaModel[];
   lat: string;
   lng: string;
+  saved: boolean;
+  participated: boolean;
 }
 
 export type ActivityCreateParams = ActivitySchemaModel;
@@ -165,4 +169,9 @@ export type ImageFile = {
   path: string;
   size: number;
   filename: string;
+};
+
+export type GetRecommendActivitiesCredential = {
+  userId?: string;
+  limit: number;
 };

@@ -40,6 +40,9 @@ const TicketSchema = new Schema<TicketSchemaModel, TicketModel>(
       type: Schema.Types.Number,
       required: true,
     },
+    soldNumber: {
+      type: Schema.Types.Number,
+    },
     unlimitedQuantity: {
       type: Schema.Types.Boolean,
       required: true,

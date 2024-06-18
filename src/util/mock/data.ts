@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import mongoose from 'mongoose';
 import {
-  ActivityCreateCredentials,
+  ActivitySchemaModel,
   CategoryEnum,
   DayEnum,
   PeriodEnum,
@@ -19,7 +19,8 @@ const weekValues = Object.values(WeekEnum);
 const dayValues = Object.values(DayEnum);
 
 // Mock data
-export const mockActivity: ActivityCreateCredentials = {
+export const mockActivity: ActivitySchemaModel = {
+  creatorId: new mongoose.Types.ObjectId(),
   name: faker.person.fullName(),
   organizer: {
     profilePicture: faker.image.urlLoremFlickr(),
@@ -45,6 +46,8 @@ export const mockActivity: ActivityCreateCredentials = {
   details: faker.lorem.paragraph(),
   isPrivate: faker.helpers.arrayElement([true, false]),
   displayRemainingTickets: faker.helpers.arrayElement([true, false]),
+  remainingTickets: 20,
+  participantNumber: 0,
   isRecurring: faker.helpers.arrayElement([true, false]),
   recurring: {
     period: faker.helpers.arrayElement(periodValues),
@@ -52,6 +55,8 @@ export const mockActivity: ActivityCreateCredentials = {
     day: faker.helpers.arrayElement(dayValues),
   },
   status: StatusEnum.VALID,
+  saved: false,
+  participated: false,
   tickets: [
     {
       activityId: new mongoose.Types.ObjectId(),
@@ -67,9 +72,10 @@ export const mockActivity: ActivityCreateCredentials = {
       description: faker.lorem.sentence(),
       purchaseDuplicate: faker.helpers.arrayElement([true, false]),
       ticketStatus: TicketStatusEnum.VALID,
+      soldNumber: 0,
     },
   ],
   questions: [],
-  lat: 'lat',
-  lng: 'lang',
+  lat: '',
+  lng: '',
 };
