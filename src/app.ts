@@ -4,7 +4,6 @@ import http from 'http';
 import mongoose from 'mongoose';
 import { Server } from 'socket.io';
 import swaggerUi from 'swagger-ui-express';
-import Activity from './model/activity.model';
 import User from './model/user.model';
 import authRoute from './route/auth.route';
 import messageRoute from './route/message-list.route';
@@ -17,7 +16,7 @@ import userRoute from './route/user.route';
 import userActivityRoute from './route/userActivity.route';
 import swaggerDocument from './swagger/swagger-output.json';
 import googleStrategy from './util/google-strategy';
-import { mockActivity } from './util/mock/data';
+import { importMockActivity } from './util/mock/import';
 
 const app = express();
 const port = process.env.PORT;
@@ -70,7 +69,7 @@ app.get('/api/demo', async (req, res) => {
 app.get('/api/mock-activity', async (req, res) => {
   const limit = req.query.limit;
   const quantity = limit && Number.isInteger(+limit) && +limit > 1 ? +limit : 1;
-  for (const _ of [...Array(quantity)]) await Activity.insertMany(mockActivity);
+  await importMockActivity(quantity);
 
   res.send(`success create ${quantity} activities`);
 });
