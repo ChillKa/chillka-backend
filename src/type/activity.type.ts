@@ -92,8 +92,8 @@ export interface ActivitySchemaModel {
   status: StatusEnum;
   tickets: TicketSchemaModel[];
   questions: QuestionSchemaModel[];
-  lat: string;
-  lng: string;
+  lat: number;
+  lng: number;
   saved: boolean;
   participated: boolean;
   participantCapacity: number;
