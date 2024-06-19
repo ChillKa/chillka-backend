@@ -87,7 +87,6 @@ export interface ActivitySchemaModel {
   isPrivate: boolean;
   displayRemainingTickets: boolean;
   remainingTickets: number;
-  participantNumber: number;
   isRecurring: boolean;
   recurring: Recurring;
   status: StatusEnum;
@@ -97,6 +96,7 @@ export interface ActivitySchemaModel {
   lng: string;
   saved: boolean;
   participated: boolean;
+  participantCapacity: number;
 }
 
 export type ActivityCreateParams = ActivitySchemaModel;
