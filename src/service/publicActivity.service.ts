@@ -145,6 +145,8 @@ export const getActivityDetail = async ({
       ticket.soldNumber = soldNumber;
       participantNumber += soldNumber;
       participantCapacity += ticket.participantCapacity;
+      activity.unlimitedQuantity =
+        activity.unlimitedQuantity || ticket.unlimitedQuantity;
     }
     activity.participantCapacity = participantCapacity;
     activity.remainingTickets = participantCapacity - participantNumber;

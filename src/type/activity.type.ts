@@ -97,6 +97,7 @@ export interface ActivitySchemaModel {
   saved: boolean;
   participated: boolean;
   participantCapacity: number;
+  unlimitedQuantity: boolean;
 }
 
 export type ActivityCreateParams = ActivitySchemaModel;

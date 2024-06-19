@@ -135,6 +135,11 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
     participantCapacity: {
       type: Schema.Types.Number,
     },
+    unlimitedQuantity: {
+      type: Schema.Types.Boolean,
+      required: true,
+      default: false,
+    },
   },
   {
     collection: 'activities',
