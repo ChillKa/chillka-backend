@@ -119,10 +119,10 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
       default: StatusEnum.VALID,
     },
     lat: {
-      type: Schema.Types.String,
+      type: Schema.Types.Number,
     },
     lng: {
-      type: Schema.Types.String,
+      type: Schema.Types.Number,
     },
     saved: {
       type: Schema.Types.Boolean,
