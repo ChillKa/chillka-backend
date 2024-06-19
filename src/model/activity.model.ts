@@ -93,9 +93,6 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
     remainingTickets: {
       type: Schema.Types.Number,
     },
-    participantNumber: {
-      type: Schema.Types.Number,
-    },
     isRecurring: {
       type: Schema.Types.Boolean,
       required: true,
@@ -134,6 +131,9 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
     participated: {
       type: Schema.Types.Boolean,
       default: false,
+    },
+    participantCapacity: {
+      type: Schema.Types.Number,
     },
   },
   {

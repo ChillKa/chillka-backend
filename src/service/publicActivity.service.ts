@@ -137,17 +137,17 @@ export const getActivityDetail = async ({
 
   try {
     let participantNumber = 0;
-    let remainingTickets = 0;
+    let participantCapacity = 0;
     for (const ticket of activity.tickets) {
       const soldNumber = await Order.find({
         ticketId: ticket._id,
       }).countDocuments();
       ticket.soldNumber = soldNumber;
       participantNumber += soldNumber;
-      remainingTickets += ticket.participantCapacity;
+      participantCapacity += ticket.participantCapacity;
     }
-    activity.participantNumber = participantNumber;
-    activity.remainingTickets = remainingTickets - participantNumber;
+    activity.participantCapacity = participantCapacity;
+    activity.remainingTickets = participantCapacity - participantNumber;
 
     const questions: QuestionSchemaModel[] = [];
     const questionIndexes: string[] = [];

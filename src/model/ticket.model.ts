@@ -13,7 +13,7 @@ const TicketSchema = new Schema<TicketSchemaModel, TicketModel>(
     name: {
       type: Schema.Types.String,
       required: true,
-      default: 'chillka',
+      default: '啾咖',
     },
     price: {
       type: Schema.Types.Number,
