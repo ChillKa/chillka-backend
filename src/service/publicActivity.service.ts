@@ -6,6 +6,7 @@ import User from '../model/user.model';
 import {
   GetActivityDetailCredential,
   GetRecommendActivitiesCredential,
+  GetSearchActivitiesCredential,
   replyObject,
 } from '../type/activity.type';
 import { QuestionSchemaModel, TypeEnum } from '../type/question.type';
@@ -198,5 +199,20 @@ export const getActivityDetail = async ({
     return data;
   } catch (error) {
     throw new CoreError('Get activity details failed.');
+  }
+};
+
+export const getSearchActivities = async ({
+  keyword,
+}: GetSearchActivitiesCredential) => {
+  try {
+    const activities = await Activity.find({ name: new RegExp(keyword || '') });
+    // const queryObject = [{}];
+    // const activities = await Activity.find({ $and: queryObjectyy });
+    console.log(activities);
+
+    return { activities };
+  } catch (error) {
+    throw new CoreError('Get search activities failed.');
   }
 };

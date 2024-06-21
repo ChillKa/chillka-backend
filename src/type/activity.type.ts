@@ -176,3 +176,7 @@ export type GetRecommendActivitiesCredential = {
   userId?: string;
   limit: number;
 };
+
+export type GetSearchActivitiesCredential = {
+  keyword?: string;
+};
