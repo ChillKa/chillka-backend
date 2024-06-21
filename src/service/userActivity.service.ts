@@ -25,12 +25,13 @@ export const createActivity = async ({
 }: ActivityCreateParams) => {
   try {
     const newActivity = new Activity(activityData);
-    await newActivity.save();
     const newTickets = tickets?.map((ticket) => {
       ticket.activityId = newActivity._id;
+      newActivity.participantCapacity += ticket.participantCapacity;
       return ticket;
     });
     await Ticket.insertMany(newTickets);
+    await newActivity.save();
 
     return newActivity;
   } catch (error) {
@@ -342,8 +343,13 @@ export const deleteQuestion = async ({
     throw new CoreError(
       'Cannot delete questions because the question does not exist.'
     );
-  if (!existingQuestion.userId.equals(userId))
-    throw new CoreError('Only questioner can delete the question.');
+  if (
+    !existingQuestion.userId.equals(userId) &&
+    !existingActivity.creatorId.equals(userId)
+  )
+    throw new CoreError(
+      'Only questioner or activity creator can delete the question.'
+    );
   try {
     await Question.deleteMany({ $or: [{ _id: questionId }, { questionId }] });
 
