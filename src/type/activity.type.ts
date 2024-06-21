@@ -17,8 +17,7 @@ export enum CategoryEnum {
 
 export enum TypeEnum {
   ONLINE = '線上',
-  INDOOR = '室內',
-  OUTDOOR = '室外',
+  OFFLINE = '線下',
 }
 
 export enum LocationEnum {

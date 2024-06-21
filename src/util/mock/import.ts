@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker';
 import mongoose from 'mongoose';
 import Activity from '../../model/activity.model';
+import Ticket from '../../model/ticket.model';
 import {
   CategoryEnum,
   DayEnum,
@@ -22,7 +23,6 @@ const dayValues = Object.values(DayEnum);
 
 // Import mock data
 export const importMockActivity = async (quantity: number) => {
-  const mockData = [];
   for (const _ of Array(quantity)) {
     const mockActivity = {
       creatorId: new mongoose.Types.ObjectId(),
@@ -63,31 +63,39 @@ export const importMockActivity = async (quantity: number) => {
       lng: faker.location.longitude(),
       saved: faker.helpers.arrayElement([true, false]),
       participated: faker.helpers.arrayElement([true, false]),
-      participantCapacity: faker.number.int(100),
+      participantCapacity: 0,
       unlimitedQuantity: faker.helpers.arrayElement([true, false]),
-      tickets: [
-        {
-          activityId: new mongoose.Types.ObjectId(),
-          name: faker.commerce.productName(),
-          price: faker.number.int(1000),
-          startDateTime: faker.date.recent(),
-          fromToday: faker.helpers.arrayElement([true, false]),
-          endDateTime: faker.date.future(),
-          noEndDate: faker.helpers.arrayElement([true, false]),
-          participantCapacity: faker.number.int(100),
-          soldNumber: faker.number.int(10),
-          unlimitedQuantity: faker.helpers.arrayElement([true, false]),
-          purchaseLimit: faker.number.int(10),
-          description: faker.lorem.sentence(),
-          purchaseDuplicate: faker.helpers.arrayElement([true, false]),
-          ticketStatus: TicketStatusEnum.VALID,
-        },
-      ],
       questions: [],
     };
 
-    mockData.push(mockActivity);
-  }
+    const newActivity = await new Activity(mockActivity);
 
-  await Activity.insertMany(mockData);
+    const mockTickets = [];
+    for (const _ of Array(faker.number.int(2) + 1)) {
+      const mockTicket = {
+        activityId: newActivity._id,
+        name: faker.commerce.productName(),
+        price: faker.number.int(1000),
+        startDateTime: faker.date.recent(),
+        fromToday: faker.helpers.arrayElement([true, false]),
+        endDateTime: faker.date.future(),
+        noEndDate: faker.helpers.arrayElement([true, false]),
+        participantCapacity: faker.number.int(10),
+        soldNumber: faker.number.int(10),
+        unlimitedQuantity: faker.helpers.arrayElement([true, false]),
+        purchaseLimit: faker.number.int(10),
+        description: faker.lorem.sentence(),
+        purchaseDuplicate: faker.helpers.arrayElement([true, false]),
+        ticketStatus: TicketStatusEnum.VALID,
+      };
+
+      mockTickets.push(mockTicket);
+      await Ticket.create(mockTicket);
+    }
+    for (const ticket of mockTickets) {
+      newActivity.participantCapacity += ticket.participantCapacity;
+    }
+
+    await newActivity.save();
+  }
 };
