@@ -1,3 +1,4 @@
+import moment from 'moment';
 import Activity from '../model/activity.model';
 import Comment from '../model/comment.model';
 import Keyword from '../model/keyword.model';
@@ -7,6 +8,7 @@ import {
   GetActivityDetailCredential,
   GetRecommendActivitiesCredential,
   GetSearchActivitiesCredential,
+  SearchActivityDateEnum,
   replyObject,
 } from '../type/activity.type';
 import { QuestionSchemaModel, TypeEnum } from '../type/question.type';
@@ -204,12 +206,41 @@ export const getActivityDetail = async ({
 
 export const getSearchActivities = async ({
   keyword,
+  location,
+  category,
+  type,
+  date,
 }: GetSearchActivitiesCredential) => {
   try {
-    const activities = await Activity.find({ name: new RegExp(keyword || '') });
-    // const queryObject = [{}];
-    // const activities = await Activity.find({ $and: queryObjectyy });
-    console.log(activities);
+    const queryObject = [{}];
+    if (keyword) queryObject.push({ name: new RegExp(keyword) });
+    if (location) queryObject.push({ location });
+    if (category) queryObject.push({ category });
+    if (type) queryObject.push({ type });
+    if (date) {
+      switch (date) {
+        case SearchActivityDateEnum.IMMEDIATELY:
+          queryObject.push({
+            $gte: moment(),
+            $lte: moment().add(3, 'hours'),
+          });
+          break;
+        case SearchActivityDateEnum.TODAY:
+          break;
+        case SearchActivityDateEnum.TOMORROW:
+          break;
+        case SearchActivityDateEnum.THISWEEK:
+          break;
+        case SearchActivityDateEnum.WEEKEND:
+          break;
+        case SearchActivityDateEnum.NEXTWEEK:
+          break;
+        case SearchActivityDateEnum.CUSTOMDATE:
+          break;
+      }
+    }
+    const activities = await Activity.find({ $and: queryObject });
+    console.log(activities.length);
 
     return { activities };
   } catch (error) {

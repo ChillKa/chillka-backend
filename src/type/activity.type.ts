@@ -177,6 +177,20 @@ export type GetRecommendActivitiesCredential = {
   limit: number;
 };
 
+export enum SearchActivityDateEnum {
+  IMMEDIATELY = '即將開始',
+  TODAY = '今天',
+  TOMORROW = '明天',
+  THISWEEK = '本週',
+  WEEKEND = '本週末',
+  NEXTWEEK = '下一週',
+  CUSTOMDATE = '自訂日期',
+}
+
 export type GetSearchActivitiesCredential = {
   keyword?: string;
+  location?: LocationEnum;
+  category?: CategoryEnum;
+  type?: TypeEnum;
+  date?: SearchActivityDateEnum;
 };
