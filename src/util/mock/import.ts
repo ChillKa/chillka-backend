@@ -24,6 +24,8 @@ const dayValues = Object.values(DayEnum);
 // Import mock data
 export const importMockActivity = async (quantity: number) => {
   for (const _ of Array(quantity)) {
+    const fromToday = faker.helpers.arrayElement([true, false]);
+    const startDateTime = fromToday ? new Date() : faker.date.recent();
     const mockActivity = {
       creatorId: new mongoose.Types.ObjectId(),
       name: faker.person.fullName(),
@@ -38,8 +40,8 @@ export const importMockActivity = async (quantity: number) => {
       },
       cover: Array.from({ length: 3 }, () => faker.image.urlLoremFlickr()),
       thumbnail: faker.image.urlLoremFlickr(),
-      startDateTime: faker.date.recent(),
-      fromToday: faker.helpers.arrayElement([true, false]),
+      startDateTime,
+      fromToday,
       endDateTime: faker.date.future(),
       noEndDate: faker.helpers.arrayElement([true, false]),
       category: faker.helpers.arrayElement(categoryValues),
