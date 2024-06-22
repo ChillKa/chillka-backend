@@ -187,10 +187,28 @@ export enum SearchActivityDateEnum {
   CUSTOMDATE = '自訂日期',
 }
 
+export enum SearchActivitySortEnum {
+  CORRELATION = '相關性',
+  DATE = '日期',
+}
+
 export type GetSearchActivitiesCredential = {
   keyword?: string;
   location?: LocationEnum;
   category?: CategoryEnum;
   type?: TypeEnum;
   date?: SearchActivityDateEnum;
+  customStartDate?: Date;
+  customEndDate?: Date;
+  distance?: string;
+  lat?: string;
+  lng?: string;
+  sort?: SearchActivitySortEnum;
+};
+
+export type GetDistance = {
+  lat1: number;
+  lat2: number;
+  lng1: number;
+  lng2: number;
 };
