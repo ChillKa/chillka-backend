@@ -948,7 +948,7 @@ export const _schema = {
         "participated": {
           "type": "boolean"
         },
-        "participantCapacity": {
+        "totalParticipantCapacity": {
           "type": "number"
         },
         "unlimitedQuantity": {
@@ -972,7 +972,6 @@ export const _schema = {
         "name",
         "noEndDate",
         "organizer",
-        "participantCapacity",
         "participated",
         "questions",
         "recurring",
@@ -982,6 +981,7 @@ export const _schema = {
         "summary",
         "thumbnail",
         "tickets",
+        "totalParticipantCapacity",
         "type",
         "unlimitedQuantity"
       ]
@@ -1245,7 +1245,7 @@ export const _schema = {
         "participated": {
           "type": "boolean"
         },
-        "participantCapacity": {
+        "totalParticipantCapacity": {
           "type": "number"
         },
         "unlimitedQuantity": {
@@ -1269,7 +1269,6 @@ export const _schema = {
         "name",
         "noEndDate",
         "organizer",
-        "participantCapacity",
         "participated",
         "questions",
         "recurring",
@@ -1279,6 +1278,7 @@ export const _schema = {
         "summary",
         "thumbnail",
         "tickets",
+        "totalParticipantCapacity",
         "type",
         "unlimitedQuantity"
       ]
@@ -1332,9 +1332,6 @@ export const _schema = {
         },
         "noEndDate": {
           "type": "boolean"
-        },
-        "participantCapacity": {
-          "type": "number"
         },
         "unlimitedQuantity": {
           "type": "boolean"
@@ -1544,6 +1541,9 @@ export const _schema = {
         },
         "participated": {
           "type": "boolean"
+        },
+        "totalParticipantCapacity": {
+          "type": "number"
         }
       },
       "required": [
@@ -1562,7 +1562,6 @@ export const _schema = {
         "name",
         "noEndDate",
         "organizer",
-        "participantCapacity",
         "participated",
         "questions",
         "recurring",
@@ -1572,6 +1571,7 @@ export const _schema = {
         "summary",
         "thumbnail",
         "tickets",
+        "totalParticipantCapacity",
         "type",
         "unlimitedQuantity"
       ]
@@ -1625,9 +1625,6 @@ export const _schema = {
         },
         "noEndDate": {
           "type": "boolean"
-        },
-        "participantCapacity": {
-          "type": "number"
         },
         "unlimitedQuantity": {
           "type": "boolean"
@@ -1831,6 +1828,9 @@ export const _schema = {
         },
         "participated": {
           "type": "boolean"
+        },
+        "totalParticipantCapacity": {
+          "type": "number"
         }
       },
       "required": [
@@ -1849,7 +1849,6 @@ export const _schema = {
         "name",
         "noEndDate",
         "organizer",
-        "participantCapacity",
         "participated",
         "recurring",
         "remainingTickets",
@@ -1858,6 +1857,7 @@ export const _schema = {
         "summary",
         "thumbnail",
         "tickets",
+        "totalParticipantCapacity",
         "type",
         "unlimitedQuantity"
       ]
@@ -1913,9 +1913,6 @@ export const _schema = {
             },
             "noEndDate": {
               "type": "boolean"
-            },
-            "participantCapacity": {
-              "type": "number"
             },
             "unlimitedQuantity": {
               "type": "boolean"
@@ -2119,6 +2116,9 @@ export const _schema = {
             },
             "participated": {
               "type": "boolean"
+            },
+            "totalParticipantCapacity": {
+              "type": "number"
             }
           },
           "required": [
@@ -2137,7 +2137,6 @@ export const _schema = {
             "name",
             "noEndDate",
             "organizer",
-            "participantCapacity",
             "participated",
             "recurring",
             "remainingTickets",
@@ -2146,6 +2145,7 @@ export const _schema = {
             "summary",
             "thumbnail",
             "tickets",
+            "totalParticipantCapacity",
             "type",
             "unlimitedQuantity"
           ]
@@ -2216,9 +2216,6 @@ export const _schema = {
         },
         "noEndDate": {
           "type": "boolean"
-        },
-        "participantCapacity": {
-          "type": "number"
         },
         "unlimitedQuantity": {
           "type": "boolean"
@@ -2422,6 +2419,9 @@ export const _schema = {
         },
         "participated": {
           "type": "boolean"
+        },
+        "totalParticipantCapacity": {
+          "type": "number"
         }
       },
       "required": [
@@ -2440,7 +2440,6 @@ export const _schema = {
         "name",
         "noEndDate",
         "organizer",
-        "participantCapacity",
         "participated",
         "recurring",
         "remainingTickets",
@@ -2449,6 +2448,7 @@ export const _schema = {
         "summary",
         "thumbnail",
         "tickets",
+        "totalParticipantCapacity",
         "type",
         "unlimitedQuantity"
       ]
@@ -2723,9 +2723,8 @@ export const _schema = {
         },
         "type": {
           "enum": [
-            "室內",
-            "室外",
-            "線上"
+            "線上",
+            "線下"
           ],
           "type": "string"
         },
@@ -2788,6 +2787,48 @@ export const _schema = {
         "lat2",
         "lng1",
         "lng2"
+      ]
+    },
+    "CreateActivityMessageParams": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "participantId": {
+          "type": "string"
+        },
+        "activityId": {
+          "type": "string"
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "activityId",
+        "content",
+        "participantId",
+        "userId"
+      ]
+    },
+    "CreateActivityMessageCredentials": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string"
+        },
+        "activityId": {
+          "type": "string"
+        },
+        "participantId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "activityId",
+        "content",
+        "participantId"
       ]
     },
     "CommentSchemaModel": {

@@ -212,3 +212,14 @@ export type GetDistance = {
   lng1: number;
   lng2: number;
 };
+export type CreateActivityMessageParams = {
+  userId: mongoose.Types.ObjectId | undefined;
+  participantId: string;
+  activityId: string;
+  content: string;
+};
+
+export type CreateActivityMessageCredentials = Omit<
+  CreateActivityMessageParams,
+  'userId'
+>;

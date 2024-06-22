@@ -285,6 +285,31 @@ const userActivityRouter = () => {
     }
   );
 
+  router.post(
+    '/activity-message',
+    authorizeMiddleware,
+    async (req: Request, res: Response) => {
+      /* #swagger.tags = ['Activity'] 
+          #swagger.description = 'Activity host send message to a single participant'
+          #swagger.parameters['body'] = { in: 'body', schema: { $ref: "#/schemas/CreateActivityMessageCredentials" }}
+      */
+
+      const userId = req.user?._id;
+      try {
+        const data = await UserActivityService.createActivityMessage({
+          userId: userId,
+          participantId: req.body.participantId,
+          activityId: req.body.activityId,
+          content: req.body.content,
+        });
+
+        res.status(200).send(data);
+      } catch (error) {
+        throwAPIError({ res, error, statusCode: 400 });
+      }
+    }
+  );
+
   return router;
 };
 const userActivityRoute = userActivityRouter();
