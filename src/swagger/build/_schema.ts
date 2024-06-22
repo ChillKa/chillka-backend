@@ -2733,6 +2733,9 @@ export const _schema = {
         },
         "content": {
           "type": "string"
+        },
+        "receiverIsRead": {
+          "type": "boolean"
         }
       },
       "required": [
@@ -2766,6 +2769,9 @@ export const _schema = {
               },
               "content": {
                 "type": "string"
+              },
+              "receiverIsRead": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -2782,7 +2788,7 @@ export const _schema = {
         "participantUserId"
       ]
     },
-    "GetMessageListParams": {
+    "GetMessageListIdParams": {
       "type": "object",
       "properties": {
         "orderId": {
@@ -2799,6 +2805,23 @@ export const _schema = {
         "hostUserId",
         "orderId",
         "participantUserId"
+      ]
+    },
+    "GetMessageListParams": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "page": {
+          "type": "number"
+        },
+        "limit": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "userId"
       ]
     },
     "LiveMessageParams": {
@@ -2827,6 +2850,9 @@ export const _schema = {
               },
               "content": {
                 "type": "string"
+              },
+              "receiverIsRead": {
+                "type": "boolean"
               }
             },
             "required": [
@@ -2846,12 +2872,16 @@ export const _schema = {
     "SocketQueryParams": {
       "type": "object",
       "properties": {
+        "userId": {
+          "type": "string"
+        },
         "messageListId": {
           "type": "string"
         }
       },
       "required": [
-        "messageListId"
+        "messageListId",
+        "userId"
       ]
     },
     "PaymentStatusEnum": {

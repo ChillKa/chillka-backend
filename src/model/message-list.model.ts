@@ -19,6 +19,10 @@ const Message = new Schema<MessageSchemaModel, Message>(
       type: Schema.Types.String,
       required: true,
     },
+    receiverIsRead: {
+      type: Schema.Types.Boolean,
+      default: false,
+    },
   },
   {
     collection: 'messages',

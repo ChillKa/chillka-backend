@@ -8,6 +8,7 @@ export enum MessageUserType {
 export interface MessageSchemaModel {
   userType: MessageUserType;
   content: string;
+  receiverIsRead?: boolean;
 }
 
 export interface MessageListSchemaModel {
@@ -17,14 +18,21 @@ export interface MessageListSchemaModel {
   messages: MessageSchemaModel[];
 }
 
-export type GetMessageListParams = {
+export type GetMessageListIdParams = {
   orderId: string;
   hostUserId: string;
   participantUserId: string;
 };
 
+export type GetMessageListParams = {
+  userId: mongoose.Types.ObjectId | undefined;
+  page?: number;
+  limit?: number;
+};
+
 export type LiveMessageParams = MessageListSchemaModel;
 
 export type SocketQueryParams = {
+  userId: string;
   messageListId: string;
 };

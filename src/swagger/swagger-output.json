@@ -27,6 +27,23 @@
         }
       }
     },
+    "/api/mock-activity": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/register": {
       "post": {
         "tags": ["Auth"],
@@ -114,7 +131,41 @@
         }
       }
     },
+    "/api/activities/recommend": {
+      "get": {
+        "tags": ["Activity"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/activities/popular-keywords": {
+      "get": {
+        "tags": ["Activity"],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/activities/comments": {
       "get": {
         "tags": ["Activity"],
         "description": "",
@@ -645,7 +696,7 @@
       }
     },
     "/api/auth/payment": {
-      "get": {
+      "post": {
         "tags": ["Payment"],
         "description": "",
         "parameters": [
@@ -680,6 +731,36 @@
             "schema": {
               "$ref": "#/schemas/GetMessageListParams"
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "security": [
+          {
+            "apiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/api/auth/messages": {
+      "get": {
+        "tags": ["MessageList"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "number"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "type": "number"
           }
         ],
         "responses": {
@@ -758,6 +839,12 @@
             "$ref": "#/definitions/Types.ObjectId"
           }
         },
+        "favoriteCategories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "displayName": {
           "type": "string"
         },
@@ -768,7 +855,7 @@
           "type": "string"
         }
       },
-      "required": ["displayName", "email", "password"]
+      "required": ["displayName", "email", "favoriteCategories", "password"]
     },
     "UserRegisterCredentials": {
       "allOf": [
@@ -873,9 +960,15 @@
           "items": {
             "$ref": "#/definitions/Types.ObjectId"
           }
+        },
+        "favoriteCategories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         }
       },
-      "required": ["displayName", "email"]
+      "required": ["displayName", "email", "favoriteCategories"]
     },
     "SendEmailCredentials": {
       "type": "object",
@@ -1080,6 +1173,9 @@
         "participantCapacity": {
           "type": "number"
         },
+        "soldNumber": {
+          "type": "number"
+        },
         "unlimitedQuantity": {
           "type": "boolean"
         },
@@ -1108,6 +1204,7 @@
         "price",
         "purchaseDuplicate",
         "purchaseLimit",
+        "soldNumber",
         "startDateTime",
         "ticketStatus",
         "unlimitedQuantity"
@@ -1142,6 +1239,9 @@
         "participantCapacity": {
           "type": "number"
         },
+        "soldNumber": {
+          "type": "number"
+        },
         "unlimitedQuantity": {
           "type": "boolean"
         },
@@ -1166,6 +1266,7 @@
         "price",
         "purchaseDuplicate",
         "purchaseLimit",
+        "soldNumber",
         "startDateTime",
         "ticketStatus",
         "unlimitedQuantity"
@@ -1359,6 +1460,9 @@
         "displayRemainingTickets": {
           "type": "boolean"
         },
+        "remainingTickets": {
+          "type": "number"
+        },
         "isRecurring": {
           "type": "boolean"
         },
@@ -1434,6 +1538,9 @@
               "participantCapacity": {
                 "type": "number"
               },
+              "soldNumber": {
+                "type": "number"
+              },
               "unlimitedQuantity": {
                 "type": "boolean"
               },
@@ -1462,6 +1569,7 @@
               "price",
               "purchaseDuplicate",
               "purchaseLimit",
+              "soldNumber",
               "startDateTime",
               "ticketStatus",
               "unlimitedQuantity"
@@ -1475,10 +1583,22 @@
           }
         },
         "lat": {
-          "type": "string"
+          "type": "number"
         },
         "lng": {
-          "type": "string"
+          "type": "number"
+        },
+        "saved": {
+          "type": "boolean"
+        },
+        "participated": {
+          "type": "boolean"
+        },
+        "participantCapacity": {
+          "type": "number"
+        },
+        "unlimitedQuantity": {
+          "type": "boolean"
         }
       },
       "required": [
@@ -1488,7 +1608,6 @@
         "creatorId",
         "details",
         "displayRemainingTickets",
-        "endDateTime",
         "fromToday",
         "isPrivate",
         "isRecurring",
@@ -1499,14 +1618,18 @@
         "name",
         "noEndDate",
         "organizer",
+        "participantCapacity",
+        "participated",
         "questions",
         "recurring",
-        "startDateTime",
+        "remainingTickets",
+        "saved",
         "status",
         "summary",
         "thumbnail",
         "tickets",
-        "type"
+        "type",
+        "unlimitedQuantity"
       ]
     },
     "ActivityCreateParams": {
@@ -1614,6 +1737,9 @@
         "displayRemainingTickets": {
           "type": "boolean"
         },
+        "remainingTickets": {
+          "type": "number"
+        },
         "isRecurring": {
           "type": "boolean"
         },
@@ -1689,6 +1815,9 @@
               "participantCapacity": {
                 "type": "number"
               },
+              "soldNumber": {
+                "type": "number"
+              },
               "unlimitedQuantity": {
                 "type": "boolean"
               },
@@ -1717,6 +1846,7 @@
               "price",
               "purchaseDuplicate",
               "purchaseLimit",
+              "soldNumber",
               "startDateTime",
               "ticketStatus",
               "unlimitedQuantity"
@@ -1730,10 +1860,22 @@
           }
         },
         "lat": {
-          "type": "string"
+          "type": "number"
         },
         "lng": {
-          "type": "string"
+          "type": "number"
+        },
+        "saved": {
+          "type": "boolean"
+        },
+        "participated": {
+          "type": "boolean"
+        },
+        "participantCapacity": {
+          "type": "number"
+        },
+        "unlimitedQuantity": {
+          "type": "boolean"
         }
       },
       "required": [
@@ -1743,7 +1885,6 @@
         "creatorId",
         "details",
         "displayRemainingTickets",
-        "endDateTime",
         "fromToday",
         "isPrivate",
         "isRecurring",
@@ -1754,14 +1895,18 @@
         "name",
         "noEndDate",
         "organizer",
+        "participantCapacity",
+        "participated",
         "questions",
         "recurring",
-        "startDateTime",
+        "remainingTickets",
+        "saved",
         "status",
         "summary",
         "thumbnail",
         "tickets",
-        "type"
+        "type",
+        "unlimitedQuantity"
       ]
     },
     "ActivityCreateCredentials": {
@@ -1807,6 +1952,12 @@
         "noEndDate": {
           "type": "boolean"
         },
+        "participantCapacity": {
+          "type": "number"
+        },
+        "unlimitedQuantity": {
+          "type": "boolean"
+        },
         "organizer": {
           "type": "object",
           "properties": {
@@ -1869,6 +2020,9 @@
         },
         "displayRemainingTickets": {
           "type": "boolean"
+        },
+        "remainingTickets": {
+          "type": "number"
         },
         "isRecurring": {
           "type": "boolean"
@@ -1941,6 +2095,9 @@
               "participantCapacity": {
                 "type": "number"
               },
+              "soldNumber": {
+                "type": "number"
+              },
               "unlimitedQuantity": {
                 "type": "boolean"
               },
@@ -1969,6 +2126,7 @@
               "price",
               "purchaseDuplicate",
               "purchaseLimit",
+              "soldNumber",
               "startDateTime",
               "ticketStatus",
               "unlimitedQuantity"
@@ -1982,10 +2140,16 @@
           }
         },
         "lat": {
-          "type": "string"
+          "type": "number"
         },
         "lng": {
-          "type": "string"
+          "type": "number"
+        },
+        "saved": {
+          "type": "boolean"
+        },
+        "participated": {
+          "type": "boolean"
         }
       },
       "required": [
@@ -1994,7 +2158,6 @@
         "cover",
         "details",
         "displayRemainingTickets",
-        "endDateTime",
         "fromToday",
         "isPrivate",
         "isRecurring",
@@ -2005,14 +2168,18 @@
         "name",
         "noEndDate",
         "organizer",
+        "participantCapacity",
+        "participated",
         "questions",
         "recurring",
-        "startDateTime",
+        "remainingTickets",
+        "saved",
         "status",
         "summary",
         "thumbnail",
         "tickets",
-        "type"
+        "type",
+        "unlimitedQuantity"
       ]
     },
     "EditableActivity": {
@@ -2058,6 +2225,12 @@
         "noEndDate": {
           "type": "boolean"
         },
+        "participantCapacity": {
+          "type": "number"
+        },
+        "unlimitedQuantity": {
+          "type": "boolean"
+        },
         "organizer": {
           "type": "object",
           "properties": {
@@ -2120,6 +2293,9 @@
         },
         "displayRemainingTickets": {
           "type": "boolean"
+        },
+        "remainingTickets": {
+          "type": "number"
         },
         "isRecurring": {
           "type": "boolean"
@@ -2192,6 +2368,9 @@
               "participantCapacity": {
                 "type": "number"
               },
+              "soldNumber": {
+                "type": "number"
+              },
               "unlimitedQuantity": {
                 "type": "boolean"
               },
@@ -2220,6 +2399,7 @@
               "price",
               "purchaseDuplicate",
               "purchaseLimit",
+              "soldNumber",
               "startDateTime",
               "ticketStatus",
               "unlimitedQuantity"
@@ -2227,10 +2407,16 @@
           }
         },
         "lat": {
-          "type": "string"
+          "type": "number"
         },
         "lng": {
-          "type": "string"
+          "type": "number"
+        },
+        "saved": {
+          "type": "boolean"
+        },
+        "participated": {
+          "type": "boolean"
         }
       },
       "required": [
@@ -2239,7 +2425,6 @@
         "cover",
         "details",
         "displayRemainingTickets",
-        "endDateTime",
         "fromToday",
         "isPrivate",
         "isRecurring",
@@ -2250,13 +2435,17 @@
         "name",
         "noEndDate",
         "organizer",
+        "participantCapacity",
+        "participated",
         "recurring",
-        "startDateTime",
+        "remainingTickets",
+        "saved",
         "status",
         "summary",
         "thumbnail",
         "tickets",
-        "type"
+        "type",
+        "unlimitedQuantity"
       ]
     },
     "ActivityEditParams": {
@@ -2302,6 +2491,12 @@
               "format": "date-time"
             },
             "noEndDate": {
+              "type": "boolean"
+            },
+            "participantCapacity": {
+              "type": "number"
+            },
+            "unlimitedQuantity": {
               "type": "boolean"
             },
             "organizer": {
@@ -2366,6 +2561,9 @@
             },
             "displayRemainingTickets": {
               "type": "boolean"
+            },
+            "remainingTickets": {
+              "type": "number"
             },
             "isRecurring": {
               "type": "boolean"
@@ -2438,6 +2636,9 @@
                   "participantCapacity": {
                     "type": "number"
                   },
+                  "soldNumber": {
+                    "type": "number"
+                  },
                   "unlimitedQuantity": {
                     "type": "boolean"
                   },
@@ -2466,6 +2667,7 @@
                   "price",
                   "purchaseDuplicate",
                   "purchaseLimit",
+                  "soldNumber",
                   "startDateTime",
                   "ticketStatus",
                   "unlimitedQuantity"
@@ -2473,10 +2675,16 @@
               }
             },
             "lat": {
-              "type": "string"
+              "type": "number"
             },
             "lng": {
-              "type": "string"
+              "type": "number"
+            },
+            "saved": {
+              "type": "boolean"
+            },
+            "participated": {
+              "type": "boolean"
             }
           },
           "required": [
@@ -2485,7 +2693,6 @@
             "cover",
             "details",
             "displayRemainingTickets",
-            "endDateTime",
             "fromToday",
             "isPrivate",
             "isRecurring",
@@ -2496,13 +2703,17 @@
             "name",
             "noEndDate",
             "organizer",
+            "participantCapacity",
+            "participated",
             "recurring",
-            "startDateTime",
+            "remainingTickets",
+            "saved",
             "status",
             "summary",
             "thumbnail",
             "tickets",
-            "type"
+            "type",
+            "unlimitedQuantity"
           ]
         },
         {
@@ -2560,6 +2771,12 @@
           "format": "date-time"
         },
         "noEndDate": {
+          "type": "boolean"
+        },
+        "participantCapacity": {
+          "type": "number"
+        },
+        "unlimitedQuantity": {
           "type": "boolean"
         },
         "organizer": {
@@ -2624,6 +2841,9 @@
         },
         "displayRemainingTickets": {
           "type": "boolean"
+        },
+        "remainingTickets": {
+          "type": "number"
         },
         "isRecurring": {
           "type": "boolean"
@@ -2696,6 +2916,9 @@
               "participantCapacity": {
                 "type": "number"
               },
+              "soldNumber": {
+                "type": "number"
+              },
               "unlimitedQuantity": {
                 "type": "boolean"
               },
@@ -2724,6 +2947,7 @@
               "price",
               "purchaseDuplicate",
               "purchaseLimit",
+              "soldNumber",
               "startDateTime",
               "ticketStatus",
               "unlimitedQuantity"
@@ -2731,10 +2955,16 @@
           }
         },
         "lat": {
-          "type": "string"
+          "type": "number"
         },
         "lng": {
-          "type": "string"
+          "type": "number"
+        },
+        "saved": {
+          "type": "boolean"
+        },
+        "participated": {
+          "type": "boolean"
         }
       },
       "required": [
@@ -2743,7 +2973,6 @@
         "cover",
         "details",
         "displayRemainingTickets",
-        "endDateTime",
         "fromToday",
         "isPrivate",
         "isRecurring",
@@ -2754,13 +2983,17 @@
         "name",
         "noEndDate",
         "organizer",
+        "participantCapacity",
+        "participated",
         "recurring",
-        "startDateTime",
+        "remainingTickets",
+        "saved",
         "status",
         "summary",
         "thumbnail",
         "tickets",
-        "type"
+        "type",
+        "unlimitedQuantity"
       ]
     },
     "GetActivitiesParams": {
@@ -2939,6 +3172,46 @@
         "size"
       ]
     },
+    "GetRecommendActivitiesCredential": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "limit": {
+          "type": "number"
+        }
+      },
+      "required": ["limit"]
+    },
+    "CommentSchemaModel": {
+      "type": "object",
+      "properties": {
+        "profilePicture": {
+          "type": "string"
+        },
+        "userName": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "content": {
+          "type": "string"
+        },
+        "activityName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "activityName",
+        "content",
+        "date",
+        "profilePicture",
+        "userName"
+      ]
+    },
     "KeywordSchemaModel": {
       "type": "object",
       "properties": {
@@ -2964,6 +3237,9 @@
         },
         "content": {
           "type": "string"
+        },
+        "receiverIsRead": {
+          "type": "boolean"
         }
       },
       "required": ["content", "userType"]
@@ -2991,6 +3267,9 @@
               },
               "content": {
                 "type": "string"
+              },
+              "receiverIsRead": {
+                "type": "boolean"
               }
             },
             "required": ["content", "userType"]
@@ -2999,7 +3278,7 @@
       },
       "required": ["hostUserId", "messages", "orderId", "participantUserId"]
     },
-    "GetMessageListParams": {
+    "GetMessageListIdParams": {
       "type": "object",
       "properties": {
         "orderId": {
@@ -3013,6 +3292,21 @@
         }
       },
       "required": ["hostUserId", "orderId", "participantUserId"]
+    },
+    "GetMessageListParams": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "$ref": "#/definitions/Types.ObjectId"
+        },
+        "page": {
+          "type": "number"
+        },
+        "limit": {
+          "type": "number"
+        }
+      },
+      "required": ["userId"]
     },
     "LiveMessageParams": {
       "type": "object",
@@ -3037,6 +3331,9 @@
               },
               "content": {
                 "type": "string"
+              },
+              "receiverIsRead": {
+                "type": "boolean"
               }
             },
             "required": ["content", "userType"]
@@ -3048,11 +3345,14 @@
     "SocketQueryParams": {
       "type": "object",
       "properties": {
+        "userId": {
+          "type": "string"
+        },
         "messageListId": {
           "type": "string"
         }
       },
-      "required": ["messageListId"]
+      "required": ["messageListId", "userId"]
     },
     "PaymentStatusEnum": {
       "type": "string",
