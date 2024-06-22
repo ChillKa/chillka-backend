@@ -1,9 +1,9 @@
 {
   "info": {
-    "_postman_id": "51722f4b-fbf9-4062-952b-576766be5315",
+    "_postman_id": "a1cdc277-4363-48ec-961e-250c6fac341c",
     "name": "chillka-backend",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "20616853"
+    "_exporter_id": "30654257"
   },
   "item": [
     {
@@ -359,6 +359,25 @@
           "raw": "{{HOST}}/api/activities/comments",
           "host": ["{{HOST}}"],
           "path": ["api", "activities", "comments"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get message list",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "",
+            "value": "",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{HOST}}/api/auth/messages",
+          "host": ["{{HOST}}"],
+          "path": ["api", "auth", "messages"]
         }
       },
       "response": []

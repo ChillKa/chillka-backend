@@ -32,6 +32,40 @@ const messageRouter = () => {
     }
   );
 
+  router.get(
+    '/messages',
+    authorizeMiddleware,
+    async (req: Request, res: Response) => {
+      /* #swagger.tags = ['MessageList'] 
+          #swagger.parameters['page'] = {
+            in: 'query',
+            required: false,
+            type: 'number',
+          }
+          #swagger.parameters['limit'] = {
+            in: 'query',
+            required: false,
+            type: 'number',
+          }
+      */
+
+      const userId = req.user?._id;
+      const page = Number(req.query.page);
+      const limit = Number(req.query.limit);
+
+      try {
+        const data = await MessageListService.getMessageList({
+          userId,
+          page,
+          limit,
+        });
+        res.status(200).send(data);
+      } catch (error) {
+        throwAPIError({ res, error, statusCode: 400 });
+      }
+    }
+  );
+
   return router;
 };
 const messageRoute = messageRouter();
