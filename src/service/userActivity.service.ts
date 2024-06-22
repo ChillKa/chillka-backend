@@ -24,6 +24,9 @@ export const createActivity = async ({
   ...activityData
 }: ActivityCreateParams) => {
   try {
+    activityData.startDateTime = activityData.fromToday
+      ? new Date()
+      : activityData.startDateTime;
     const newActivity = new Activity(activityData);
     const newTickets = tickets?.map((ticket) => {
       ticket.activityId = newActivity._id;
