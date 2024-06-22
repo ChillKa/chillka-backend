@@ -2671,6 +2671,123 @@ export const _schema = {
         "limit"
       ]
     },
+    "SearchActivityDateEnum": {
+      "type": "string",
+      "enum": [
+        "即將開始",
+        "今天",
+        "明天",
+        "本週",
+        "本週末",
+        "下一週",
+        "自訂日期"
+      ]
+    },
+    "SearchActivitySortEnum": {
+      "type": "string",
+      "enum": [
+        "相關性",
+        "日期"
+      ]
+    },
+    "GetSearchActivitiesCredential": {
+      "type": "object",
+      "properties": {
+        "keyword": {
+          "type": "string"
+        },
+        "location": {
+          "enum": [
+            "中部",
+            "北部",
+            "南部",
+            "東部",
+            "離島"
+          ],
+          "type": "string"
+        },
+        "category": {
+          "enum": [
+            "健康生活",
+            "戶外踏青",
+            "社交活動",
+            "科技玩物",
+            "興趣嗜好",
+            "藝術文化",
+            "遊戲",
+            "運動健身"
+          ],
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "室內",
+            "室外",
+            "線上"
+          ],
+          "type": "string"
+        },
+        "date": {
+          "enum": [
+            "下一週",
+            "今天",
+            "即將開始",
+            "明天",
+            "本週",
+            "本週末",
+            "自訂日期"
+          ],
+          "type": "string"
+        },
+        "customStartDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "customEndDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "distance": {
+          "type": "string"
+        },
+        "lat": {
+          "type": "string"
+        },
+        "lng": {
+          "type": "string"
+        },
+        "sort": {
+          "enum": [
+            "日期",
+            "相關性"
+          ],
+          "type": "string"
+        }
+      }
+    },
+    "GetDistance": {
+      "type": "object",
+      "properties": {
+        "lat1": {
+          "type": "number"
+        },
+        "lat2": {
+          "type": "number"
+        },
+        "lng1": {
+          "type": "number"
+        },
+        "lng2": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "lat1",
+        "lat2",
+        "lng1",
+        "lng2"
+      ]
+    },
     "CommentSchemaModel": {
       "type": "object",
       "properties": {

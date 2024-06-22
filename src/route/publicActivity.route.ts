@@ -1,10 +1,23 @@
 import { Request, Response, Router } from 'express';
 import mongoose from 'mongoose';
 import * as PublicActivityService from '../service/publicActivity.service';
+import { GetSearchActivitiesCredential } from '../type/activity.type';
 import { throwAPIError } from '../util/error-handler';
 
 const publicActivityRouter = () => {
   const router = Router();
+
+  router.get('/activities', async (req: Request, res: Response) => {
+    /* #swagger.tags = ['Activity'] */
+
+    const reqQuery = req.query as GetSearchActivitiesCredential;
+    try {
+      const data = await PublicActivityService.getSearchActivities(reqQuery);
+      res.status(200).send(data);
+    } catch (error) {
+      throwAPIError({ res, error, statusCode: 400 });
+    }
+  });
 
   router.get('/activities/recommend', async (req: Request, res: Response) => {
     /* #swagger.tags = ['Activity'] */

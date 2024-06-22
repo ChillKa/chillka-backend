@@ -176,3 +176,39 @@ export type GetRecommendActivitiesCredential = {
   userId?: string;
   limit: number;
 };
+
+export enum SearchActivityDateEnum {
+  IMMEDIATELY = '即將開始',
+  TODAY = '今天',
+  TOMORROW = '明天',
+  THISWEEK = '本週',
+  WEEKEND = '本週末',
+  NEXTWEEK = '下一週',
+  CUSTOMDATE = '自訂日期',
+}
+
+export enum SearchActivitySortEnum {
+  CORRELATION = '相關性',
+  DATE = '日期',
+}
+
+export type GetSearchActivitiesCredential = {
+  keyword?: string;
+  location?: LocationEnum;
+  category?: CategoryEnum;
+  type?: TypeEnum;
+  date?: SearchActivityDateEnum;
+  customStartDate?: Date;
+  customEndDate?: Date;
+  distance?: string;
+  lat?: string;
+  lng?: string;
+  sort?: SearchActivitySortEnum;
+};
+
+export type GetDistance = {
+  lat1: number;
+  lat2: number;
+  lng1: number;
+  lng2: number;
+};
