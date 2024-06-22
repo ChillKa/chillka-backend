@@ -132,7 +132,7 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
       type: Schema.Types.Boolean,
       default: false,
     },
-    participantCapacity: {
+    totalParticipantCapacity: {
       type: Schema.Types.Number,
       default: 0,
     },

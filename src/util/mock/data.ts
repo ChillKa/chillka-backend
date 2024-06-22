@@ -60,7 +60,7 @@ export const mockActivity: ActivitySchemaModel = {
   lng: faker.location.longitude(),
   saved: faker.helpers.arrayElement([true, false]),
   participated: faker.helpers.arrayElement([true, false]),
-  participantCapacity: faker.number.int(100),
+  totalParticipantCapacity: faker.number.int(100),
   unlimitedQuantity: faker.helpers.arrayElement([true, false]),
   tickets: [
     {
@@ -71,7 +71,7 @@ export const mockActivity: ActivitySchemaModel = {
       fromToday: faker.helpers.arrayElement([true, false]),
       endDateTime: faker.date.future(),
       noEndDate: faker.helpers.arrayElement([true, false]),
-      participantCapacity: faker.number.int(100),
+      totalParticipantCapacity: faker.number.int(100),
       soldNumber: faker.number.int(10),
       unlimitedQuantity: faker.helpers.arrayElement([true, false]),
       purchaseLimit: faker.number.int(10),

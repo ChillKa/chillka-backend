@@ -96,7 +96,7 @@ export interface ActivitySchemaModel {
   lng: number;
   saved: boolean;
   participated: boolean;
-  participantCapacity: number;
+  totalParticipantCapacity: number;
   unlimitedQuantity: boolean;
 }
 

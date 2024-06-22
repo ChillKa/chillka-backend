@@ -30,7 +30,7 @@ export const createActivity = async ({
     const newActivity = new Activity(activityData);
     const newTickets = tickets?.map((ticket) => {
       ticket.activityId = newActivity._id;
-      newActivity.participantCapacity += ticket.participantCapacity;
+      newActivity.totalParticipantCapacity += ticket.participantCapacity;
       return ticket;
     });
     await Ticket.insertMany(newTickets);

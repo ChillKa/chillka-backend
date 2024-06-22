@@ -65,7 +65,7 @@ export const importMockActivity = async (quantity: number) => {
       lng: faker.location.longitude(),
       saved: faker.helpers.arrayElement([true, false]),
       participated: faker.helpers.arrayElement([true, false]),
-      participantCapacity: 0,
+      totalParticipantCapacity: 0,
       unlimitedQuantity: faker.helpers.arrayElement([true, false]),
       questions: [],
     };
@@ -95,7 +95,7 @@ export const importMockActivity = async (quantity: number) => {
       await Ticket.create(mockTicket);
     }
     for (const ticket of mockTickets) {
-      newActivity.participantCapacity += ticket.participantCapacity;
+      newActivity.totalParticipantCapacity += ticket.participantCapacity;
     }
 
     await newActivity.save();
