@@ -29,7 +29,8 @@ export enum LocationEnum {
 }
 
 export enum PeriodEnum {
-  WEEK = '隔週',
+  WEEKLY = '每週',
+  OTHERWEEK = '隔週',
   MONTH = '每月',
   SEASON = '每季',
 }
