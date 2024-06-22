@@ -95,7 +95,7 @@ export const importMockActivity = async (quantity: number) => {
       await Ticket.create(mockTicket);
     }
     for (const ticket of mockTickets) {
-      newActivity.totalParticipantCapacity += ticket.participantCapacity;
+      newActivity.participantCapacity += ticket.participantCapacity;
     }
 
     await newActivity.save();
