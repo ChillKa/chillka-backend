@@ -1,3 +1,4 @@
+import moment from 'moment';
 import Activity from '../model/activity.model';
 import Comment from '../model/comment.model';
 import Keyword from '../model/keyword.model';
@@ -6,10 +7,14 @@ import User from '../model/user.model';
 import {
   GetActivityDetailCredential,
   GetRecommendActivitiesCredential,
+  GetSearchActivitiesCredential,
+  SearchActivityDateEnum,
+  SearchActivitySortEnum,
   replyObject,
 } from '../type/activity.type';
 import { QuestionSchemaModel, TypeEnum } from '../type/question.type';
 import { CoreError } from '../util/error-handler';
+import getDistanceFromLatLonInKm from '../util/get-distance';
 
 export const getRecommendActivities = async ({
   userId,
@@ -198,5 +203,102 @@ export const getActivityDetail = async ({
     return data;
   } catch (error) {
     throw new CoreError('Get activity details failed.');
+  }
+};
+
+export const getSearchActivities = async ({
+  keyword,
+  location,
+  category,
+  type,
+  date,
+  customStartDate,
+  customEndDate,
+  distance,
+  lat,
+  lng,
+  sort,
+}: GetSearchActivitiesCredential) => {
+  try {
+    const queryObject = [{}];
+    if (keyword) queryObject.push({ name: new RegExp(keyword) });
+    if (location) queryObject.push({ location });
+    if (category) queryObject.push({ category });
+    if (type) queryObject.push({ type });
+    if (date) {
+      let startDateTime = {};
+      switch (date) {
+        case SearchActivityDateEnum.IMMEDIATELY:
+          startDateTime = { $gte: moment(), $lte: moment().add(3, 'hours') };
+          break;
+        case SearchActivityDateEnum.TODAY:
+          startDateTime = {
+            $gte: moment().startOf('day').toDate(),
+            $lt: moment().startOf('day').add(1, 'day').toDate(),
+          };
+          break;
+        case SearchActivityDateEnum.TOMORROW:
+          startDateTime = {
+            $gte: moment().startOf('day').add(1, 'day').toDate(),
+            $lt: moment().startOf('day').add(2, 'day').toDate(),
+          };
+          break;
+        case SearchActivityDateEnum.THISWEEK:
+          startDateTime = {
+            $gte: moment(),
+            $lt: moment().weekday(6).startOf('day').toDate(),
+          };
+          break;
+        case SearchActivityDateEnum.WEEKEND:
+          startDateTime = {
+            $gte: moment().weekday(6).startOf('day').toDate(),
+            $lt: moment().weekday(8).startOf('day').toDate(),
+          };
+          break;
+        case SearchActivityDateEnum.NEXTWEEK:
+          startDateTime = {
+            $gte: moment().weekday(8).startOf('day').toDate(),
+            $lt: moment().weekday(15).startOf('day').toDate(),
+          };
+          break;
+        case SearchActivityDateEnum.CUSTOMDATE:
+          startDateTime = {
+            $gte: moment(customStartDate),
+            $lte: moment(customEndDate),
+          };
+          break;
+      }
+      queryObject.push({
+        startDateTime,
+      });
+    }
+
+    const activities = await Activity.find({ $and: queryObject }).sort(
+      sort === SearchActivitySortEnum.CORRELATION
+        ? { name: 1 }
+        : { startDateTime: 1 }
+    );
+
+    if (distance && lat && lng) {
+      const userLat = +lat;
+      const userLng = +lng;
+      const maxDist = +distance || 1;
+
+      const filteredActivities = activities.filter((activity) => {
+        const distance = getDistanceFromLatLonInKm({
+          lat1: userLat,
+          lng1: userLng,
+          lat2: activity.lat,
+          lng2: activity.lng,
+        });
+        return distance <= maxDist;
+      });
+
+      return { activities: filteredActivities };
+    } else {
+      return { activities };
+    }
+  } catch (error) {
+    throw new CoreError('Get search activities failed.');
   }
 };

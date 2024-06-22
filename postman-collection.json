@@ -161,6 +161,25 @@
       "response": []
     },
     {
+      "name": "create mock activity",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{HOST}}/api/mock-activity?limit=10",
+          "host": ["{{HOST}}"],
+          "path": ["api", "mock-activity"],
+          "query": [
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
       "name": "create questions",
       "request": {
         "method": "POST",
@@ -285,13 +304,13 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{HOST}}/api/activities/6671a202d3004a6ac06647e6?userId=6656060a066cd51095906678",
+          "raw": "{{HOST}}/api/activities/66731f2c1785298ad178c04b?userId=66731f2c1785298ad178c045",
           "host": ["{{HOST}}"],
-          "path": ["api", "activities", "6671a202d3004a6ac06647e6"],
+          "path": ["api", "activities", "66731f2c1785298ad178c04b"],
           "query": [
             {
               "key": "userId",
-              "value": "6656060a066cd51095906678"
+              "value": "66731f2c1785298ad178c045"
             }
           ]
         }
@@ -392,6 +411,67 @@
           "raw": "{{HOST}}/api/auth/saved-activities",
           "host": ["{{HOST}}"],
           "path": ["api", "auth", "saved-activities"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get search activities",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "",
+            "value": "",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{HOST}}/api/activities",
+          "host": ["{{HOST}}"],
+          "path": ["api", "activities"],
+          "query": [
+            {
+              "key": "keyword",
+              "value": "Dr",
+              "disabled": true
+            },
+            {
+              "key": "location",
+              "value": "中部",
+              "disabled": true
+            },
+            {
+              "key": "category",
+              "value": "戶外踏青",
+              "disabled": true
+            },
+            {
+              "key": "type",
+              "value": "線上",
+              "disabled": true
+            },
+            {
+              "key": "date",
+              "value": "下一週",
+              "disabled": true
+            },
+            {
+              "key": "sort",
+              "value": "日期",
+              "disabled": true
+            },
+            {
+              "key": "distance",
+              "value": "1",
+              "disabled": true
+            },
+            {
+              "key": "lng",
+              "value": "-46.8546",
+              "disabled": true
+            }
+          ]
         }
       },
       "response": []
