@@ -608,6 +608,7 @@ export const _schema = {
     "PeriodEnum": {
       "type": "string",
       "enum": [
+        "每週",
         "隔週",
         "每月",
         "每季"
@@ -651,6 +652,7 @@ export const _schema = {
         "period": {
           "type": "string",
           "enum": [
+            "每週",
             "隔週",
             "每月",
             "每季"
@@ -771,8 +773,7 @@ export const _schema = {
           "type": "string",
           "enum": [
             "線上",
-            "室內",
-            "室外"
+            "線下"
           ]
         },
         "link": {
@@ -808,6 +809,7 @@ export const _schema = {
             "period": {
               "type": "string",
               "enum": [
+                "每週",
                 "隔週",
                 "每月",
                 "每季"
@@ -1068,8 +1070,7 @@ export const _schema = {
           "type": "string",
           "enum": [
             "線上",
-            "室內",
-            "室外"
+            "線下"
           ]
         },
         "link": {
@@ -1105,6 +1106,7 @@ export const _schema = {
             "period": {
               "type": "string",
               "enum": [
+                "每週",
                 "隔週",
                 "每月",
                 "每季"
@@ -1291,8 +1293,7 @@ export const _schema = {
           "type": "string",
           "enum": [
             "線上",
-            "室內",
-            "室外"
+            "線下"
           ]
         },
         "location": {
@@ -1413,6 +1414,7 @@ export const _schema = {
             "period": {
               "type": "string",
               "enum": [
+                "每週",
                 "隔週",
                 "每月",
                 "每季"
@@ -1584,8 +1586,7 @@ export const _schema = {
           "type": "string",
           "enum": [
             "線上",
-            "室內",
-            "室外"
+            "線下"
           ]
         },
         "location": {
@@ -1706,6 +1707,7 @@ export const _schema = {
             "period": {
               "type": "string",
               "enum": [
+                "每週",
                 "隔週",
                 "每月",
                 "每季"
@@ -1872,8 +1874,7 @@ export const _schema = {
               "type": "string",
               "enum": [
                 "線上",
-                "室內",
-                "室外"
+                "線下"
               ]
             },
             "location": {
@@ -1994,6 +1995,7 @@ export const _schema = {
                 "period": {
                   "type": "string",
                   "enum": [
+                    "每週",
                     "隔週",
                     "每月",
                     "每季"
@@ -2175,8 +2177,7 @@ export const _schema = {
           "type": "string",
           "enum": [
             "線上",
-            "室內",
-            "室外"
+            "線下"
           ]
         },
         "location": {
@@ -2297,6 +2298,7 @@ export const _schema = {
             "period": {
               "type": "string",
               "enum": [
+                "每週",
                 "隔週",
                 "每月",
                 "每季"
