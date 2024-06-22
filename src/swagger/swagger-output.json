@@ -6,10 +6,7 @@
     "description": ""
   },
   "basePath": "/",
-  "schemes": [
-    "http",
-    "https"
-  ],
+  "schemes": ["http", "https"],
   "securityDefinitions": {
     "apiKeyAuth": {
       "type": "apiKey",
@@ -49,9 +46,7 @@
     },
     "/api/register": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "description": "",
         "parameters": [
           {
@@ -71,9 +66,7 @@
     },
     "/api/login": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "description": "",
         "parameters": [
           {
@@ -93,9 +86,7 @@
     },
     "/api/verify-email": {
       "get": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "description": "",
         "parameters": [
           {
@@ -111,9 +102,7 @@
         }
       },
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "description": "",
         "responses": {
           "200": {
@@ -124,9 +113,7 @@
     },
     "/api/reset-password": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "description": "",
         "responses": {
           "200": {
@@ -135,9 +122,7 @@
         }
       },
       "patch": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "description": "",
         "responses": {
           "200": {
@@ -148,9 +133,7 @@
     },
     "/api/activities": {
       "get": {
-        "tags": [
-          "Activity"
-        ],
+        "tags": ["Activity"],
         "description": "",
         "responses": {
           "200": {
@@ -161,9 +144,7 @@
     },
     "/api/activities/recommend": {
       "get": {
-        "tags": [
-          "Activity"
-        ],
+        "tags": ["Activity"],
         "description": "",
         "parameters": [
           {
@@ -186,9 +167,7 @@
     },
     "/api/activities/popular-keywords": {
       "get": {
-        "tags": [
-          "Activity"
-        ],
+        "tags": ["Activity"],
         "description": "",
         "responses": {
           "200": {
@@ -199,9 +178,7 @@
     },
     "/api/activities/comments": {
       "get": {
-        "tags": [
-          "Activity"
-        ],
+        "tags": ["Activity"],
         "description": "",
         "responses": {
           "200": {
@@ -212,9 +189,7 @@
     },
     "/api/activities/{activityId}": {
       "get": {
-        "tags": [
-          "Activity"
-        ],
+        "tags": ["Activity"],
         "description": "",
         "parameters": [
           {
@@ -238,9 +213,7 @@
     },
     "/api/auth/user/{userId}": {
       "get": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "description": "",
         "parameters": [
           {
@@ -262,9 +235,7 @@
         ]
       },
       "patch": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "description": "",
         "parameters": [
           {
@@ -295,9 +266,7 @@
     },
     "/api/auth/change-password": {
       "put": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "description": "",
         "parameters": [
           {
@@ -322,9 +291,7 @@
     },
     "/api/auth/upload-images": {
       "post": {
-        "tags": [
-          "User"
-        ],
+        "tags": ["User"],
         "description": "",
         "responses": {
           "200": {
@@ -340,9 +307,7 @@
     },
     "/api/auth/activities": {
       "post": {
-        "tags": [
-          "Activity"
-        ],
+        "tags": ["Activity"],
         "description": "",
         "parameters": [
           {
@@ -365,9 +330,7 @@
         ]
       },
       "get": {
-        "tags": [
-          "Activity"
-        ],
+        "tags": ["Activity"],
         "description": "",
         "parameters": [
           {
@@ -375,10 +338,7 @@
             "in": "query",
             "required": false,
             "type": "string",
-            "enum": [
-              "asc",
-              "des"
-            ]
+            "enum": ["asc", "des"]
           },
           {
             "name": "page",
@@ -407,9 +367,7 @@
     },
     "/api/auth/activities/{activityId}": {
       "put": {
-        "tags": [
-          "Activity"
-        ],
+        "tags": ["Activity"],
         "description": "",
         "parameters": [
           {
@@ -440,9 +398,7 @@
     },
     "/api/auth/activities/{activityId}/cancel": {
       "put": {
-        "tags": [
-          "Activity"
-        ],
+        "tags": ["Activity"],
         "description": "",
         "parameters": [
           {
@@ -466,9 +422,7 @@
     },
     "/api/auth/activities/{activityId}/participants": {
       "get": {
-        "tags": [
-          "Activity"
-        ],
+        "tags": ["Activity"],
         "description": "",
         "parameters": [
           {
@@ -510,9 +464,7 @@
     },
     "/api/auth/activities/{activityId}/questions": {
       "post": {
-        "tags": [
-          "Activity"
-        ],
+        "tags": ["Activity"],
         "description": "",
         "parameters": [
           {
@@ -534,9 +486,7 @@
         ]
       },
       "patch": {
-        "tags": [
-          "Activity"
-        ],
+        "tags": ["Activity"],
         "description": "",
         "parameters": [
           {
@@ -558,9 +508,7 @@
         ]
       },
       "delete": {
-        "tags": [
-          "Activity"
-        ],
+        "tags": ["Activity"],
         "description": "",
         "parameters": [
           {
@@ -584,9 +532,7 @@
     },
     "/api/auth/saved-activities/{activityId}": {
       "post": {
-        "tags": [
-          "Activity"
-        ],
+        "tags": ["Activity"],
         "description": "",
         "parameters": [
           {
@@ -610,9 +556,7 @@
     },
     "/api/auth/saved-activities": {
       "get": {
-        "tags": [
-          "Activity"
-        ],
+        "tags": ["Activity"],
         "description": "",
         "parameters": [
           {
@@ -620,10 +564,7 @@
             "in": "query",
             "required": false,
             "type": "string",
-            "enum": [
-              "asc",
-              "des"
-            ]
+            "enum": ["asc", "des"]
           },
           {
             "name": "page",
@@ -652,9 +593,7 @@
     },
     "/api/auth/activity-message": {
       "post": {
-        "tags": [
-          "Activity"
-        ],
+        "tags": ["Activity"],
         "description": "Activity host send message to a single participant",
         "parameters": [
           {
@@ -679,9 +618,7 @@
     },
     "/api/auth/orders": {
       "get": {
-        "tags": [
-          "Order"
-        ],
+        "tags": ["Order"],
         "description": "",
         "parameters": [
           {
@@ -689,10 +626,7 @@
             "in": "query",
             "required": false,
             "type": "string",
-            "enum": [
-              "asc",
-              "des"
-            ]
+            "enum": ["asc", "des"]
           },
           {
             "name": "page",
@@ -721,9 +655,7 @@
     },
     "/api/auth/orders/{orderId}": {
       "get": {
-        "tags": [
-          "Order"
-        ],
+        "tags": ["Order"],
         "description": "",
         "parameters": [
           {
@@ -747,9 +679,7 @@
     },
     "/api/auth/orders/{orderId}/cancel": {
       "put": {
-        "tags": [
-          "Order"
-        ],
+        "tags": ["Order"],
         "description": "",
         "parameters": [
           {
@@ -773,9 +703,7 @@
     },
     "/api/auth/orders/use-serial-number": {
       "put": {
-        "tags": [
-          "Order"
-        ],
+        "tags": ["Order"],
         "description": "",
         "parameters": [
           {
@@ -805,9 +733,7 @@
     },
     "/api/auth/payment": {
       "post": {
-        "tags": [
-          "Payment"
-        ],
+        "tags": ["Payment"],
         "description": "",
         "parameters": [
           {
@@ -832,9 +758,7 @@
     },
     "/api/auth/messageListId": {
       "get": {
-        "tags": [
-          "MessageList"
-        ],
+        "tags": ["MessageList"],
         "description": "",
         "parameters": [
           {
@@ -859,9 +783,7 @@
     },
     "/api/auth/messages": {
       "get": {
-        "tags": [
-          "MessageList"
-        ],
+        "tags": ["MessageList"],
         "description": "",
         "parameters": [
           {
@@ -893,10 +815,7 @@
   "schemas": {
     "GenderEnum": {
       "type": "string",
-      "enum": [
-        "男",
-        "女"
-      ]
+      "enum": ["男", "女"]
     },
     "UserBase": {
       "type": "object",
@@ -911,11 +830,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "displayName",
-        "email",
-        "password"
-      ]
+      "required": ["displayName", "email", "password"]
     },
     "UserSchemaModel": {
       "type": "object",
@@ -930,10 +845,7 @@
           "type": "string"
         },
         "gender": {
-          "enum": [
-            "女",
-            "男"
-          ],
+          "enum": ["女", "男"],
           "type": "string"
         },
         "age": {
@@ -979,12 +891,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "displayName",
-        "email",
-        "favoriteCategories",
-        "password"
-      ]
+      "required": ["displayName", "email", "favoriteCategories", "password"]
     },
     "UserRegisterCredentials": {
       "allOf": [
@@ -1001,11 +908,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "displayName",
-            "email",
-            "password"
-          ]
+          "required": ["displayName", "email", "password"]
         },
         {
           "type": "object",
@@ -1014,9 +917,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "confirmPassword"
-          ]
+          "required": ["confirmPassword"]
         }
       ]
     },
@@ -1033,11 +934,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "_id",
-        "displayName",
-        "email"
-      ]
+      "required": ["_id", "displayName", "email"]
     },
     "UserLoginCredentials": {
       "type": "object",
@@ -1049,10 +946,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "email",
-        "password"
-      ]
+      "required": ["email", "password"]
     },
     "UserEditCredentials": {
       "type": "object",
@@ -1079,10 +973,7 @@
           "type": "string"
         },
         "gender": {
-          "enum": [
-            "女",
-            "男"
-          ],
+          "enum": ["女", "男"],
           "type": "string"
         },
         "introduction": {
@@ -1113,11 +1004,7 @@
           }
         }
       },
-      "required": [
-        "displayName",
-        "email",
-        "favoriteCategories"
-      ]
+      "required": ["displayName", "email", "favoriteCategories"]
     },
     "SendEmailCredentials": {
       "type": "object",
@@ -1126,17 +1013,11 @@
           "type": "string"
         },
         "emailType": {
-          "enum": [
-            "resetPassword",
-            "verifyEmail"
-          ],
+          "enum": ["resetPassword", "verifyEmail"],
           "type": "string"
         }
       },
-      "required": [
-        "email",
-        "emailType"
-      ]
+      "required": ["email", "emailType"]
     },
     "ResetPasswordCredentials": {
       "type": "object",
@@ -1151,11 +1032,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "confirmPassword",
-        "password",
-        "token"
-      ]
+      "required": ["confirmPassword", "password", "token"]
     },
     "ChangePasswordParams": {
       "type": "object",
@@ -1173,12 +1050,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "confirmNewPassword",
-        "newPassword",
-        "oldPassword",
-        "userId"
-      ]
+      "required": ["confirmNewPassword", "newPassword", "oldPassword", "userId"]
     },
     "ChangePasswordCredentials": {
       "type": "object",
@@ -1193,18 +1065,11 @@
           "type": "string"
         }
       },
-      "required": [
-        "confirmNewPassword",
-        "newPassword",
-        "oldPassword"
-      ]
+      "required": ["confirmNewPassword", "newPassword", "oldPassword"]
     },
     "SortEnum": {
       "type": "string",
-      "enum": [
-        "asc",
-        "des"
-      ]
+      "enum": ["asc", "des"]
     },
     "AuthDecoded": {
       "type": "object",
@@ -1225,19 +1090,10 @@
           "type": "string"
         }
       },
-      "required": [
-        "_id",
-        "displayName",
-        "email",
-        "exp",
-        "int"
-      ]
+      "required": ["_id", "displayName", "email", "exp", "int"]
     },
     "SortType": {
-      "enum": [
-        "asc",
-        "des"
-      ],
+      "enum": ["asc", "des"],
       "type": "string"
     },
     "OrganizerSchemaModel": {
@@ -1312,21 +1168,14 @@
     },
     "TypeEnum": {
       "type": "string",
-      "enum": [
-        "提問",
-        "回覆"
-      ]
+      "enum": ["提問", "回覆"]
     },
     "QuestionSchemaModel": {
       "$ref": "#/definitions/QuestionSchemaModel"
     },
     "TicketStatusEnum": {
       "type": "string",
-      "enum": [
-        "可購買",
-        "已售完",
-        "結束售票"
-      ]
+      "enum": ["可購買", "已售完", "結束售票"]
     },
     "TicketSchemaModel": {
       "type": "object",
@@ -1377,11 +1226,7 @@
         },
         "ticketStatus": {
           "type": "string",
-          "enum": [
-            "可購買",
-            "已售完",
-            "結束售票"
-          ]
+          "enum": ["可購買", "已售完", "結束售票"]
         }
       },
       "required": [
@@ -1444,11 +1289,7 @@
         },
         "ticketStatus": {
           "type": "string",
-          "enum": [
-            "可購買",
-            "已售完",
-            "結束售票"
-          ]
+          "enum": ["可購買", "已售完", "結束售票"]
         }
       },
       "required": [
@@ -1482,22 +1323,11 @@
     },
     "LocationEnum": {
       "type": "string",
-      "enum": [
-        "北部",
-        "中部",
-        "南部",
-        "東部",
-        "離島"
-      ]
+      "enum": ["北部", "中部", "南部", "東部", "離島"]
     },
     "PeriodEnum": {
       "type": "string",
-      "enum": [
-        "每週",
-        "隔週",
-        "每月",
-        "每季"
-      ]
+      "enum": ["每週", "隔週", "每月", "每季"]
     },
     "WeekEnum": {
       "type": "string",
@@ -1525,23 +1355,14 @@
     },
     "StatusEnum": {
       "type": "string",
-      "enum": [
-        "有效",
-        "取消",
-        "結束"
-      ]
+      "enum": ["有效", "取消", "結束"]
     },
     "Recurring": {
       "type": "object",
       "properties": {
         "period": {
           "type": "string",
-          "enum": [
-            "每週",
-            "隔週",
-            "每月",
-            "每季"
-          ]
+          "enum": ["每週", "隔週", "每月", "每季"]
         },
         "week": {
           "type": "string",
@@ -1568,11 +1389,7 @@
           ]
         }
       },
-      "required": [
-        "day",
-        "period",
-        "week"
-      ]
+      "required": ["day", "period", "week"]
     },
     "ActivitySchemaModel": {
       "type": "object",
@@ -1656,10 +1473,7 @@
         },
         "type": {
           "type": "string",
-          "enum": [
-            "線上",
-            "線下"
-          ]
+          "enum": ["線上", "線下"]
         },
         "link": {
           "type": "string"
@@ -1693,12 +1507,7 @@
           "properties": {
             "period": {
               "type": "string",
-              "enum": [
-                "每週",
-                "隔週",
-                "每月",
-                "每季"
-              ]
+              "enum": ["每週", "隔週", "每月", "每季"]
             },
             "week": {
               "type": "string",
@@ -1725,19 +1534,11 @@
               ]
             }
           },
-          "required": [
-            "day",
-            "period",
-            "week"
-          ]
+          "required": ["day", "period", "week"]
         },
         "status": {
           "type": "string",
-          "enum": [
-            "有效",
-            "取消",
-            "結束"
-          ]
+          "enum": ["有效", "取消", "結束"]
         },
         "tickets": {
           "type": "array",
@@ -1790,11 +1591,7 @@
               },
               "ticketStatus": {
                 "type": "string",
-                "enum": [
-                  "可購買",
-                  "已售完",
-                  "結束售票"
-                ]
+                "enum": ["可購買", "已售完", "結束售票"]
               }
             },
             "required": [
@@ -1953,10 +1750,7 @@
         },
         "type": {
           "type": "string",
-          "enum": [
-            "線上",
-            "線下"
-          ]
+          "enum": ["線上", "線下"]
         },
         "link": {
           "type": "string"
@@ -1990,12 +1784,7 @@
           "properties": {
             "period": {
               "type": "string",
-              "enum": [
-                "每週",
-                "隔週",
-                "每月",
-                "每季"
-              ]
+              "enum": ["每週", "隔週", "每月", "每季"]
             },
             "week": {
               "type": "string",
@@ -2022,19 +1811,11 @@
               ]
             }
           },
-          "required": [
-            "day",
-            "period",
-            "week"
-          ]
+          "required": ["day", "period", "week"]
         },
         "status": {
           "type": "string",
-          "enum": [
-            "有效",
-            "取消",
-            "結束"
-          ]
+          "enum": ["有效", "取消", "結束"]
         },
         "tickets": {
           "type": "array",
@@ -2087,11 +1868,7 @@
               },
               "ticketStatus": {
                 "type": "string",
-                "enum": [
-                  "可購買",
-                  "已售完",
-                  "結束售票"
-                ]
+                "enum": ["可購買", "已售完", "結束售票"]
               }
             },
             "required": [
@@ -2176,10 +1953,7 @@
         },
         "type": {
           "type": "string",
-          "enum": [
-            "線上",
-            "線下"
-          ]
+          "enum": ["線上", "線下"]
         },
         "location": {
           "type": "string"
@@ -2198,11 +1972,7 @@
         },
         "status": {
           "type": "string",
-          "enum": [
-            "有效",
-            "取消",
-            "結束"
-          ]
+          "enum": ["有效", "取消", "結束"]
         },
         "startDateTime": {
           "type": "string",
@@ -2295,12 +2065,7 @@
           "properties": {
             "period": {
               "type": "string",
-              "enum": [
-                "每週",
-                "隔週",
-                "每月",
-                "每季"
-              ]
+              "enum": ["每週", "隔週", "每月", "每季"]
             },
             "week": {
               "type": "string",
@@ -2327,11 +2092,7 @@
               ]
             }
           },
-          "required": [
-            "day",
-            "period",
-            "week"
-          ]
+          "required": ["day", "period", "week"]
         },
         "tickets": {
           "type": "array",
@@ -2384,11 +2145,7 @@
               },
               "ticketStatus": {
                 "type": "string",
-                "enum": [
-                  "可購買",
-                  "已售完",
-                  "結束售票"
-                ]
+                "enum": ["可購買", "已售完", "結束售票"]
               }
             },
             "required": [
@@ -2469,10 +2226,7 @@
         },
         "type": {
           "type": "string",
-          "enum": [
-            "線上",
-            "線下"
-          ]
+          "enum": ["線上", "線下"]
         },
         "location": {
           "type": "string"
@@ -2491,11 +2245,7 @@
         },
         "status": {
           "type": "string",
-          "enum": [
-            "有效",
-            "取消",
-            "結束"
-          ]
+          "enum": ["有效", "取消", "結束"]
         },
         "startDateTime": {
           "type": "string",
@@ -2588,12 +2338,7 @@
           "properties": {
             "period": {
               "type": "string",
-              "enum": [
-                "每週",
-                "隔週",
-                "每月",
-                "每季"
-              ]
+              "enum": ["每週", "隔週", "每月", "每季"]
             },
             "week": {
               "type": "string",
@@ -2620,11 +2365,7 @@
               ]
             }
           },
-          "required": [
-            "day",
-            "period",
-            "week"
-          ]
+          "required": ["day", "period", "week"]
         },
         "tickets": {
           "type": "array",
@@ -2677,11 +2418,7 @@
               },
               "ticketStatus": {
                 "type": "string",
-                "enum": [
-                  "可購買",
-                  "已售完",
-                  "結束售票"
-                ]
+                "enum": ["可購買", "已售完", "結束售票"]
               }
             },
             "required": [
@@ -2757,10 +2494,7 @@
             },
             "type": {
               "type": "string",
-              "enum": [
-                "線上",
-                "線下"
-              ]
+              "enum": ["線上", "線下"]
             },
             "location": {
               "type": "string"
@@ -2779,11 +2513,7 @@
             },
             "status": {
               "type": "string",
-              "enum": [
-                "有效",
-                "取消",
-                "結束"
-              ]
+              "enum": ["有效", "取消", "結束"]
             },
             "startDateTime": {
               "type": "string",
@@ -2876,12 +2606,7 @@
               "properties": {
                 "period": {
                   "type": "string",
-                  "enum": [
-                    "每週",
-                    "隔週",
-                    "每月",
-                    "每季"
-                  ]
+                  "enum": ["每週", "隔週", "每月", "每季"]
                 },
                 "week": {
                   "type": "string",
@@ -2908,11 +2633,7 @@
                   ]
                 }
               },
-              "required": [
-                "day",
-                "period",
-                "week"
-              ]
+              "required": ["day", "period", "week"]
             },
             "tickets": {
               "type": "array",
@@ -2965,11 +2686,7 @@
                   },
                   "ticketStatus": {
                     "type": "string",
-                    "enum": [
-                      "可購買",
-                      "已售完",
-                      "結束售票"
-                    ]
+                    "enum": ["可購買", "已售完", "結束售票"]
                   }
                 },
                 "required": [
@@ -3045,10 +2762,7 @@
               "$ref": "#/definitions/Types.ObjectId"
             }
           },
-          "required": [
-            "activityId",
-            "userId"
-          ]
+          "required": ["activityId", "userId"]
         }
       ]
     },
@@ -3060,10 +2774,7 @@
         },
         "type": {
           "type": "string",
-          "enum": [
-            "線上",
-            "線下"
-          ]
+          "enum": ["線上", "線下"]
         },
         "location": {
           "type": "string"
@@ -3082,11 +2793,7 @@
         },
         "status": {
           "type": "string",
-          "enum": [
-            "有效",
-            "取消",
-            "結束"
-          ]
+          "enum": ["有效", "取消", "結束"]
         },
         "startDateTime": {
           "type": "string",
@@ -3179,12 +2886,7 @@
           "properties": {
             "period": {
               "type": "string",
-              "enum": [
-                "每週",
-                "隔週",
-                "每月",
-                "每季"
-              ]
+              "enum": ["每週", "隔週", "每月", "每季"]
             },
             "week": {
               "type": "string",
@@ -3211,11 +2913,7 @@
               ]
             }
           },
-          "required": [
-            "day",
-            "period",
-            "week"
-          ]
+          "required": ["day", "period", "week"]
         },
         "tickets": {
           "type": "array",
@@ -3268,11 +2966,7 @@
               },
               "ticketStatus": {
                 "type": "string",
-                "enum": [
-                  "可購買",
-                  "已售完",
-                  "結束售票"
-                ]
+                "enum": ["可購買", "已售完", "結束售票"]
               }
             },
             "required": [
@@ -3351,16 +3045,11 @@
           "type": "number"
         },
         "sort": {
-          "enum": [
-            "asc",
-            "des"
-          ],
+          "enum": ["asc", "des"],
           "type": "string"
         }
       },
-      "required": [
-        "userId"
-      ]
+      "required": ["userId"]
     },
     "GetActivityDetailCredential": {
       "type": "object",
@@ -3372,9 +3061,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "activityId"
-      ]
+      "required": ["activityId"]
     },
     "GetActivityParticipantParams": {
       "type": "object",
@@ -3392,16 +3079,11 @@
           "type": "number"
         },
         "sort": {
-          "enum": [
-            "asc",
-            "des"
-          ],
+          "enum": ["asc", "des"],
           "type": "string"
         }
       },
-      "required": [
-        "activityId"
-      ]
+      "required": ["activityId"]
     },
     "CancelActivityParams": {
       "type": "object",
@@ -3413,10 +3095,7 @@
           "$ref": "#/definitions/Types.ObjectId"
         }
       },
-      "required": [
-        "activityId",
-        "userId"
-      ]
+      "required": ["activityId", "userId"]
     },
     "CollectActivityParams": {
       "type": "object",
@@ -3428,10 +3107,7 @@
           "$ref": "#/definitions/Types.ObjectId"
         }
       },
-      "required": [
-        "activityId",
-        "userId"
-      ]
+      "required": ["activityId", "userId"]
     },
     "GetSavedActivityParams": {
       "type": "object",
@@ -3446,16 +3122,11 @@
           "type": "number"
         },
         "sort": {
-          "enum": [
-            "asc",
-            "des"
-          ],
+          "enum": ["asc", "des"],
           "type": "string"
         }
       },
-      "required": [
-        "userId"
-      ]
+      "required": ["userId"]
     },
     "QuestionCredentials": {
       "type": "object",
@@ -3476,11 +3147,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "activityId",
-        "questionId",
-        "userId"
-      ]
+      "required": ["activityId", "questionId", "userId"]
     },
     "replyObject": {
       "type": "object",
@@ -3495,10 +3162,7 @@
       "type": "object",
       "properties": {
         "sort": {
-          "enum": [
-            "asc",
-            "des"
-          ],
+          "enum": ["asc", "des"],
           "type": "string"
         },
         "page": {
@@ -3554,9 +3218,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "limit"
-      ]
+      "required": ["limit"]
     },
     "SearchActivityDateEnum": {
       "type": "string",
@@ -3572,10 +3234,7 @@
     },
     "SearchActivitySortEnum": {
       "type": "string",
-      "enum": [
-        "相關性",
-        "日期"
-      ]
+      "enum": ["相關性", "日期"]
     },
     "GetSearchActivitiesCredential": {
       "type": "object",
@@ -3584,13 +3243,7 @@
           "type": "string"
         },
         "location": {
-          "enum": [
-            "中部",
-            "北部",
-            "南部",
-            "東部",
-            "離島"
-          ],
+          "enum": ["中部", "北部", "南部", "東部", "離島"],
           "type": "string"
         },
         "category": {
@@ -3607,10 +3260,7 @@
           "type": "string"
         },
         "type": {
-          "enum": [
-            "線上",
-            "線下"
-          ],
+          "enum": ["線上", "線下"],
           "type": "string"
         },
         "date": {
@@ -3643,10 +3293,7 @@
           "type": "string"
         },
         "sort": {
-          "enum": [
-            "日期",
-            "相關性"
-          ],
+          "enum": ["日期", "相關性"],
           "type": "string"
         }
       }
@@ -3667,12 +3314,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "lat1",
-        "lat2",
-        "lng1",
-        "lng2"
-      ]
+      "required": ["lat1", "lat2", "lng1", "lng2"]
     },
     "CreateActivityMessageParams": {
       "type": "object",
@@ -3690,12 +3332,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "activityId",
-        "content",
-        "participantId",
-        "userId"
-      ]
+      "required": ["activityId", "content", "participantId", "userId"]
     },
     "CreateActivityMessageCredentials": {
       "type": "object",
@@ -3710,11 +3347,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "activityId",
-        "content",
-        "participantId"
-      ]
+      "required": ["activityId", "content", "participantId"]
     },
     "CommentSchemaModel": {
       "type": "object",
@@ -3754,27 +3387,18 @@
           "type": "number"
         }
       },
-      "required": [
-        "content",
-        "count"
-      ]
+      "required": ["content", "count"]
     },
     "MessageUserType": {
       "type": "string",
-      "enum": [
-        "舉辦者",
-        "參加者"
-      ]
+      "enum": ["舉辦者", "參加者"]
     },
     "MessageSchemaModel": {
       "type": "object",
       "properties": {
         "userType": {
           "type": "string",
-          "enum": [
-            "舉辦者",
-            "參加者"
-          ]
+          "enum": ["舉辦者", "參加者"]
         },
         "content": {
           "type": "string"
@@ -3783,10 +3407,7 @@
           "type": "boolean"
         }
       },
-      "required": [
-        "content",
-        "userType"
-      ]
+      "required": ["content", "userType"]
     },
     "MessageListSchemaModel": {
       "type": "object",
@@ -3807,10 +3428,7 @@
             "properties": {
               "userType": {
                 "type": "string",
-                "enum": [
-                  "舉辦者",
-                  "參加者"
-                ]
+                "enum": ["舉辦者", "參加者"]
               },
               "content": {
                 "type": "string"
@@ -3819,19 +3437,11 @@
                 "type": "boolean"
               }
             },
-            "required": [
-              "content",
-              "userType"
-            ]
+            "required": ["content", "userType"]
           }
         }
       },
-      "required": [
-        "hostUserId",
-        "messages",
-        "orderId",
-        "participantUserId"
-      ]
+      "required": ["hostUserId", "messages", "orderId", "participantUserId"]
     },
     "GetMessageListIdParams": {
       "type": "object",
@@ -3846,11 +3456,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "hostUserId",
-        "orderId",
-        "participantUserId"
-      ]
+      "required": ["hostUserId", "orderId", "participantUserId"]
     },
     "GetMessageListParams": {
       "type": "object",
@@ -3865,9 +3471,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "userId"
-      ]
+      "required": ["userId"]
     },
     "LiveMessageParams": {
       "type": "object",
@@ -3888,10 +3492,7 @@
             "properties": {
               "userType": {
                 "type": "string",
-                "enum": [
-                  "舉辦者",
-                  "參加者"
-                ]
+                "enum": ["舉辦者", "參加者"]
               },
               "content": {
                 "type": "string"
@@ -3900,19 +3501,11 @@
                 "type": "boolean"
               }
             },
-            "required": [
-              "content",
-              "userType"
-            ]
+            "required": ["content", "userType"]
           }
         }
       },
-      "required": [
-        "hostUserId",
-        "messages",
-        "orderId",
-        "participantUserId"
-      ]
+      "required": ["hostUserId", "messages", "orderId", "participantUserId"]
     },
     "SocketQueryParams": {
       "type": "object",
@@ -3924,18 +3517,11 @@
           "type": "string"
         }
       },
-      "required": [
-        "messageListId",
-        "userId"
-      ]
+      "required": ["messageListId", "userId"]
     },
     "PaymentStatusEnum": {
       "type": "string",
-      "enum": [
-        "已付款",
-        "待付款",
-        "付款失敗"
-      ]
+      "enum": ["已付款", "待付款", "付款失敗"]
     },
     "PaymentTypeEnum": {
       "type": "string",
@@ -3964,13 +3550,7 @@
     },
     "OrderStatusEnum": {
       "type": "string",
-      "enum": [
-        "有效",
-        "取消",
-        "已使用",
-        "保留",
-        "無效票券"
-      ]
+      "enum": ["有效", "取消", "已使用", "保留", "無效票券"]
     },
     "OrderContact": {
       "type": "object",
@@ -3985,11 +3565,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "email",
-        "name",
-        "phone"
-      ]
+      "required": ["email", "name", "phone"]
     },
     "OrderPayment": {
       "type": "object",
@@ -3998,11 +3574,7 @@
           "type": "string"
         },
         "status": {
-          "enum": [
-            "付款失敗",
-            "已付款",
-            "待付款"
-          ],
+          "enum": ["付款失敗", "已付款", "待付款"],
           "type": "string"
         },
         "type": {
@@ -4034,10 +3606,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "amount",
-        "orderNumber"
-      ]
+      "required": ["amount", "orderNumber"]
     },
     "OrderSchemaModel": {
       "type": "object",
@@ -4064,11 +3633,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "email",
-            "name",
-            "phone"
-          ]
+          "required": ["email", "name", "phone"]
         },
         "payment": {
           "type": "object",
@@ -4077,11 +3642,7 @@
               "type": "string"
             },
             "status": {
-              "enum": [
-                "付款失敗",
-                "已付款",
-                "待付款"
-              ],
+              "enum": ["付款失敗", "已付款", "待付款"],
               "type": "string"
             },
             "type": {
@@ -4113,20 +3674,11 @@
               "type": "number"
             }
           },
-          "required": [
-            "amount",
-            "orderNumber"
-          ]
+          "required": ["amount", "orderNumber"]
         },
         "orderStatus": {
           "type": "string",
-          "enum": [
-            "有效",
-            "取消",
-            "已使用",
-            "保留",
-            "無效票券"
-          ]
+          "enum": ["有效", "取消", "已使用", "保留", "無效票券"]
         },
         "transactionId": {
           "type": "string"
@@ -4174,11 +3726,7 @@
                   "type": "string"
                 }
               },
-              "required": [
-                "email",
-                "name",
-                "phone"
-              ]
+              "required": ["email", "name", "phone"]
             },
             "payment": {
               "type": "object",
@@ -4187,11 +3735,7 @@
                   "type": "string"
                 },
                 "status": {
-                  "enum": [
-                    "付款失敗",
-                    "已付款",
-                    "待付款"
-                  ],
+                  "enum": ["付款失敗", "已付款", "待付款"],
                   "type": "string"
                 },
                 "type": {
@@ -4223,10 +3767,7 @@
                   "type": "number"
                 }
               },
-              "required": [
-                "amount",
-                "orderNumber"
-              ]
+              "required": ["amount", "orderNumber"]
             },
             "transactionId": {
               "type": "string"
@@ -4241,10 +3782,7 @@
           ]
         }
       },
-      "required": [
-        "requestBody",
-        "userId"
-      ]
+      "required": ["requestBody", "userId"]
     },
     "GetOrdersParams": {
       "type": "object",
@@ -4259,10 +3797,7 @@
           "type": "number"
         },
         "sort": {
-          "enum": [
-            "asc",
-            "des"
-          ],
+          "enum": ["asc", "des"],
           "type": "string"
         }
       }
@@ -4277,10 +3812,7 @@
           "$ref": "#/definitions/Types.ObjectId"
         }
       },
-      "required": [
-        "orderId",
-        "userId"
-      ]
+      "required": ["orderId", "userId"]
     },
     "UseSerialNumberOrderParams": {
       "type": "object",
@@ -4292,10 +3824,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "serialNumber",
-        "userId"
-      ]
+      "required": ["serialNumber", "userId"]
     },
     "TriggerPaymentCredentials": {
       "allOf": [
@@ -4315,11 +3844,7 @@
                   "type": "string"
                 }
               },
-              "required": [
-                "email",
-                "name",
-                "phone"
-              ]
+              "required": ["email", "name", "phone"]
             },
             "payment": {
               "type": "object",
@@ -4328,11 +3853,7 @@
                   "type": "string"
                 },
                 "status": {
-                  "enum": [
-                    "付款失敗",
-                    "已付款",
-                    "待付款"
-                  ],
+                  "enum": ["付款失敗", "已付款", "待付款"],
                   "type": "string"
                 },
                 "type": {
@@ -4364,16 +3885,10 @@
                   "type": "number"
                 }
               },
-              "required": [
-                "amount",
-                "orderNumber"
-              ]
+              "required": ["amount", "orderNumber"]
             }
           },
-          "required": [
-            "orderContact",
-            "payment"
-          ]
+          "required": ["orderContact", "payment"]
         },
         {
           "type": "object",
@@ -4385,10 +3900,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "itemName",
-            "tradeDesc"
-          ]
+          "required": ["itemName", "tradeDesc"]
         }
       ]
     },
@@ -4402,10 +3914,7 @@
           "$ref": "#/definitions/Types.ObjectId"
         }
       },
-      "required": [
-        "activityId",
-        "userId"
-      ]
+      "required": ["activityId", "userId"]
     }
   }
 }
