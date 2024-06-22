@@ -17,8 +17,7 @@ export enum CategoryEnum {
 
 export enum TypeEnum {
   ONLINE = '線上',
-  INDOOR = '室內',
-  OUTDOOR = '室外',
+  OFFLINE = '線下',
 }
 
 export enum LocationEnum {
@@ -30,7 +29,8 @@ export enum LocationEnum {
 }
 
 export enum PeriodEnum {
-  WEEK = '隔週',
+  WEEKLY = '每週',
+  OTHERWEEK = '隔週',
   MONTH = '每月',
   SEASON = '每季',
 }
@@ -96,7 +96,7 @@ export interface ActivitySchemaModel {
   lng: number;
   saved: boolean;
   participated: boolean;
-  participantCapacity: number;
+  totalParticipantCapacity: number;
   unlimitedQuantity: boolean;
 }
 
