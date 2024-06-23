@@ -292,9 +292,12 @@ export const getSearchActivities = async ({
         return distance <= maxDist;
       });
 
-      return { activities: filteredActivities };
+      return {
+        activities: filteredActivities,
+        total: filteredActivities.length,
+      };
     } else {
-      return { activities };
+      return { activities, total: activities.length };
     }
   } catch (error) {
     throw new CoreError('Get search activities failed.');
