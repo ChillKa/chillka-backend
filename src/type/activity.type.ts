@@ -204,6 +204,8 @@ export type GetSearchActivitiesCredential = {
   lat?: string;
   lng?: string;
   sort?: SearchActivitySortEnum;
+  limit?: number;
+  page?: number;
 };
 
 export type GetDistance = {

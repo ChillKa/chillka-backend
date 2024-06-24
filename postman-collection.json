@@ -1,9 +1,9 @@
 {
   "info": {
-    "_postman_id": "f6b33cea-df08-468d-9fa4-96fe74a04842",
+    "_postman_id": "51722f4b-fbf9-4062-952b-576766be5315",
     "name": "chillka-backend",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "30654257"
+    "_exporter_id": "20616853"
   },
   "item": [
     {
@@ -161,6 +161,25 @@
       "response": []
     },
     {
+      "name": "create mock activity",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{HOST}}/api/mock-activity?limit=100",
+          "host": ["{{HOST}}"],
+          "path": ["api", "mock-activity"],
+          "query": [
+            {
+              "key": "limit",
+              "value": "100"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
       "name": "create questions",
       "request": {
         "method": "POST",
@@ -285,13 +304,13 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{HOST}}/api/activities/66731f2c1785298ad178c04b?userId=66731f2c1785298ad178c045",
+          "raw": "{{HOST}}/api/activities/6676c7c555888d99a07f36fa?userId=6672e8abc5f9dd90c6e0a7cc",
           "host": ["{{HOST}}"],
-          "path": ["api", "activities", "66731f2c1785298ad178c04b"],
+          "path": ["api", "activities", "6676c7c555888d99a07f36fa"],
           "query": [
             {
               "key": "userId",
-              "value": "66731f2c1785298ad178c045"
+              "value": "6672e8abc5f9dd90c6e0a7cc"
             }
           ]
         }
@@ -340,25 +359,6 @@
           "raw": "{{HOST}}/api/activities/comments",
           "host": ["{{HOST}}"],
           "path": ["api", "activities", "comments"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "get message list",
-      "request": {
-        "method": "GET",
-        "header": [
-          {
-            "key": "",
-            "value": "",
-            "disabled": true
-          }
-        ],
-        "url": {
-          "raw": "{{HOST}}/api/auth/messages",
-          "host": ["{{HOST}}"],
-          "path": ["api", "auth", "messages"]
         }
       },
       "response": []
@@ -463,12 +463,27 @@
             },
             {
               "key": "distance",
-              "value": "1",
+              "value": "10000",
+              "disabled": true
+            },
+            {
+              "key": "lat",
+              "value": "2.5403",
               "disabled": true
             },
             {
               "key": "lng",
-              "value": "-46.8546",
+              "value": "92.5161",
+              "disabled": true
+            },
+            {
+              "key": "page",
+              "value": "1",
+              "disabled": true
+            },
+            {
+              "key": "limit",
+              "value": "3",
               "disabled": true
             }
           ]
@@ -483,19 +498,6 @@
         "header": [],
         "url": {
           "raw": "{{HOST}}/api/auth/orders",
-          "host": ["{{HOST}}"],
-          "path": ["api", "auth", "orders"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "get order detail",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{HOST}}/api/auth/orders/:orderId",
           "host": ["{{HOST}}"],
           "path": ["api", "auth", "orders"]
         }
@@ -824,7 +826,7 @@
     "bearer": [
       {
         "key": "token",
-        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjU4YWE2MTJjMjU3MzMwODZjMzVhZDkiLCJkaXNwbGF5TmFtZSI6ImNoaWxsa2EiLCJlbWFpbCI6ImNoaWxsa2Eub2ZmaWNhbEBnbWFpbC5jb20iLCJpYXQiOjE3MTg3MjM4MjgsImV4cCI6MTcxODgxMDIyOH0.SmUc0h4edLi-TjgpQ5yhFHDJeFZO68bhrIJYAW8UIVQ",
+        "value": "{{session}}",
         "type": "string"
       }
     ]
@@ -845,12 +847,6 @@
         "packages": {},
         "exec": [""]
       }
-    }
-  ],
-  "variable": [
-    {
-      "key": "HOST",
-      "value": "http://localhost:8000"
     }
   ]
 }
