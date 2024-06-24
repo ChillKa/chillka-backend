@@ -15,6 +15,7 @@ import {
 import { QuestionSchemaModel, TypeEnum } from '../type/question.type';
 import { CoreError } from '../util/error-handler';
 import getDistanceFromLatLonInKm from '../util/get-distance';
+import { paginator } from '../util/paginator';
 
 export const getRecommendActivities = async ({
   userId,
@@ -216,6 +217,8 @@ export const getSearchActivities = async ({
   lat,
   lng,
   sort,
+  limit,
+  page,
 }: GetSearchActivitiesCredential) => {
   try {
     const queryObject = [{}];
@@ -277,25 +280,23 @@ export const getSearchActivities = async ({
         : { startDateTime: 1 }
     );
 
-    if (distance && lat && lng) {
-      const userLat = +lat;
-      const userLng = +lng;
-      const maxDist = +distance || 1;
+    if (!distance || !lat || !lng) return paginator(activities, page, limit);
 
-      const filteredActivities = activities.filter((activity) => {
-        const distance = getDistanceFromLatLonInKm({
-          lat1: userLat,
-          lng1: userLng,
-          lat2: activity.lat,
-          lng2: activity.lng,
-        });
-        return distance <= maxDist;
+    const userLat = +lat;
+    const userLng = +lng;
+    const maxDist = +distance || 1;
+
+    const filteredActivities = activities.filter((activity) => {
+      const distance = getDistanceFromLatLonInKm({
+        lat1: userLat,
+        lng1: userLng,
+        lat2: activity.lat,
+        lng2: activity.lng,
       });
+      return distance <= maxDist;
+    });
 
-      return { activities: filteredActivities };
-    } else {
-      return { activities };
-    }
+    return paginator(filteredActivities, page, limit);
   } catch (error) {
     throw new CoreError('Get search activities failed.');
   }

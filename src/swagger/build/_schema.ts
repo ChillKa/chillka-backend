@@ -2763,6 +2763,12 @@ export const _schema = {
             "相關性"
           ],
           "type": "string"
+        },
+        "limit": {
+          "type": "number"
+        },
+        "page": {
+          "type": "number"
         }
       }
     },
