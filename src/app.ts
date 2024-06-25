@@ -4,7 +4,7 @@ import http from 'http';
 import mongoose from 'mongoose';
 import { Server } from 'socket.io';
 import swaggerUi from 'swagger-ui-express';
-import User from './model/user.model';
+import Activity from './model/activity.model';
 import authRoute from './route/auth.route';
 import messageRoute from './route/message-list.route';
 import orderRoute from './route/order.route';
@@ -62,7 +62,29 @@ app.use(
 app.get('/api/demo', async (req, res) => {
   /* #swagger.description = 'Validate all of users' email' */
 
-  await User.updateMany({ isEmailValidate: false }, { isEmailValidate: true });
+  const activities = await Activity.find({});
+  // const locationValues = Object.values(LocationEnum);
+  let count = 0;
+  for (const activity of activities) {
+    if (!activity.lat) count++;
+    // activity.creatorId = new mongoose.Types.ObjectId();
+    // activity.location = faker.helpers.arrayElement(locationValues);
+    // activity.organizer = {
+    //   profilePicture: faker.image.urlLoremFlickr(),
+    //   name: faker.person.fullName(),
+    //   contactName: faker.person.fullName(),
+    //   contactPhone: faker.phone.number(),
+    //   contactEmail: faker.internet.email(),
+    //   websiteName: faker.internet.domainName(),
+    //   websiteURL: faker.internet.url(),
+    // };
+    // activity.lat = faker.location.latitude();
+    // activity.lng = faker.location.longitude();
+    // await activity.save();
+  }
+
+  console.log(count);
+  // await User.updateMany({ isEmailValidate: false }, { isEmailValidate: true });
 
   res.send('success validate email');
 });
