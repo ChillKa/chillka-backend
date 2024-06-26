@@ -15,6 +15,7 @@ import swaggerRoute from './route/swagger.route';
 import userRoute from './route/user.route';
 import userActivityRoute from './route/userActivity.route';
 import swaggerDocument from './swagger/swagger-output.json';
+import { searchAndSaveImages } from './util/download-unsplash';
 import googleStrategy from './util/google-strategy';
 import { importMockActivity } from './util/mock/import';
 
@@ -64,6 +65,29 @@ app.get('/api/demo', async (req, res) => {
   await User.updateMany({ isEmailValidate: false }, { isEmailValidate: true });
 
   res.send('success validate email');
+});
+
+app.get('/api/unsplash', async (req, res) => {
+  /* #swagger.description = 'download picture from unsplash' */
+  const limit = req.query.limit as string;
+  const categories = {
+    // user: 'Asian person, Asian portrait, Asian face, Asian woman, Asian man',
+    // art: 'art, culture, painting, sculpture',
+    // games: 'gaming, video games, board games, esports',
+    // health: 'healthy, wellness, yoga, nutrition',
+    // hobbies: 'hobby, crafting, painting, photography',
+    // outdoor: 'hiking, nature, trail, outdoor',
+    // social: 'social, gathering, party, event',
+    // sports: 'fitness, workout, sports, exercise',
+    // technology: 'technology, gadgets, tech, innovation',
+  };
+
+  const promises = Object.entries(categories).map(([category, query]) =>
+    searchAndSaveImages({ category, query, limit })
+  );
+  await Promise.all(promises);
+
+  res.send('success download picture from unsplash');
 });
 
 app.get('/api/mock-activity', async (req, res) => {
