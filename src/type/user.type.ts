@@ -22,7 +22,7 @@ export interface UserSchemaModel extends UserBase {
   phoneNumber?: number;
   phoneBarcode?: string;
   address?: string;
-  isEmailValidate?: string;
+  isEmailValidate?: boolean;
   savedActivities?: mongoose.Types.ObjectId[];
   favoriteCategories: string[];
   profilePicture?: string;
