@@ -3,6 +3,7 @@ import Activity from '../model/activity.model';
 import Comment from '../model/comment.model';
 import Keyword from '../model/keyword.model';
 import Order from '../model/order.model';
+import Ticket from '../model/ticket.model';
 import User from '../model/user.model';
 import {
   GetActivityDetailCredential,
@@ -280,13 +281,30 @@ export const getSearchActivities = async ({
         : { startDateTime: 1 }
     );
 
-    if (!distance || !lat || !lng) return paginator(activities, page, limit);
+    const searchActivities = [];
+    for (const activity of activities) {
+      const tickets = await Ticket.find({ activityId: activity._id });
+      const ticketPrice = [];
+      for (const ticket of tickets) {
+        ticketPrice.push({
+          name: ticket.name,
+          price: ticket.price,
+        });
+      }
+
+      const searchActivity = JSON.parse(JSON.stringify(activity));
+      searchActivity.ticketPrice = ticketPrice;
+      searchActivities.push(searchActivity);
+    }
+
+    if (!distance || !lat || !lng)
+      return paginator(searchActivities, page, limit);
 
     const userLat = +lat;
     const userLng = +lng;
     const maxDist = +distance || 1;
 
-    const filteredActivities = activities.filter((activity) => {
+    const filteredActivities = searchActivities.filter((activity) => {
       const distance = getDistanceFromLatLonInKm({
         lat1: userLat,
         lng1: userLng,
