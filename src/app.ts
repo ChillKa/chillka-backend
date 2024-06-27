@@ -66,19 +66,19 @@ app.get('/api/demo', async (req, res) => {
   res.send('success validate email');
 });
 
-app.get('/api/unsplash', async (req, res) => {
+app.get('/api/download-unsplash', async (req, res) => {
   /* #swagger.description = 'download picture from unsplash' */
   const limit = req.query.limit as string;
   const categories = {
-    user: 'Asian person, Asian portrait, Asian face, Asian woman, Asian man',
-    art: 'art, culture, painting, sculpture',
+    // user: 'Asian person, Asian portrait, Asian face, Asian woman, Asian man',
+    // art: 'art, culture, painting, sculpture',
     games: 'gaming, video games, board games, esports',
-    health: 'healthy, wellness, yoga, nutrition',
-    hobbies: 'hobby, crafting, painting, photography',
-    outdoor: 'hiking, nature, trail, outdoor',
-    social: 'social, gathering, party, event',
-    sports: 'fitness, workout, sports, exercise',
-    technology: 'technology, gadgets, tech, innovation',
+    // health: 'healthy, wellness, yoga, nutrition',
+    // hobbies: 'hobby, crafting, painting, photography',
+    // outdoor: 'hiking, nature, trail, outdoor',
+    // social: 'social, gathering, party, event',
+    // sports: 'fitness, workout, sports, exercise',
+    // technology: 'technology, gadgets, tech, innovation',
   };
 
   const promises = Object.entries(categories).map(([category, query]) =>
