@@ -84,6 +84,9 @@ export const _schema = {
             "type": "string"
           }
         },
+        "profilePicture": {
+          "type": "string"
+        },
         "displayName": {
           "type": "string"
         },
@@ -226,6 +229,9 @@ export const _schema = {
           "items": {
             "type": "string"
           }
+        },
+        "profilePicture": {
+          "type": "string"
         }
       },
       "required": [

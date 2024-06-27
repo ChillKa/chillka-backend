@@ -78,6 +78,9 @@ const UserSchema = new Schema<UserSchemaModel, UserModel, UserMethods>(
       required: true,
       default: [],
     },
+    profilePicture: {
+      type: Schema.Types.String,
+    },
   },
   {
     collection: 'users',
