@@ -16,7 +16,7 @@ import userActivityRoute from './route/userActivity.route';
 import swaggerDocument from './swagger/swagger-output.json';
 import { searchAndSaveImages } from './util/download-unsplash';
 import googleStrategy from './util/google-strategy';
-import * as importService from './util/mock/import';
+import * as mockService from './util/mock/import';
 import User from './model/user.model';
 
 const app = express();
@@ -70,9 +70,9 @@ app.get('/api/download-unsplash', async (req, res) => {
   /* #swagger.description = 'download picture from unsplash' */
   const limit = req.query.limit as string;
   const categories = {
-    // user: 'Asian person, Asian portrait, Asian face, Asian woman, Asian man',
+    user: 'Asian person, Asian portrait, Asian face, Asian woman, Asian man',
     // art: 'art, culture, painting, sculpture',
-    games: 'gaming, video games, board games, esports',
+    // games: 'gaming, video games, board games, esports',
     // health: 'healthy, wellness, yoga, nutrition',
     // hobbies: 'hobby, crafting, painting, photography',
     // outdoor: 'hiking, nature, trail, outdoor',
@@ -90,22 +90,22 @@ app.get('/api/download-unsplash', async (req, res) => {
 });
 
 app.get('/api/mock-data', async (req, res) => {
-  // await importService.importMockKeyword();
-  // await importService.importMockUser();
-  // await importService.importMockOrganizer();
-  // await importService.importMockComment();
-  await importService.importMockActivity();
+  // await mockService.importMockKeyword();
+  // await mockService.importMockUser();
+  // await mockService.importMockOrganizer();
+  // await mockService.importMockComment();
+  await mockService.importMockActivity();
 
   res.send(`success create mock data`);
 });
 
-// app.get('/api/mock-activity', async (req, res) => {
-//   const limit = req.query.limit;
-//   const quantity = limit && Number.isInteger(+limit) && +limit > 1 ? +limit : 1;
-//   await importMockActivity(quantity);
+app.get('/api/mock-activity', async (req, res) => {
+  const limit = req.query.limit;
+  const quantity = limit && Number.isInteger(+limit) && +limit > 1 ? +limit : 1;
+  await mockService.importRandomMockActivity(quantity);
 
-//   res.send(`success create ${quantity} activities`);
-// });
+  res.send(`success create ${quantity} activities`);
+});
 
 mongoose.connect(process.env.MONGODB_URL ?? '').then(() => {
   console.log('Connected to the database by mongoose');
