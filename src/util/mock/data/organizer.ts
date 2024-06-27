@@ -1,7 +1,6 @@
 const organizers = [
   {
     category: '戶外踏青',
-    profilePicture: 'https://randomuser.me/portraits/men/1.jpg',
     name: '自然探索家',
     contactName: '陳建宏',
     contactPhone: '0923456789',
@@ -11,7 +10,6 @@ const organizers = [
   },
   {
     category: '戶外踏青',
-    profilePicture: 'https://randomuser.me/portraits/men/2.jpg',
     name: '山野生活',
     contactName: '王志明',
     contactPhone: '0932123456',
@@ -21,7 +19,6 @@ const organizers = [
   },
   {
     category: '戶外踏青',
-    profilePicture: 'https://randomuser.me/portraits/women/1.jpg',
     name: '大地探險團',
     contactName: '林佩芬',
     contactPhone: '0945678901',
@@ -31,7 +28,6 @@ const organizers = [
   },
   {
     category: '社交活動',
-    profilePicture: 'https://randomuser.me/portraits/men/3.jpg',
     name: '咖啡分享',
     contactName: '黃美玲',
     contactPhone: '0923456789',
@@ -41,7 +37,6 @@ const organizers = [
   },
   {
     category: '社交活動',
-    profilePicture: 'https://randomuser.me/portraits/men/4.jpg',
     name: '音樂交流',
     contactName: '張家豪',
     contactPhone: '0932123456',
@@ -51,7 +46,6 @@ const organizers = [
   },
   {
     category: '社交活動',
-    profilePicture: 'https://randomuser.me/portraits/women/2.jpg',
     name: '運動友誼',
     contactName: '陳雅婷',
     contactPhone: '0945678901',
@@ -61,7 +55,6 @@ const organizers = [
   },
   {
     category: '興趣嗜好',
-    profilePicture: 'https://randomuser.me/portraits/men/5.jpg',
     name: '花藝分享',
     contactName: '張心怡',
     contactPhone: '0923456789',
@@ -71,7 +64,6 @@ const organizers = [
   },
   {
     category: '興趣嗜好',
-    profilePicture: 'https://randomuser.me/portraits/men/6.jpg',
     name: '音樂探索',
     contactName: '黃哲維',
     contactPhone: '0932123456',
@@ -81,7 +73,6 @@ const organizers = [
   },
   {
     category: '興趣嗜好',
-    profilePicture: 'https://randomuser.me/portraits/women/3.jpg',
     name: '讀書會',
     contactName: '黃婕妤',
     contactPhone: '0945678901',
@@ -91,7 +82,6 @@ const organizers = [
   },
   {
     category: '運動健身',
-    profilePicture: 'https://randomuser.me/portraits/men/7.jpg',
     name: '瑜珈靈修',
     contactName: '陳冠宇',
     contactPhone: '0923456789',
@@ -101,7 +91,6 @@ const organizers = [
   },
   {
     category: '運動健身',
-    profilePicture: 'https://randomuser.me/portraits/men/8.jpg',
     name: '攀岩挑戰',
     contactName: '林俊宏',
     contactPhone: '0932123456',
@@ -111,7 +100,6 @@ const organizers = [
   },
   {
     category: '運動健身',
-    profilePicture: 'https://randomuser.me/portraits/women/4.jpg',
     name: '游泳課程',
     contactName: '吳家琪',
     contactPhone: '0945678901',
@@ -121,7 +109,6 @@ const organizers = [
   },
   {
     category: '健康生活',
-    profilePicture: 'https://randomuser.me/portraits/men/9.jpg',
     name: '健身靈修',
     contactName: '張美惠',
     contactPhone: '0923456789',
@@ -131,7 +118,6 @@ const organizers = [
   },
   {
     category: '健康生活',
-    profilePicture: 'https://randomuser.me/portraits/men/10.jpg',
     name: '親子健康',
     contactName: '蔡承翰',
     contactPhone: '0932123456',
@@ -141,7 +127,6 @@ const organizers = [
   },
   {
     category: '健康生活',
-    profilePicture: 'https://randomuser.me/portraits/women/5.jpg',
     name: '心靈療癒',
     contactName: '王美玲',
     contactPhone: '0945678901',
@@ -151,7 +136,6 @@ const organizers = [
   },
   {
     category: '科技玩物',
-    profilePicture: 'https://randomuser.me/portraits/men/11.jpg',
     name: '智能家居',
     contactName: '鄭宏哲',
     contactPhone: '0923456789',
@@ -161,7 +145,6 @@ const organizers = [
   },
   {
     category: '科技玩物',
-    profilePicture: 'https://randomuser.me/portraits/men/12.jpg',
     name: '虛擬實境',
     contactName: '李怡君',
     contactPhone: '0932123456',
@@ -171,7 +154,6 @@ const organizers = [
   },
   {
     category: '科技玩物',
-    profilePicture: 'https://randomuser.me/portraits/women/6.jpg',
     name: '無人機專家',
     contactName: '許承軒',
     contactPhone: '0945678901',
@@ -181,7 +163,6 @@ const organizers = [
   },
   {
     category: '藝術文化',
-    profilePicture: 'https://randomuser.me/portraits/men/13.jpg',
     name: '舞蹈工作坊',
     contactName: '林靜怡',
     contactPhone: '0923456789',
@@ -191,7 +172,6 @@ const organizers = [
   },
   {
     category: '藝術文化',
-    profilePicture: 'https://randomuser.me/portraits/men/14.jpg',
     name: '文學沙龍',
     contactName: '王文偉',
     contactPhone: '0932123456',
@@ -201,7 +181,6 @@ const organizers = [
   },
   {
     category: '藝術文化',
-    profilePicture: 'https://randomuser.me/portraits/women/7.jpg',
     name: '影像藝術展',
     contactName: '張惠雅',
     contactPhone: '0945678901',
@@ -211,7 +190,6 @@ const organizers = [
   },
   {
     category: '遊戲',
-    profilePicture: 'https://randomuser.me/portraits/men/15.jpg',
     name: '桌遊玩家聚會',
     contactName: '林佩芬',
     contactPhone: '0923456789',
@@ -221,7 +199,6 @@ const organizers = [
   },
   {
     category: '遊戲',
-    profilePicture: 'https://randomuser.me/portraits/men/16.jpg',
     name: 'contactPhone遊戲開發工作坊',
     contactName: '楊仁翔',
     contactPhone: '0932123456',
@@ -231,7 +208,6 @@ const organizers = [
   },
   {
     category: '遊戲',
-    profilePicture: 'https://randomuser.me/portraits/women/8.jpg',
     name: '電競比賽聯盟',
     contactName: '劉家豪',
     contactPhone: '0945678901',
