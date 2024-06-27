@@ -4,7 +4,6 @@ import http from 'http';
 import mongoose from 'mongoose';
 import { Server } from 'socket.io';
 import swaggerUi from 'swagger-ui-express';
-import Activity from './model/activity.model';
 import authRoute from './route/auth.route';
 import messageRoute from './route/message-list.route';
 import orderRoute from './route/order.route';
@@ -17,7 +16,8 @@ import userActivityRoute from './route/userActivity.route';
 import swaggerDocument from './swagger/swagger-output.json';
 import { searchAndSaveImages } from './util/download-unsplash';
 import googleStrategy from './util/google-strategy';
-import { importMockActivity } from './util/mock/import';
+import * as importService from './util/mock/import';
+import User from './model/user.model';
 
 const app = express();
 const port = process.env.PORT;
@@ -61,30 +61,7 @@ app.use(
 // delete me in production
 app.get('/api/demo', async (req, res) => {
   /* #swagger.description = 'Validate all of users' email' */
-
-  const activities = await Activity.find({});
-  // const locationValues = Object.values(LocationEnum);
-  let count = 0;
-  for (const activity of activities) {
-    if (!activity.lat) count++;
-    // activity.creatorId = new mongoose.Types.ObjectId();
-    // activity.location = faker.helpers.arrayElement(locationValues);
-    // activity.organizer = {
-    //   profilePicture: faker.image.urlLoremFlickr(),
-    //   name: faker.person.fullName(),
-    //   contactName: faker.person.fullName(),
-    //   contactPhone: faker.phone.number(),
-    //   contactEmail: faker.internet.email(),
-    //   websiteName: faker.internet.domainName(),
-    //   websiteURL: faker.internet.url(),
-    // };
-    // activity.lat = faker.location.latitude();
-    // activity.lng = faker.location.longitude();
-    // await activity.save();
-  }
-
-  console.log(count);
-  // await User.updateMany({ isEmailValidate: false }, { isEmailValidate: true });
+  await User.updateMany({ isEmailValidate: false }, { isEmailValidate: true });
 
   res.send('success validate email');
 });
@@ -93,15 +70,15 @@ app.get('/api/unsplash', async (req, res) => {
   /* #swagger.description = 'download picture from unsplash' */
   const limit = req.query.limit as string;
   const categories = {
-    // user: 'Asian person, Asian portrait, Asian face, Asian woman, Asian man',
-    // art: 'art, culture, painting, sculpture',
-    // games: 'gaming, video games, board games, esports',
-    // health: 'healthy, wellness, yoga, nutrition',
-    // hobbies: 'hobby, crafting, painting, photography',
-    // outdoor: 'hiking, nature, trail, outdoor',
-    // social: 'social, gathering, party, event',
-    // sports: 'fitness, workout, sports, exercise',
-    // technology: 'technology, gadgets, tech, innovation',
+    user: 'Asian person, Asian portrait, Asian face, Asian woman, Asian man',
+    art: 'art, culture, painting, sculpture',
+    games: 'gaming, video games, board games, esports',
+    health: 'healthy, wellness, yoga, nutrition',
+    hobbies: 'hobby, crafting, painting, photography',
+    outdoor: 'hiking, nature, trail, outdoor',
+    social: 'social, gathering, party, event',
+    sports: 'fitness, workout, sports, exercise',
+    technology: 'technology, gadgets, tech, innovation',
   };
 
   const promises = Object.entries(categories).map(([category, query]) =>
@@ -112,13 +89,23 @@ app.get('/api/unsplash', async (req, res) => {
   res.send('success download picture from unsplash');
 });
 
-app.get('/api/mock-activity', async (req, res) => {
-  const limit = req.query.limit;
-  const quantity = limit && Number.isInteger(+limit) && +limit > 1 ? +limit : 1;
-  await importMockActivity(quantity);
+app.get('/api/mock-data', async (req, res) => {
+  // await importService.importMockKeyword();
+  // await importService.importMockUser();
+  // await importService.importMockOrganizer();
+  // await importService.importMockComment();
+  await importService.importMockActivity();
 
-  res.send(`success create ${quantity} activities`);
+  res.send(`success create mock data`);
 });
+
+// app.get('/api/mock-activity', async (req, res) => {
+//   const limit = req.query.limit;
+//   const quantity = limit && Number.isInteger(+limit) && +limit > 1 ? +limit : 1;
+//   await importMockActivity(quantity);
+
+//   res.send(`success create ${quantity} activities`);
+// });
 
 mongoose.connect(process.env.MONGODB_URL ?? '').then(() => {
   console.log('Connected to the database by mongoose');

@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs';
 
 const users = [
   {
+    profilePicture: '',
     category: '戶外踏青',
     displayName: '小山野',
     email: 'xiaoshanye@example.com',
@@ -17,6 +18,7 @@ const users = [
     isEmailValidate: true,
   },
   {
+    profilePicture: '',
     category: '戶外踏青',
     displayName: '野趣迷',
     email: 'yequmi@example.com',
@@ -32,6 +34,7 @@ const users = [
     isEmailValidate: true,
   },
   {
+    profilePicture: '',
     category: '戶外踏青',
     displayName: '山野人生',
     email: 'shanyeren@example.com',
@@ -47,6 +50,7 @@ const users = [
     isEmailValidate: true,
   },
   {
+    profilePicture: '',
     category: '社交活動',
     displayName: '陽光笑容',
     email: 'sunshinesmile@example.com',
@@ -62,6 +66,7 @@ const users = [
     isEmailValidate: true,
   },
   {
+    profilePicture: '',
     category: '社交活動',
     displayName: '音樂夢幻',
     email: 'musicdreamer@example.com',
@@ -77,6 +82,7 @@ const users = [
     isEmailValidate: true,
   },
   {
+    profilePicture: '',
     category: '社交活動',
     displayName: '舞動青春',
     email: 'danceyouth@example.com',
@@ -92,6 +98,7 @@ const users = [
     isEmailValidate: true,
   },
   {
+    profilePicture: '',
     category: '興趣嗜好',
     displayName: '小夢想家',
     email: 'xiaomengxiangjia@example.com',
@@ -107,6 +114,7 @@ const users = [
     isEmailValidate: true,
   },
   {
+    profilePicture: '',
     category: '興趣嗜好',
     displayName: '音樂小魔怪',
     email: 'yinlexiaomoguai@example.com',
@@ -122,6 +130,7 @@ const users = [
     isEmailValidate: true,
   },
   {
+    profilePicture: '',
     category: '興趣嗜好',
     displayName: '茶藝小達人',
     email: 'chayixiaodaren@example.com',
@@ -137,6 +146,7 @@ const users = [
     isEmailValidate: true,
   },
   {
+    profilePicture: '',
     category: '運動健身',
     displayName: '小跑步',
     email: 'xiaopao@gmail.com',
@@ -152,6 +162,7 @@ const users = [
     isEmailValidate: true,
   },
   {
+    profilePicture: '',
     category: '運動健身',
     displayName: '籃球狂人',
     email: 'basketballfan@gmail.com',
@@ -167,6 +178,7 @@ const users = [
     isEmailValidate: true,
   },
   {
+    profilePicture: '',
     category: '運動健身',
     displayName: '瑜伽愛好者',
     email: 'yogalover@gmail.com',
@@ -182,6 +194,7 @@ const users = [
     isEmailValidate: true,
   },
   {
+    profilePicture: '',
     category: '健康生活',
     displayName: '小蘋果',
     email: 'xiaopingguo@example.com',
@@ -197,6 +210,7 @@ const users = [
     isEmailValidate: true,
   },
   {
+    profilePicture: '',
     category: '健康生活',
     displayName: '紅茶控',
     email: 'luchakong@example.com',
@@ -212,6 +226,7 @@ const users = [
     isEmailValidate: true,
   },
   {
+    profilePicture: '',
     category: '健康生活',
     displayName: '果汁達人',
     email: 'guozhida@example.com',
@@ -227,6 +242,7 @@ const users = [
     isEmailValidate: true,
   },
   {
+    profilePicture: '',
     category: '科技玩物',
     displayName: '小科技迷',
     email: 'xiaokejimi@example.com',
@@ -242,6 +258,7 @@ const users = [
     isEmailValidate: true,
   },
   {
+    profilePicture: '',
     category: '科技玩物',
     displayName: 'GeekGirl',
     email: 'geekgirl@example.com',
@@ -257,10 +274,11 @@ const users = [
     isEmailValidate: true,
   },
   {
+    profilePicture: '',
     category: '科技玩物',
     displayName: '電子控',
-    email: 'dianzikong@example.com',
-    password: bcrypt.hashSync('ElecP@ss987', 10),
+    email: 'coach@gmail.com',
+    password: bcrypt.hashSync('qwer1234', 10),
     realName: '許承軒',
     birthday: '1985-07-12',
     gender: '男',
@@ -272,6 +290,7 @@ const users = [
     isEmailValidate: true,
   },
   {
+    profilePicture: '',
     category: '藝術文化',
     displayName: '小藝術家',
     email: 'xiaoyishujia@example.com',
@@ -287,6 +306,7 @@ const users = [
     isEmailValidate: true,
   },
   {
+    profilePicture: '',
     category: '藝術文化',
     displayName: '文藝青年',
     email: 'wenyiqingnian@example.com',
@@ -302,6 +322,7 @@ const users = [
     isEmailValidate: true,
   },
   {
+    profilePicture: '',
     category: '藝術文化',
     displayName: '藝術控',
     email: 'yishukong@example.com',
@@ -317,6 +338,7 @@ const users = [
     isEmailValidate: true,
   },
   {
+    profilePicture: '',
     category: '遊戲',
     displayName: '小橘子',
     email: 'orange123@email.com',
@@ -332,6 +354,7 @@ const users = [
     isEmailValidate: true,
   },
   {
+    profilePicture: '',
     category: '遊戲',
     displayName: '魔法小子',
     email: 'magicboy456@email.com',
@@ -347,6 +370,7 @@ const users = [
     isEmailValidate: true,
   },
   {
+    profilePicture: '',
     category: '遊戲',
     displayName: '冒險家小白',
     email: 'adventurewhite789@email.com',
