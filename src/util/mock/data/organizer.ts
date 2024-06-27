@@ -1,5 +1,6 @@
 const organizers = [
   {
+    profilePicture: '',
     category: '戶外踏青',
     name: '自然探索家',
     contactName: '陳建宏',
@@ -9,6 +10,7 @@ const organizers = [
     websiteURL: 'https://nature-explorer-team.com',
   },
   {
+    profilePicture: '',
     category: '戶外踏青',
     name: '山野生活',
     contactName: '王志明',
@@ -18,6 +20,7 @@ const organizers = [
     websiteURL: 'https://mountain-life-adventure.com',
   },
   {
+    profilePicture: '',
     category: '戶外踏青',
     name: '大地探險團',
     contactName: '林佩芬',
@@ -27,6 +30,7 @@ const organizers = [
     websiteURL: 'https://earth-explorers-team.com',
   },
   {
+    profilePicture: '',
     category: '社交活動',
     name: '咖啡分享',
     contactName: '黃美玲',
@@ -36,6 +40,7 @@ const organizers = [
     websiteURL: 'https://coffee-sharing.com',
   },
   {
+    profilePicture: '',
     category: '社交活動',
     name: '音樂交流',
     contactName: '張家豪',
@@ -45,6 +50,7 @@ const organizers = [
     websiteURL: 'https://music-exchange.com',
   },
   {
+    profilePicture: '',
     category: '社交活動',
     name: '運動友誼',
     contactName: '陳雅婷',
@@ -54,6 +60,7 @@ const organizers = [
     websiteURL: 'https://sports-friendship.com',
   },
   {
+    profilePicture: '',
     category: '興趣嗜好',
     name: '花藝分享',
     contactName: '張心怡',
@@ -63,6 +70,7 @@ const organizers = [
     websiteURL: 'https://floral-art-sharing.com',
   },
   {
+    profilePicture: '',
     category: '興趣嗜好',
     name: '音樂探索',
     contactName: '黃哲維',
@@ -72,6 +80,7 @@ const organizers = [
     websiteURL: 'https://music-exploration.com',
   },
   {
+    profilePicture: '',
     category: '興趣嗜好',
     name: '讀書會',
     contactName: '黃婕妤',
@@ -81,6 +90,7 @@ const organizers = [
     websiteURL: 'https://book-club.com',
   },
   {
+    profilePicture: '',
     category: '運動健身',
     name: '瑜珈靈修',
     contactName: '陳冠宇',
@@ -90,6 +100,7 @@ const organizers = [
     websiteURL: 'https://yoga-meditation-studio.com',
   },
   {
+    profilePicture: '',
     category: '運動健身',
     name: '攀岩挑戰',
     contactName: '林俊宏',
@@ -99,6 +110,7 @@ const organizers = [
     websiteURL: 'https://rock-climbing-challenge.com',
   },
   {
+    profilePicture: '',
     category: '運動健身',
     name: '游泳課程',
     contactName: '吳家琪',
@@ -108,6 +120,7 @@ const organizers = [
     websiteURL: 'https://swimming-lessons.com',
   },
   {
+    profilePicture: '',
     category: '健康生活',
     name: '健身靈修',
     contactName: '張美惠',
@@ -117,6 +130,7 @@ const organizers = [
     websiteURL: 'https://fitness-spiritual.com',
   },
   {
+    profilePicture: '',
     category: '健康生活',
     name: '親子健康',
     contactName: '蔡承翰',
@@ -126,6 +140,7 @@ const organizers = [
     websiteURL: 'https://parent-child-health.com',
   },
   {
+    profilePicture: '',
     category: '健康生活',
     name: '心靈療癒',
     contactName: '王美玲',
@@ -135,6 +150,7 @@ const organizers = [
     websiteURL: 'https://spiritual-healing-studio.com',
   },
   {
+    profilePicture: '',
     category: '科技玩物',
     name: '智能家居',
     contactName: '鄭宏哲',
@@ -144,6 +160,7 @@ const organizers = [
     websiteURL: 'https://smart-home-exhibit.com',
   },
   {
+    profilePicture: '',
     category: '科技玩物',
     name: '虛擬實境',
     contactName: '李怡君',
@@ -153,6 +170,7 @@ const organizers = [
     websiteURL: 'https://virtual-reality-experience.com',
   },
   {
+    profilePicture: '',
     category: '科技玩物',
     name: '無人機專家',
     contactName: '許承軒',
@@ -162,6 +180,7 @@ const organizers = [
     websiteURL: 'https://drone-expert-conference.com',
   },
   {
+    profilePicture: '',
     category: '藝術文化',
     name: '舞蹈工作坊',
     contactName: '林靜怡',
@@ -171,6 +190,7 @@ const organizers = [
     websiteURL: 'https://dance-workshop.com',
   },
   {
+    profilePicture: '',
     category: '藝術文化',
     name: '文學沙龍',
     contactName: '王文偉',
@@ -180,6 +200,7 @@ const organizers = [
     websiteURL: 'https://literary-salon-community.com',
   },
   {
+    profilePicture: '',
     category: '藝術文化',
     name: '影像藝術展',
     contactName: '張惠雅',
@@ -189,6 +210,7 @@ const organizers = [
     websiteURL: 'https://visual-arts-exhibition.com',
   },
   {
+    profilePicture: '',
     category: '遊戲',
     name: '桌遊玩家聚會',
     contactName: '林佩芬',
@@ -198,6 +220,7 @@ const organizers = [
     websiteURL: 'https://board-game-freshmen.com',
   },
   {
+    profilePicture: '',
     category: '遊戲',
     name: 'contactPhone遊戲開發工作坊',
     contactName: '楊仁翔',
@@ -207,6 +230,7 @@ const organizers = [
     websiteURL: 'https://mobile-game-tech-expo.com',
   },
   {
+    profilePicture: '',
     category: '遊戲',
     name: '電競比賽聯盟',
     contactName: '劉家豪',
