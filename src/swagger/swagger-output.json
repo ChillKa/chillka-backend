@@ -881,6 +881,9 @@
             "type": "string"
           }
         },
+        "profilePicture": {
+          "type": "string"
+        },
         "displayName": {
           "type": "string"
         },
@@ -1002,6 +1005,9 @@
           "items": {
             "type": "string"
           }
+        },
+        "profilePicture": {
+          "type": "string"
         }
       },
       "required": ["displayName", "email", "favoriteCategories"]
@@ -3295,6 +3301,12 @@
         "sort": {
           "enum": ["日期", "相關性"],
           "type": "string"
+        },
+        "limit": {
+          "type": "number"
+        },
+        "page": {
+          "type": "number"
         }
       }
     },
