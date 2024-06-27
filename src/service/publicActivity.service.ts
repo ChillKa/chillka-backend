@@ -19,6 +19,7 @@ import getDistanceFromLatLonInKm from '../util/get-distance';
 import { paginator } from '../util/paginator';
 
 export const getRecommendActivities = async ({
+  keyword,
   userId,
   limit,
 }: GetRecommendActivitiesCredential) => {
@@ -55,6 +56,21 @@ export const getRecommendActivities = async ({
 
         validActivities.unshift(...favoriteActivities);
       }
+    }
+
+    if (keyword) {
+      const searchedActivities = await Activity.aggregate()
+        .match({
+          $and: [
+            { name: new RegExp(keyword, 'i') },
+            {
+              $or: [{ endDateTime: { $gte: new Date() } }, { noEndDate: true }],
+            },
+          ],
+        })
+        .sample(limit);
+      await Activity.populate(searchedActivities, 'tickets');
+      validActivities.unshift(...searchedActivities);
     }
 
     const activities = [];
@@ -102,7 +118,7 @@ export const getRecommendActivities = async ({
     }
 
     // valid means within the activity period
-    // activities = [validFavoriteActivities, validRandomActivities, randomActivities]
+    // activities = [searchKeywordValidActivities,validFavoriteActivities, validRandomActivities, randomActivities]
     return activities;
   } catch (error) {
     throw new CoreError('Get recommend activities failed.');
@@ -223,7 +239,7 @@ export const getSearchActivities = async ({
 }: GetSearchActivitiesCredential) => {
   try {
     const queryObject = [{}];
-    if (keyword) queryObject.push({ name: new RegExp(keyword) });
+    if (keyword) queryObject.push({ name: new RegExp(keyword, 'i') });
     if (location) queryObject.push({ location });
     if (category) queryObject.push({ category });
     if (type) queryObject.push({ type });
