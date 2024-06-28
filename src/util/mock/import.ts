@@ -17,6 +17,7 @@ import mockUsers from './data/user';
 import mockKeywords from './data/keyword';
 import mockActivities from './data/activity';
 import mockComments from './data/comment';
+import mockTickets from './data/ticket';
 import mockProfilePictures from './images/user.json';
 import Organizer from '../../model/organizer.model';
 import mockOrganizers from './data/organizer';
@@ -31,6 +32,7 @@ import outdoorImages from './images/outdoor.json';
 import socialImages from './images/social.json';
 import sportsImages from './images/sports.json';
 import technologyImages from './images/technology.json';
+import moment from 'moment';
 
 // Enum values
 const categoryValues = Object.values(CategoryEnum);
@@ -185,7 +187,7 @@ export const importMockActivity = async () => {
     藝術文化: [],
     遊戲: [],
   };
-  const categoryImageData = {
+  const categoryImageData: { [key: string]: string[] } = {
     戶外踏青: outdoorImages,
     社交活動: socialImages,
     興趣嗜好: hobbiesImages,
@@ -215,19 +217,77 @@ export const importMockActivity = async () => {
       categoryUserNames[mockUser.category].push(user.realName);
     }
   }
+  const refDate = '2024-07-15';
   for (const mockActivity of mockActivities) {
+    const category = mockActivity.category;
     const randomNumber = faker.number.int(2);
     const organizer = await Organizer.findOne({
-      contactName: categoryUserNames[mockActivity.category][randomNumber],
+      contactName: categoryUserNames[category][randomNumber],
     });
-    mockActivity.creatorId =
-      categoryUserIds[mockActivity.category][randomNumber].toString();
+    mockActivity.creatorId = categoryUserIds[category][randomNumber].toString();
     const temp = JSON.parse(JSON.stringify(organizer));
     mockActivity.organizer = temp;
+    const image = categoryImageData[category][categoryImageIndex[category]];
+    mockActivity.cover[0] = image;
+    mockActivity.thumbnail = image;
+    categoryImageIndex[category]++;
 
-    console.log(categoryImageData, categoryImageIndex);
-    // categoryImageIndex[mockActivity.category]++;
-    //     cover
-    // thumbnail
+    const startDateTime = faker.date.soon({ days: 150, refDate }).toString();
+    mockActivity.startDateTime = startDateTime;
+    mockActivity.endDateTime = faker.date
+      .soon({
+        days: 30,
+        refDate: startDateTime,
+      })
+      .toString();
+  }
+
+  await Activity.deleteMany({});
+  await Activity.insertMany(mockActivities);
+};
+
+export const importMockTicket = async () => {
+  const tickets = [];
+  for (const mockTicket of mockTickets) {
+    const activity = await Activity.findOne({
+      name: mockTicket.activityName,
+    }).select({ _id: 1, startDateTime: 1, endDateTime: 1 });
+    if (activity?._id && activity.startDateTime && activity.endDateTime) {
+      const refStartDate = activity.startDateTime;
+      const refEndDate = activity.endDateTime;
+      for (const ticket of mockTicket.tickets) {
+        ticket.activityId = activity._id.toString();
+
+        const startDateTime = faker.date
+          .soon({ refDate: refStartDate })
+          .toString();
+        ticket.startDateTime = startDateTime;
+        const endDateTime = faker.date.soon({
+          days: 10,
+          refDate: startDateTime,
+        });
+        ticket.endDateTime = moment(endDateTime).isAfter(refEndDate)
+          ? refEndDate.toString()
+          : endDateTime.toString();
+      }
+      tickets.push(...mockTicket.tickets);
+    }
+  }
+
+  await Ticket.deleteMany({});
+  await Ticket.insertMany(tickets);
+
+  const activities = await Activity.find({}).populate('tickets');
+  for (const activity of activities) {
+    activity.totalParticipantCapacity = 0;
+    let totalSoldNumber = 0;
+    for (const ticket of activity.tickets) {
+      activity.totalParticipantCapacity += ticket.participantCapacity;
+      totalSoldNumber += ticket.soldNumber;
+    }
+    activity.remainingTickets =
+      activity.totalParticipantCapacity - totalSoldNumber;
+
+    await activity.save();
   }
 };

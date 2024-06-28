@@ -94,7 +94,8 @@ app.get('/api/mock-data', async (req, res) => {
   // await mockService.importMockUser();
   // await mockService.importMockOrganizer();
   // await mockService.importMockComment();
-  await mockService.importMockActivity();
+  // await mockService.importMockActivity();
+  await mockService.importMockTicket();
 
   res.send(`success create mock data`);
 });

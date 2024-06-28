@@ -2,6 +2,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '夏日山野趣',
     startDateTime: '2024-07-10T09:00:00',
     fromToday: false,
@@ -30,6 +32,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '探索東部山林',
     startDateTime: '2024-08-05T10:00:00',
     fromToday: false,
@@ -57,6 +61,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '山岳探險之旅',
     startDateTime: '2024-09-15T08:30:00',
     fromToday: false,
@@ -84,6 +90,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '南部溪流探險',
     startDateTime: '2024-10-20T07:00:00',
     fromToday: false,
@@ -112,6 +120,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '西部郊野探索',
     startDateTime: '2024-11-12T09:30:00',
     fromToday: false,
@@ -140,6 +150,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '夏日野餐聚會',
     startDateTime: '2024-07-10T14:00:00',
     fromToday: false,
@@ -168,6 +180,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '社交握手會',
     startDateTime: '2024-07-15T19:30:00',
     fromToday: false,
@@ -196,6 +210,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '城市觀光導覽',
     startDateTime: '2024-07-20T10:00:00',
     fromToday: false,
@@ -224,6 +240,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '網路社群聚會',
     startDateTime: '2024-07-25T18:00:00',
     fromToday: false,
@@ -232,7 +250,7 @@ const activities = [
     category: '社交活動',
     type: '線上',
     link: 'https://example.com/event4',
-    location: '全球',
+    location: '北部',
     address: '線上活動',
     summary: '加入我們的網路社群聚會，與來自世界各地的朋友在虛擬空間中交流。',
     details:
@@ -252,6 +270,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '文化交流會',
     startDateTime: '2024-07-30T15:00:00',
     fromToday: false,
@@ -280,6 +300,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '山野攝影工作坊',
     startDateTime: '2024-07-01T09:00:00',
     fromToday: false,
@@ -308,6 +330,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '手作市集展覽',
     startDateTime: '2024-07-10T10:00:00',
     fromToday: false,
@@ -336,6 +360,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '水彩畫工作坊',
     startDateTime: '2024-07-05T14:00:00',
     fromToday: false,
@@ -364,6 +390,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '桌遊日',
     startDateTime: '2024-07-15T13:00:00',
     fromToday: false,
@@ -392,6 +420,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '花草栽培入門',
     startDateTime: '2024-07-20T11:00:00',
     fromToday: false,
@@ -420,6 +450,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '夏日晨跑活動',
     startDateTime: '2024-07-01T07:00:00Z',
     fromToday: false,
@@ -447,6 +479,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '山林瑜珈體驗',
     startDateTime: '2024-07-05T09:30:00Z',
     fromToday: false,
@@ -474,6 +508,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '海灘排球比賽',
     startDateTime: '2024-07-10T14:00:00Z',
     fromToday: false,
@@ -501,6 +537,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '健身操課程',
     startDateTime: '2024-07-15T18:30:00Z',
     fromToday: false,
@@ -528,6 +566,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '泳池水中有氧運動',
     startDateTime: '2024-07-20T17:00:00Z',
     fromToday: false,
@@ -555,6 +595,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '冥想與放鬆工作坊',
     startDateTime: '2024-07-01T10:00:00+08:00',
     fromToday: false,
@@ -583,6 +625,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '有氧健身課程',
     startDateTime: '2024-07-05T18:30:00+08:00',
     fromToday: false,
@@ -611,6 +655,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '健康飲食講座',
     startDateTime: '2024-07-10T14:00:00+08:00',
     fromToday: false,
@@ -619,7 +665,7 @@ const activities = [
     category: '健康生活',
     type: '線上',
     link: 'https://example.com/event3',
-    location: '全球',
+    location: '中部',
     address: '線上活動',
     summary: '了解健康飲食的重要性和實用建議。',
     details:
@@ -639,6 +685,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '健身瑜珈課程',
     startDateTime: '2024-07-15T19:00:00+08:00',
     fromToday: false,
@@ -667,6 +715,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '健康生活實踐工作坊',
     startDateTime: '2024-07-20T11:00:00+08:00',
     fromToday: false,
@@ -695,6 +745,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '智能家居科技展示',
     startDateTime: '2024-07-01T10:00:00',
     fromToday: false,
@@ -723,6 +775,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '虛擬實境體驗日',
     startDateTime: '2024-07-05T13:00:00',
     fromToday: false,
@@ -751,6 +805,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '未來科技論壇',
     startDateTime: '2024-07-10T09:30:00',
     fromToday: false,
@@ -779,6 +835,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '機器人競技大賽',
     startDateTime: '2024-07-15T11:00:00',
     fromToday: false,
@@ -807,6 +865,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '3D列印工作坊',
     startDateTime: '2024-07-20T14:00:00',
     fromToday: false,
@@ -835,6 +895,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '夏夜藝術展',
     startDateTime: '2024-07-15T10:00:00',
     fromToday: false,
@@ -862,6 +924,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '古董文物展',
     startDateTime: '2024-08-10T09:30:00',
     fromToday: false,
@@ -889,6 +953,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '當代藝術表演',
     startDateTime: '2024-09-05T19:00:00',
     fromToday: false,
@@ -917,6 +983,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '戲劇工作坊',
     startDateTime: '2024-10-20T14:00:00',
     fromToday: false,
@@ -945,6 +1013,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '雕塑藝術展',
     startDateTime: '2024-11-15T11:00:00',
     fromToday: false,
@@ -973,6 +1043,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '夏日遊戲盛典',
     startDateTime: '2024-07-01T14:00:00Z',
     fromToday: false,
@@ -1002,6 +1074,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '遊戲攻略分享會',
     startDateTime: '2024-07-05T19:30:00Z',
     fromToday: false,
@@ -1031,6 +1105,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '怪物獵人大賽',
     startDateTime: '2024-07-10T15:00:00Z',
     fromToday: false,
@@ -1059,6 +1135,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '桌遊日',
     startDateTime: '2024-07-15T13:00:00Z',
     fromToday: false,
@@ -1087,6 +1165,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '虛擬寶貝尋寶之旅',
     startDateTime: '2024-07-20T10:00:00Z',
     fromToday: false,
@@ -1115,6 +1195,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '夏日山澗探險',
     startDateTime: '2024-07-10T09:00:00',
     fromToday: false,
@@ -1143,6 +1225,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '山林生態尋踪',
     startDateTime: '2024-07-15T10:00:00',
     fromToday: false,
@@ -1171,6 +1255,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '海濱沙灘派對',
     startDateTime: '2024-07-20T11:00:00',
     fromToday: false,
@@ -1199,6 +1285,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '山川湖泊探險之旅',
     startDateTime: '2024-07-25T08:30:00',
     fromToday: false,
@@ -1227,6 +1315,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '林間小徑健行',
     startDateTime: '2024-07-30T09:30:00',
     fromToday: false,
@@ -1255,6 +1345,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '夏日燒肉派對',
     startDateTime: '2024-07-15T18:00:00+08:00',
     fromToday: false,
@@ -1283,6 +1375,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '夜間攝影教學分享會',
     startDateTime: '2024-08-10T19:30:00+08:00',
     fromToday: false,
@@ -1311,6 +1405,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '品酒交流會',
     startDateTime: '2024-09-05T19:00:00+08:00',
     fromToday: false,
@@ -1339,6 +1435,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '社交舞教學班',
     startDateTime: '2024-10-20T20:00:00+08:00',
     fromToday: false,
@@ -1367,6 +1465,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '桌遊聚會',
     startDateTime: '2024-11-08T19:00:00+08:00',
     fromToday: false,
@@ -1395,6 +1495,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '山林探險遊',
     startDateTime: '2024-07-01T09:00:00',
     fromToday: false,
@@ -1423,6 +1525,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '手作市集 DIY 工作坊',
     startDateTime: '2024-07-10T14:00:00',
     fromToday: false,
@@ -1451,6 +1555,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '攝影課程：捕捉光影的魅力',
     startDateTime: '2024-07-15T10:00:00',
     fromToday: false,
@@ -1479,6 +1585,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '水彩畫工作坊：創作美麗的藝術作品',
     startDateTime: '2024-07-20T13:30:00',
     fromToday: false,
@@ -1507,6 +1615,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '桌遊日：與朋友一同享受遊戲樂趣',
     startDateTime: '2024-07-25T15:00:00',
     fromToday: false,
@@ -1535,6 +1645,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '山林健行探險',
     startDateTime: '2024-07-01T08:00:00',
     fromToday: false,
@@ -1563,6 +1675,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '瑜珈舒展工作坊',
     startDateTime: '2024-07-05T10:00:00',
     fromToday: false,
@@ -1591,6 +1705,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '夜間跑步社群',
     startDateTime: '2024-07-10T19:00:00',
     fromToday: false,
@@ -1619,6 +1735,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '健身攀岩挑戰賽',
     startDateTime: '2024-07-15T13:00:00',
     fromToday: false,
@@ -1647,6 +1765,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '午間瑜珈放鬆課程',
     startDateTime: '2024-07-20T12:00:00',
     fromToday: false,
@@ -1675,6 +1795,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '冥想與放鬆工作坊',
     startDateTime: '2024-07-01T10:00:00',
     fromToday: false,
@@ -1703,6 +1825,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '有氧運動課程',
     startDateTime: '2024-07-05T18:30:00',
     fromToday: false,
@@ -1731,6 +1855,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '健康飲食講座',
     startDateTime: '2024-07-10T14:00:00',
     fromToday: false,
@@ -1759,6 +1885,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '靜心瑜珈課程',
     startDateTime: '2024-07-15T09:00:00',
     fromToday: false,
@@ -1787,6 +1915,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '健康生活講座系列',
     startDateTime: '2024-07-20T19:30:00',
     fromToday: false,
@@ -1815,6 +1945,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: 'VR虛擬實境體驗日',
     startDateTime: '2024-07-01T10:00:00',
     fromToday: false,
@@ -1843,6 +1975,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '智能家居科技展示會',
     startDateTime: '2024-07-10T14:00:00',
     fromToday: false,
@@ -1871,6 +2005,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '人工智慧與機器學習工作坊',
     startDateTime: '2024-07-15T09:30:00',
     fromToday: false,
@@ -1899,6 +2035,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '未來科技展示島',
     startDateTime: '2024-07-20T11:00:00',
     fromToday: false,
@@ -1927,6 +2065,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '科技玩具創客工作坊',
     startDateTime: '2024-07-25T13:00:00',
     fromToday: false,
@@ -1955,7 +2095,9 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
-    name: '夏夜藝術展',
+    cover: [''],
+    thumbnail: '',
+    name: '夏日藝術展',
     startDateTime: '2024-07-15T10:00:00',
     fromToday: false,
     endDateTime: '2024-07-15T18:00:00',
@@ -1983,6 +2125,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '文學讀書會',
     startDateTime: '2024-08-05T14:00:00',
     fromToday: false,
@@ -2011,6 +2155,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '古典音樂會',
     startDateTime: '2024-09-10T19:30:00',
     fromToday: false,
@@ -2038,6 +2184,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '當代藝術工作坊',
     startDateTime: '2024-10-20T13:00:00',
     fromToday: false,
@@ -2065,6 +2213,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '電影放映會：法國新浪潮經典',
     startDateTime: '2024-11-15T18:30:00',
     fromToday: false,
@@ -2093,6 +2243,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '冒險遊戲日：尋找失落的寶藏',
     startDateTime: '2024-07-01T14:00:00',
     fromToday: false,
@@ -2121,6 +2273,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '魔法塔防比賽',
     startDateTime: '2024-07-05T10:00:00',
     fromToday: false,
@@ -2149,6 +2303,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '虛擬現實遊戲體驗日',
     startDateTime: '2024-07-10T13:00:00',
     fromToday: false,
@@ -2177,6 +2333,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '動作角色扮演遊戲派對',
     startDateTime: '2024-07-15T15:00:00',
     fromToday: false,
@@ -2205,6 +2363,8 @@ const activities = [
   {
     creatorId: '',
     organizer: {},
+    cover: [''],
+    thumbnail: '',
     name: '策略桌遊大賽：征服世界',
     startDateTime: '2024-07-20T11:00:00',
     fromToday: false,
