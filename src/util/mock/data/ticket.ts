@@ -1396,24 +1396,29 @@ const tickets = [
     ],
   },
   {
-    activityName: '冥想與放鬆工作坊',
+    activityName: '冥想工作坊',
     tickets: [
       {
-        name: '深度冥想體驗',
-        price: 300,
+        name: '冥想心靈之旅',
+        price: 250,
         activityId: '',
-        startDateTime: '2024-07-01T10:00:00Z',
+        startDateTime: '2024-07-05T09:30:00Z',
         fromToday: false,
-        endDateTime: '2024-07-01T12:00:00Z',
+        endDateTime: '2024-07-05T11:30:00Z',
         noEndDate: false,
-        participantCapacity: 30,
-        soldNumber: 10,
+        participantCapacity: 25,
+        soldNumber: 5,
         unlimitedQuantity: false,
         purchaseLimit: 0,
-        description: '一場專為放鬆身心而設的深度冥想體驗工作坊。',
+        description: '享受一場充滿靈性的冥想體驗，讓心靈得到療癒與放鬆。',
         purchaseDuplicate: false,
         ticketStatus: '可購買',
       },
+    ],
+  },
+  {
+    activityName: '冥想與放鬆工作坊',
+    tickets: [
       {
         name: '冥想心靈之旅',
         price: 250,
@@ -1470,7 +1475,7 @@ const tickets = [
     ],
   },
   {
-    activityName: '健康飲食講座',
+    activityName: '飲食與烹飪講座',
     tickets: [
       {
         name: '營養全攻略',
@@ -1488,6 +1493,11 @@ const tickets = [
         purchaseDuplicate: false,
         ticketStatus: '可購買',
       },
+    ],
+  },
+  {
+    activityName: '健康飲食講座',
+    tickets: [
       {
         name: '健康饮食秘笈',
         price: 120,
@@ -2374,7 +2384,7 @@ const tickets = [
     ],
   },
   {
-    activityName: '桌遊日',
+    activityName: '台式英語桌遊聚會',
     tickets: [
       {
         name: '齊聚桌遊天地券',

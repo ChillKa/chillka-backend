@@ -4,7 +4,7 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   // import 自動排版
   "editor.codeActionsOnSave": {
-    // "source.organizeImports": "explicit"
+    "source.organizeImports": "explicit"
   },
   //Tailwind CSS IntelliSense 使用設定
   "files.associations": {

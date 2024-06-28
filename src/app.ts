@@ -4,6 +4,7 @@ import http from 'http';
 import mongoose from 'mongoose';
 import { Server } from 'socket.io';
 import swaggerUi from 'swagger-ui-express';
+import User from './model/user.model';
 import authRoute from './route/auth.route';
 import messageRoute from './route/message-list.route';
 import orderRoute from './route/order.route';
@@ -17,7 +18,6 @@ import swaggerDocument from './swagger/swagger-output.json';
 import { searchAndSaveImages } from './util/download-unsplash';
 import googleStrategy from './util/google-strategy';
 import * as mockService from './util/mock/import';
-import User from './model/user.model';
 
 const app = express();
 const port = process.env.PORT;
@@ -90,11 +90,11 @@ app.get('/api/download-unsplash', async (req, res) => {
 });
 
 app.get('/api/mock-data', async (req, res) => {
-  // await mockService.importMockKeyword();
-  // await mockService.importMockUser();
-  // await mockService.importMockOrganizer();
-  // await mockService.importMockComment();
-  // await mockService.importMockActivity();
+  await mockService.importMockKeyword();
+  await mockService.importMockUser();
+  await mockService.importMockOrganizer();
+  await mockService.importMockComment();
+  await mockService.importMockActivity();
   await mockService.importMockTicket();
 
   res.send(`success create mock data`);
