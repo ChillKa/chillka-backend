@@ -40,7 +40,9 @@ export const createActivity = async ({
 
     return newActivity;
   } catch (error) {
-    throw new CoreError('Create activity failed.');
+    throw new CoreError(
+      error instanceof Error ? error.message : 'Create activity failed.'
+    );
   }
 };
 
@@ -121,7 +123,9 @@ export const editActivity = async ({
 
     return { message: 'success update' };
   } catch (error) {
-    throw new CoreError('Edit activity failed.');
+    throw new CoreError(
+      error instanceof Error ? error.message : 'Edit activity failed.'
+    );
   }
 };
 
@@ -143,7 +147,9 @@ export const getActivityList = async ({
 
     return paginatedData;
   } catch (error) {
-    throw new CoreError('Get activities failed.');
+    throw new CoreError(
+      error instanceof Error ? error.message : 'Get activities failed.'
+    );
   }
 };
 
@@ -179,7 +185,9 @@ export const getParticipantList = async ({
 
     return paginatedData;
   } catch (error) {
-    throw new CoreError('Get participant list failed.');
+    throw new CoreError(
+      error instanceof Error ? error.message : 'Get participant list failed.'
+    );
   }
 };
 
@@ -232,7 +240,9 @@ export const collectActivity = async ({
 
     return { message: 'Collect activity success.' };
   } catch (error) {
-    throw new CoreError('Collect activity failed.');
+    throw new CoreError(
+      error instanceof Error ? error.message : 'Collect activity failed.'
+    );
   }
 };
 
@@ -257,7 +267,9 @@ export const getSavedActivityList = async ({
 
     return paginatedData;
   } catch (error) {
-    throw new CoreError('Get saved activity list failed.');
+    throw new CoreError(
+      error instanceof Error ? error.message : 'Get saved activity list failed.'
+    );
   }
 };
 
@@ -297,7 +309,9 @@ export const createQuestion = async ({
 
     return newQuestion;
   } catch (error) {
-    throw new CoreError('Create question failed.');
+    throw new CoreError(
+      error instanceof Error ? error.message : 'Create question failed.'
+    );
   }
 };
 
@@ -329,7 +343,9 @@ export const editQuestion = async ({
 
     return editQuestion;
   } catch (error) {
-    throw new CoreError('Edit question failed.');
+    throw new CoreError(
+      error instanceof Error ? error.message : 'Edit question failed.'
+    );
   }
 };
 
@@ -360,7 +376,9 @@ export const deleteQuestion = async ({
 
     return { message: 'success delete' };
   } catch (error) {
-    throw new CoreError('Ask question failed.');
+    throw new CoreError(
+      error instanceof Error ? error.message : 'Ask question failed.'
+    );
   }
 };
 
@@ -408,6 +426,8 @@ export const createActivityMessage = async ({
 
     return { message: 'Send message success.' };
   } catch (error) {
-    throw new CoreError('Send message failed.');
+    throw new CoreError(
+      error instanceof Error ? error.message : 'Send message failed.'
+    );
   }
 };

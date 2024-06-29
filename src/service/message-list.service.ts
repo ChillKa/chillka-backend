@@ -52,7 +52,9 @@ export const getMessageListId = async ({
       return { messageListId: messageList._id };
     }
   } catch (error) {
-    throw new CoreError('Get message list id failed.');
+    throw new CoreError(
+      error instanceof Error ? error.message : 'Get message list id failed.'
+    );
   }
 };
 
@@ -75,6 +77,8 @@ export const getMessageList = async ({
 
     return paginatedData;
   } catch (error) {
-    throw new CoreError('Get message list failed.');
+    throw new CoreError(
+      error instanceof Error ? error.message : 'Get message list failed.'
+    );
   }
 };

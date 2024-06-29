@@ -121,7 +121,11 @@ export const getRecommendActivities = async ({
     // activities = [searchKeywordValidActivities,validFavoriteActivities, validRandomActivities, randomActivities]
     return activities;
   } catch (error) {
-    throw new CoreError('Get recommend activities failed.');
+    throw new CoreError(
+      error instanceof Error
+        ? error.message
+        : 'Get recommend activities failed.'
+    );
   }
 };
 
@@ -134,7 +138,9 @@ export const getPopularKeywords = async () => {
 
     return { keywords: popularKeywords.concat(defaultKeywords).slice(0, 5) };
   } catch (error) {
-    throw new CoreError('Get popular keywords failed.');
+    throw new CoreError(
+      error instanceof Error ? error.message : 'Get popular keywords failed.'
+    );
   }
 };
 
@@ -144,7 +150,9 @@ export const getComments = async () => {
 
     return { comments };
   } catch (error) {
-    throw new CoreError('Get comments failed.');
+    throw new CoreError(
+      error instanceof Error ? error.message : 'Get comments failed.'
+    );
   }
 };
 
@@ -156,7 +164,7 @@ export const getActivityDetail = async ({
     'tickets',
     'questions',
   ]);
-  if (!activity) throw new CoreError('Get activity details failed.');
+  if (!activity) throw new CoreError('Activity not found.');
 
   try {
     let participantNumber = 0;
@@ -218,7 +226,9 @@ export const getActivityDetail = async ({
 
     return data;
   } catch (error) {
-    throw new CoreError('Get activity details failed.');
+    throw new CoreError(
+      error instanceof Error ? error.message : 'Get activity details failed.'
+    );
   }
 };
 
@@ -332,6 +342,8 @@ export const getSearchActivities = async ({
 
     return paginator(filteredActivities, page, limit);
   } catch (error) {
-    throw new CoreError('Get search activities failed.');
+    throw new CoreError(
+      error instanceof Error ? error.message : 'Get search activities failed.'
+    );
   }
 };
