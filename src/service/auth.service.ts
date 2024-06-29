@@ -34,8 +34,10 @@ export const register = async ({
     const data = { message: 'Register succeed' };
 
     return data;
-  } catch {
-    throw new CoreError('Register failed.');
+  } catch (error) {
+    throw new CoreError(
+      error instanceof Error ? error.message : 'Register failed.'
+    );
   }
 };
 
@@ -118,8 +120,10 @@ export const verifyEmail = async (token: string) => {
       { email: decoded.email },
       { $set: { isEmailValidate: true } }
     );
-  } catch {
-    throw new CoreError('VerifyEmail failed.');
+  } catch (error) {
+    throw new CoreError(
+      error instanceof Error ? error.message : 'VerifyEmail failed.'
+    );
   }
 
   return { message: '信箱驗證成功' };
@@ -142,8 +146,10 @@ export const resetPassword = async ({
       { email: decoded.email },
       { $set: { password: hashedPassword } }
     );
-  } catch {
-    throw new CoreError('ResetPassword failed.');
+  } catch (error) {
+    throw new CoreError(
+      error instanceof Error ? error.message : 'Reset password failed.'
+    );
   }
 
   return { message: '密碼重置成功' };

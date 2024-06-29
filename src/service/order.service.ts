@@ -51,7 +51,9 @@ export const createOrder = async ({
     }
     return { message: 'Create order success.' };
   } catch (error) {
-    throw new CoreError('Create order failed.');
+    throw new CoreError(
+      error instanceof Error ? error.message : 'Create order failed.'
+    );
   }
 };
 
@@ -78,7 +80,9 @@ export const getOrderList = async ({
 
     return paginatedData;
   } catch (error) {
-    throw new CoreError('Get order list failed.');
+    throw new CoreError(
+      error instanceof Error ? error.message : 'Get order list failed.'
+    );
   }
 };
 
@@ -99,7 +103,9 @@ export const getOrderDetail = async (orderId: string) => {
 
     return updatedOrder;
   } catch (error) {
-    throw new CoreError('Get order detail failed.');
+    throw new CoreError(
+      error instanceof Error ? error.message : 'Get order detail failed.'
+    );
   }
 };
 
@@ -116,7 +122,9 @@ export const cancelOrder = async ({ userId, orderId }: CancelOrderParams) => {
 
     return { message: 'Cancel order success.' };
   } catch (error) {
-    throw new CoreError('Cancel order failed.');
+    throw new CoreError(
+      error instanceof Error ? error.message : 'Cancel order failed.'
+    );
   }
 };
 
@@ -140,6 +148,8 @@ export const useSerialNumberOrder = async ({
 
     return { message: 'Use order success.' };
   } catch (error) {
-    throw new CoreError('Use order failed.');
+    throw new CoreError(
+      error instanceof Error ? error.message : 'Use order failed.'
+    );
   }
 };
