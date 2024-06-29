@@ -3,6 +3,7 @@ import Activity from '../model/activity.model';
 import Comment from '../model/comment.model';
 import Keyword from '../model/keyword.model';
 import Order from '../model/order.model';
+import Ticket from '../model/ticket.model';
 import User from '../model/user.model';
 import {
   GetActivityDetailCredential,
@@ -18,6 +19,7 @@ import getDistanceFromLatLonInKm from '../util/get-distance';
 import { paginator } from '../util/paginator';
 
 export const getRecommendActivities = async ({
+  keyword,
   userId,
   limit,
 }: GetRecommendActivitiesCredential) => {
@@ -54,6 +56,21 @@ export const getRecommendActivities = async ({
 
         validActivities.unshift(...favoriteActivities);
       }
+    }
+
+    if (keyword) {
+      const searchedActivities = await Activity.aggregate()
+        .match({
+          $and: [
+            { name: new RegExp(keyword, 'i') },
+            {
+              $or: [{ endDateTime: { $gte: new Date() } }, { noEndDate: true }],
+            },
+          ],
+        })
+        .sample(limit);
+      await Activity.populate(searchedActivities, 'tickets');
+      validActivities.unshift(...searchedActivities);
     }
 
     const activities = [];
@@ -101,7 +118,7 @@ export const getRecommendActivities = async ({
     }
 
     // valid means within the activity period
-    // activities = [validFavoriteActivities, validRandomActivities, randomActivities]
+    // activities = [searchKeywordValidActivities,validFavoriteActivities, validRandomActivities, randomActivities]
     return activities;
   } catch (error) {
     throw new CoreError('Get recommend activities failed.');
@@ -222,7 +239,7 @@ export const getSearchActivities = async ({
 }: GetSearchActivitiesCredential) => {
   try {
     const queryObject = [{}];
-    if (keyword) queryObject.push({ name: new RegExp(keyword) });
+    if (keyword) queryObject.push({ name: new RegExp(keyword, 'i') });
     if (location) queryObject.push({ location });
     if (category) queryObject.push({ category });
     if (type) queryObject.push({ type });
@@ -280,13 +297,30 @@ export const getSearchActivities = async ({
         : { startDateTime: 1 }
     );
 
-    if (!distance || !lat || !lng) return paginator(activities, page, limit);
+    const searchActivities = [];
+    for (const activity of activities) {
+      const tickets = await Ticket.find({ activityId: activity._id });
+      const ticketPrice = [];
+      for (const ticket of tickets) {
+        ticketPrice.push({
+          name: ticket.name,
+          price: ticket.price,
+        });
+      }
+
+      const searchActivity = JSON.parse(JSON.stringify(activity));
+      searchActivity.ticketPrice = ticketPrice;
+      searchActivities.push(searchActivity);
+    }
+
+    if (!distance || !lat || !lng)
+      return paginator(searchActivities, page, limit);
 
     const userLat = +lat;
     const userLng = +lng;
     const maxDist = +distance || 1;
 
-    const filteredActivities = activities.filter((activity) => {
+    const filteredActivities = searchActivities.filter((activity) => {
       const distance = getDistanceFromLatLonInKm({
         lat1: userLat,
         lng1: userLng,

@@ -22,6 +22,7 @@ const publicActivityRouter = () => {
   router.get('/activities/recommend', async (req: Request, res: Response) => {
     /* #swagger.tags = ['Activity'] */
 
+    const keyword = req.query.keyword as string;
     const userId = req.query.userId as string;
     const queryLimit = req.query.limit;
     const limit =
@@ -30,6 +31,7 @@ const publicActivityRouter = () => {
         : 3;
     try {
       const data = await PublicActivityService.getRecommendActivities({
+        keyword,
         userId,
         limit,
       });

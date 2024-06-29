@@ -18,11 +18,11 @@ export interface UserSchemaModel extends UserBase {
   gender?: GenderEnum;
   age?: number;
   introduction?: string;
-  phoneAreaCode?: number;
-  phoneNumber?: number;
+  phoneAreaCode?: string;
+  phoneNumber?: string;
   phoneBarcode?: string;
   address?: string;
-  isEmailValidate?: string;
+  isEmailValidate?: boolean;
   savedActivities?: mongoose.Types.ObjectId[];
   favoriteCategories: string[];
   profilePicture?: string;

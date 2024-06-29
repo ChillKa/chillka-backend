@@ -173,6 +173,7 @@ export type ImageFile = {
 };
 
 export type GetRecommendActivitiesCredential = {
+  keyword?: string;
   userId?: string;
   limit: number;
 };
