@@ -58,10 +58,10 @@ export const _schema = {
           "type": "string"
         },
         "phoneAreaCode": {
-          "type": "number"
+          "type": "string"
         },
         "phoneNumber": {
-          "type": "number"
+          "type": "string"
         },
         "phoneBarcode": {
           "type": "string"
@@ -70,7 +70,7 @@ export const _schema = {
           "type": "string"
         },
         "isEmailValidate": {
-          "type": "string"
+          "type": "boolean"
         },
         "savedActivities": {
           "type": "array",
@@ -207,16 +207,16 @@ export const _schema = {
           "type": "string"
         },
         "phoneAreaCode": {
-          "type": "number"
+          "type": "string"
         },
         "phoneNumber": {
-          "type": "number"
+          "type": "string"
         },
         "phoneBarcode": {
           "type": "string"
         },
         "isEmailValidate": {
-          "type": "string"
+          "type": "boolean"
         },
         "savedActivities": {
           "type": "array",
@@ -2668,6 +2668,9 @@ export const _schema = {
     "GetRecommendActivitiesCredential": {
       "type": "object",
       "properties": {
+        "keyword": {
+          "type": "string"
+        },
         "userId": {
           "type": "string"
         },

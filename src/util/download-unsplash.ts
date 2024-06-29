@@ -1,4 +1,3 @@
-import axios from 'axios';
 import fs from 'fs';
 import { CoreError } from './error-handler';
 
@@ -28,11 +27,12 @@ export async function searchAndSaveImages({
       return;
     }
     try {
-      const response = await axios.get(
+      const res = await fetch(
         `https://api.unsplash.com/photos/random/?client_id=${accessKey}&landscape=landscape&query=${query}&count=${+limit}`
       );
+      const response = await res.json();
       const jsonData = JSON.parse(data);
-      for (const photo of response.data) {
+      for (const photo of response) {
         jsonData.push(photo.urls.raw);
       }
       fs.writeFileSync(jsonFilePath, JSON.stringify(jsonData, null, 2));
