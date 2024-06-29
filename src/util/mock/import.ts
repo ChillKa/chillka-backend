@@ -12,6 +12,27 @@ import {
   WeekEnum,
 } from '../../type/activity.type';
 import { TicketStatusEnum } from '../../type/ticket.type';
+import User from '../../model/user.model';
+import mockUsers from './data/user';
+import mockKeywords from './data/keyword';
+import mockActivities from './data/activity';
+import mockComments from './data/comment';
+import mockTickets from './data/ticket';
+import mockProfilePictures from './images/user.json';
+import Organizer from '../../model/organizer.model';
+import mockOrganizers from './data/organizer';
+import Keyword from '../../model/keyword.model';
+import Comment from '../../model/comment.model';
+import { UserSchemaModel } from '../../type/user.type';
+import artImages from './images/art.json';
+import gamesImages from './images/games.json';
+import healthImages from './images/health.json';
+import hobbiesImages from './images/hobbies.json';
+import outdoorImages from './images/outdoor.json';
+import socialImages from './images/social.json';
+import sportsImages from './images/sports.json';
+import technologyImages from './images/technology.json';
+import moment from 'moment';
 
 // Enum values
 const categoryValues = Object.values(CategoryEnum);
@@ -22,7 +43,7 @@ const weekValues = Object.values(WeekEnum);
 const dayValues = Object.values(DayEnum);
 
 // Import mock data
-export const importMockActivity = async (quantity: number) => {
+export const importRandomMockActivity = async (quantity: number) => {
   for (const _ of Array(quantity)) {
     const fromToday = faker.helpers.arrayElement([true, false]);
     const startDateTime = fromToday ? new Date() : faker.date.recent();
@@ -99,5 +120,174 @@ export const importMockActivity = async (quantity: number) => {
     }
 
     await newActivity.save();
+  }
+};
+
+export const importMockKeyword = async () => {
+  await Keyword.deleteMany({});
+  await Keyword.insertMany(mockKeywords);
+};
+
+export const importMockUser = async () => {
+  const imageIndex = [0, 12];
+  for (const mockUser of mockUsers) {
+    if (mockUser.gender === '女') {
+      mockUser.profilePicture = mockProfilePictures[imageIndex[0]];
+      imageIndex[0]++;
+    } else {
+      mockUser.profilePicture = mockProfilePictures[imageIndex[1]];
+      imageIndex[1]++;
+    }
+  }
+  await User.deleteMany({});
+  await User.insertMany(mockUsers);
+};
+
+export const importMockOrganizer = async () => {
+  for (const mockOrganizer of mockOrganizers) {
+    const user = await User.findOne({
+      realName: mockOrganizer.contactName,
+    }).select({ profilePicture: 1 });
+    if (user?.profilePicture)
+      mockOrganizer.profilePicture = user.profilePicture;
+  }
+  await Organizer.deleteMany({});
+  await Organizer.insertMany(mockOrganizers);
+};
+
+export const importMockComment = async () => {
+  for (const mockComment of mockComments) {
+    const randomUser: UserSchemaModel[] = await User.aggregate().sample(1);
+    mockComment.userName = randomUser[0].displayName;
+    mockComment.profilePicture = randomUser[0].profilePicture as string;
+  }
+
+  await Comment.deleteMany({});
+  await Comment.insertMany(mockComments);
+};
+
+export const importMockActivity = async () => {
+  const categoryUserIds: { [key: string]: object[] } = {
+    戶外踏青: [],
+    社交活動: [],
+    興趣嗜好: [],
+    運動健身: [],
+    健康生活: [],
+    科技玩物: [],
+    藝術文化: [],
+    遊戲: [],
+  };
+  const categoryUserNames: { [key: string]: string[] } = {
+    戶外踏青: [],
+    社交活動: [],
+    興趣嗜好: [],
+    運動健身: [],
+    健康生活: [],
+    科技玩物: [],
+    藝術文化: [],
+    遊戲: [],
+  };
+  const categoryImageData: { [key: string]: string[] } = {
+    戶外踏青: outdoorImages,
+    社交活動: socialImages,
+    興趣嗜好: hobbiesImages,
+    運動健身: sportsImages,
+    健康生活: healthImages,
+    科技玩物: technologyImages,
+    藝術文化: artImages,
+    遊戲: gamesImages,
+  };
+  const categoryImageIndex: { [key: string]: number } = {
+    戶外踏青: 0,
+    社交活動: 0,
+    興趣嗜好: 0,
+    運動健身: 0,
+    健康生活: 0,
+    科技玩物: 0,
+    藝術文化: 0,
+    遊戲: 0,
+  };
+  for (const mockUser of mockUsers) {
+    const user = await User.findOne({ email: mockUser.email }).select({
+      _id: 1,
+      realName: 1,
+    });
+    if (user?._id && user?.realName) {
+      categoryUserIds[mockUser.category].push(user._id);
+      categoryUserNames[mockUser.category].push(user.realName);
+    }
+  }
+  const refDate = '2024-07-15';
+  for (const mockActivity of mockActivities) {
+    const category = mockActivity.category;
+    const randomNumber = faker.number.int(2);
+    const organizer = await Organizer.findOne({
+      contactName: categoryUserNames[category][randomNumber],
+    });
+    mockActivity.creatorId = categoryUserIds[category][randomNumber].toString();
+    const temp = JSON.parse(JSON.stringify(organizer));
+    mockActivity.organizer = temp;
+    const image = categoryImageData[category][categoryImageIndex[category]];
+    mockActivity.cover[0] = image;
+    mockActivity.thumbnail = image;
+    categoryImageIndex[category]++;
+
+    const startDateTime = faker.date.soon({ days: 150, refDate }).toString();
+    mockActivity.startDateTime = startDateTime;
+    mockActivity.endDateTime = faker.date
+      .soon({
+        days: 30,
+        refDate: startDateTime,
+      })
+      .toString();
+  }
+
+  await Activity.deleteMany({});
+  await Activity.insertMany(mockActivities);
+};
+
+export const importMockTicket = async () => {
+  const tickets = [];
+  for (const mockTicket of mockTickets) {
+    const activity = await Activity.findOne({
+      name: mockTicket.activityName,
+    }).select({ _id: 1, startDateTime: 1, endDateTime: 1 });
+    if (activity?._id && activity.startDateTime && activity.endDateTime) {
+      const refStartDate = activity.startDateTime;
+      const refEndDate = activity.endDateTime;
+      for (const ticket of mockTicket.tickets) {
+        ticket.activityId = activity._id.toString();
+
+        const startDateTime = faker.date
+          .soon({ refDate: refStartDate })
+          .toString();
+        ticket.startDateTime = startDateTime;
+        const endDateTime = faker.date.soon({
+          days: 10,
+          refDate: startDateTime,
+        });
+        ticket.endDateTime = moment(endDateTime).isAfter(refEndDate)
+          ? refEndDate.toString()
+          : endDateTime.toString();
+      }
+      tickets.push(...mockTicket.tickets);
+    }
+  }
+
+  await Ticket.deleteMany({});
+  await Ticket.insertMany(tickets);
+
+  const activities = await Activity.find({}).populate('tickets');
+  for (const activity of activities) {
+    activity.totalParticipantCapacity = 0;
+    let totalSoldNumber = 0;
+    for (const ticket of activity.tickets) {
+      activity.totalParticipantCapacity += ticket.participantCapacity;
+      totalSoldNumber += ticket.soldNumber;
+    }
+    activity.remainingTickets =
+      activity.totalParticipantCapacity - totalSoldNumber;
+
+    await activity.save();
   }
 };
