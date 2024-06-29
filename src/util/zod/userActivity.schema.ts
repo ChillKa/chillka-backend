@@ -54,9 +54,9 @@ export const activitySchema = z.object({
       _id: z.string().optional(), // optional for edit activity
       name: z.string({ required_error: 'Name is required' }),
       price: z.number({ required_error: 'Price is required' }),
-      startDateTime: z.date().optional(),
+      startDateTime: z.string().optional(),
       fromToday: z.boolean({ required_error: 'FromToday is required' }),
-      endDateTime: z.date().optional(),
+      endDateTime: z.string().optional(),
       noEndDate: z.boolean({ required_error: 'NoEndDate is required' }),
       participantCapacity: z.number({
         required_error: 'ParticipantCapacity is required',
