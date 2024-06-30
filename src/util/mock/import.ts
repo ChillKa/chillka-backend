@@ -33,6 +33,10 @@ import socialImages from './images/social.json';
 import sportsImages from './images/sports.json';
 import technologyImages from './images/technology.json';
 import moment from 'moment';
+import mockOrders from './data/order';
+import mockMessageLists from './data/message-list';
+import Order from '../../model/order.model';
+import MessageList from '../../model/message-list.model';
 
 // Enum values
 const categoryValues = Object.values(CategoryEnum);
@@ -290,4 +294,59 @@ export const importMockTicket = async () => {
 
     await activity.save();
   }
+};
+
+export const importMockOrder = async () => {
+  const orders = [];
+
+  for (const mockOrder of mockOrders) {
+    const user = await User.findOne();
+    const activity = await Activity.findOne().populate('tickets');
+    const ticket = activity?.tickets[0];
+
+    if (user?._id && activity?._id && ticket?._id) {
+      const order = {
+        userId: user._id,
+        activityId: activity._id,
+        ticketId: ticket._id,
+        orderContact: {
+          name: user.realName,
+          email: user.email,
+          phone: user.phoneNumber,
+        },
+        payment: mockOrder.payment,
+        orderStatus: mockOrder.orderStatus,
+        transactionId: mockOrder.transactionId,
+        serialNumber: mockOrder.serialNumber,
+      };
+      orders.push(order);
+    }
+  }
+
+  await Order.deleteMany({});
+  await Order.insertMany(orders);
+};
+
+export const importMockMessageList = async () => {
+  const messageLists = [];
+
+  for (const mockMessageList of mockMessageLists) {
+    const order = await Order.findOne();
+    const hostUser = await Activity.findById(order?.activityId).select({
+      creatorId: 1,
+    });
+    const participantId = order?.userId;
+
+    const messageList = {
+      orderId: order?._id,
+      hostUserId: hostUser?.creatorId,
+      participantUserId: participantId,
+      messages: mockMessageList.messages,
+    };
+
+    messageLists.push(messageList);
+  }
+
+  await MessageList.deleteMany({});
+  await MessageList.insertMany(messageLists);
 };

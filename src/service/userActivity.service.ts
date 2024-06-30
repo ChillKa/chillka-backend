@@ -163,21 +163,21 @@ export const getParticipantList = async ({
     throw new CoreError('Unable to get participant list without activity id.');
   }
 
-  const activity = await Activity.findById(activityId).populate('tickets');
+  const activity = await Activity.findById(activityId);
   if (!activity) {
     throw new CoreError('Activity not found.');
   }
 
   try {
-    const data = await Ticket.find({
+    const data = await Order.find({
       activityId,
-      'userInfo.name': new RegExp(participantName ?? '', 'i'),
+      'orderContact.name': new RegExp(participantName ?? '', 'i'),
     }).select([
       '-_id',
       'userId',
-      'userInfo',
+      'orderContact',
       'payment',
-      'ticketStatus',
+      'orderStatus',
       'serialNumber',
     ]);
 
