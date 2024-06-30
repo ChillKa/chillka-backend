@@ -71,7 +71,7 @@ export const getMessageList = async ({
     }).lean();
     const _messageList = messageList.map((list) => ({
       ...list,
-      messages: [list.messages[list.messages.length - 1]],
+      messages: list.messages[list.messages.length - 1],
     }));
     const paginatedData = paginator(_messageList, page, limit);
 

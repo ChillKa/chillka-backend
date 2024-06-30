@@ -17,7 +17,7 @@ import userActivityRoute from './route/userActivity.route';
 import swaggerDocument from './swagger/swagger-output.json';
 import { searchAndSaveImages } from './util/download-unsplash';
 import googleStrategy from './util/google-strategy';
-import * as mockService from './util/mock/import';
+import mockRoute from './route/mock.route';
 
 const app = express();
 const port = process.env.PORT;
@@ -42,7 +42,7 @@ googleStrategy();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/api', swaggerRoute, authRoute, publicActivityRoute);
+app.use('/api', swaggerRoute, authRoute, publicActivityRoute, mockRoute);
 app.use(
   '/api/auth',
   // #swagger.security = [{ "apiKeyAuth": [] }]
@@ -87,25 +87,6 @@ app.get('/api/download-unsplash', async (req, res) => {
   await Promise.all(promises);
 
   res.send('success download picture from unsplash');
-});
-
-app.get('/api/mock-data', async (req, res) => {
-  await mockService.importMockKeyword();
-  await mockService.importMockUser();
-  await mockService.importMockOrganizer();
-  await mockService.importMockComment();
-  await mockService.importMockActivity();
-  await mockService.importMockTicket();
-
-  res.send(`success create mock data`);
-});
-
-app.get('/api/mock-activity', async (req, res) => {
-  const limit = req.query.limit;
-  const quantity = limit && Number.isInteger(+limit) && +limit > 1 ? +limit : 1;
-  await mockService.importRandomMockActivity(quantity);
-
-  res.send(`success create ${quantity} activities`);
 });
 
 mongoose.connect(process.env.MONGODB_URL ?? '').then(() => {

@@ -1,9 +1,9 @@
 {
   "info": {
-    "_postman_id": "51722f4b-fbf9-4062-952b-576766be5315",
+    "_postman_id": "d9a94329-e2be-418b-bc75-694ff45bed10",
     "name": "chillka-backend",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "20616853"
+    "_exporter_id": "30654257"
   },
   "item": [
     {
@@ -166,14 +166,13 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{HOST}}/api/mock-activity",
+          "raw": "{{HOST}}/api/mock-activity?limit=100",
           "host": ["{{HOST}}"],
           "path": ["api", "mock-activity"],
           "query": [
             {
               "key": "limit",
-              "value": "20",
-              "disabled": true
+              "value": "100"
             }
           ]
         }
@@ -181,7 +180,7 @@
       "response": []
     },
     {
-      "name": "create production mock data",
+      "name": "create mock data",
       "request": {
         "method": "GET",
         "header": [],
@@ -244,25 +243,6 @@
             "activities",
             "6667b94692675f737af4e441",
             "questions"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "download unsplash images",
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{HOST}}/api/download-unsplash?limit=10",
-          "host": ["{{HOST}}"],
-          "path": ["api", "download-unsplash"],
-          "query": [
-            {
-              "key": "limit",
-              "value": "10"
-            }
           ]
         }
       },
@@ -337,9 +317,9 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{HOST}}/api/activities/667b75dca9eb53161f452ef6?userId=6672e8abc5f9dd90c6e0a7cc",
+          "raw": "{{HOST}}/api/activities/6676c7c555888d99a07f36fa?userId=6672e8abc5f9dd90c6e0a7cc",
           "host": ["{{HOST}}"],
-          "path": ["api", "activities", "667b75dca9eb53161f452ef6"],
+          "path": ["api", "activities", "6676c7c555888d99a07f36fa"],
           "query": [
             {
               "key": "userId",
@@ -397,6 +377,25 @@
       "response": []
     },
     {
+      "name": "get participant list",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{HOST}}/api/auth/activities/:activityId/participants",
+          "host": ["{{HOST}}"],
+          "path": ["api", "auth", "activities", ":activityId", "participants"],
+          "variable": [
+            {
+              "key": "activityId",
+              "value": ""
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
       "name": "get popular keywords",
       "request": {
         "method": "GET",
@@ -422,11 +421,6 @@
             {
               "key": "userId",
               "value": "6656060a066cd51095906678",
-              "disabled": true
-            },
-            {
-              "key": "keyword",
-              "value": "s",
               "disabled": true
             }
           ]
@@ -521,7 +515,7 @@
             },
             {
               "key": "limit",
-              "value": "1",
+              "value": "3",
               "disabled": true
             }
           ]
@@ -577,7 +571,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"email\": \"coach@gmail.com\",\r\n    \"password\": \"qwer1234\"\r\n}",
+          "raw": "{\r\n    \"email\": \"chillka.offical@gmail.com\",\r\n    \"password\": \"north9Hex\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
