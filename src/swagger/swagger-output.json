@@ -27,9 +27,9 @@
         }
       }
     },
-    "/api/mock-activity": {
+    "/api/download-unsplash": {
       "get": {
-        "description": "",
+        "description": "download picture from unsplash",
         "parameters": [
           {
             "name": "limit",
@@ -148,6 +148,11 @@
         "description": "",
         "parameters": [
           {
+            "name": "keyword",
+            "in": "query",
+            "type": "string"
+          },
+          {
             "name": "userId",
             "in": "query",
             "type": "string"
@@ -204,6 +209,35 @@
             "type": "string"
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/api/mock-activity": {
+      "get": {
+        "tags": ["Mock"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/mock-data": {
+      "get": {
+        "tags": ["Mock"],
+        "description": "",
         "responses": {
           "200": {
             "description": "OK"
@@ -855,10 +889,10 @@
           "type": "string"
         },
         "phoneAreaCode": {
-          "type": "number"
+          "type": "string"
         },
         "phoneNumber": {
-          "type": "number"
+          "type": "string"
         },
         "phoneBarcode": {
           "type": "string"
@@ -867,7 +901,7 @@
           "type": "string"
         },
         "isEmailValidate": {
-          "type": "string"
+          "type": "boolean"
         },
         "savedActivities": {
           "type": "array",
@@ -983,16 +1017,16 @@
           "type": "string"
         },
         "phoneAreaCode": {
-          "type": "number"
+          "type": "string"
         },
         "phoneNumber": {
-          "type": "number"
+          "type": "string"
         },
         "phoneBarcode": {
           "type": "string"
         },
         "isEmailValidate": {
-          "type": "string"
+          "type": "boolean"
         },
         "savedActivities": {
           "type": "array",
@@ -3217,6 +3251,9 @@
     "GetRecommendActivitiesCredential": {
       "type": "object",
       "properties": {
+        "keyword": {
+          "type": "string"
+        },
         "userId": {
           "type": "string"
         },
