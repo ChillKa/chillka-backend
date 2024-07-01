@@ -98,6 +98,8 @@ export const getRecommendActivities = async ({
         ticketPrice.push({
           name: ticket.name,
           price: ticket.price,
+          startDateTime: ticket.startDateTime,
+          endDateTime: ticket.endDateTime,
         });
       }
 
@@ -315,6 +317,8 @@ export const getSearchActivities = async ({
         ticketPrice.push({
           name: ticket.name,
           price: ticket.price,
+          startDateTime: ticket.startDateTime,
+          endDateTime: ticket.endDateTime,
         });
       }
 
