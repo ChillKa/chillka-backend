@@ -13,7 +13,6 @@ export async function searchAndSaveImages({
   if (!limit) limit = '1';
   const jsonFilePath = `./src/util/mock/images/${category}.json`;
   const accessKey = process.env.UNSPLASH_ACCESS_KEY;
-  // const accessKey = 'WWjFGiMMwyhSm5n7tRb3gzD6Wkk5Lc4T7rAQqoZgYeE';
   const fileExists = fs.existsSync(jsonFilePath);
   if (!fileExists) {
     fs.writeFileSync(jsonFilePath, JSON.stringify([], null, 2));
