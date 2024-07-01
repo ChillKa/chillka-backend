@@ -16,14 +16,14 @@ const mockRouter = () => {
 
   router.get('/mock-data', async (_, res: Response) => {
     /* #swagger.tags = ['Mock'] */
-    // await mockService.importMockKeyword();
+    await mockService.importMockKeyword();
     await mockService.importMockUser();
-    // await mockService.importMockOrganizer();
-    // await mockService.importMockComment();
-    // await mockService.importMockActivity();
-    // await mockService.importMockTicket();
-    // await mockService.importMockOrder();
-    // await mockService.importMockMessageList();
+    await mockService.importMockOrganizer();
+    await mockService.importMockComment();
+    await mockService.importMockActivity();
+    await mockService.importMockTicket();
+    await mockService.importMockOrder();
+    await mockService.importMockMessageList();
 
     res.send('success create mock data');
   });
