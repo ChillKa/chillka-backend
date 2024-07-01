@@ -29,9 +29,18 @@ export const createActivity = async ({
     activityData.startDateTime = activityData.fromToday
       ? new Date()
       : activityData.startDateTime;
+    activityData.endDateTime = activityData.noEndDate
+      ? new Date('2100/01/01')
+      : activityData.endDateTime;
     const newActivity = new Activity(activityData);
     const newTickets = tickets?.map((ticket) => {
       ticket.activityId = newActivity._id;
+      ticket.startDateTime = ticket.fromToday
+        ? new Date()
+        : ticket.startDateTime;
+      ticket.endDateTime = ticket.noEndDate
+        ? new Date('2100/01/01')
+        : ticket.endDateTime;
       newActivity.totalParticipantCapacity += ticket.participantCapacity;
       return ticket;
     });

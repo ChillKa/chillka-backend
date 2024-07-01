@@ -11,9 +11,9 @@ export interface TicketSchemaModel {
   activityId: mongoose.Types.ObjectId;
   name: string;
   price: number;
-  startDateTime: Date;
+  startDateTime?: Date;
   fromToday: boolean;
-  endDateTime: Date;
+  endDateTime?: Date;
   noEndDate: boolean;
   participantCapacity: number;
   soldNumber: number;
