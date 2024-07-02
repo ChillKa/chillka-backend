@@ -70,13 +70,20 @@ export const getOrderList = async ({
 
   try {
     const orders = await Order.find({ userId })
-      .select(['-userId', '-activityId', '-ticketId'])
+      .select(['-userId'])
+      .populate(['activityId', 'ticketId'])
       .where('orderStatus')
       .ne(OrderStatusEnum.CANCELLED)
       .sort({
         createdAt: sort === 'des' ? -1 : 1,
-      });
-    const paginatedData = paginator(orders, page, limit);
+      })
+      .lean();
+    const updatedOrders = orders.map((order) => {
+      const { activityId, ticketId, ...rest } = order;
+      return { ...rest, activity: activityId, ticket: ticketId };
+    });
+
+    const paginatedData = paginator(updatedOrders, page, limit);
 
     return paginatedData;
   } catch (error) {
@@ -90,16 +97,16 @@ export const getOrderDetail = async (orderId: string) => {
   try {
     const orderObjectId = new mongoose.Types.ObjectId(orderId);
     const order = await Order.findById(orderObjectId)
-      .populate('activityId')
-      .select(['-ticketId'])
+      .select(['-userId'])
+      .populate(['activityId', 'ticketId'])
       .lean();
 
     if (!order) {
       throw new CoreError('Order not found.');
     }
 
-    const { activityId, ...rest } = order;
-    const updatedOrder = { ...rest, activity: activityId };
+    const { activityId, ticketId, ...rest } = order;
+    const updatedOrder = { ...rest, activity: activityId, ticket: ticketId };
 
     return updatedOrder;
   } catch (error) {
