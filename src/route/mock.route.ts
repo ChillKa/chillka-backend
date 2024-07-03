@@ -22,9 +22,9 @@ const mockRouter = () => {
     await mockService.importMockComment();
     await mockService.importMockActivity();
     await mockService.importMockTicket();
-    await mockService.importMockMessageList();
     await mockService.importMockParticipant();
     await mockService.importMockOrder();
+    await mockService.importMockMessageList();
     await mockService.updateSoldTickets();
 
     res.send('success create mock data');

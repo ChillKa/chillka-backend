@@ -368,7 +368,8 @@ export const importMockMessageList = async () => {
   const messageLists = [];
 
   for (const mockMessageList of mockMessageLists) {
-    const order = await Order.findOne();
+    const orders = await Order.find({});
+    const order = orders[Math.round(Math.random() * (orders.length - 1))];
     const hostUser = await Activity.findById(order?.activityId).select({
       creatorId: 1,
     });
@@ -378,7 +379,7 @@ export const importMockMessageList = async () => {
       orderId: order?._id,
       hostUserId: hostUser?.creatorId,
       participantUserId: participantId,
-      messages: mockMessageList.messages,
+      messages: mockMessageList.messages[Math.round(Math.random() * 7)],
     };
 
     messageLists.push(messageList);
