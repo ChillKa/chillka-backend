@@ -24,13 +24,11 @@ const socketRoute = (io: Server) => {
       ?.split('=')[1];
 
     if (!token) {
-      console.log('no token');
       return next(new Error('No token'));
     }
 
     jwt.verify(token, process.env.JWT_SECRET!, (error, decoded) => {
       if (error) {
-        console.log('invalid jwt token');
         return next(new Error('Invalid token'));
       }
       req.user = decoded as AuthDecoded;
@@ -39,7 +37,6 @@ const socketRoute = (io: Server) => {
   });
 
   io.on('connection', async (socket) => {
-    console.log('a user connected');
     const socketQueryParams = socket.handshake.query as SocketQueryParams;
     const messageListId = socketQueryParams.messageListId;
 
