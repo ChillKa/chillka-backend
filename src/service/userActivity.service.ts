@@ -181,16 +181,16 @@ export const getParticipantList = async ({
     const data = await Order.find({
       activityId,
       'orderContact.name': new RegExp(participantName ?? '', 'i'),
-    }).select([
-      '-_id',
-      'userId',
-      'orderContact',
-      'payment',
-      'orderStatus',
-      'serialNumber',
-    ]);
+    })
+      .populate(['userId', 'ticketId'])
+      .select(['-_id', '-activityId', '-transactionId'])
+      .lean();
+    const _data = data.map((order) => {
+      const { userId, ticketId, ...rest } = order;
+      return { ...rest, user: userId, ticket: ticketId };
+    });
 
-    const paginatedData = paginator(data ?? [], page, limit);
+    const paginatedData = paginator(_data ?? [], page, limit);
 
     return paginatedData;
   } catch (error) {

@@ -24,7 +24,7 @@ const paymentRouter = () => {
   const router = Router();
 
   router
-    .post(
+    .get(
       '/payment',
       authorizeMiddleware,
       zodValidateMiddleware(paymentCheckoutSchema),
