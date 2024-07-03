@@ -1,7 +1,14 @@
 import { faker } from '@faker-js/faker';
+import moment from 'moment';
 import mongoose from 'mongoose';
 import Activity from '../../model/activity.model';
+import Comment from '../../model/comment.model';
+import Keyword from '../../model/keyword.model';
+import MessageList from '../../model/message-list.model';
+import Order from '../../model/order.model';
+import Organizer from '../../model/organizer.model';
 import Ticket from '../../model/ticket.model';
+import User from '../../model/user.model';
 import {
   CategoryEnum,
   DayEnum,
@@ -11,19 +18,21 @@ import {
   TypeEnum,
   WeekEnum,
 } from '../../type/activity.type';
+import {
+  OrderStatusEnum,
+  PaymentStatusEnum,
+  PaymentTypeEnum,
+} from '../../type/order.type';
 import { TicketStatusEnum } from '../../type/ticket.type';
-import User from '../../model/user.model';
-import mockUsers from './data/user';
-import mockKeywords from './data/keyword';
+import { UserSchemaModel } from '../../type/user.type';
 import mockActivities from './data/activity';
 import mockComments from './data/comment';
-import mockTickets from './data/ticket';
-import mockProfilePictures from './images/user.json';
-import Organizer from '../../model/organizer.model';
+import mockKeywords from './data/keyword';
+import mockMessageLists from './data/message-list';
 import mockOrganizers from './data/organizer';
-import Keyword from '../../model/keyword.model';
-import Comment from '../../model/comment.model';
-import { UserSchemaModel } from '../../type/user.type';
+import randomUserName from './data/random-userName';
+import mockTickets from './data/ticket';
+import mockUsers from './data/user';
 import artImages from './images/art.json';
 import gamesImages from './images/games.json';
 import healthImages from './images/health.json';
@@ -32,11 +41,7 @@ import outdoorImages from './images/outdoor.json';
 import socialImages from './images/social.json';
 import sportsImages from './images/sports.json';
 import technologyImages from './images/technology.json';
-import moment from 'moment';
-import mockOrders from './data/order';
-import mockMessageLists from './data/message-list';
-import Order from '../../model/order.model';
-import MessageList from '../../model/message-list.model';
+import mockProfilePictures from './images/user.json';
 
 // Enum values
 const categoryValues = Object.values(CategoryEnum);
@@ -130,6 +135,23 @@ export const importRandomMockActivity = async (quantity: number) => {
 export const importMockKeyword = async () => {
   await Keyword.deleteMany({});
   await Keyword.insertMany(mockKeywords);
+};
+
+export const importMockParticipant = async () => {
+  const mockParticipants = [];
+  for (const userName of randomUserName) {
+    const email = faker.internet.email();
+    const phoneNumber = faker.helpers.fromRegExp(/09[0-9]{8}/);
+    mockParticipants.push({
+      displayName: userName,
+      realName: userName,
+      email,
+      phoneNumber,
+    });
+  }
+
+  await User.deleteMany({ password: undefined });
+  await User.insertMany(mockParticipants);
 };
 
 export const importMockUser = async () => {
@@ -297,34 +319,45 @@ export const importMockTicket = async () => {
 };
 
 export const importMockOrder = async () => {
-  const orders = [];
-
-  for (const mockOrder of mockOrders) {
-    const user = await User.findOne();
-    const activity = await Activity.findOne().populate('tickets');
-    const ticket = activity?.tickets[0];
-
-    if (user?._id && activity?._id && ticket?._id) {
-      const order = {
-        userId: user._id,
-        activityId: activity._id,
-        ticketId: ticket._id,
-        orderContact: {
-          name: user.realName,
-          email: user.email,
-          phone: user.phoneNumber,
-        },
-        payment: mockOrder.payment,
-        orderStatus: mockOrder.orderStatus,
-        transactionId: mockOrder.transactionId,
-        serialNumber: mockOrder.serialNumber,
-      };
-      orders.push(order);
+  const mockOrders = [];
+  const userCounts = await User.find({}).countDocuments();
+  const activities = await Activity.find({}).populate('tickets');
+  const randomNumber = faker.number.int(userCounts);
+  for (const activity of activities) {
+    for (const ticket of activity.tickets) {
+      const mockParticipants = await User.aggregate().sample(randomNumber);
+      let index = 0;
+      for (const mockParticipant of mockParticipants) {
+        index++;
+        const phone = mockParticipant.phoneNumber
+          ? mockParticipant.phoneNumber
+          : faker.helpers.fromRegExp(/09[0-9]{8}/);
+        const mockOrder = {
+          userId: mockParticipant._id,
+          activityId: activity._id,
+          ticketId: ticket._id,
+          orderContact: {
+            name: mockParticipant.displayName,
+            email: mockParticipant.email,
+            phone,
+          },
+          payment: {
+            amount: Math.round(Math.random() * 2000).toString(),
+            status: PaymentStatusEnum.PAID,
+            type: PaymentTypeEnum.Credit_CreditCard,
+            orderNumber: index + 1,
+          },
+          orderStatus: OrderStatusEnum.VALID,
+          transactionId: faker.string.uuid(),
+          serialNumber: faker.string.uuid(),
+        };
+        mockOrders.push(mockOrder);
+      }
     }
   }
 
   await Order.deleteMany({});
-  await Order.insertMany(orders);
+  await Order.insertMany(mockOrders);
 };
 
 export const importMockMessageList = async () => {

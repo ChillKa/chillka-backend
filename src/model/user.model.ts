@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker';
 import bcrypt from 'bcryptjs';
 import { Model, Schema, model } from 'mongoose';
 import { GenderEnum, UserSchemaModel } from '../type/user.type';
@@ -61,6 +62,7 @@ const UserSchema = new Schema<UserSchemaModel, UserModel, UserMethods>(
     },
     phoneNumber: {
       type: Schema.Types.String,
+      default: faker.helpers.fromRegExp(/09[0-9]{8}/),
     },
     phoneBarcode: {
       type: Schema.Types.String,
@@ -75,7 +77,6 @@ const UserSchema = new Schema<UserSchemaModel, UserModel, UserMethods>(
     savedActivities: [{ type: Schema.Types.ObjectId, ref: 'Activity' }],
     favoriteCategories: {
       type: [Schema.Types.String],
-      required: true,
       default: [],
     },
     profilePicture: {

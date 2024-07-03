@@ -508,7 +508,6 @@ export const _schema = {
       "required": [
         "activityId",
         "description",
-        "endDateTime",
         "fromToday",
         "name",
         "noEndDate",
@@ -517,7 +516,6 @@ export const _schema = {
         "purchaseDuplicate",
         "purchaseLimit",
         "soldNumber",
-        "startDateTime",
         "ticketStatus",
         "unlimitedQuantity"
       ]
@@ -574,7 +572,6 @@ export const _schema = {
       },
       "required": [
         "description",
-        "endDateTime",
         "fromToday",
         "name",
         "noEndDate",
@@ -583,7 +580,6 @@ export const _schema = {
         "purchaseDuplicate",
         "purchaseLimit",
         "soldNumber",
-        "startDateTime",
         "ticketStatus",
         "unlimitedQuantity"
       ]
@@ -921,7 +917,6 @@ export const _schema = {
             "required": [
               "activityId",
               "description",
-              "endDateTime",
               "fromToday",
               "name",
               "noEndDate",
@@ -930,7 +925,6 @@ export const _schema = {
               "purchaseDuplicate",
               "purchaseLimit",
               "soldNumber",
-              "startDateTime",
               "ticketStatus",
               "unlimitedQuantity"
             ]
@@ -1218,7 +1212,6 @@ export const _schema = {
             "required": [
               "activityId",
               "description",
-              "endDateTime",
               "fromToday",
               "name",
               "noEndDate",
@@ -1227,7 +1220,6 @@ export const _schema = {
               "purchaseDuplicate",
               "purchaseLimit",
               "soldNumber",
-              "startDateTime",
               "ticketStatus",
               "unlimitedQuantity"
             ]
@@ -1515,7 +1507,6 @@ export const _schema = {
             "required": [
               "activityId",
               "description",
-              "endDateTime",
               "fromToday",
               "name",
               "noEndDate",
@@ -1524,7 +1515,6 @@ export const _schema = {
               "purchaseDuplicate",
               "purchaseLimit",
               "soldNumber",
-              "startDateTime",
               "ticketStatus",
               "unlimitedQuantity"
             ]
@@ -1808,7 +1798,6 @@ export const _schema = {
             "required": [
               "activityId",
               "description",
-              "endDateTime",
               "fromToday",
               "name",
               "noEndDate",
@@ -1817,7 +1806,6 @@ export const _schema = {
               "purchaseDuplicate",
               "purchaseLimit",
               "soldNumber",
-              "startDateTime",
               "ticketStatus",
               "unlimitedQuantity"
             ]
@@ -2096,7 +2084,6 @@ export const _schema = {
                 "required": [
                   "activityId",
                   "description",
-                  "endDateTime",
                   "fromToday",
                   "name",
                   "noEndDate",
@@ -2105,7 +2092,6 @@ export const _schema = {
                   "purchaseDuplicate",
                   "purchaseLimit",
                   "soldNumber",
-                  "startDateTime",
                   "ticketStatus",
                   "unlimitedQuantity"
                 ]
@@ -2399,7 +2385,6 @@ export const _schema = {
             "required": [
               "activityId",
               "description",
-              "endDateTime",
               "fromToday",
               "name",
               "noEndDate",
@@ -2408,7 +2393,6 @@ export const _schema = {
               "purchaseDuplicate",
               "purchaseLimit",
               "soldNumber",
-              "startDateTime",
               "ticketStatus",
               "unlimitedQuantity"
             ]
