@@ -8,6 +8,7 @@ import {
 } from '../type/message-list.type';
 import { CoreError } from '../util/error-handler';
 import { paginator } from '../util/paginator';
+import { messageListHandler } from '../util/messages-hanlder';
 
 export const getMessageListId = async ({
   orderId,
@@ -69,10 +70,7 @@ export const getMessageList = async ({
     const messageList = await MessageList.find({
       $or: [{ hostUserId: userId }, { participantUserId: userId }],
     }).lean();
-    const _messageList = messageList.map((list) => ({
-      ...list,
-      messages: list.messages[list.messages.length - 1],
-    }));
+    const _messageList = await Promise.all(messageList.map(messageListHandler));
     const paginatedData = paginator(_messageList, page, limit);
 
     return paginatedData;

@@ -5,21 +5,57 @@ import MessageList from '../model/message-list.model';
 import { MessageUserType, SocketQueryParams } from '../type/message-list.type';
 import { messageSchema } from '../util/zod/message-list.schema';
 import { zodErrorHandler } from '../util/zod/zodError-hanlder';
+import { NextFunction, Request, Response } from 'express';
+import jwt from 'jsonwebtoken';
+import { AuthDecoded } from '../type/model.type';
+import { messageDetailHandler } from '../util/messages-hanlder';
 
 const socketRoute = (io: Server) => {
+  io.engine.use((req: Request, _res: Response, next: NextFunction) => {
+    const isHandshake = req.query === undefined;
+
+    if (!isHandshake) {
+      return next();
+    }
+
+    const cookies = req.headers.cookie?.split('; ');
+    const token = cookies
+      ?.find((cookie) => cookie.startsWith('session='))
+      ?.split('=')[1];
+
+    if (!token) {
+      return next(new Error('No token'));
+    }
+
+    jwt.verify(token, process.env.JWT_SECRET!, (error, decoded) => {
+      if (error) {
+        return next(new Error('Invalid token'));
+      }
+      req.user = decoded as AuthDecoded;
+      next();
+    });
+  });
+
   io.on('connection', async (socket) => {
     const socketQueryParams = socket.handshake.query as SocketQueryParams;
     const messageListId = socketQueryParams.messageListId;
-    const userId = socketQueryParams.userId;
 
-    if (!messageListId || !userId) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const userObjectId = (socket.request as any).user?._id;
+
+    if (!messageListId || !userObjectId) {
       socket.disconnect(true);
       return;
     }
-    const messageList = await MessageList.findById(
+
+    const messageListModel = await MessageList.findById(
       new mongoose.Types.ObjectId(messageListId)
     );
-    const userObjectId = new mongoose.Types.ObjectId(userId);
+    const messageList = await MessageList.findById(
+      new mongoose.Types.ObjectId(messageListId)
+    ).lean();
+    const _messageList = await messageDetailHandler(messageList);
+
     const userRole = (() => {
       if (messageList?.hostUserId.equals(userObjectId)) {
         return 'host';
@@ -28,7 +64,6 @@ const socketRoute = (io: Server) => {
       }
     })();
 
-    // update previous history messages to read
     await MessageList.updateMany(
       {
         _id: messageListId,
@@ -44,19 +79,24 @@ const socketRoute = (io: Server) => {
       }
     );
 
-    socket.emit('history', messageList);
+    socket.emit('history', _messageList);
 
-    socket.on('chat message', async (msg) => {
+    socket.on('message', async (msg) => {
       try {
         const validatedMsg = messageSchema.parse(msg);
-        await messageList?.updateOne({
+        await messageListModel?.updateOne({
           $push: {
             messages: validatedMsg,
           },
         });
-        await messageList?.save();
-        const updatedMessageList = await MessageList.findById(messageList?._id);
-        socket.emit('history', updatedMessageList);
+        await messageListModel?.save();
+        const updatedMessageList = await MessageList.findById(
+          messageList?._id
+        ).lean();
+        const _updatedMessageList =
+          await messageDetailHandler(updatedMessageList);
+
+        socket.emit('history', _updatedMessageList);
       } catch (error) {
         if (error instanceof ZodError) {
           socket.emit('error', zodErrorHandler(error));

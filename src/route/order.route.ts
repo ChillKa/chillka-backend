@@ -100,7 +100,6 @@ const orderRouter = () => {
 
         res.status(200).send(data);
       } catch (error) {
-        console.log(error);
         throwAPIError({ res, error, statusCode: 400 });
       }
     }
