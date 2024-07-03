@@ -322,9 +322,13 @@ export const importMockOrder = async () => {
   const mockOrders = [];
   const userCounts = await User.find({}).countDocuments();
   const activities = await Activity.find({}).populate('tickets');
-  const randomNumber = faker.number.int(userCounts);
   for (const activity of activities) {
     for (const ticket of activity.tickets) {
+      const upperLimit =
+        userCounts > ticket.participantCapacity
+          ? ticket.participantCapacity
+          : userCounts;
+      const randomNumber = faker.number.int(upperLimit);
       const mockParticipants = await User.aggregate().sample(randomNumber);
       let index = 0;
       for (const mockParticipant of mockParticipants) {
@@ -382,4 +386,27 @@ export const importMockMessageList = async () => {
 
   await MessageList.deleteMany({});
   await MessageList.insertMany(messageLists);
+};
+
+export const updateSoldTickets = async () => {
+  const activities = await Activity.find({}).populate('tickets');
+  for (const activity of activities) {
+    activity.totalParticipantCapacity = 0;
+    let participantNumber = 0;
+    for (const ticket of activity.tickets) {
+      const soldNumber = await Order.find({
+        ticketId: ticket._id,
+      }).countDocuments();
+      activity.totalParticipantCapacity += ticket.participantCapacity;
+      participantNumber += soldNumber;
+      activity.unlimitedQuantity =
+        activity.unlimitedQuantity || ticket.unlimitedQuantity;
+      ticket.soldNumber = soldNumber;
+      await Ticket.findByIdAndUpdate({ _id: ticket._id }, ticket);
+    }
+
+    activity.remainingTickets =
+      activity.totalParticipantCapacity - participantNumber;
+    await Activity.findByIdAndUpdate({ _id: activity._id }, activity);
+  }
 };
