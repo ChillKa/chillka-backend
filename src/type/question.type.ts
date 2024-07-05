@@ -14,4 +14,5 @@ export interface QuestionSchemaModel {
   content: string;
   type: TypeEnum;
   replies: QuestionSchemaModel[];
+  profilePicture?: string;
 }
