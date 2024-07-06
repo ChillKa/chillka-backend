@@ -36,6 +36,9 @@ const QuestionSchema = new Schema<QuestionSchemaModel, QuestionModel>(
     replies: {
       type: [Object],
     },
+    profilePicture: {
+      type: Schema.Types.String,
+    },
   },
   {
     collection: 'questions',

@@ -187,6 +187,8 @@ export const getActivityDetail = async ({
     const replies: replyObject = {};
     if (activity.questions.length) {
       for (const question of activity.questions) {
+        const user = await User.findById(question.userId);
+        question.profilePicture = user?.profilePicture;
         if (question.type === TypeEnum.QUESTION) {
           questions.push(question);
           questionIndexes.push(question?._id.toString());
