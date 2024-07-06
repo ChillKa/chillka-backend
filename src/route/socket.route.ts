@@ -13,12 +13,14 @@ import { messageDetailHandler } from '../util/messages-hanlder';
 const socketRoute = (io: Server) => {
   io.engine.use((req: Request, _res: Response, next: NextFunction) => {
     const isHandshake = req.query === undefined;
+    console.log('req=', req);
 
     if (!isHandshake) {
       return next();
     }
 
     const cookies = req.headers.cookie?.split('; ');
+    console.log('cookies=', cookies);
     const token = cookies
       ?.find((cookie) => cookie.startsWith('session='))
       ?.split('=')[1];
