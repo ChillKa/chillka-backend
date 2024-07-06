@@ -23,12 +23,16 @@ const socketRoute = (io: Server) => {
       ?.find((cookie) => cookie.startsWith('session='))
       ?.split('=')[1];
 
+    console.log('token=', token);
+
     if (!token) {
+      console.log('no token');
       return next(new Error('No token'));
     }
 
     jwt.verify(token, process.env.JWT_SECRET!, (error, decoded) => {
       if (error) {
+        console.log('invalid token');
         return next(new Error('Invalid token'));
       }
       req.user = decoded as AuthDecoded;
@@ -42,6 +46,8 @@ const socketRoute = (io: Server) => {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const userObjectId = (socket.request as any).user?._id;
+
+    console.log('userObjectId=', userObjectId, 'messageListId=', messageListId);
 
     if (!messageListId || !userObjectId) {
       socket.disconnect(true);
