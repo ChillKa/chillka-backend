@@ -275,11 +275,30 @@ export const getSavedActivityList = async ({
     const saveActivities = [];
     if (data) {
       for (const item of data) {
-        const savedActivity = JSON.parse(JSON.stringify(item));
-        savedActivity.participantAmount =
-          savedActivity.totalParticipantCapacity -
-          savedActivity.remainingTickets;
-        saveActivities.push(savedActivity);
+        const savedActivity = await Activity.findById(item._id).populate(
+          'tickets'
+        );
+        if (savedActivity) {
+          savedActivity.participantAmount =
+            savedActivity.totalParticipantCapacity -
+            savedActivity.remainingTickets;
+
+          let participantNumber = 0;
+          for (const ticket of savedActivity.tickets) {
+            const soldNumber = await Order.find({
+              ticketId: ticket._id,
+            }).countDocuments();
+            ticket.soldNumber = soldNumber;
+            participantNumber += soldNumber;
+            savedActivity.unlimitedQuantity =
+              savedActivity.unlimitedQuantity || ticket.unlimitedQuantity;
+          }
+          savedActivity.remainingTickets =
+            savedActivity.totalParticipantCapacity - participantNumber;
+          const activity = JSON.parse(JSON.stringify(savedActivity));
+          activity.tickets = savedActivity.tickets;
+          saveActivities.push(activity);
+        }
       }
     }
 
