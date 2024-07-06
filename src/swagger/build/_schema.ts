@@ -953,6 +953,9 @@ export const _schema = {
         },
         "unlimitedQuantity": {
           "type": "boolean"
+        },
+        "participantAmount": {
+          "type": "number"
         }
       },
       "required": [
@@ -1248,6 +1251,9 @@ export const _schema = {
         },
         "unlimitedQuantity": {
           "type": "boolean"
+        },
+        "participantAmount": {
+          "type": "number"
         }
       },
       "required": [
@@ -1540,6 +1546,9 @@ export const _schema = {
         },
         "totalParticipantCapacity": {
           "type": "number"
+        },
+        "participantAmount": {
+          "type": "number"
         }
       },
       "required": [
@@ -1824,6 +1833,9 @@ export const _schema = {
           "type": "boolean"
         },
         "totalParticipantCapacity": {
+          "type": "number"
+        },
+        "participantAmount": {
           "type": "number"
         }
       },
@@ -2110,6 +2122,9 @@ export const _schema = {
               "type": "boolean"
             },
             "totalParticipantCapacity": {
+              "type": "number"
+            },
+            "participantAmount": {
               "type": "number"
             }
           },
@@ -2411,6 +2426,9 @@ export const _schema = {
           "type": "boolean"
         },
         "totalParticipantCapacity": {
+          "type": "number"
+        },
+        "participantAmount": {
           "type": "number"
         }
       },

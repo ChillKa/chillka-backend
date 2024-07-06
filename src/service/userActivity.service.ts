@@ -272,7 +272,37 @@ export const getSavedActivityList = async ({
         createdAt: sort === 'des' ? -1 : 1,
       });
     const data = user?.savedActivities;
-    const paginatedData = paginator(data ?? [], page, limit);
+    const saveActivities = [];
+    if (data) {
+      for (const item of data) {
+        const savedActivity = await Activity.findById(item._id).populate(
+          'tickets'
+        );
+        if (savedActivity) {
+          savedActivity.participantAmount =
+            savedActivity.totalParticipantCapacity -
+            savedActivity.remainingTickets;
+
+          let participantNumber = 0;
+          for (const ticket of savedActivity.tickets) {
+            const soldNumber = await Order.find({
+              ticketId: ticket._id,
+            }).countDocuments();
+            ticket.soldNumber = soldNumber;
+            participantNumber += soldNumber;
+            savedActivity.unlimitedQuantity =
+              savedActivity.unlimitedQuantity || ticket.unlimitedQuantity;
+          }
+          savedActivity.remainingTickets =
+            savedActivity.totalParticipantCapacity - participantNumber;
+          const activity = JSON.parse(JSON.stringify(savedActivity));
+          activity.tickets = savedActivity.tickets;
+          saveActivities.push(activity);
+        }
+      }
+    }
+
+    const paginatedData = paginator(saveActivities ?? [], page, limit);
 
     return paginatedData;
   } catch (error) {
