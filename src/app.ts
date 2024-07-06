@@ -22,7 +22,13 @@ import mockRoute from './route/mock.route';
 const app = express();
 const port = process.env.PORT;
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+  cors: {
+    origin: process.env.FRONTEND,
+    methods: ['GET', 'POST'],
+    credentials: true,
+  },
+});
 const options = {
   customCss: '.swagger-ui .topbar { display: none }',
   swaggerOptions: {
