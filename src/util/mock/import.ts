@@ -323,41 +323,60 @@ export const importMockOrder = async () => {
   const userCounts = await User.find({}).countDocuments();
   const activities = await Activity.find({}).populate('tickets');
   for (const activity of activities) {
+    activity.totalParticipantCapacity = 0;
+    let totalSoldTickets = 0;
     for (const ticket of activity.tickets) {
-      const upperLimit =
-        userCounts > ticket.participantCapacity
-          ? ticket.participantCapacity
-          : userCounts;
-      const randomNumber = faker.number.int(upperLimit);
-      const mockParticipants = await User.aggregate().sample(randomNumber);
-      let index = 0;
-      for (const mockParticipant of mockParticipants) {
-        index++;
-        const phone = mockParticipant.phoneNumber
-          ? mockParticipant.phoneNumber
-          : faker.helpers.fromRegExp(/09[0-9]{8}/);
-        const mockOrder = {
-          userId: mockParticipant._id,
-          activityId: activity._id,
-          ticketId: ticket._id,
-          orderContact: {
-            name: mockParticipant.displayName,
-            email: mockParticipant.email,
-            phone,
-          },
-          payment: {
-            amount: Math.round(Math.random() * 2000).toString(),
-            status: PaymentStatusEnum.PAID,
-            type: PaymentTypeEnum.Credit_CreditCard,
-            orderNumber: index + 1,
-          },
-          orderStatus: OrderStatusEnum.VALID,
-          transactionId: faker.string.uuid(),
-          serialNumber: faker.string.uuid(),
-        };
-        mockOrders.push(mockOrder);
+      activity.unlimitedQuantity =
+        activity.unlimitedQuantity || ticket.unlimitedQuantity;
+      activity.totalParticipantCapacity += ticket.participantCapacity;
+
+      const alreadySoldNumber = await Order.find({
+        ticketId: ticket._id,
+      }).countDocuments();
+      totalSoldTickets += alreadySoldNumber;
+      const remainingTickets = ticket.participantCapacity - alreadySoldNumber;
+      if (remainingTickets > 0) {
+        const upperLimit = Math.min(userCounts, remainingTickets);
+        const newSoldNumber = faker.number.int(upperLimit);
+        ticket.soldNumber = newSoldNumber;
+        totalSoldTickets += newSoldNumber;
+        await Ticket.findByIdAndUpdate({ _id: ticket._id }, ticket);
+
+        const mockParticipants = await User.aggregate().sample(newSoldNumber);
+        let index = 0;
+        for (const mockParticipant of mockParticipants) {
+          index++;
+          const phone = mockParticipant.phoneNumber
+            ? mockParticipant.phoneNumber
+            : faker.helpers.fromRegExp(/09[0-9]{8}/);
+          const mockOrder = {
+            userId: mockParticipant._id,
+            activityId: activity._id,
+            ticketId: ticket._id,
+            orderContact: {
+              name: mockParticipant.displayName,
+              email: mockParticipant.email,
+              phone,
+            },
+            payment: {
+              amount: Math.round(Math.random() * 2000).toString(),
+              status: PaymentStatusEnum.PAID,
+              type: PaymentTypeEnum.Credit_CreditCard,
+              orderNumber: index + 1,
+            },
+            orderStatus: OrderStatusEnum.VALID,
+            transactionId: faker.string.uuid(),
+            serialNumber: faker.string.uuid(),
+          };
+          mockOrders.push(mockOrder);
+        }
       }
     }
+
+    const remainingTickets =
+      activity.totalParticipantCapacity - totalSoldTickets;
+    activity.remainingTickets = remainingTickets > 0 ? remainingTickets : 0;
+    await Activity.findByIdAndUpdate({ _id: activity._id }, activity);
   }
 
   await Order.deleteMany({});
@@ -387,27 +406,4 @@ export const importMockMessageList = async () => {
 
   await MessageList.deleteMany({});
   await MessageList.insertMany(messageLists);
-};
-
-export const updateSoldTickets = async () => {
-  const activities = await Activity.find({}).populate('tickets');
-  for (const activity of activities) {
-    activity.totalParticipantCapacity = 0;
-    let participantNumber = 0;
-    for (const ticket of activity.tickets) {
-      const soldNumber = await Order.find({
-        ticketId: ticket._id,
-      }).countDocuments();
-      activity.totalParticipantCapacity += ticket.participantCapacity;
-      participantNumber += soldNumber;
-      activity.unlimitedQuantity =
-        activity.unlimitedQuantity || ticket.unlimitedQuantity;
-      ticket.soldNumber = soldNumber;
-      await Ticket.findByIdAndUpdate({ _id: ticket._id }, ticket);
-    }
-
-    activity.remainingTickets =
-      activity.totalParticipantCapacity - participantNumber;
-    await Activity.findByIdAndUpdate({ _id: activity._id }, activity);
-  }
 };
