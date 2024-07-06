@@ -272,7 +272,18 @@ export const getSavedActivityList = async ({
         createdAt: sort === 'des' ? -1 : 1,
       });
     const data = user?.savedActivities;
-    const paginatedData = paginator(data ?? [], page, limit);
+    const saveActivities = [];
+    if (data) {
+      for (const item of data) {
+        const savedActivity = JSON.parse(JSON.stringify(item));
+        savedActivity.participantAmount =
+          savedActivity.totalParticipantCapacity -
+          savedActivity.remainingTickets;
+        saveActivities.push(savedActivity);
+      }
+    }
+
+    const paginatedData = paginator(saveActivities ?? [], page, limit);
 
     return paginatedData;
   } catch (error) {
