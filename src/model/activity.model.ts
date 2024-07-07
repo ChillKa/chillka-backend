@@ -141,6 +141,10 @@ const ActivitySchema = new Schema<ActivitySchemaModel, ActivityModel>(
       required: true,
       default: false,
     },
+    participantAmount: {
+      type: Schema.Types.Number,
+      default: 0,
+    },
   },
   {
     collection: 'activities',
