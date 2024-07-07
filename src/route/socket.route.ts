@@ -19,12 +19,10 @@ const socketRoute = (io: Server) => {
       return next();
     }
 
-    const cookies = req.headers.cookie?.split('; ');
-    console.log('cookies=', cookies);
-    const token = cookies
-      ?.find((cookie) => cookie.startsWith('session='))
-      ?.split('=')[1];
-
+    const headerIndex = req.rawHeaders.findIndex(
+      (header) => header === 'Authorization'
+    );
+    const token = req.rawHeaders[headerIndex + 1].split('Bearer ')[1];
     console.log('token=', token);
 
     if (!token) {
