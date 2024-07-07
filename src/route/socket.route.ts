@@ -5,47 +5,13 @@ import MessageList from '../model/message-list.model';
 import { MessageUserType, SocketQueryParams } from '../type/message-list.type';
 import { messageSchema } from '../util/zod/message-list.schema';
 import { zodErrorHandler } from '../util/zod/zodError-hanlder';
-import { NextFunction, Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
-import { AuthDecoded } from '../type/model.type';
 import { messageDetailHandler } from '../util/messages-hanlder';
 
 const socketRoute = (io: Server) => {
-  io.engine.use((req: Request, _res: Response, next: NextFunction) => {
-    const isHandshake = req.query === undefined;
-    console.log('req=', req);
-
-    if (!isHandshake) {
-      return next();
-    }
-
-    const headerIndex = req.rawHeaders.findIndex(
-      (header) => header === 'Authorization'
-    );
-    const token = req.rawHeaders[headerIndex + 1].split('Bearer ')[1];
-    console.log('token=', token);
-
-    if (!token) {
-      console.log('no token');
-      return next(new Error('No token'));
-    }
-
-    jwt.verify(token, process.env.JWT_SECRET!, (error, decoded) => {
-      if (error) {
-        console.log('invalid token');
-        return next(new Error('Invalid token'));
-      }
-      req.user = decoded as AuthDecoded;
-      next();
-    });
-  });
-
   io.on('connection', async (socket) => {
     const socketQueryParams = socket.handshake.query as SocketQueryParams;
     const messageListId = socketQueryParams.messageListId;
-
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const userObjectId = (socket.request as any).user?._id;
+    const userObjectId = new mongoose.Types.ObjectId(socketQueryParams.userId);
 
     console.log('userObjectId=', userObjectId, 'messageListId=', messageListId);
 
@@ -53,7 +19,6 @@ const socketRoute = (io: Server) => {
       socket.disconnect(true);
       return;
     }
-
     const messageListModel = await MessageList.findById(
       new mongoose.Types.ObjectId(messageListId)
     );
