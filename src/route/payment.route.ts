@@ -63,7 +63,7 @@ const paymentRouter = () => {
           TradeDesc: tradeDesc,
           ItemName: itemName,
           ReturnURL: process.env.PAYMENT_RETURN_URL,
-          ClientBackURL: process.env.FRONTEND,
+          ClientBackURL: process.env.FRONTEND + '/payment/complete',
         };
 
         try {
@@ -77,6 +77,33 @@ const paymentRouter = () => {
               transactionId: TradeNo,
             },
           });
+
+          if (payment.amount == 0) {
+            const order = await Order.findOneAndUpdate(
+              { transactionId: TradeNo },
+              {
+                $set: {
+                  'payment.status': PaymentStatusEnum.FREE,
+                  'payment.type': PaymentTypeEnum.FREE,
+                },
+              },
+              { new: true }
+            )
+              .populate('ticketId')
+              .lean();
+
+            const response = {
+              _id: order?._id,
+              ticket: order?.ticketId,
+              orderContact: order?.orderContact,
+              payment: order?.payment,
+              orderStatus: order?.orderStatus,
+            };
+
+            return res
+              .status(200)
+              .send({ message: 'Created order successfully.', data: response });
+          }
 
           const create = new ecpay_payment(options);
           const html = create.payment_client.aio_check_out_all(baseParam);

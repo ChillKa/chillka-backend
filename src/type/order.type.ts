@@ -5,9 +5,11 @@ export enum PaymentStatusEnum {
   PAID = '已付款',
   UNPAID = '待付款',
   ERROR = '付款失敗',
+  FREE = '免付款',
 }
 // https://developers.ecpay.com.tw/?p=5686
 export enum PaymentTypeEnum {
+  FREE = '免付款',
   WebATM_BOT = '台灣銀行WebATM',
   WebATM_CHINATRUST = '中國信託WebATM',
   WebATM_FIRST = '第一銀行WebATM',
