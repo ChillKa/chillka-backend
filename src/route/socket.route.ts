@@ -33,14 +33,20 @@ const socketRoute = (io: Server) => {
       }
     })();
 
-    await MessageList.updateMany({
-      _id: messageListId,
-      'messages.userType':
-        userRole === 'host'
-          ? MessageUserType.PARTICIPANT
-          : MessageUserType.HOST,
-      'messages.receiverIsRead': true,
-    });
+    await MessageList.updateMany(
+      {
+        _id: messageListId,
+        'messages.userType':
+          userRole === 'host'
+            ? MessageUserType.PARTICIPANT
+            : MessageUserType.HOST,
+      },
+      {
+        $set: {
+          'messages.receiverIsRead': true,
+        },
+      }
+    );
 
     socket.emit('history', _messageList);
 
