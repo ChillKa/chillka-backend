@@ -42,7 +42,7 @@ const socketRoute = (io: Server) => {
             : MessageUserType.HOST,
       },
       {
-        'messages.receiverIsRead': true,
+        'messages.$[].receiverIsRead': true,
       }
     );
 
