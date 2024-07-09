@@ -13,8 +13,6 @@ const socketRoute = (io: Server) => {
     const messageListId = socketQueryParams.messageListId;
     const userObjectId = new mongoose.Types.ObjectId(socketQueryParams.userId);
 
-    console.log('userObjectId=', userObjectId, 'messageListId=', messageListId);
-
     if (!messageListId || !userObjectId) {
       socket.disconnect(true);
       return;
@@ -45,7 +43,7 @@ const socketRoute = (io: Server) => {
       },
       {
         $set: {
-          'messages.$.receiverIsRead': true,
+          'messages.receiverIsRead': true,
         },
       }
     );

@@ -148,7 +148,7 @@ export const getPopularKeywords = async () => {
 
 export const getComments = async () => {
   try {
-    const comments = await Comment.aggregate().sample(3);
+    const comments = await Comment.aggregate().sample(9);
 
     return { comments };
   } catch (error) {
