@@ -72,7 +72,7 @@ const UserSchema = new Schema<UserSchemaModel, UserModel, UserMethods>(
     },
     isEmailValidate: {
       type: Schema.Types.Boolean,
-      default: false,
+      default: true,
     },
     savedActivities: [{ type: Schema.Types.ObjectId, ref: 'Activity' }],
     favoriteCategories: {
