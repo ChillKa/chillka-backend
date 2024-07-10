@@ -170,7 +170,11 @@ const paymentRouter = () => {
       return res.status(200).send({
         _id: order?._id,
         activityId: order?.activityId,
-        orderStatus: order?.orderStatus,
+        status:
+          order?.payment.status === PaymentStatusEnum.FREE ||
+          order?.payment.status === PaymentStatusEnum.PAID
+            ? 'success'
+            : 'fail',
       });
     } catch (error) {
       throwAPIError({ res, error, statusCode: 400 });
