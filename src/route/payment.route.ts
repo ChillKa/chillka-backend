@@ -54,6 +54,7 @@ const paymentRouter = () => {
           minute: '2-digit',
           second: '2-digit',
           hour12: false,
+          timeZone: 'UTC',
         });
         const baseParam = {
           MerchantTradeNo: TradeNo,
@@ -117,8 +118,6 @@ const paymentRouter = () => {
     .post('/payment_result', async (req: Request, res: Response) => {
       /* #swagger.ignore = true */
 
-      let order = null;
-
       try {
         const { RtnMsg, MerchantTradeNo, PaymentType, CheckMacValue } =
           req.body;
@@ -129,7 +128,7 @@ const paymentRouter = () => {
         const checkValue = create.payment_client.helper.gen_chk_mac_value(data);
 
         if (RtnMsg === '交易成功' && CheckMacValue === checkValue) {
-          order = await Order.findOneAndUpdate(
+          await Order.findOneAndUpdate(
             { transactionId: MerchantTradeNo },
             {
               $set: {
@@ -141,7 +140,7 @@ const paymentRouter = () => {
             { new: true }
           );
         } else {
-          order = await Order.findOneAndUpdate(
+          await Order.findOneAndUpdate(
             { transactionId: MerchantTradeNo },
             {
               $set: {
@@ -152,15 +151,31 @@ const paymentRouter = () => {
           );
         }
 
-        res.send({
-          message: '1|OK',
-          result: RtnMsg,
-          activityId: order?.activityId,
-        });
+        res.send('1|OK');
       } catch (error) {
         throwAPIError({ res, error, statusCode: 400 });
       }
     });
+
+  router.get('/payment/complete', async (req: Request, res: Response) => {
+    /* #swagger.tags = ['Payment'] */
+    const userId = new mongoose.Types.ObjectId(req.user?._id);
+    try {
+      const order = await Order.findOne(
+        { userId },
+        {},
+        { sort: { updatedAt: -1 } }
+      );
+
+      return res.status(200).send({
+        _id: order?._id,
+        activityId: order?.activityId,
+        orderStatus: order?.orderStatus,
+      });
+    } catch (error) {
+      throwAPIError({ res, error, statusCode: 400 });
+    }
+  });
 
   return router;
 };
