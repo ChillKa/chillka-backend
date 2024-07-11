@@ -12,6 +12,7 @@ import {
 } from '../type/order.type';
 import { CoreError } from '../util/error-handler';
 import { paginator } from '../util/paginator';
+import { ActivitySchemaModel } from '../type/activity.type';
 
 export const createOrder = async ({
   userId,
@@ -139,10 +140,17 @@ export const useSerialNumberOrder = async ({
   userId,
   serialNumber,
 }: UseSerialNumberOrderParams) => {
-  const order = await Order.findOne({ serialNumber });
+  const order = await Order.findOne({ serialNumber }).populate('activityId');
 
-  if (!order?.userId.equals(userId)) {
-    throw new CoreError('The user is not the order creator.');
+  if (!order) {
+    throw new CoreError('Order not found.');
+  }
+
+  const activityCreator = (order.activityId as unknown as ActivitySchemaModel)
+    .creatorId;
+
+  if (!activityCreator.equals(userId)) {
+    throw new CoreError('The user is not the activity host.');
   }
 
   if (order.orderStatus === OrderStatusEnum.USED) {
