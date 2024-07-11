@@ -157,29 +157,34 @@ const paymentRouter = () => {
       }
     });
 
-  router.get('/payment/complete', async (req: Request, res: Response) => {
-    /* #swagger.tags = ['Payment'] */
-    const userId = new mongoose.Types.ObjectId(req.user?._id);
-    try {
-      const order = await Order.findOne(
-        { userId },
-        {},
-        { sort: { updatedAt: -1 } }
-      );
+  router.get(
+    '/payment/complete',
+    authorizeMiddleware,
+    async (req: Request, res: Response) => {
+      /* #swagger.tags = ['Payment'] */
+      const userId = req.user?._id;
 
-      return res.status(200).send({
-        _id: order?._id,
-        activityId: order?.activityId,
-        status:
-          order?.payment.status === PaymentStatusEnum.FREE ||
-          order?.payment.status === PaymentStatusEnum.PAID
-            ? 'success'
-            : 'fail',
-      });
-    } catch (error) {
-      throwAPIError({ res, error, statusCode: 400 });
+      try {
+        const order = await Order.findOne(
+          { userId },
+          {},
+          { sort: { updatedAt: -1 } }
+        );
+
+        return res.status(200).send({
+          _id: order?._id,
+          activityId: order?.activityId,
+          status:
+            order?.payment.status === PaymentStatusEnum.FREE ||
+            order?.payment.status === PaymentStatusEnum.PAID
+              ? 'success'
+              : 'fail',
+        });
+      } catch (error) {
+        throwAPIError({ res, error, statusCode: 400 });
+      }
     }
-  });
+  );
 
   return router;
 };
