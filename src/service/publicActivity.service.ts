@@ -75,7 +75,7 @@ export const getRecommendActivities = async ({
 
     const activities = [];
     for (const validActivity of validActivities.slice(0, limit)) {
-      const participantNumber = await Order.find({
+      const participantAmount = await Order.find({
         activityId: validActivity._id,
       }).countDocuments();
 
@@ -113,7 +113,7 @@ export const getRecommendActivities = async ({
         endDateTime,
         noEndDate,
         location,
-        participantNumber,
+        participantAmount,
         organizerName: organizer.name,
         ticketPrice,
       });
@@ -169,18 +169,18 @@ export const getActivityDetail = async ({
   if (!activity) throw new CoreError('Activity not found.');
 
   try {
-    let participantNumber = 0;
+    activity.participantAmount = 0;
     for (const ticket of activity.tickets) {
       const soldNumber = await Order.find({
         ticketId: ticket._id,
       }).countDocuments();
       ticket.soldNumber = soldNumber;
-      participantNumber += soldNumber;
+      activity.participantAmount += soldNumber;
       activity.unlimitedQuantity =
         activity.unlimitedQuantity || ticket.unlimitedQuantity;
     }
     activity.remainingTickets =
-      activity.totalParticipantCapacity - participantNumber;
+      activity.totalParticipantCapacity - activity.participantAmount;
 
     const questions: QuestionSchemaModel[] = [];
     const questionIndexes: string[] = [];
