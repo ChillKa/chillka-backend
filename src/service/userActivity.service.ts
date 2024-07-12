@@ -283,18 +283,19 @@ export const getSavedActivityList = async ({
             savedActivity.totalParticipantCapacity -
             savedActivity.remainingTickets;
 
-          let participantNumber = 0;
+          savedActivity.participantAmount = 0;
           for (const ticket of savedActivity.tickets) {
             const soldNumber = await Order.find({
               ticketId: ticket._id,
             }).countDocuments();
             ticket.soldNumber = soldNumber;
-            participantNumber += soldNumber;
+            savedActivity.participantAmount += soldNumber;
             savedActivity.unlimitedQuantity =
               savedActivity.unlimitedQuantity || ticket.unlimitedQuantity;
           }
           savedActivity.remainingTickets =
-            savedActivity.totalParticipantCapacity - participantNumber;
+            savedActivity.totalParticipantCapacity -
+            savedActivity.participantAmount;
           const activity = JSON.parse(JSON.stringify(savedActivity));
           activity.tickets = savedActivity.tickets;
           saveActivities.push(activity);
