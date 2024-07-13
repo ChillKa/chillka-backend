@@ -250,6 +250,7 @@ export const getSearchActivities = async ({
   sort,
   limit,
   page,
+  userId,
 }: GetSearchActivitiesCredential) => {
   try {
     const queryObject = [{}];
@@ -312,6 +313,15 @@ export const getSearchActivities = async ({
     );
 
     const searchActivities = [];
+    const savedActivities = [];
+    if (userId) {
+      const user = await User.findById(userId);
+      if (user?.savedActivities) {
+        for (const savedActivity of user.savedActivities) {
+          savedActivities.push(savedActivity.toString());
+        }
+      }
+    }
     for (const activity of activities) {
       const tickets = await Ticket.find({ activityId: activity._id });
       const ticketPrice = [];
@@ -324,29 +334,33 @@ export const getSearchActivities = async ({
         });
       }
 
+      if (savedActivities.includes(activity._id.toString()))
+        activity.saved = true;
+
       const searchActivity = JSON.parse(JSON.stringify(activity));
       searchActivity.ticketPrice = ticketPrice;
       searchActivities.push(searchActivity);
     }
 
-    if (!distance || !lat || !lng)
+    if (!distance || !lat || !lng) {
       return paginator(searchActivities, page, limit);
+    } else {
+      const userLat = +lat;
+      const userLng = +lng;
+      const maxDist = +distance || 1;
 
-    const userLat = +lat;
-    const userLng = +lng;
-    const maxDist = +distance || 1;
-
-    const filteredActivities = searchActivities.filter((activity) => {
-      const distance = getDistanceFromLatLonInKm({
-        lat1: userLat,
-        lng1: userLng,
-        lat2: activity.lat,
-        lng2: activity.lng,
+      const filteredActivities = searchActivities.filter((activity) => {
+        const distance = getDistanceFromLatLonInKm({
+          lat1: userLat,
+          lng1: userLng,
+          lat2: activity.lat,
+          lng2: activity.lng,
+        });
+        return distance <= maxDist;
       });
-      return distance <= maxDist;
-    });
 
-    return paginator(filteredActivities, page, limit);
+      return paginator(filteredActivities, page, limit);
+    }
   } catch (error) {
     throw new CoreError(
       error instanceof Error ? error.message : 'Get search activities failed.'
