@@ -10,6 +10,7 @@ export enum PaymentStatusEnum {
 // https://developers.ecpay.com.tw/?p=5686
 export enum PaymentTypeEnum {
   FREE = '免付款',
+  WebATM_TAISHIN = '台新銀行WebATM',
   WebATM_BOT = '台灣銀行WebATM',
   WebATM_CHINATRUST = '中國信託WebATM',
   WebATM_FIRST = '第一銀行WebATM',
