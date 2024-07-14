@@ -64,6 +64,7 @@ const socketRoute = (io: Server) => {
           await messageDetailHandler(updatedMessageList);
 
         socket.emit('history', _updatedMessageList);
+        socket.broadcast.emit('history', _updatedMessageList);
       } catch (error) {
         if (error instanceof ZodError) {
           socket.emit('error', zodErrorHandler(error));
